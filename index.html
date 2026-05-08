@@ -253,6 +253,12 @@
       flex-shrink: 0;
       filter: brightness(0) invert(1);
     }
+    /* Docked: berhenti di bawah section contact */
+    .floating-cta.floating-docked {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+    }
 
     /* Mobile Mobile & Tablet — burger menu (320px - 1023px) Tablet — burger menu (320px - 1024px) */
     @media (max-width: 1024px) {
@@ -1316,12 +1322,6 @@
     </div>
   </nav>
 
-  <!-- Floating WhatsApp CTA -->
-  <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer" class="floating-cta">
-    <img src="http://bataringanfocon.com/wp-content/uploads/2026/03/whatsapp.svg" alt="WhatsApp">
-    <span>Hubungi Kami</span>
-  </a>
-
   <!-- ============================================================
        HERO
   ============================================================ -->
@@ -1779,122 +1779,78 @@
     }
 
     /* ── Form (Poppins everywhere) ── */
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      margin-bottom: 24px;
-    }
-    .contact-field {
-      display: flex;
-      flex-direction: column;
-    }
-    .contact-field label {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: clamp(1rem, 1.7vw, 1.3rem);
-      color: #3c3744;
-      line-height: 1.3;
-      margin-bottom: 2px;
-    }
-    .contact-field-sub {
+    /* ── Consult Text + CTA ── */
+    .contact-consult-text {
       font-family: 'Poppins', sans-serif;
       font-weight: 400;
-      font-size: clamp(0.74rem, 1.2vw, 0.82rem);
-      color: #6b6880;
-      line-height: 1.4;
-      margin-bottom: 10px;
+      font-size: clamp(0.875rem, 1.4vw, 1rem);
+      color: #4a4a5a;
+      line-height: 1.75;
+      margin: 0 0 28px 0;
     }
-    .contact-field input {
-      width: 100%;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 500;
-      font-size: clamp(0.85rem, 1.5vw, 0.92rem);
-      color: #3c3744;
-      background: #d0d3da;
-      border: none;
-      outline: none;
-      box-shadow: none;
-      border-radius: 14px;
-      padding: clamp(16px, 2vw, 20px) 18px;
-      box-sizing: border-box;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      transition: background-color 0.25s ease;
+    .contact-consult-wrap {
+      position: relative;
+      display: inline-block;
     }
-    .contact-field input:focus,
-    .contact-field input:focus-visible {
-      background: #c8cbd2;
-      outline: none;
-      border: none;
-      box-shadow: none;
-    }
-    .contact-field input::placeholder {
-      color: #8a889a;
-      font-weight: 400;
-    }
-
-    /* ── Skip-form note + CTA ── */
-    .contact-skip-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-    }
-    .contact-skip-text {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 500;
-      font-size: clamp(0.82rem, 1.4vw, 0.9rem);
-      color: #6b6880;
-      line-height: 1.5;
-      margin: 0;
-      text-align: left;
-    }
-
-    /* CTA — meniru "Floating CTA" mobile (warna, hover anim, font, weight) */
-    .contact-cta-btn {
-      background: #090c9b;
+    .contact-consult-btn {
+      background-color: #090c9b;
       color: #ffffff;
-      padding: 9px 22px;
-      border-radius: 14px;
+      padding: 12px 26px;
+      border-radius: 12px;
       text-decoration: none;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: 15px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(9,12,155,0.3);
       transition: all 0.3s ease;
       white-space: nowrap;
+      position: relative;
       -webkit-tap-highlight-color: transparent;
     }
-    .contact-cta-btn img {
+    .contact-consult-btn:link,
+    .contact-consult-btn:visited,
+    .contact-consult-btn:active {
+      color: #ffffff;
+    }
+    .contact-consult-btn img {
       width: 22px;
       height: 22px;
       object-fit: contain;
-      flex-shrink: 0;
       filter: brightness(0) invert(1);
+      flex-shrink: 0;
+    }
+    .contact-consult-badge {
+      position: absolute;
+      top: -9px;
+      right: -10px;
+      background: #225dcf;
+      color: #ffffff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+      transform: rotate(14deg);
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      pointer-events: none;
+      line-height: 1.6;
     }
     @media (hover: hover) and (pointer: fine) {
-      .contact-cta-btn:hover {
-        background: #3d52d5;
+      .contact-consult-btn:hover {
+        background-color: #3d52d5;
         color: #ffffff;
         transform: scale(1.05);
       }
     }
     @media (hover: none) and (pointer: coarse) {
-      .contact-cta-btn:active {
-        background: #3d52d5;
-        color: #ffffff;
-      }
-    }
-    @media (hover: none) and (pointer: coarse) {
-      .contact-cta-btn:active {
-        background: #3d52d5;
-        color: #ffffff;
-        transform: none;
+      .contact-consult-btn:active {
+        background-color: #3d52d5;
+        color: #ffffff !important;
+        transform: scale(1.05);
       }
     }
 
@@ -2046,6 +2002,15 @@
       .contact-content {
         order: 2;
         width: 100%;
+        text-align: center;
+      }
+      .contact-consult-text {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .contact-consult-wrap {
+        display: flex;
+        justify-content: center;
       }
       .contact-header {
         text-align: center;
@@ -2057,19 +2022,6 @@
       .contact-header .contact-heading::after {
         margin-left: auto;
         margin-right: auto;
-      }
-      .contact-skip-wrap {
-        align-items: center;
-      }
-      .contact-skip-text {
-        text-align: center;
-        font-size: 0.76rem;
-      }
-      .contact-field label {
-        font-size: 0.95rem;
-      }
-      .contact-field-sub {
-        font-size: 0.68rem;
       }
       .contact-info-section {
         margin-top: 44px;
@@ -2093,7 +2045,6 @@
     @media (max-width: 380px) {
       .contact-section { padding: 32px 14px 36px 14px; }
       .contact-image-wrap { width: min(180px, 52vw); }
-      .contact-field input { padding: 12px 16px; border-radius: 12px; }
       .contact-info-card { margin-top: 50px; padding: 50px 1.25rem 1.25rem 1.25rem; }
       .contact-info-icon { width: 100px; height: 100px; }
     }
@@ -2132,6 +2083,12 @@
        CONTACT SECTION
   ══════════════════════════════════ -->
   <section id="contact" class="contact-section">
+    <div class="about-deco about-deco-left">
+      <img src="http://bataringanfocon.com/wp-content/uploads/2026/04/wallpaper-hexagon.webp" alt="">
+    </div>
+    <div class="about-deco about-deco-right">
+      <img src="http://bataringanfocon.com/wp-content/uploads/2026/04/wallpaper-hexagon.webp" alt="">
+    </div>
     <div class="contact-inner">
 
       <!-- ─── 2-COL: Image (left/top) | Content (right/below) ─── -->
@@ -2152,29 +2109,13 @@
             <h2 class="contact-heading">Hubungi Kami</h2>
           </div>
 
-          <!-- Form: 2 fields stacked vertically -->
-          <div class="contact-form">
-
-            <div class="contact-field">
-              <label for="cf-lokasi">Kirim Kemana?</label>
-              <span class="contact-field-sub">Membantu kami menghitung ongkir lebih cepat</span>
-              <input type="text" id="cf-lokasi" name="lokasi" placeholder="Contoh: Surabaya, Mojokerto...">
-            </div>
-
-            <div class="contact-field">
-              <label for="cf-kubik">Butuh Berapa Kubik?</label>
-              <span class="contact-field-sub">Membantu memperkirakan stok &amp; waktu pengiriman</span>
-              <input type="text" id="cf-kubik" name="kubik" placeholder="Contoh: 10 m³, 5 truk...">
-            </div>
-
-          </div>
-
-          <!-- Skip-form note + CTA -->
-          <div class="contact-skip-wrap">
-            <p class="contact-skip-text">Nggak mau ribet isi form? Langsung hubungi kami di WhatsApp.</p>
-            <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer" class="contact-cta-btn" id="contactCtaBtn">
+          <!-- Consult text + CTA -->
+          <p class="contact-consult-text">Konsultasikan kebutuhan proyek Anda secara langsung. Informasikan lokasi pengiriman dan estimasi kubikasi melalui WhatsApp untuk mendapatkan perhitungan harga &amp; ongkir tercepat.</p>
+          <div class="contact-consult-wrap">
+            <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer" class="contact-consult-btn">
+              <span class="contact-consult-badge">Gratis</span>
               <img src="http://bataringanfocon.com/wp-content/uploads/2026/03/whatsapp.svg" alt="">
-              <span>Pesan Sekarang</span>
+              <span>Konsultasi Yuk</span>
             </a>
           </div>
 
@@ -2229,66 +2170,37 @@
       <p class="contact-footnote">*Silakan hubungi terlebih dahulu untuk memastikan ketersediaan waktu.</p>
 
     </div>
+
+    <!-- Floating WhatsApp CTA — docked di bawah section contact -->
+    <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer" class="floating-cta">
+      <img src="http://bataringanfocon.com/wp-content/uploads/2026/03/whatsapp.svg" alt="WhatsApp">
+      <span>Hubungi Kami</span>
+    </a>
+
   </section>
 
   <script>
-    /* ──────────────────────────────────────────────────
-       Contact CTA — Dynamic WhatsApp Message
-       Membaca input form (lokasi & kubik) lalu menyusun
-       pesan WA berdasarkan 4 kondisi.
-    ────────────────────────────────────────────────── */
+    // Floating CTA — dock di bawah section contact
     (function() {
-      var WA_NUMBER = '6285184028183';
-      var btn      = document.getElementById('contactCtaBtn');
-      var inpLok   = document.getElementById('cf-lokasi');
-      var inpKub   = document.getElementById('cf-kubik');
-      if (!btn || !inpLok || !inpKub) return;
+      var btn     = document.querySelector('.floating-cta');
+      var contact = document.getElementById('contact');
+      if (!btn || !contact) return;
 
-      function buildMessage(lokasi, kubik) {
-        var hasLok = lokasi.length > 0;
-        var hasKub = kubik.length > 0;
-
-        if (!hasLok && !hasKub) {
-          // KONDISI 1 — keduanya kosong
-          return 'Halo, saya tertarik dengan produknya. Bisa dibantu info detail dan perhitungan kebutuhannya?'
-               + '\n\nSekalian, untuk estimasi yang lebih akurat, pengirimannya ke area mana ya dan kira-kira butuh berapa kubik?';
+      function updateDock() {
+        var contactBottom = contact.getBoundingClientRect().bottom;
+        var btnH   = btn.offsetHeight;
+        var offset = window.innerWidth >= 1025 ? 30 : 20;
+        // Jika bagian bawah contact sudah mau meninggalkan viewport: dock
+        if (contactBottom <= window.innerHeight - offset) {
+          btn.classList.add('floating-docked');
+        } else {
+          btn.classList.remove('floating-docked');
         }
-        if (hasLok && !hasKub) {
-          // KONDISI 2 — hanya lokasi
-          return 'Halo, saya mau tanya terkait pengiriman ke ' + lokasi + '. Bisa dibantu estimasi dan detailnya?'
-               + '\n\nUntuk menyesuaikan stok dan pengiriman, biasanya kebutuhan totalnya sekitar berapa kubik ya?';
-        }
-        if (!hasLok && hasKub) {
-          // KONDISI 3 — hanya kubik
-          return 'Halo, saya rencana butuh sekitar ' + kubik + ' kubik. Bisa dibantu info ketersediaan dan estimasinya?'
-               + '\n\nKalau boleh tahu, pengirimannya nanti ke area mana ya supaya bisa dihitung ongkirnya sekalian?';
-        }
-        // KONDISI 4 — keduanya terisi
-        return 'Halo, saya ingin konfirmasi untuk pengiriman ke ' + lokasi + ' dengan kebutuhan sekitar ' + kubik + ' kubik.';
       }
 
-      function buildUrl() {
-        var lokasi = (inpLok.value || '').trim();
-        var kubik  = (inpKub.value || '').trim();
-        var msg    = buildMessage(lokasi, kubik);
-        // encodeURIComponent menangani spasi, baris baru (\n → %0A), dsb.
-        return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
-      }
-
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        var url = buildUrl();
-        // Sinkronkan href agar konteks kanan-klik / share juga benar
-        btn.setAttribute('href', url);
-        window.open(url, '_blank', 'noopener,noreferrer');
-      });
-
-      // Update href realtime saat user mengetik (membantu kasus
-      // "buka di tab baru" via tombol tengah / kanan-klik).
-      function syncHref() { btn.setAttribute('href', buildUrl()); }
-      inpLok.addEventListener('input', syncHref);
-      inpKub.addEventListener('input', syncHref);
-      syncHref(); // set href awal (Kondisi 1) saat halaman dimuat
+      window.addEventListener('scroll', updateDock, { passive: true });
+      window.addEventListener('resize', updateDock, { passive: true });
+      updateDock();
     })();
   </script>
 
