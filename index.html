@@ -525,13 +525,13 @@
     .stats-bar-container {
       max-width: 920px;
       margin: 0 auto;
-      padding: 8px 30px;
+      padding: 4px 24px;
       display: flex;
       justify-content: space-around;
       align-items: center;
       gap: 20px;
       background-color: #eff6ff;
-      border-radius: 26px;
+      border-radius: 22px;
       border: 3px solid rgba(176,182,194,0.45);
     }
     .stat-item {
@@ -549,12 +549,12 @@
       top: 50%;
       transform: translateY(-50%);
       width: 0.5px;
-      height: 60px;
+      height: 46px;
       background-color: #3c3744;
       opacity: 0.4;
     }
     .stat-number {
-      font-size: 40px;
+      font-size: 32px;
       font-weight: 500;
       color: #225dcf;
       display: flex;
@@ -565,7 +565,7 @@
     }
     .stat-number .plus { font-weight: 100; }
     .stat-label {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 400;
       color: #3c3744;
       line-height: 1.1;
@@ -596,9 +596,9 @@
         background-color: #eff6ff;
       }
       .stat-item { flex: 1; padding: 0; }
-      .stat-number { font-size: clamp(20px, 3.5vw, 32px); line-height: 1; margin-bottom: 2px; }
-      .stat-label { font-size: clamp(9px, 1.5vw, 13px); line-height: 1.2; }
-      .stat-item:not(:last-child)::after { height: 40px; right: -5px; }
+      .stat-number { font-size: clamp(18px, 3vw, 26px); line-height: 1; margin-bottom: 2px; }
+      .stat-label { font-size: clamp(9px, 1.4vw, 12px); line-height: 1.2; }
+      .stat-item:not(:last-child)::after { height: 34px; right: -5px; }
     }
 
     /* Tablet besar stats 1024px-1229px — lebih besar */
@@ -621,9 +621,9 @@
         background-color: #eff6ff;
       }
       .stat-item { flex: 1; padding: 0; }
-      .stat-number { font-size: clamp(28px, 3.5vw, 38px); line-height: 1; margin-bottom: 2px; }
-      .stat-label { font-size: clamp(11px, 1.4vw, 14px); line-height: 1.2; }
-      .stat-item:not(:last-child)::after { height: 50px; right: -10px; }
+      .stat-number { font-size: clamp(24px, 3vw, 32px); line-height: 1; margin-bottom: 2px; }
+      .stat-label { font-size: clamp(10px, 1.3vw, 13px); line-height: 1.2; }
+      .stat-item:not(:last-child)::after { height: 42px; right: -10px; }
     }
 
     /* 320px-440px — reset margin "8+" */
@@ -654,9 +654,9 @@
         border-bottom: 2px solid rgba(176,182,194,0.45);
       }
       .stat-item { flex: 1; padding: 0 4px; }
-      .stat-number { font-size: clamp(24px, 7vw, 34px); line-height: 1; margin-bottom: 4px; }
-      .stat-label { font-size: clamp(9px, 2.5vw, 12px); line-height: 1.2; }
-      .stat-item:not(:last-child)::after { height: 36px; right: 0; }
+      .stat-number { font-size: clamp(20px, 6vw, 28px); line-height: 1; margin-bottom: 2px; }
+      .stat-label { font-size: clamp(8px, 2.2vw, 11px); line-height: 1.2; }
+      .stat-item:not(:last-child)::after { height: 28px; right: 0; }
     }
 
     /* ============================================================
@@ -675,7 +675,9 @@
       margin-bottom: 2rem;
     }
     .benefit-badge {
-      display: inline-block;
+      display: block;
+      width: fit-content;
+      margin: 0 auto 14px;
       font-family: 'Nunito', sans-serif;
       font-size: 0.7rem;
       font-weight: 700;
@@ -685,7 +687,6 @@
       border-radius: 999px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      margin-bottom: 14px;
     }
     .benefit-heading {
       display: inline-block;
@@ -1124,7 +1125,6 @@
     ============================================================ */
     .spk-section {
       width: 100%;
-      min-height: 100vh;
       background: #ededed;
       padding: 48px 12px;
       font-family: 'Nunito', sans-serif;
@@ -1654,8 +1654,10 @@
         var current = 'home';
 
         sections.forEach(function(sec) {
-          var top = sec.offsetTop - navbarOffset;
-          if (scrollY >= top) {
+          // getBoundingClientRect lebih akurat dari offsetTop
+          // karena about-section pakai margin-left: calc(50% - 50vw)
+          var top = sec.getBoundingClientRect().top + scrollY - navbarOffset;
+          if (scrollY >= top - 4) { // -4px tolerance
             current = sec.id;
           }
         });
@@ -2375,6 +2377,7 @@
     .footer-contact-item--address { align-items: flex-start; }
     .footer-contact-item--address .footer-contact-icon { margin-top: 3px; }
     .footer-contact-icon {
+      display: block;
       flex-shrink: 0;
       width: 22px;
       height: 22px;
@@ -2489,6 +2492,7 @@
           <h3 class="footer-heading">Navigation</h3>
           <ul class="footer-nav-list">
             <li><a href="#home"    class="footer-nav-link">Home</a></li>
+            <li><a href="#benefit" class="footer-nav-link">Benefits</a></li>
             <li><a href="#about"   class="footer-nav-link">About Us</a></li>
             <li><a href="#product" class="footer-nav-link">Product</a></li>
             <li><a href="#contact" class="footer-nav-link">Contact</a></li>
@@ -2500,20 +2504,20 @@
           <ul class="footer-contact-list">
             <li class="footer-contact-item footer-contact-item--address">
               <img src="assets/Footer/Icon Location.svg"
-                   alt="" class="footer-contact-icon" />
+                   width="22" height="22" alt="" class="footer-contact-icon" />
               <span class="footer-contact-text">
                 Perumahan Puri Bagus A7/23, Sedengan Mijen, Krian, Sidoarjo, Jawa Timur
               </span>
             </li>
             <li class="footer-contact-item">
               <img src="assets/Navbar/Icon Contact.svg"
-                   alt="" class="footer-contact-icon" />
+                   width="22" height="22" alt="" class="footer-contact-icon" />
               <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer"
                  class="footer-contact-text">+62 851-8402-8183</a>
             </li>
             <li class="footer-contact-item">
               <img src="assets/Footer/Icon Time.svg"
-                   alt="" class="footer-contact-icon" />
+                   width="22" height="22" alt="" class="footer-contact-icon" />
               <span class="footer-contact-text">07.00 &ndash; 19.00 WIB</span>
             </li>
           </ul>
