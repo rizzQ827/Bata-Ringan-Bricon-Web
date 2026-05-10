@@ -525,7 +525,7 @@
     .stats-bar-container {
       max-width: 920px;
       margin: 0 auto;
-      padding: 4px 24px;
+      padding: 2px 24px;
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -589,7 +589,7 @@
       .stats-bar-container {
         max-width: 680px;
         margin: 0 auto;
-        padding: 8px 20px;
+        padding: 2px 20px;
         gap: 10px;
         border-radius: 20px;
         border: 3px solid rgba(176,182,194,0.45);
@@ -614,7 +614,7 @@
       .stats-bar-container {
         max-width: 860px;
         margin: 0 auto;
-        padding: 10px 30px;
+        padding: 2px 30px;
         gap: 20px;
         border-radius: 24px;
         border: 3px solid rgba(176,182,194,0.45);
@@ -646,7 +646,7 @@
         max-width: 100%;
         width: 100%;
         margin: 0;
-        padding: 8px 4px;
+        padding: 4px 4px;
         gap: 0;
         border-radius: 0;
         border: none;
@@ -657,6 +657,20 @@
       .stat-number { font-size: clamp(20px, 6vw, 28px); line-height: 1; margin-bottom: 2px; }
       .stat-label { font-size: clamp(8px, 2.2vw, 11px); line-height: 1.2; }
       .stat-item:not(:last-child)::after { height: 28px; right: 0; }
+    }
+
+    /* ── Divider antara home (stats) dan benefit ── */
+    .home-benefit-divider {
+      max-width: 920px;
+      margin: 28px auto 0;
+      height: 1px;
+      background: rgba(60, 55, 68, 0.15);
+    }
+    @media (max-width: 1229px) {
+      .home-benefit-divider { max-width: calc(100% - 40px); margin: 24px auto 0; }
+    }
+    @media (max-width: 768px) {
+      .home-benefit-divider { max-width: calc(100% - 30px); margin: 20px auto 0; }
     }
 
     /* ============================================================
@@ -1431,11 +1445,13 @@
   <!-- ============================================================
        BENEFIT
   ============================================================ -->
+  <div class="home-benefit-divider" aria-hidden="true"></div>
+
   <section id="benefit" class="benefit-section">
     <div class="benefit-inner">
       <div class="benefit-header">
         <span class="benefit-badge">Benefits</span>
-        <h2 class="benefit-heading">Kenapa memilih kami?</h2>
+        <h2 class="benefit-heading">Apa Keunggulannya?</h2>
       </div>
       <div class="benefit-grid">
         <div class="benefit-card">
@@ -1536,15 +1552,15 @@
         <div class="spk-tabs-slider" id="spkSlider"></div>
         <button class="spk-tab-btn active" id="spkTabBata" onclick="spkSwitchTab('bata')">
           <span class="icon">
-            <img class="icon-inactive" src="assets/Navbar/Icon Product.svg" alt="">
-            <img class="icon-active" src="assets/Navbar/Icon Product.svg" alt="">
+            <img class="icon-inactive" src="assets/Product/bata-ringan.svg" alt="">
+            <img class="icon-active" src="assets/Product/bata-ringan.svg" alt="">
           </span>
           <span>Bata Ringan</span>
         </button>
         <button class="spk-tab-btn" id="spkTabPanel" onclick="spkSwitchTab('panel')">
           <span class="icon">
-            <img class="icon-inactive" src="assets/Navbar/Icon Benefits.svg" alt="">
-            <img class="icon-active" src="assets/Navbar/Icon Benefits.svg" alt="">
+            <img class="icon-inactive" src="assets/Product/panel-lantai.svg" alt="">
+            <img class="icon-active" src="assets/Product/panel-lantai.svg" alt="">
           </span>
           <span>Panel Lantai</span>
         </button>
@@ -2009,6 +2025,19 @@
       line-height: 1.5;
     }
 
+    /* ── Divider footnote → footer (mobile only) ── */
+    .footnote-footer-divider {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .footnote-footer-divider {
+        display: block;
+        margin: 24px auto 0;
+        height: 1px;
+        background: rgba(60, 55, 68, 0.15);
+      }
+    }
+
     /* ════════════════════════════════
        Tablet 769-1024 — image scales like About
     ════════════════════════════════ */
@@ -2220,6 +2249,8 @@
     </a>
 
   </section>
+
+  <div class="footnote-footer-divider" aria-hidden="true"></div>
 
   <script>
     // Floating CTA — dock di bawah section contact
