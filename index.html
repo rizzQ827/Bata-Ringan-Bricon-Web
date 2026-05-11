@@ -12,10 +12,22 @@
   <meta property="og:title" content="Procon lite | Distributor Bata Ringan &amp; Panel Lantai Berkualitas" />
   <meta property="og:description" content="Procon lite adalah distributor unit bata ringan dan panel lantai unggulan untuk area Jawa Timur di bawah naungan Procon Persada." />
   <meta property="og:image" content="assets/favicon.webp" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap" /></noscript>
+  <style>
+    /* ============================================================
+       SELF-HOSTED FONTS — letakkan file .woff2 di assets/fonts/
+       Download via: https://gwfh.madebyebi.com/fonts/poppins
+                     https://gwfh.madebyebi.com/fonts/nunito
+    ============================================================ */
+    @font-face { font-family: 'Poppins'; src: url('assets/fonts/poppins-v21-latin-100.woff2') format('woff2'); font-weight: 100; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Poppins'; src: url('assets/fonts/poppins-v21-latin-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Poppins'; src: url('assets/fonts/poppins-v21-latin-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Poppins'; src: url('assets/fonts/poppins-v21-latin-600.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Poppins'; src: url('assets/fonts/poppins-v21-latin-700.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Poppins'; src: url('assets/fonts/poppins-v21-latin-900.woff2') format('woff2'); font-weight: 900; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Nunito'; src: url('assets/fonts/nunito-v26-latin-600.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Nunito'; src: url('assets/fonts/nunito-v26-latin-700.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Nunito'; src: url('assets/fonts/nunito-v26-latin-800.woff2') format('woff2'); font-weight: 800; font-style: normal; font-display: swap; }
+  </style>
 
   <style>
     /* ============================================================
@@ -531,7 +543,7 @@
     .stats-bar-container {
       max-width: 920px;
       margin: 0 auto;
-      padding: 2px 24px;
+      padding: 0 24px 8px 24px;
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -683,7 +695,7 @@
        BENEFIT
     ============================================================ */
     .benefit-section {
-      padding: 0 2rem 3rem 2rem;
+      padding: 40px 2rem 3rem 2rem;
       width: 100%;
       margin-top: -1rem;
     }
@@ -827,7 +839,7 @@
 
     /* Mobile — di bawah 677px: kolom */
     @media (max-width: 676px) {
-      .benefit-section { padding: 0 15px 2rem 15px; margin-top: 1rem; }
+      .benefit-section { padding: 36px 15px 2rem 15px; margin-top: 1rem; }
       .benefit-badge { font-size: 0.62rem; padding: 4px 11px; margin-bottom: 10px; }
       .benefit-heading { font-size: clamp(1.6rem, 7vw, 2rem); }
       .benefit-grid { flex-direction: column; gap: 1rem; }
@@ -847,7 +859,7 @@
     /* 677px ke atas: baris */
     @media (min-width: 677px) {
       .benefit-section {
-        padding: 0 15px 2rem 15px;
+        padding: 40px 15px 2rem 15px;
         margin-top: 3rem;
         --bt: clamp(var(--benefit-title-min), var(--benefit-title-mid), var(--benefit-title-max));
         --bd: calc(clamp(var(--benefit-title-min), var(--benefit-title-mid), var(--benefit-title-max)) / 2);
@@ -871,7 +883,7 @@
 
     /* Desktop penuh ≥1230px */
     @media (min-width: 1230px) {
-      .benefit-section { margin-top: 3.5rem !important; padding: 0 2rem 3rem 2rem; --bt: 1.6rem; --bd: calc(1.6rem / 2); }
+      .benefit-section { margin-top: 3.5rem !important; padding: 48px 2rem 3rem 2rem; --bt: 1.6rem; --bd: calc(1.6rem / 2); }
       .benefit-grid { flex-direction: row; gap: 2rem; }
       .benefit-card { padding: 90px 2rem 3rem 2rem; margin-top: 90px; }
       .benefit-icon-wrapper { top: 0; transform: translate(-50%, -50%); }
@@ -1750,14 +1762,10 @@
        PROJECT SECTION CSS
 
 
-  <!-- ═══════════════════════════════════════════════
        CONTACT & FAQ SECTIONS — REVISED
-  ═══════════════════════════════════════════════ -->
   <style>
 
-    /* ══════════════════════════════════════
        SHARED: Badge & Heading (seragam semua section)
-    ══════════════════════════════════════ */
     .contact-badge,
     .faq-badge {
       display: block;
@@ -1806,9 +1814,7 @@
       .contact-heading, .faq-heading { font-size: clamp(2.6rem, 4.8vw, 3.6rem); }
     }
 
-    /* ══════════════════════════════════════
        CONTACT SECTION — 2-col layout (mirroring About Us)
-    ══════════════════════════════════════ */
     .contact-section {
       position: relative;
       background-color: #ededed;
@@ -1945,9 +1951,7 @@
       }
     }
 
-    /* ══════════════════════════════════════
        CONTACT INFO CARDS — clone of .benefit-card
-    ══════════════════════════════════════ */
     .contact-info-section {
       max-width: 960px;
       margin: clamp(24px, 3vw, 40px) auto 0;
@@ -2071,9 +2075,7 @@
       }
     }
 
-    /* ════════════════════════════════
        Tablet 769-1024 — image scales like About
-    ════════════════════════════════ */
     @media (min-width: 769px) and (max-width: 1024px) {
       .contact-section { padding: 48px 32px; }
       .contact-container { gap: 32px; }
@@ -2089,9 +2091,7 @@
       .contact-info-body { font-size: clamp(0.75rem, 1.2vw, 0.85rem); }
     }
 
-    /* ════════════════════════════════
        Mobile ≤768 — stacked, image on top, header centered
-    ════════════════════════════════ */
     @media (max-width: 768px) {
       .contact-section { padding: 40px 20px 44px 20px; }
       .contact-container {
@@ -2143,9 +2143,7 @@
       .contact-map-wrap iframe { height: 260px; }
     }
 
-    /* ════════════════════════════════
        Small mobile ≤380
-    ════════════════════════════════ */
     @media (max-width: 380px) {
       .contact-section { padding: 32px 14px 36px 14px; }
       .contact-image-wrap { width: min(180px, 52vw); }
@@ -2153,9 +2151,7 @@
       .contact-info-icon { width: 100px; height: 100px; }
     }
 
-    /* ════════════════════════════════
        Desktop ≥1025 — balanced layout, larger icons (match benefit at ≥1230)
-    ════════════════════════════════ */
     @media (min-width: 1025px) {
       .contact-section { padding: clamp(48px, 4vw, 56px) clamp(24px, 6vw, 80px); }
       .contact-container { gap: clamp(1.5rem, 2.2vw, 2rem); }
@@ -2216,7 +2212,6 @@
     }
 
   </style>
-  ══════════════════════════════════ -->
   <section id="contact" class="contact-section">
     <div class="contact-deco contact-deco-left">
       <img src="assets/About Us/Side Filler Hexagon.webp" alt="" width="200" height="400" loading="lazy">
@@ -2583,7 +2578,7 @@
                class="footer-social-link" aria-label="WhatsApp Procon Lite">
               <img src="assets/Navbar/Icon Whatsapp.svg" alt="" width="32" height="32" loading="lazy" />
             </a>
-            <a href="https://bataringanfocon.com" target="_blank" rel="noopener noreferrer"
+            <a href="https://bata-ringan-bricon.com/" target="_blank" rel="noopener noreferrer"
                class="footer-social-link" aria-label="Website Procon Lite">
               <img src="assets/Footer/Icon Internet.svg" alt="" width="32" height="32" loading="lazy" />
             </a>
