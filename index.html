@@ -264,12 +264,7 @@
       flex-shrink: 0;
       filter: brightness(0) invert(1);
     }
-    /* Docked: berhenti di bawah section contact */
-    .floating-cta.floating-docked {
-      position: absolute;
-      bottom: 30px;
-      right: 30px;
-    }
+    /* Floating CTA selalu fixed; bottom disesuaikan JS saat footnote mendekat */
 
     /* Mobile Mobile & Tablet — burger menu (320px - 1023px) Tablet — burger menu (320px - 1024px) */
     @media (max-width: 1024px) {
@@ -565,7 +560,7 @@
       opacity: 0.4;
     }
     .stat-number {
-      font-size: 32px;
+      font-size: 44px;
       font-weight: 500;
       color: #225dcf;
       display: flex;
@@ -607,9 +602,9 @@
         background-color: #eff6ff;
       }
       .stat-item { flex: 1; padding: 0; }
-      .stat-number { font-size: clamp(18px, 3vw, 26px); line-height: 1; margin-bottom: 2px; }
+      .stat-number { font-size: clamp(24px, 4vw, 36px); line-height: 1; margin-bottom: 2px; }
       .stat-label { font-size: clamp(9px, 1.4vw, 12px); line-height: 1.2; }
-      .stat-item:not(:last-child)::after { height: 34px; right: -5px; }
+      .stat-item:not(:last-child)::after { height: 40px; right: -5px; }
     }
 
     /* Tablet besar stats 1024px-1229px — lebih besar */
@@ -632,9 +627,9 @@
         background-color: #eff6ff;
       }
       .stat-item { flex: 1; padding: 0; }
-      .stat-number { font-size: clamp(24px, 3vw, 32px); line-height: 1; margin-bottom: 2px; }
+      .stat-number { font-size: clamp(30px, 4vw, 42px); line-height: 1; margin-bottom: 2px; }
       .stat-label { font-size: clamp(10px, 1.3vw, 13px); line-height: 1.2; }
-      .stat-item:not(:last-child)::after { height: 42px; right: -10px; }
+      .stat-item:not(:last-child)::after { height: 50px; right: -10px; }
     }
 
     /* 320px-440px — reset margin "8+" */
@@ -665,17 +660,17 @@
         border-bottom: 2px solid rgba(176,182,194,0.45);
       }
       .stat-item { flex: 1; padding: 0 4px; }
-      .stat-number { font-size: clamp(20px, 6vw, 28px); line-height: 1; margin-bottom: 2px; }
+      .stat-number { font-size: clamp(26px, 8vw, 38px); line-height: 1; margin-bottom: 2px; }
       .stat-label { font-size: clamp(8px, 2.2vw, 11px); line-height: 1.2; }
-      .stat-item:not(:last-child)::after { height: 28px; right: 0; }
+      .stat-item:not(:last-child)::after { height: 36px; right: 0; }
     }
 
-    /* ── Divider antara home (stats) dan benefit ── */
+    /* ── Divider antara home (stats) dan benefit — spacing only, no line ── */
     .home-benefit-divider {
       max-width: 920px;
       margin: 28px auto 0;
       height: 1px;
-      background: rgba(60, 55, 68, 0.15);
+      background: transparent;
     }
     @media (max-width: 1229px) {
       .home-benefit-divider { max-width: calc(100% - 40px); margin: 24px auto 0; }
@@ -2166,7 +2161,7 @@
       .contact-container { gap: clamp(1.5rem, 2.2vw, 2rem); }
       .contact-image-wrap { width: 360px; }
       .contact-hero-img { width: 100%; }
-      .contact-info-section { margin-top: clamp(56px, 6vw, 80px); }
+      .contact-info-section { margin-top: clamp(36px, 4vw, 52px); }
       .contact-info-grid { gap: 2rem; }
       .contact-info-card {
         padding: clamp(60px, 7vw, 90px) 1.5rem 2.5rem 1.5rem;
@@ -2181,7 +2176,7 @@
 
     /* 1230px+ */
     @media (min-width: 1230px) {
-      .contact-info-section { margin-top: clamp(64px, 6vw, 88px); }
+      .contact-info-section { margin-top: clamp(44px, 5vw, 60px); }
       .contact-info-card { padding: clamp(64px, 7vw, 90px) 2rem 3rem 2rem; }
       .contact-info-title { font-size: clamp(1.1rem, 1.4vw, 1.4rem); margin-bottom: 1rem; }
     }
@@ -2292,21 +2287,29 @@
   <div class="footnote-footer-divider" aria-hidden="true"></div>
 
   <script>
-    // Floating CTA — dock di bawah section contact
+    // Floating CTA — berhenti di divider bawah footnote agar tidak menutupinya
     (function() {
-      var btn     = document.querySelector('.floating-cta');
-      var contact = document.getElementById('contact');
-      if (!btn || !contact) return;
+      var btn      = document.querySelector('.floating-cta');
+      var footnote = document.querySelector('.contact-footnote');
+      var divider  = document.querySelector('.footnote-footer-divider');
+      if (!btn || !footnote) return;
 
       function updateDock() {
-        var contactBottom = contact.getBoundingClientRect().bottom;
-        var btnH   = btn.offsetHeight;
         var offset = window.innerWidth >= 1025 ? 30 : 20;
-        // Jika bagian bawah contact sudah mau meninggalkan viewport: dock
-        if (contactBottom <= window.innerHeight - offset) {
-          btn.classList.add('floating-docked');
+        var btnH   = btn.offsetHeight;
+
+        // Gunakan divider (mobile) atau footnote (tablet) sebagai titik berhenti
+        var ref = (divider && getComputedStyle(divider).display !== 'none')
+                  ? divider
+                  : footnote;
+        var refRect = ref.getBoundingClientRect();
+
+        // Saat CTA akan overlap ref, naikkan bottom secara dinamis
+        var triggerTop = window.innerHeight - offset - btnH;
+        if (refRect.top <= triggerTop) {
+          btn.style.bottom = (window.innerHeight - refRect.top + 10) + 'px';
         } else {
-          btn.classList.remove('floating-docked');
+          btn.style.bottom = offset + 'px';
         }
       }
 
@@ -2583,7 +2586,7 @@
               </span>
             </li>
             <li class="footer-contact-item">
-              <img src="assets/Navbar/Icon Contact.svg"
+              <img src="assets/Footer/Icon Phone.svg"
                    width="22" height="22" alt="" class="footer-contact-icon" loading="lazy" />
               <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer"
                  class="footer-contact-text">+62 851-8402-8183</a>
