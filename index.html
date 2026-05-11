@@ -1950,7 +1950,7 @@
     ══════════════════════════════════════ */
     .contact-info-section {
       max-width: 960px;
-      margin: clamp(40px, 5vw, 64px) auto 0;
+      margin: clamp(24px, 3vw, 40px) auto 0;
     }
     .contact-info-grid {
       display: flex;
@@ -2078,7 +2078,7 @@
       .contact-section { padding: 48px 32px; }
       .contact-container { gap: 32px; }
       .contact-image-wrap { width: clamp(300px, 35vw, 360px); }
-      .contact-info-section { margin-top: 56px; }
+      .contact-info-section { margin-top: 28px; }
       .contact-info-grid { gap: 1rem; }
       .contact-info-card {
         padding: clamp(50px, 7vw, 80px) 1rem 2.5rem 1rem;
@@ -2161,7 +2161,7 @@
       .contact-container { gap: clamp(1.5rem, 2.2vw, 2rem); }
       .contact-image-wrap { width: 360px; }
       .contact-hero-img { width: 100%; }
-      .contact-info-section { margin-top: clamp(36px, 4vw, 52px); }
+      .contact-info-section { margin-top: clamp(24px, 3vw, 36px); }
       .contact-info-grid { gap: 2rem; }
       .contact-info-card {
         padding: clamp(60px, 7vw, 90px) 1.5rem 2.5rem 1.5rem;
@@ -2176,21 +2176,52 @@
 
     /* 1230px+ */
     @media (min-width: 1230px) {
-      .contact-info-section { margin-top: clamp(44px, 5vw, 60px); }
+      .contact-info-section { margin-top: clamp(28px, 3vw, 44px); }
       .contact-info-card { padding: clamp(64px, 7vw, 90px) 2rem 3rem 2rem; }
       .contact-info-title { font-size: clamp(1.1rem, 1.4vw, 1.4rem); margin-bottom: 1rem; }
     }
 
-  </style>
+    /* ── Contact Deco — hexagon kiri & kanan, terpisah dari About Us ── */
+    .contact-deco {
+      display: none;
+      position: absolute;
+      top: 50%;
+      width: 400px;
+      height: 400px;
+      pointer-events: none;
+    }
+    .contact-deco img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+      opacity: 1;
+    }
+    .contact-deco-left {
+      left: calc(50% - 584px);
+      transform: translateY(-50%);
+      animation: hexFloatLeft 6s ease-in-out infinite;
+      -webkit-mask-image: linear-gradient(to right, transparent 42%, black 68%);
+              mask-image: linear-gradient(to right, transparent 42%, black 68%);
+    }
+    .contact-deco-right {
+      left: calc(50% + 184px);
+      transform: translateY(-50%);
+      animation: hexFloatRight 7s ease-in-out infinite;
+      -webkit-mask-image: linear-gradient(to left, transparent 42%, black 68%);
+              mask-image: linear-gradient(to left, transparent 42%, black 68%);
+    }
+    @media (min-width: 381px) and (max-width: 768px) {
+      .contact-deco { display: block; }
+    }
 
-  <!-- ══════════════════════════════════
-       CONTACT SECTION
+  </style>
   ══════════════════════════════════ -->
   <section id="contact" class="contact-section">
-    <div class="about-deco about-deco-left">
+    <div class="contact-deco contact-deco-left">
       <img src="assets/About Us/Side Filler Hexagon.webp" alt="" width="200" height="400" loading="lazy">
     </div>
-    <div class="about-deco about-deco-right">
+    <div class="contact-deco contact-deco-right">
       <img src="assets/About Us/Side Filler Hexagon.webp" alt="" width="200" height="400" loading="lazy">
     </div>
     <div class="contact-inner">
