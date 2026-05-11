@@ -3,8 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Procon Lite — Distributor Bata Ringan &amp; Panel Lantai Jawa Timur</title>
-  <meta name="description" content="Procon Lite: distributor bata ringan dan panel lantai berkualitas di Jawa Timur. Suplai, jasa pasang, konsultasi &amp; survey gratis. Hubungi kami sekarang!" />
+  <title>Procon lite | Distributor Bata Ringan &amp; Panel Lantai Berkualitas</title>
+  <meta name="description" content="Procon lite adalah distributor unit bata ringan dan panel lantai unggulan untuk area Jawa Timur di bawah naungan Procon Persada." />
+  <link rel="icon" type="image/webp" href="assets/favicon.webp" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Procon lite | Distributor Bata Ringan &amp; Panel Lantai Berkualitas" />
+  <meta property="og:description" content="Procon lite adalah distributor unit bata ringan dan panel lantai unggulan untuk area Jawa Timur di bawah naungan Procon Persada." />
+  <meta property="og:image" content="assets/favicon.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
@@ -1282,6 +1289,35 @@
     .spk-coming-tag { font-family: 'Nunito', sans-serif; background: #3d52d5; color: #ededed; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 9999px; }
     .spk-card.hidden-mobile { display: none; }
 
+    /* ── Product Card WA CTA ── */
+    .spk-wa-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background-color: #3c55d3;
+      color: #ededed;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-decoration: none;
+      padding: 11px 22px;
+      border-radius: 9999px;
+      width: 100%;
+      justify-content: center;
+      box-sizing: border-box;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .spk-wa-cta:hover { background-color: #2a42b8; transform: scale(1.02); }
+    .spk-wa-cta:active { transform: scale(0.98); }
+    .spk-wa-cta img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: brightness(0) saturate(100%) invert(95%) sepia(3%) saturate(100%) hue-rotate(0deg) brightness(104%) contrast(93%);
+    }
+
     /* Tablet & Desktop product */
     @media (min-width: 769px) {
       .spk-tabs { display: none; }
@@ -1583,12 +1619,10 @@
           <div class="spk-spec"><p><span class="spk-spec-label">Tinggi</span><span class="spk-spec-value">20 cm</span></p></div>
           <div class="spk-spec"><p><span class="spk-spec-label">Tebal</span><span class="spk-spec-value">7.5 – 12.5 cm</span></p></div>
         </div>
-        <p class="spk-available">Tersedia di:</p>
-        <div class="spk-badges">
-          <span class="spk-badge">Blesscon</span>
-          <span class="spk-badge">Bricon</span>
-          <span class="spk-badge">Focon Interlite</span>
-        </div>
+        <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer" class="spk-wa-cta">
+          <img src="assets/Navbar/Icon Whatsapp.svg" alt="" width="20" height="20">
+          <span>Cek Harganya Sekarang</span>
+        </a>
       </div>
       <div class="spk-card hidden-mobile" id="spkCardPanel">
         <img src="assets/Product/Panel Lantai.webp" class="spk-card-img" alt="Panel Lantai" width="300" height="220" loading="lazy">
@@ -1599,12 +1633,10 @@
           <div class="spk-spec"><p><span class="spk-spec-label">Lebar</span><span class="spk-spec-value">600 mm</span></p></div>
           <div class="spk-spec"><p><span class="spk-spec-label">Tebal</span><span class="spk-spec-value">125 mm</span></p></div>
         </div>
-        <p class="spk-available">Tersedia di:</p>
-        <div class="spk-badges">
-          <span class="spk-badge">Blesscon</span>
-          <span class="spk-badge">Bricon</span>
-          <span class="spk-badge-coming">Focon Interlite <span class="spk-coming-tag">coming soon</span></span>
-        </div>
+        <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer" class="spk-wa-cta">
+          <img src="assets/Navbar/Icon Whatsapp.svg" alt="" width="20" height="20">
+          <span>Cek Harganya Sekarang</span>
+        </a>
       </div>
     </div>
   </section>
