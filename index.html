@@ -1530,6 +1530,184 @@
       .spk-badge-label { font-size: 0.8rem; padding: 6px 16px; }
       .spk-title { font-size: clamp(2.6rem, 4.8vw, 3.6rem); }
     }
+
+    /* ══════════════════════════════════════
+       BRICON HERO BANNER
+    ══════════════════════════════════════ */
+    .bricon-banner {
+      max-width: 72rem;
+      margin: 0 auto 32px;
+      padding: 0 12px;
+      box-sizing: border-box;
+    }
+    .bricon-banner-inner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: linear-gradient(135deg, #0d1117 0%, #1a1f35 100%);
+      border-radius: 16px;
+      padding: 22px 28px;
+      border-left: 4px solid #dc2626;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.22);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Subtle red glow behind logo area */
+    .bricon-banner-inner::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 220px;
+      height: 100%;
+      background: radial-gradient(ellipse at left center, rgba(220,38,38,0.10) 0%, transparent 75%);
+      pointer-events: none;
+    }
+    /* Subtle noise texture strip */
+    .bricon-banner-inner::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(to left, rgba(220,38,38,0.04), transparent);
+      pointer-events: none;
+    }
+
+    /* Logo */
+    .bricon-logo-wrap {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .bricon-logo {
+      /* Logo ratio is 1722:644 ≈ 2.67:1 — fix height, width flows naturally */
+      height: 54px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+      /* Logo background is white — invert to white-on-dark */
+      filter: brightness(0) invert(1);
+    }
+
+    /* Vertical divider */
+    .bricon-vdivider {
+      width: 1px;
+      align-self: stretch;
+      background: rgba(249,250,251,0.15);
+      flex-shrink: 0;
+      margin: 4px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Text block */
+    .bricon-text {
+      flex: 1;
+      min-width: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .bricon-eyebrow {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.63rem;
+      font-weight: 800;
+      color: rgba(249,250,251,0.55);
+      margin: 0 0 5px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1;
+    }
+    .bricon-sub {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(0.72rem, 1.1vw, 0.82rem);
+      font-weight: 400;
+      color: rgba(249,250,251,0.72);
+      margin: 0;
+      line-height: 1.55;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* CTA */
+    .bricon-cta {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #dc2626;
+      color: #ffffff !important;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-decoration: none;
+      padding: 11px 22px;
+      border-radius: 9999px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      white-space: nowrap;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 4px 14px rgba(220,38,38,0.35);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .bricon-cta:hover { background: #b91c1c; transform: scale(1.04); }
+    }
+    @media (hover: none) and (pointer: coarse) {
+      .bricon-cta:active { background: #b91c1c; transform: scale(0.97); }
+    }
+    .bricon-cta img {
+      width: 18px; height: 18px;
+      filter: brightness(0) invert(1);
+      flex-shrink: 0;
+    }
+
+    /* Tablet 769–1024px */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .bricon-banner { padding: 0; margin-bottom: 24px; }
+      .bricon-banner-inner { gap: 18px; padding: 18px 22px; }
+      .bricon-logo { height: 48px; }
+      .bricon-eyebrow { font-size: 0.6rem; }
+    }
+
+    /* Mobile ≤768px — stacked layout */
+    @media (max-width: 768px) {
+      .bricon-banner { padding: 0; margin-bottom: 20px; }
+      .bricon-banner-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 18px 18px 18px 18px;
+        border-left: none;
+        border-top: 4px solid #dc2626;
+        border-radius: 14px;
+      }
+      .bricon-logo { height: 42px; }
+      .bricon-vdivider { display: none; }
+      .bricon-eyebrow {
+        white-space: normal;
+        font-size: 0.62rem;
+      }
+      .bricon-sub { font-size: 0.78rem; }
+      .bricon-cta {
+        width: 100%;
+        justify-content: center;
+        font-size: 0.92rem;
+        padding: 13px 20px;
+      }
+    }
+
+    /* Small mobile ≤380px */
+    @media (max-width: 380px) {
+      .bricon-banner-inner { padding: 16px 14px; gap: 10px; }
+      .bricon-logo { height: 36px; }
+    }
   </style>
 </head>
 
@@ -1782,6 +1960,28 @@
           </svg>
         </span>
       </a>
+    </div>
+
+    <!-- ── BRICON HERO BANNER ── -->
+    <div class="bricon-banner">
+      <div class="bricon-banner-inner">
+        <!-- Logo -->
+        <div class="bricon-logo-wrap">
+          <img src="assets/Product/Logo_Bricon.webp" alt="Bricon" class="bricon-logo" width="144" height="54" loading="lazy">
+        </div>
+        <!-- Vertical divider (desktop/tablet only) -->
+        <div class="bricon-vdivider" aria-hidden="true"></div>
+        <!-- Text -->
+        <div class="bricon-text">
+          <p class="bricon-eyebrow">Diproduksi oleh PT Material Konstruksi Bangunan</p>
+          <p class="bricon-sub">Seluruh produk diproduksi oleh Bricon dengan standar kualitas internasional dan teknologi inovatif.</p>
+        </div>
+        <!-- CTA -->
+        <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer" class="bricon-cta">
+          <img src="assets/Navbar/Icon Whatsapp.svg" alt="" width="18" height="18">
+          <span>Tanya Produk</span>
+        </a>
+      </div>
     </div>
 
     <div class="spk-tabs">
