@@ -11,7 +11,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Procon lite | Distributor Bata Ringan &amp; Panel Lantai Berkualitas" />
   <meta property="og:description" content="Procon lite adalah distributor unit bata ringan dan panel lantai unggulan untuk area Jawa Timur di bawah naungan Procon Persada." />
-  <meta property="og:image" content="assets/og-image.jpg" />
+  <meta property="og:image" content="https://bataringanprocon.com/assets/og-image.jpg" />
   <style>
     /* ============================================================
        SELF-HOSTED FONTS
@@ -2520,7 +2520,7 @@
       .contact-info-body { font-size: clamp(0.75rem, 1.2vw, 0.85rem); }
     }
 
-    /* Mobile ≤768 — stacked, image on top, header centered */
+    /* Mobile ≤768 — stacked, image on top, header centered, lebih compact */
     @media (max-width: 768px) {
       .contact-section { padding: 40px 20px 44px 20px; }
       .contact-container {
@@ -2535,26 +2535,33 @@
       .contact-content {
         order: 2;
         width: 100%;
+        max-width: 340px;
         text-align: center;
+        padding: 0 8px;
+        box-sizing: border-box;
+      }
+      .contact-header {
+        text-align: center;
+        margin-bottom: 12px;
+      }
+      .contact-heading {
+        font-size: clamp(1.5rem, 5vw, 2rem) !important;
+        margin-bottom: 12px !important;
+      }
+      .contact-badge {
+        margin-left: auto;
+        margin-right: auto;
       }
       .contact-consult-text {
+        font-size: clamp(0.75rem, 2.2vw, 0.85rem);
+        line-height: 1.4;
+        margin-bottom: 12px;
         margin-left: auto;
         margin-right: auto;
       }
       .contact-consult-wrap {
         display: flex;
         justify-content: center;
-      }
-      .contact-header {
-        text-align: center;
-      }
-      .contact-header .contact-badge {
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .contact-header .contact-heading::after {
-        margin-left: auto;
-        margin-right: auto;
       }
       .contact-info-section {
         margin-top: 44px;
@@ -2572,10 +2579,12 @@
       .contact-map-wrap iframe { height: 260px; }
     }
 
-    /* Small mobile ≤380 */
+    /* Small mobile ≤380 — max compact */
     @media (max-width: 380px) {
       .contact-section { padding: 32px 14px 36px 14px; }
       .contact-image-wrap { width: min(180px, 52vw); }
+      .contact-heading { font-size: clamp(1.25rem, 4vw, 1.5rem) !important; margin-bottom: 10px !important; }
+      .contact-consult-text { font-size: 0.75rem; margin-bottom: 10px; }
       .contact-info-card { margin-top: 50px; padding: 50px 1.25rem 1.25rem 1.25rem; }
       .contact-info-icon { width: 100px; height: 100px; }
     }
