@@ -600,7 +600,7 @@
     .stats-bar-container {
       max-width: 920px;
       margin: 0 auto;
-      padding: 0 24px 8px 24px;
+      padding: 8px 24px;
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -613,9 +613,7 @@
       flex: 1;
       text-align: center;
       position: relative;
-    }
-    .stat-item:first-child .stat-number {
-      margin-left: 18px;
+      padding: 4px 0;
     }
     .stat-item:not(:last-child)::after {
       content: '';
@@ -664,7 +662,7 @@
       .stats-bar-container {
         max-width: 680px;
         margin: 0 auto;
-        padding: 2px 20px;
+        padding: 8px 20px;
         gap: 10px;
         border-radius: 20px;
         border: 3px solid rgba(176,182,194,0.45);
@@ -689,7 +687,7 @@
       .stats-bar-container {
         max-width: 860px;
         margin: 0 auto;
-        padding: 2px 30px;
+        padding: 8px 30px;
         gap: 20px;
         border-radius: 24px;
         border: 3px solid rgba(176,182,194,0.45);
@@ -699,11 +697,6 @@
       .stat-number { font-size: clamp(30px, 4vw, 42px); line-height: 1; margin-bottom: 2px; }
       .stat-label { font-size: clamp(10px, 1.3vw, 13px); line-height: 1.2; }
       .stat-item:not(:last-child)::after { height: 50px; right: -10px; }
-    }
-
-    /* 320px-440px — reset margin "8+" */
-    @media (max-width: 440px) {
-      .stat-item:first-child .stat-number { margin-left: 0px; }
     }
 
     /* Mobile stats — full width menyentuh pinggir */
@@ -721,7 +714,7 @@
         max-width: 100%;
         width: 100%;
         margin: 0;
-        padding: 4px 4px;
+        padding: 6px 4px;
         gap: 0;
         border-radius: 0;
         border: none;
@@ -1333,6 +1326,7 @@
       display: flex;
       flex-direction: row;
       align-items: center;
+      flex-wrap: wrap;
       gap: 24px;
       box-sizing: border-box;
     }
@@ -1341,7 +1335,7 @@
     .spk-brand-logo { flex-shrink: 0; }
     .spk-brand-logo img {
       display: block;
-      width: 160px;   /* ratio 1722÷644 ≈ 2.67 → height ~60px */
+      width: 200px;   /* ratio 1722÷644 ≈ 2.67 → height ~75px */
       height: auto;
     }
 
@@ -1356,7 +1350,7 @@
     /* ③ Content group: overline + headline + subheadline */
     .spk-brand-content {
       flex: 1;
-      min-width: 0;
+      min-width: 160px;
       display: flex;
       flex-direction: column;
       gap: 3px;
@@ -1374,18 +1368,19 @@
     .spk-brand-title {
       font-family: 'Poppins', sans-serif;
       font-weight: 700;
-      font-size: clamp(0.82rem, 1.25vw, 0.98rem);
+      font-size: clamp(0.94rem, 1.4vw, 1.12rem);
       color: #3e3945;
       margin: 0;
       line-height: 1.3;
-      white-space: nowrap;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
       overflow: hidden;
-      text-overflow: ellipsis;
     }
     .spk-brand-desc {
       font-family: 'Poppins', sans-serif;
       font-weight: 400;
-      font-size: clamp(0.72rem, 1vw, 0.82rem);
+      font-size: clamp(0.8rem, 1.1vw, 0.92rem);
       color: #3e3945;
       margin: 0;
       line-height: 1.55;
@@ -1395,7 +1390,7 @@
       overflow: hidden;
     }
 
-    /* ④ CTA — push kanan natural karena content flex:1 */
+    /* ④ CTA — push kanan; wraps to next line automatically when touching content */
     .spk-brand-cta {
       flex-shrink: 0;
       display: inline-flex;
@@ -1405,7 +1400,7 @@
       color: #ededed;
       font-family: 'Poppins', sans-serif;
       font-weight: 700;
-      font-size: clamp(0.82rem, 1.1vw, 0.92rem);
+      font-size: clamp(0.88rem, 1.15vw, 0.98rem);
       text-decoration: none;
       padding: 11px 16px 11px 22px;
       border-radius: 100px;
@@ -1463,14 +1458,13 @@
       background-color: #3c55d3;
       color: #ededed;
       font-family: 'Nunito', sans-serif;
-      font-weight: 700;
+      font-weight: 600;
       font-size: 0.88rem;
       text-decoration: none;
       padding: 11px 22px;
       border-radius: 9999px;
       width: 100%;
       justify-content: center;
-      box-sizing: border-box;
       transition: background-color 0.3s ease, transform 0.2s ease;
       -webkit-tap-highlight-color: transparent;
     }
@@ -1500,7 +1494,7 @@
 
       /* Brand banner desktop — gap & padding lebih lega */
       .spk-brand-banner { gap: 28px; padding: 20px 32px; }
-      .spk-brand-logo img { width: 160px; }
+      .spk-brand-logo img { width: 210px; }
     }
 
     /* Mobile product */
@@ -1518,18 +1512,17 @@
       /* Badge seragam dengan About Us & Project di 381–768px */
       .spk-badge-label { font-size: 0.62rem; padding: 4px 11px; margin-bottom: 6px; }
 
-      /* Brand banner mobile — flex-wrap: logo+divider+content | CTA full-width */
+      /* Brand banner mobile — CTA selalu di bawah, rata tengah */
       .spk-brand-banner {
-        flex-wrap: wrap;
         gap: 14px 16px;
         padding: 16px 18px;
       }
-      .spk-brand-logo img { width: 110px; }
+      .spk-brand-logo img { width: 140px; }
       .spk-brand-divider  { align-self: auto; height: 42px; }
       .spk-brand-content  { flex: 1 1 0; min-width: 0; }
-      .spk-brand-title    { font-size: clamp(0.75rem, 3.2vw, 0.88rem); white-space: normal; }
-      .spk-brand-desc     { font-size: clamp(0.68rem, 2.6vw, 0.78rem); }
-      .spk-brand-cta      { flex: 0 0 100%; width: 100%; justify-content: center; font-size: 0.88rem; padding: 12px 20px; }
+      .spk-brand-title    { font-size: clamp(0.86rem, 3.5vw, 1rem); }
+      .spk-brand-desc     { font-size: clamp(0.76rem, 2.8vw, 0.88rem); }
+      .spk-brand-cta      { flex: 0 0 100%; justify-content: center; font-size: 0.9rem; padding: 12px 20px; }
     }
     /* ≤380px — badge & heading seragam */
     @media (max-width: 380px) {
@@ -1784,13 +1777,12 @@
 
       <!-- ③ Content group: overline + headline (max 1 baris) + subheadline (max 3 baris) -->
       <div class="spk-brand-content">
-        <p class="spk-brand-label">Brand Kami</p>
         <p class="spk-brand-title">Diproduksi oleh PT Material Konstruksi Bangunan</p>
         <p class="spk-brand-desc">Seluruh produk diproduksi oleh Bricon dengan standar kualitas internasional dan teknologi inovatif.</p>
       </div>
 
       <!-- ④ CTA — push kanan natural karena content flex:1 -->
-      <a href="https://bricon.co.id" target="_blank" rel="noopener noreferrer" class="spk-brand-cta">
+      <a href="https://bataringanbricon.com/" target="_blank" rel="noopener noreferrer" class="spk-brand-cta">
         Kunjungi Bricon
         <span class="spk-brand-cta-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#ededed" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
