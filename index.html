@@ -1208,7 +1208,7 @@
     .spk-section {
       width: 100%;
       background: #ededed;
-      padding: 48px 12px;
+      padding: 64px 12px;
       font-family: 'Nunito', sans-serif;
       overflow-x: hidden;
     }
@@ -1497,9 +1497,14 @@
       .spk-brand-logo img { width: 210px; }
     }
 
+    /* Tablet product 769-1024px */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .spk-section { padding: 48px 12px; }
+    }
+
     /* Mobile product ≤768px — tabs aktif, card column, ramping di tengah */
     @media (max-width: 768px) {
-      .spk-section { padding: 32px 15px; }
+      .spk-section { padding: 40px 15px 44px 15px; }
       .spk-tabs { display: block; padding: 0; }
       .spk-card.hidden-mobile { display: none; }
       .spk-cards { flex-direction: column; align-items: center; }
@@ -1591,6 +1596,7 @@
 
     /* ≤380px — badge & heading seragam */
     @media (max-width: 380px) {
+      .spk-section { padding: 32px 15px 36px 15px; }
       .spk-badge-label { font-size: 0.58rem; padding: 3px 10px; margin-bottom: 5px; }
       .spk-title { font-size: 1.6rem; }
     }
@@ -2292,16 +2298,16 @@
       z-index: 1;
     }
 
-    /* ── Header — left-aligned on desktop, centered on mobile ── */
+    /* ── Header — centered on all breakpoints ── */
     .contact-header {
-      text-align: left;
+      text-align: center;
       margin-bottom: 24px;
     }
     .contact-header .contact-badge {
-      margin: 0 0 8px 0;
+      margin: 0 auto 8px;
     }
     .contact-header .contact-heading::after {
-      margin: 4px 0 0 0;
+      margin: 4px auto 0;
     }
 
     /* ── Form (Poppins everywhere) ── */
@@ -2591,7 +2597,7 @@
 
     /* Desktop ≥1025 — balanced layout, larger icons (match benefit at ≥1230) */
     @media (min-width: 1025px) {
-      .contact-section { padding: clamp(48px, 4vw, 56px) clamp(24px, 6vw, 80px); }
+      .contact-section { padding: 64px clamp(24px, 6vw, 80px); }
       .contact-container { gap: clamp(1.5rem, 2.2vw, 2rem); }
       .contact-image-wrap { width: 360px; }
       .contact-hero-img { width: 100%; }
