@@ -1,0 +1,3086 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Procon lite | Distributor Bata Ringan &amp; Panel Lantai Berkualitas</title>
+  <meta name="description" content="Procon lite adalah distributor unit bata ringan dan panel lantai unggulan untuk area Jawa Timur di bawah naungan Procon Persada." />
+  <link rel="icon" type="image/webp" href="assets/favicon.webp" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Procon lite | Distributor Bata Ringan &amp; Panel Lantai Berkualitas" />
+  <meta property="og:description" content="Procon lite adalah distributor unit bata ringan dan panel lantai unggulan untuk area Jawa Timur di bawah naungan Procon Persada." />
+  <meta property="og:image" content="https://bata-ringan-bricon.com/assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <style>
+    /* ============================================================
+       SELF-HOSTED FONTS
+       File .woff2 diletakkan di: assets/fonts/
+       Nama file sesuai output gwfh.madebyebi.com (latin subset).
+       Contoh: poppins-v21-latin-100.woff2 → sesuaikan versi jika berbeda.
+    ============================================================ */
+
+    /* Poppins */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 100;
+      font-display: swap;
+      src: url('assets/fonts/poppins-v21-latin-100.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url('assets/fonts/poppins-v21-latin-400.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url('assets/fonts/poppins-v21-latin-500.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url('assets/fonts/poppins-v21-latin-600.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url('assets/fonts/poppins-v21-latin-700.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 900;
+      font-display: swap;
+      src: url('assets/fonts/poppins-v21-latin-900.woff2') format('woff2');
+    }
+
+    /* Nunito */
+    @font-face {
+      font-family: 'Nunito';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url('assets/fonts/nunito-v26-latin-600.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Nunito';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url('assets/fonts/nunito-v26-latin-700.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Nunito';
+      font-style: normal;
+      font-weight: 800;
+      font-display: swap;
+      src: url('assets/fonts/nunito-v26-latin-800.woff2') format('woff2');
+    }
+
+    /* ============================================================
+       CSS VARIABLES — Golden Ratio Typography (mobile & tablet)
+    ============================================================ */
+    :root {
+      --golden-ratio: 2.8;
+      --navbar-offset: 116px; /* desktop default: top 20px + height 80px + gap 16px */
+
+      /* Benefit title — 662px ke atas */
+      --benefit-title-min: 1rem;
+      --benefit-title-mid: 2vw;
+      --benefit-title-max: 1.6rem;
+
+      /* Benefit title — mobile <662px */
+      --benefit-title-mobile-min: 1rem;
+      --benefit-title-mobile-mid: 4vw;
+      --benefit-title-mobile-max: 1.15rem;
+
+      /* Icon size vars untuk konsistensi padding */
+      --benefit-icon-sm: 110px;
+      --benefit-icon-md: clamp(100px, 12vw, 150px);
+      --benefit-icon-lg: 180px;
+
+      /* Tablet headline: clamp(28px, 4vw, 42px) */
+      --headline-tablet-min: 28px;
+      --headline-tablet-mid: 4vw;
+      --headline-tablet-max: 42px;
+
+      /* Mobile headline: clamp(22px, 7vw, 34px) */
+      --headline-mobile-min: 22px;
+      --headline-mobile-mid: 7vw;
+      --headline-mobile-max: 34px;
+    }
+
+    /* ============================================================
+       BASE
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    /* Scoped tap behaviour — only on interactive elements */
+    a, button, [role="button"] {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+
+    html, body {
+      background-color: #ededed !important;
+      margin: 0;
+      padding: 0;
+      overflow-x: clip;
+      width: 100%;
+    }
+
+    /* ============================================================
+       DESKTOP SCALE — tampilan lebih kecil & bernapas di desktop
+    ============================================================ */
+    @media (min-width: 768px) {
+      html { font-size: 93%; }
+    }
+    @media (min-width: 1440px) {
+      html { font-size: 90%; }
+    }
+
+    /* ============================================================
+       NAVBAR
+    ============================================================ */
+    .navbar-wrapper {
+      position: fixed;
+      top: 20px;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 0 40px;
+    }
+    .navbar {
+      max-width: 1300px;
+      margin: 0 auto;
+      background: #e1e1e1;
+      border-radius: 16px;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      height: 50px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-link {
+      font-size: 16px;
+      font-weight: 400;
+      color: #3c3744;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: #3d52d5;
+      font-weight: 700;
+      transform: scale(1.1);
+    }
+    .cta-button {
+      background: #090c9b;
+      color: #ffffff !important;
+      padding: 7px 30px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-block;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+    .cta-button:hover {
+      background: #3d52d5;
+      color: #ffffff !important;
+      transform: scale(1.05);
+    }
+    .menu-toggle {
+      display: none;
+      width: 40px;
+      height: 40px;
+      background: none !important;
+      border: none !important;
+      position: relative;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    .menu-toggle span {
+      width: 28px;
+      height: 3.5px;
+      background: #6e6e6e;
+      border-radius: 4px;
+      position: absolute;
+      transition: all 0.3s ease;
+    }
+    .menu-toggle span:nth-child(1) { transform: translateY(-8px); }
+    .menu-toggle span:nth-child(2) { transform: translateY(0); }
+    .menu-toggle span:nth-child(3) { transform: translateY(8px); }
+    .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translateY(0); }
+    .menu-toggle.active span:nth-child(2) { opacity: 0; }
+    .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translateY(0); }
+    .mobile-dropdown {
+      display: none;
+      background: #d0d3da;
+      border-radius: 16px;
+      margin-top: 8px;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease;
+    }
+    .mobile-dropdown.open { max-height: 450px; }
+    .mobile-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .mobile-link {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 10px 25px 10px 35px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #3c3744;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .menu-icon {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .menu-icon img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      filter: brightness(0) saturate(100%) invert(17%) sepia(8%) saturate(639%) hue-rotate(212deg) brightness(92%) contrast(88%);
+      transition: filter 0.3s ease;
+    }
+    .mobile-link:hover .menu-icon img,
+    .mobile-link.active .menu-icon img {
+      filter: brightness(0) invert(1);
+    }
+    .mobile-link:hover, .mobile-link.active {
+      background: #225dcf;
+      color: #ffffff;
+      font-weight: 600;
+    }
+    .floating-cta {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #090c9b;
+      color: #ffffff !important;
+      padding: 15px 25px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      gap: 8px;
+      align-items: center;
+      z-index: 999;
+      transition: background 0.3s ease;
+      white-space: nowrap;
+    }
+    .floating-cta:hover {
+      background: #3d52d5;
+      color: #ffffff !important;
+    }
+    .floating-cta img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: brightness(0) invert(1);
+    }
+    /* Floating CTA: position dikontrol JS — berhenti di divider atas footer */
+
+    /* Mobile Mobile & Tablet — burger menu (320px - 1023px) Tablet — burger menu (320px - 1024px) */
+    @media (max-width: 1024px) {
+      :root { --navbar-offset: 88px; } /* top 15px + height ~61px + gap 12px */
+      .navbar-wrapper { top: 15px; padding: 0 15px; }
+      .navbar { padding: 10px 16px; }
+      .nav-menu, .cta-button { display: none !important; }
+      .menu-toggle { display: flex !important; }
+      .mobile-dropdown { display: block; }
+      .floating-cta { display: flex; bottom: 20px; right: 20px; padding: 12px 20px; font-size: 13px; }
+    }
+
+    /* Rentang 1024px-1229px */
+    @media (min-width: 1025px) and (max-width: 1229px) {
+      :root { --navbar-offset: 96px; } /* top 20px + height ~64px + gap 12px */
+    }
+
+    /* Desktop (≥1024px) */
+    @media (min-width: 1025px) {
+      .navbar-wrapper { top: 20px; padding: 0 40px; }
+      .navbar { padding: 15px 30px; }
+      .menu-toggle { display: none !important; }
+      .mobile-dropdown { display: none !important; }
+      .nav-menu { display: flex !important; }
+      .cta-button { display: inline-block !important; }
+      .floating-cta { display: none !important; }
+    }
+
+    /* 677px-780px — kurangi padding bawah card */
+    @media (min-width: 677px) and (max-width: 780px) {
+      .benefit-card { padding-bottom: 1.5rem !important; }
+    }
+
+    /* Desktop penuh ≥1230px */
+    @media (min-width: 1230px) {
+      :root { --navbar-offset: 116px; } /* top 20px + height 80px + gap 16px */
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero-section {
+      width: 100%;
+      padding: var(--navbar-offset) 20px 40px 20px;
+      background: #ededed;
+      box-sizing: border-box;
+    }
+    .hero-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+    .hero-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 65% 35%;
+      gap: 80px;
+      align-items: center;
+      box-sizing: border-box;
+      background: radial-gradient(circle at top left, #ededed 0%, #bccef1 50%, #6798f9 100%);
+      border-radius: 35px;
+      min-height: 500px;
+      padding: 70px 60px 60px 70px;
+      position: relative;
+      overflow: visible;
+    }
+    .hero-text {
+      position: relative;
+      z-index: 5;
+      padding-left: 40px;
+      padding-top: 0;
+    }
+    .hero-headline {
+      font-family: 'Poppins', sans-serif;
+      font-size: 48px;
+      font-weight: 900;
+      color: #3c3744;
+      text-align: left;
+      line-height: 1.1;
+      margin-bottom: 22px;
+      letter-spacing: -0.5px;
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-headline .headline-line { display: block; }
+    .hero-headline .highlight { color: #225dcf; }
+    .hero-subheadline {
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: #3c3744;
+      text-align: left;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
+    .hero-subheadline .highlight { color: #225dcf; font-weight: 600; }
+    .hero-cta-button {
+      background-color: #090c9b;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(9,12,155,0.3);
+      transition: all 0.3s ease;
+    }
+    .hero-cta-button:hover {
+      background-color: #3d52d5;
+      color: #ffffff;
+      transform: scale(1.05);
+    }
+    .hero-cta-button img { width: 24px; height: 24px; object-fit: contain; filter: brightness(0) invert(1); }
+    /* Desktop hero elements — hanya tampil ≥1230px */
+    @media (max-width: 1229px) {
+      .hero-image-desktop, .hero-hexagon-large, .hero-hexagon-small { display: none !important; }
+    }
+    .hero-image-desktop {
+      position: absolute;
+      z-index: 3;
+      right: 120px;
+      bottom: 58px;
+      width: 400px;
+      height: auto;
+    }
+    .hero-image-desktop img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15));
+    }
+    .hero-hexagon-large {
+      position: absolute;
+      z-index: 2;
+      right: 270px;
+      bottom: -170px;
+      width: 500px;
+      height: auto;
+    }
+    .hero-hexagon-large img { width: 100%; height: auto; display: block; object-fit: contain; }
+    .hero-hexagon-small {
+      position: absolute;
+      z-index: 4;
+      right: 170px;
+      top: 60px;
+      width: 120px;
+      height: auto;
+    }
+    .hero-hexagon-small img { width: 100%; height: auto; display: block; object-fit: contain; }
+    .hero-image-mobile {
+      display: none;
+      position: relative;
+      width: 115%;
+      margin-top: 10px;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-image-mobile img {
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      margin: 0 auto;
+      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.15));
+    }
+
+    /* Mobile & Tablet (320px-1229px) — layout tengah */
+    @media (max-width: 1229px) {
+      .hero-section { padding: var(--navbar-offset) 15px 20px 15px; }
+      .hero-container {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 30px 20px 20px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        overflow: hidden;
+        min-height: unset;
+      }
+      .hero-text { padding-left: 0; padding-top: 10px; text-align: center; display: flex; flex-direction: column; align-items: center; width: 100%; }
+      .hero-headline { text-align: center; align-items: center; }
+      .hero-subheadline { text-align: center; line-height: 1.6; }
+      .hero-image-desktop, .hero-hexagon-large, .hero-hexagon-small { display: none; }
+      .hero-image-mobile { display: flex; width: 80%; margin-top: 16px; }
+    }
+
+    /* Tablet (769px-1229px) — font lebih besar */
+    @media (min-width: 769px) and (max-width: 1229px) {
+      .hero-section {
+        --h1: clamp(var(--headline-tablet-min), var(--headline-tablet-mid), var(--headline-tablet-max));
+      }
+      .hero-headline { font-size: var(--h1); margin-bottom: 14px; }
+      .hero-subheadline { font-size: calc(var(--h1) / var(--golden-ratio)); margin-bottom: 18px; }
+      .hero-cta-button { font-size: clamp(12px, 2vw, 15px); padding: 9px 18px; }
+      .hero-image-mobile { width: 65%; margin-top: auto; }
+      .hero-container { padding-bottom: 60px; display: flex; flex-direction: column; justify-content: space-between; }
+    }
+
+    /* Mobile (320px-768px) */
+    @media (max-width: 768px) {
+      .hero-section {
+        --h1: clamp(var(--headline-mobile-min), var(--headline-mobile-mid), var(--headline-mobile-max));
+      }
+      .hero-headline { font-size: var(--h1); margin-bottom: 10px; }
+      .hero-subheadline { font-size: calc(var(--h1) / var(--golden-ratio)); margin-bottom: 14px; }
+      .hero-cta-button { font-size: clamp(11px, 3vw, 13px); padding: 7px 14px; }
+      .hero-image-mobile { width: 90%; margin-top: 14px; }
+    }
+
+    /* 320px-500px — konten sedikit kebawah */
+    @media (max-width: 500px) {
+      .hero-container { padding-top: 48px; }
+    }
+
+    /* Mobile kecil 320px-519px — perbesar gambar */
+    @media (max-width: 519px) {
+      .hero-image-mobile { width: 108%; }
+    }
+
+    /* 320px-500px — CTA dikecilkan */
+    @media (max-width: 500px) {
+      .hero-cta-button { font-size: 10px; padding: 6px 12px; }
+      .hero-cta-button img { width: 18px; height: 18px; }
+    }
+
+    /* 320px-500px — CTA border-radius lebih sedang */
+    @media (max-width: 500px) {
+      .hero-cta-button { border-radius: 8px; }
+    }
+
+    /* 320px-430px — gambar hero */
+    @media (max-width: 430px) {
+      .hero-image-mobile { width: 112%; }
+    }
+
+    /* ============================================================
+       STATS BAR
+    ============================================================ */
+    .stats-bar-section {
+      width: 100%;
+      margin-top: -104px;
+      position: relative;
+      z-index: 10;
+      background: transparent;
+      overflow: visible;
+    }
+    /* Stats desktop hanya ≥1230px */
+    @media (max-width: 1229px) {
+      .stats-bar-wrapper { padding: 0 20px; }
+    }
+    .stats-bar-wrapper {
+      max-width: 1366px;
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+    .stats-bar-container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0px 24px 2px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 20px;
+      background-color: #eff6ff;
+      border-radius: 22px;
+      border: 3px solid rgba(176,182,194,0.45);
+    }
+    .stat-item {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      padding: 0;
+      transform: translateY(-10px);
+    }
+    .stat-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0.5px;
+      height: 46px;
+      background-color: #3c3744;
+      opacity: 0.4;
+    }
+    .stat-number {
+      font-size: 44px;
+      font-weight: 500;
+      color: #225dcf;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+    .stat-number .plus { font-weight: 100; }
+    .stat-label {
+      font-size: 12px;
+      font-weight: 400;
+      color: #3c3744;
+      line-height: 1.1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    /* Tablet stats — floating seperti desktop */
+    /* Tablet stats 768px-1024px */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .stats-bar-section {
+        margin-top: -80px;
+        position: relative;
+        z-index: 10;
+        background: transparent;
+        overflow: visible;
+      }
+      .stats-bar-wrapper { padding: 0 20px; }
+      .stats-bar-container {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 0px 20px 2px;
+        gap: 10px;
+        border-radius: 12px;
+        border: 3px solid rgba(176,182,194,0.45);
+        background-color: #eff6ff;
+      }
+      .stat-item { flex: 1; padding: 0; }
+      .stat-number { font-size: clamp(24px, 4vw, 36px); line-height: 1; margin-bottom: 2px; }
+      .stat-label { font-size: clamp(9px, 1.4vw, 12px); line-height: 1.2; }
+      .stat-item:not(:last-child)::after { height: 40px; right: -5px; }
+    }
+
+    /* Tablet besar stats 1024px-1229px — lebih besar */
+    @media (min-width: 1025px) and (max-width: 1229px) {
+      .stats-bar-section {
+        margin-top: -90px;
+        position: relative;
+        z-index: 10;
+        background: transparent;
+        overflow: visible;
+      }
+      .stats-bar-wrapper { padding: 0 40px; }
+      .stats-bar-container {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0px 30px 2px;
+        gap: 20px;
+        border-radius: 14px;
+        border: 3px solid rgba(176,182,194,0.45);
+        background-color: #eff6ff;
+      }
+      .stat-item { flex: 1; padding: 0; }
+      .stat-number { font-size: clamp(30px, 4vw, 42px); line-height: 1; margin-bottom: 2px; }
+      .stat-label { font-size: clamp(10px, 1.3vw, 13px); line-height: 1.2; }
+      .stat-item:not(:last-child)::after { height: 50px; right: -10px; }
+    }
+
+    /* Mobile stats — full width menyentuh pinggir */
+    @media (max-width: 768px) {
+      .stats-bar-section {
+        margin-top: -55px;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+      }
+      .stats-bar-wrapper { padding: 0; max-width: 100%; width: 100%; margin: 0; }
+      .stats-bar-container {
+        max-width: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0px 4px 2px;
+        gap: 0;
+        border-radius: 0;
+        border: none;
+        border-top: 2px solid rgba(176,182,194,0.45);
+        border-bottom: 2px solid rgba(176,182,194,0.45);
+      }
+      .stat-item { flex: 1; padding: 0 4px; }
+      .stat-number { font-size: clamp(26px, 8vw, 38px); line-height: 1; margin-bottom: 2px; }
+      .stat-label { font-size: clamp(8px, 2.2vw, 11px); line-height: 1.2; }
+      .stat-item:not(:last-child)::after { height: 36px; right: 0; }
+    }
+
+    /* ── Divider antara home (stats) dan benefit — spacing only, no line ── */
+    .home-benefit-divider {
+      max-width: 920px;
+      margin: 28px auto 0;
+      height: 1px;
+      background: transparent;
+    }
+    @media (max-width: 1229px) {
+      .home-benefit-divider { max-width: calc(100% - 40px); margin: 24px auto 0; }
+    }
+    @media (max-width: 768px) {
+      .home-benefit-divider { max-width: calc(100% - 30px); margin: 20px auto 0; }
+    }
+
+    /* ============================================================
+       BENEFIT
+    ============================================================ */
+    .benefit-section {
+      padding: 36px 2rem 3rem 2rem;
+      width: 100%;
+      margin-top: -1rem;
+    }
+    .benefit-inner { max-width: 1200px; margin: 0 auto; }
+
+    /* ── Benefit header: badge + heading (seragam dengan About/Product/Contact) ── */
+    .benefit-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .benefit-badge {
+      display: block;
+      width: fit-content;
+      margin: 0 auto 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #090c9b;
+      background: rgba(9, 12, 155, 0.08);
+      padding: 5px 14px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .benefit-heading {
+      display: inline-block;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: clamp(2rem, 4.2vw, 3rem);
+      color: #3c3744;
+      line-height: 1.2;
+      margin: 0;
+    }
+    .benefit-heading::after {
+      content: '';
+      display: block;
+      width: 60%;
+      height: 4px;
+      background: #090c9b;
+      border-radius: 2px;
+      margin: 4px auto 0;
+    }
+    .benefit-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .benefit-card {
+      background-color: #d0d3da;
+      border-radius: 1.5rem;
+      padding: 3.5rem 1.5rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, background-color 0.4s ease;
+      position: relative;
+      margin-top: 3.5rem;
+      flex: 1;
+      justify-content: flex-start;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .benefit-card:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 24px 48px rgba(34, 93, 207, 0.2), 0 8px 16px rgba(0,0,0,0.06);
+        background-color: #c8cbd2;
+      }
+    }
+    @media (hover: none) and (pointer: coarse) {
+      .benefit-card:active {
+        transform: scale(0.97);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        background-color: #c4c7ce;
+        transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
+      }
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .benefit-card:active {
+        transform: none;
+        box-shadow: none;
+        background-color: #d0d3da;
+      }
+    }
+
+
+    .benefit-icon-wrapper {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+    .benefit-icon {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .benefit-card:hover .benefit-icon { transform: scale(1.1); }
+    }
+    .benefit-title {
+      font-size: clamp(0.9rem, 4vw, 1.3rem);
+      font-weight: 700;
+      margin: 0 0 0.5rem 0;
+      color: #3c3744;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      padding: 0 0.5rem;
+    }
+    @media (max-width: 676px) {
+      .benefit-title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+      }
+    }
+    .benefit-desc {
+      font-size: clamp(0.6rem, 2.5vw, 0.75rem);
+      margin: 0;
+      color: #3c3744;
+      line-height: 1.45;
+      font-weight: 500;
+      padding: 0 0.5rem;
+    }
+
+    /* Desktop benefit typography */
+    @media (min-width: 677px) {
+      .benefit-desc { font-weight: 500; }
+    }
+
+    .benefit-br { display: none; }
+    @media (min-width: 677px) {
+      .benefit-br { display: block; }
+    }
+    .mobile-title { display: block; }
+    .desktop-title { display: none; }
+    .mobile-desc { display: block; }
+    .desktop-desc { display: none; }
+
+    /* Mobile — di bawah 677px: kolom */
+    @media (max-width: 676px) {
+      .benefit-section { padding: 36px 15px 2rem 15px; margin-top: 1rem; }
+      .benefit-badge { font-size: 0.62rem; padding: 4px 11px; margin-bottom: 10px; }
+      .benefit-heading { font-size: clamp(1.6rem, 7vw, 2rem); }
+      .benefit-grid { flex-direction: column; gap: 1rem; }
+      .benefit-card { margin-top: 55px; padding: 55px 1.5rem 1.5rem 1.5rem; }
+      .benefit-icon-wrapper { top: 0; transform: translate(-50%, -50%); }
+      .benefit-icon { width: 110px; height: 110px; }
+      .mobile-title { display: block; }
+      .desktop-title { display: none; }
+      .mobile-desc { display: block; }
+      .desktop-desc { display: none; }
+    }
+    @media (max-width: 380px) {
+      .benefit-badge { font-size: 0.58rem; padding: 3px 10px; margin-bottom: 8px; }
+      .benefit-heading { font-size: 1.6rem; }
+    }
+
+    /* 677px ke atas: baris */
+    @media (min-width: 677px) {
+      .benefit-section {
+        padding: 48px 15px 2rem 15px;
+        margin-top: 3rem;
+        --bt: clamp(var(--benefit-title-min), var(--benefit-title-mid), var(--benefit-title-max));
+        --bd: calc(clamp(var(--benefit-title-min), var(--benefit-title-mid), var(--benefit-title-max)) / 2);
+      }
+      .benefit-grid { flex-direction: row; gap: 1rem; }
+      .benefit-card { padding: clamp(50px, 7vw, 80px) 1rem 2.5rem 1rem; margin-top: clamp(50px, 7vw, 80px); }
+      .benefit-icon-wrapper { top: 0; transform: translate(-50%, -50%); }
+      .benefit-icon { width: clamp(100px, 12vw, 150px); height: clamp(100px, 12vw, 150px); }
+      .benefit-title { font-size: var(--bt); margin: 0 0 0.8rem 0; padding: 0 0.5rem; }
+      .benefit-desc { font-size: var(--bd); line-height: 1.5; padding: 0 0.5rem; }
+      .mobile-title { display: none; }
+      .desktop-title { display: block; }
+      .mobile-desc { display: none; }
+      .desktop-desc { display: block; }
+    }
+
+    /* 677px-780px — kurangi padding bawah card */
+    @media (min-width: 677px) and (max-width: 780px) {
+      .benefit-card { padding-bottom: 1.5rem; }
+    }
+
+    /* Desktop penuh ≥1230px */
+    @media (min-width: 1230px) {
+      .benefit-section { margin-top: 3.5rem !important; padding: 48px 2rem 3rem 2rem; --bt: 1.6rem; --bd: calc(1.6rem / 2); }
+      .benefit-grid { flex-direction: row; gap: 2rem; }
+      .benefit-card { padding: 90px 2rem 3rem 2rem; margin-top: 90px; }
+      .benefit-icon-wrapper { top: 0; transform: translate(-50%, -50%); }
+      .benefit-icon { width: 180px; height: 180px; }
+      .benefit-title { font-size: var(--bt); margin: 0 0 1.2rem 0; padding: 0 1rem; }
+      .benefit-desc { font-size: var(--bd); line-height: 1.6; padding: 0 1rem; }
+    }
+    @media (min-width: 1025px) {
+      .benefit-badge { font-size: 0.8rem; padding: 6px 16px; }
+      .benefit-heading { font-size: clamp(2.6rem, 4.8vw, 3.6rem); }
+    }
+    @media (min-width: 1280px) {
+      .benefit-section { --bt: 1.8rem; --bd: calc(1.8rem / 2); }
+      .benefit-title { font-size: var(--bt); }
+      .benefit-desc { font-size: var(--bd); }
+    }
+
+    /* ============================================================
+       ABOUT US
+    ============================================================ */
+
+    /* ——— SECTION ——— */
+    /* FIX: Full-bleed section agar lepas dari Elementor wrapper yang
+       overflow:hidden — sehingga deco hexagon kanan-kiri tidak ter-clip
+       di tengah-tengah, melainkan hanya di-clip oleh viewport.
+       Posisi container & deco TIDAK BERUBAH. */
+    .about-section {
+      position: relative;
+      background-color: #ededed;
+      padding: 64px 40px;
+      overflow: clip;                          /* clip lokal, tidak buat scroll context */
+      font-family: 'Poppins', sans-serif;
+      width: 100vw;                            /* full viewport width */
+      margin-left: calc(50% - 50vw);           /* break out dari parent constrained */
+      margin-right: calc(50% - 50vw);
+    }
+
+    /* ——— CONTAINER ——— */
+    .about-container {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 32px;
+    }
+
+    /* ——— LEFT CONTENT ——— */
+    .about-content { flex: 1; min-width: 0; position: relative; z-index: 1; }
+
+    /* ——— BADGE ——— */
+    .about-badge {
+      display: block;
+      width: fit-content;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #090c9b;
+      background: rgba(9, 12, 155, 0.08);
+      padding: 5px 14px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .about-heading {
+      display: inline-block;
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2rem, 4.2vw, 3rem);
+      font-weight: 600;
+      color: #3c3744;
+      margin: 0 0 20px 0;
+      line-height: 1.2;
+      position: relative;
+    }
+
+    .about-heading::after {
+      content: '';
+      display: block;
+      width: 60%;
+      height: 4px;
+      background-color: #090c9b;
+      border-radius: 2px;
+      margin-top: 4px;
+    }
+
+    .about-desc {
+      font-size: clamp(0.875rem, 1.4vw, 1rem);
+      color: #4a4a5a;
+      line-height: 1.75;
+      margin: 0 0 24px 0;
+      max-width: 420px;
+    }
+
+    .about-brand-link { text-decoration: none; }
+    .brand-procon { color: #dc5f02; font-weight: 600; }
+    .brand-persada { color: #026602; font-weight: 600; }
+
+    .about-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #dc5f02;
+      color: #ffffff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 12px 26px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      transition: background-color 0.4s ease;
+    }
+    .about-cta-btn:hover {
+      background-color: #026602;
+      color: #ffffff !important;
+    }
+
+    .about-cta-icon {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      flex-shrink: 0;
+    }
+
+    /* ——— SUB IMAGES ——— */
+    .about-sub-images {
+      display: flex;
+      flex-direction: row;
+      gap: 14px;
+    }
+
+    .about-sub-img-wrap {
+      flex: 1;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      max-width: 148px;
+    }
+
+    .about-sub-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ——— RIGHT: Hero Image ——— */
+    .about-image-wrap {
+      flex-shrink: 0;
+      width: clamp(200px, 40vw, 280px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-hero-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Tablet 769px-1024px */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .about-section { padding: 48px 32px; }
+      .about-container { gap: 32px; }
+      .about-image-wrap { width: clamp(300px, 35vw, 360px); }
+      .about-desc { max-width: 100%; }
+      .about-sub-img-wrap { max-width: 116px; }
+      .about-sub-images { gap: 14px; }
+    }
+
+    /* Mobile ≤768px */
+    @media (max-width: 768px) {
+      .about-section { padding: 40px 20px 44px 20px; }
+      .about-container { flex-direction: column; gap: 24px; align-items: center; }
+      .about-image-wrap { order: 1; width: min(210px, 58vw); }
+      .about-content { order: 2; text-align: center; width: 100%; }
+      .about-badge { margin-left: auto; margin-right: auto; font-size: 0.62rem; padding: 4px 11px; margin-bottom: 6px; letter-spacing: 0.06em; }
+      .about-heading { margin-bottom: 16px; }
+      .about-heading::after { margin-left: auto; margin-right: auto; }
+      .about-desc { max-width: 280px; margin-left: auto; margin-right: auto; font-size: 0.85rem; }
+      .about-cta-btn { margin-bottom: 24px; font-size: 0.78rem; padding: 10px 18px; white-space: nowrap; }
+      .about-sub-images { justify-content: center; gap: 12px; }
+      .about-sub-img-wrap {
+        max-width: 98px;
+        min-width: 60px;
+      }
+    }
+
+    /* Small mobile ≤380px */
+    @media (max-width: 380px) {
+      .about-section { padding: 32px 14px 36px 14px; }
+      .about-badge { font-size: 0.58rem; padding: 3px 10px; margin-bottom: 5px; }
+      .about-heading { font-size: 1.6rem; }
+      .about-image-wrap { width: min(180px, 52vw); }
+      .about-desc { max-width: 240px; }
+      .about-cta-btn { font-size: 0.72rem; padding: 9px 14px; }
+      .about-sub-img-wrap {
+        max-width: 86px;
+        min-width: 52px;
+      }
+    }
+
+    /* Desktop ≥1025px — BALANCED LAYOUT */
+    @media (min-width: 1025px) {
+      .about-container {
+        max-width: 960px;
+        gap: clamp(1.5rem, 2.2vw, 2rem);
+      }
+      .about-image-wrap { width: 360px; }
+      .about-hero-img { width: 100%; }
+      .about-heading { font-size: clamp(2.6rem, 4.8vw, 3.6rem); }
+      .about-badge { font-size: 0.8rem; padding: 6px 16px; }
+      .about-desc { font-size: clamp(0.95rem, 1.3vw, 1.05rem); max-width: 440px; }
+      .about-cta-btn { font-size: 0.95rem; padding: 13px 28px; }
+      .about-sub-img-wrap { max-width: 128px; }
+      .about-sub-images { gap: 14px; }
+    }
+
+    /* ——— ABOUT DECO — 381-768px only ——— */
+    .about-deco {
+      display: none;
+      position: absolute;
+      top: 50%;
+      width: 400px;
+      height: 400px;
+      pointer-events: none;
+    }
+    .about-deco img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+      opacity: 1;
+    }
+    .about-deco-left {
+      left: calc(50% - 584px);
+      transform: translateY(-50%);
+      animation: hexFloatLeft 6s ease-in-out infinite;
+      -webkit-mask-image: linear-gradient(to right, transparent 42%, black 68%);
+              mask-image: linear-gradient(to right, transparent 42%, black 68%);
+    }
+    .about-deco-right {
+      left: calc(50% + 184px);
+      transform: translateY(-50%);
+      animation: hexFloatRight 7s ease-in-out infinite;
+      -webkit-mask-image: linear-gradient(to left, transparent 42%, black 68%);
+              mask-image: linear-gradient(to left, transparent 42%, black 68%);
+    }
+    @keyframes hexFloatLeft {
+      0%, 100% { transform: translateY(-50%); }
+      50%       { transform: translateY(calc(-50% - 10px)); }
+    }
+    @keyframes hexFloatRight {
+      0%, 100% { transform: translateY(-50%); }
+      50%       { transform: translateY(calc(-50% + 8px)); }
+    }
+    @media (min-width: 381px) and (max-width: 768px) {
+      .about-deco { display: block; }
+    }
+
+    /* ============================================================
+       PRODUCT (Spesifikasi)
+    ============================================================ */
+    .spk-section {
+      width: 100%;
+      background: #ededed;
+      padding: 64px 12px;
+      font-family: 'Nunito', sans-serif;
+      overflow-x: hidden;
+    }
+    .spk-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .spk-badge-label {
+      display: block;
+      width: fit-content;
+      margin: 0 auto 8px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #090c9b;
+      background: rgba(9, 12, 155, 0.08);
+      padding: 5px 14px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .spk-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: clamp(2rem, 4.2vw, 3rem);
+      text-align: center;
+      color: #3c3744;
+      margin: 0;
+      line-height: 1.2;
+      display: inline-block;
+    }
+    .spk-title::after {
+      content: '';
+      display: block;
+      width: 60%;
+      height: 4px;
+      background-color: #090c9b;
+      border-radius: 2px;
+      margin: 4px auto 0;
+    }
+    .spk-tabs {
+      max-width: 72rem;
+      margin: 0 auto 24px;
+      display: block;
+      padding: 0 12px;
+      box-sizing: border-box;
+    }
+    .spk-tabs-inner {
+      position: relative;
+      display: flex;
+      border-radius: 9999px;
+      background: #d0d3da;
+      padding: 4px;
+      width: 100%;
+    }
+    .spk-tabs-slider {
+      position: absolute;
+      top: 4px;
+      height: calc(100% - 8px);
+      width: calc(50% - 4px);
+      border-radius: 9999px;
+      background: linear-gradient(to right, #225dcf, #6a9bfb);
+      box-shadow: 0 4px 12px rgba(34,93,207,0.3);
+      transition: left .4s cubic-bezier(.4,0,.2,1);
+      left: 4px;
+    }
+    .spk-tabs-slider.panel-active { left: 50%; }
+    .spk-tab-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 9999px;
+      position: relative;
+      z-index: 10;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      outline: none;
+    }
+    .spk-tab-btn span {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(0.75rem, 3.5vw, 1rem);
+      font-weight: 800;
+      color: #3c3744;
+      transition: color .4s cubic-bezier(.4,0,.2,1);
+    }
+    .spk-tab-btn .icon {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+    }
+    .spk-tab-btn .icon img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      transition: opacity .4s cubic-bezier(.4,0,.2,1);
+    }
+    .spk-tab-btn .icon .icon-active { opacity: 0; filter: brightness(0) invert(1); }
+    .spk-tab-btn .icon .icon-inactive { opacity: 1; filter: brightness(0) saturate(100%) invert(17%) sepia(8%) saturate(639%) hue-rotate(212deg) brightness(92%) contrast(88%); }
+    .spk-tab-btn.active .icon .icon-active { opacity: 1; }
+    .spk-tab-btn.active .icon .icon-inactive { opacity: 0; }
+    .spk-tab-btn.active span { color: #ededed; }
+    .spk-tab-btn:not(.active) span { color: #3c3744; }
+    .spk-tab-btn:hover, .spk-tab-btn:focus, .spk-tab-btn:active { background: transparent; outline: none; }
+
+    /* ── Brand Banner Bricon — single unified horizontal row ── */
+    .spk-brand-banner {
+      max-width: calc(2 * 28rem + 32px);
+      margin: 0 auto 28px;
+      padding: 18px 24px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      box-sizing: border-box;
+    }
+
+    /* ① Logo */
+    .spk-brand-logo { flex-shrink: 0; }
+    .spk-brand-logo img {
+      display: block;
+      width: 200px;   /* ratio 1722÷644 ≈ 2.67 → height ~75px */
+      height: auto;
+    }
+
+    /* ② Divider — tinggi otomatis mengikuti row */
+    .spk-brand-divider {
+      flex-shrink: 0;
+      width: 1px;
+      align-self: stretch;
+      background: rgba(60, 55, 68, 0.22);
+    }
+
+    /* ③ Content group: overline + headline + subheadline */
+    .spk-brand-content {
+      flex: 1;
+      min-width: 160px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .spk-brand-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: #090c9b;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 0;
+      line-height: 1;
+    }
+    .spk-brand-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: clamp(0.94rem, 1.4vw, 1.12rem);
+      color: #3e3945;
+      margin: 0;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .spk-brand-desc {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.8rem, 1.1vw, 0.92rem);
+      color: #3e3945;
+      margin: 0;
+      line-height: 1.55;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ④ CTA — push kanan; wraps to next line automatically when touching content */
+    .spk-brand-cta {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #cf191e;
+      color: #ededed;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: clamp(0.88rem, 1.15vw, 0.98rem);
+      text-decoration: none;
+      padding: 11px 16px 11px 22px;
+      border-radius: 100px;
+      white-space: nowrap;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .spk-brand-cta:hover  { background: #b01318; transform: translateY(-1px); }
+    .spk-brand-cta:active { transform: translateY(0); }
+    .spk-brand-cta-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 100%;
+      flex-shrink: 0;
+    }
+    .spk-brand-cta-icon svg { width: 14px; height: 14px; }
+
+    .spk-cards {
+      max-width: 72rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .spk-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      transition: all 300ms;
+      margin-bottom: 24px;
+    }
+    .spk-card-img { width: 100%; height: 192px; object-fit: cover; border-radius: 24px !important; margin-bottom: 16px; display: block; }
+    .spk-card-title { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.5rem; color: #3c3744; margin-bottom: 8px; }
+    .spk-card-desc { font-family: 'Poppins', sans-serif; font-weight: 500; font-size: .75rem; color: #3c3744; margin-bottom: 16px; line-height: 1.625; }
+    .spk-specs { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .spk-spec { background: #ededed; border-radius: 10px; padding: 12px 14px; flex: 1; text-align: center; }
+    .spk-spec p { font-family: 'Poppins', sans-serif; color: #3c3744; margin: 0; line-height: 1.3; }
+    .spk-spec-label { display: block; font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: #6a6a7a; margin-bottom: 4px; }
+    .spk-spec-value { display: block; font-size: 1.15rem; font-weight: 700; color: #3c3744; }
+    .spk-available { font-family: 'Nunito', sans-serif; font-size: .75rem; color: #3c3744; margin-bottom: 8px; }
+    .spk-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+    .spk-badge { font-family: 'Nunito', sans-serif; background: #3d52d5; color: #ededed; font-weight: 800; font-size: .75rem; padding: 6px 12px; border-radius: 9999px; }
+    .spk-badge-coming { font-family: 'Nunito', sans-serif; background: #ededed; color: #3c3744; font-weight: 800; font-size: .75rem; padding: 6px 12px; border-radius: 9999px; display: flex; align-items: center; gap: 6px; }
+    .spk-coming-tag { font-family: 'Nunito', sans-serif; background: #3d52d5; color: #ededed; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 9999px; }
+    .spk-card.hidden-mobile { display: none; }
+
+    /* ── Product Card WA CTA ── */
+    .spk-wa-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background-color: #3c55d3;
+      color: #ededed;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      text-decoration: none;
+      padding: 11px 22px;
+      border-radius: 9999px;
+      width: 100%;
+      justify-content: center;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .spk-wa-cta:hover { background-color: #2a42b8; transform: scale(1.02); }
+    .spk-wa-cta:active { transform: scale(0.98); }
+    .spk-wa-cta img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: brightness(0) saturate(100%) invert(95%) sepia(3%) saturate(100%) hue-rotate(0deg) brightness(104%) contrast(93%);
+    }
+
+    /* Tablet & Desktop product */
+    @media (min-width: 769px) {
+      .spk-tabs { display: none; }
+      .spk-cards { flex-direction: row; gap: 32px; justify-content: center; }
+      .spk-card { flex: 1; max-width: 28rem; margin-bottom: 0; }
+      .spk-card.hidden-mobile { display: block; }
+      .spk-card-title { font-size: 1.875rem; }
+      .spk-card-desc { font-size: .875rem; }
+      .spk-specs { flex-direction: row; justify-content: center; }
+      /* Spec compact: label kecil uppercase, value bold + nowrap agar 1 baris */
+      .spk-spec { padding: 10px 6px; }
+      .spk-spec-label { font-size: 0.6rem; font-weight: 500; color: #6a6a7a; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+      .spk-spec-value { font-size: clamp(0.66rem, 1.15vw, 0.88rem); font-weight: 700; color: #3c3744; white-space: nowrap; }
+
+      /* Brand banner desktop — gap & padding lebih lega */
+      .spk-brand-banner { gap: 28px; padding: 20px 32px; }
+      .spk-brand-logo img { width: 210px; }
+    }
+
+    /* Tablet product 769-1024px */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .spk-section { padding: 48px 12px; }
+    }
+
+    /* Mobile product ≤768px — tabs aktif, card column, ramping di tengah */
+    @media (max-width: 768px) {
+      .spk-section { padding: 40px 15px 44px 15px; }
+      .spk-tabs { display: block; padding: 0; }
+      .spk-card.hidden-mobile { display: none; }
+      .spk-cards { flex-direction: column; align-items: center; }
+      .spk-card { margin-bottom: 16px; width: 100%; max-width: 420px; }
+      .spk-specs { flex-direction: column; gap: 8px; }
+      /* Rata kiri: label kecil di atas, value besar di bawah */
+      .spk-spec { text-align: left; }
+      .spk-spec p { display: block; }
+      .spk-spec-label { display: block; margin-bottom: 4px; }
+      .spk-spec-value { display: block; }
+      /* Badge seragam dengan About Us & Project di 381–768px */
+      .spk-badge-label { font-size: 0.62rem; padding: 4px 11px; margin-bottom: 6px; }
+
+      /* Brand banner mobile — CTA selalu di bawah, rata tengah */
+      .spk-brand-banner {
+        gap: 14px 16px;
+        padding: 16px 18px;
+      }
+      .spk-brand-logo img { width: 170px; }
+      .spk-brand-divider  { align-self: auto; height: 42px; }
+      .spk-brand-content  { flex: 1 1 0; min-width: 0; }
+      .spk-brand-title    { font-size: clamp(0.86rem, 3.5vw, 1rem); }
+      .spk-brand-desc     { font-size: clamp(0.76rem, 2.8vw, 0.88rem); }
+      .spk-brand-cta      { font-size: 0.9rem; padding: 11px 18px 11px 20px; }
+    }
+    /* Brand banner — CTA pindah ke bawah rata tengah di ≤776px */
+    @media (max-width: 776px) {
+      .spk-brand-banner {
+        display: grid;
+        grid-template-columns: auto auto 1fr;
+        grid-template-rows: auto auto;
+        gap: 12px 16px;
+        align-items: center;
+      }
+      /* Baris 1: logo | divider | content */
+      .spk-brand-logo    { grid-column: 1; grid-row: 1; }
+      .spk-brand-divider { grid-column: 2; grid-row: 1; }
+      .spk-brand-content { grid-column: 3; grid-row: 1; }
+      /* Baris 2: CTA span full, rata tengah, shrink-wrap — dikecilkan serentak */
+      .spk-brand-cta {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        width: fit-content;
+        justify-self: center;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.82rem;
+        padding: 10px 16px 10px 18px;
+        gap: 8px;
+      }
+      .spk-brand-cta-icon {
+        width: 22px;
+        height: 22px;
+      }
+      .spk-brand-cta-icon svg { width: 12px; height: 12px; }
+    }
+
+    /* Brand banner — teks mengecil menyesuaikan layar ≤674px, tanpa ellipsis */
+    @media (max-width: 674px) {
+      .spk-brand-title {
+        font-size: clamp(0.7rem, 2.8vw, 0.86rem);
+        -webkit-line-clamp: unset;
+        overflow: visible;
+        display: block;
+      }
+      .spk-brand-desc {
+        font-size: clamp(0.6rem, 2.2vw, 0.76rem);
+        -webkit-line-clamp: unset;
+        overflow: visible;
+        display: block;
+      }
+      .spk-brand-label { font-size: clamp(0.48rem, 1.8vw, 0.6rem); }
+      .spk-brand-logo img { width: clamp(110px, 22vw, 170px); }
+    }
+
+    /* ≤500px — CTA Bricon makin kecil */
+    @media (max-width: 500px) {
+      .spk-brand-cta {
+        font-size: 0.72rem;
+        padding: 9px 13px 9px 15px;
+        gap: 7px;
+      }
+      .spk-brand-cta-icon {
+        width: 20px;
+        height: 20px;
+      }
+      .spk-brand-cta-icon svg { width: 11px; height: 11px; }
+    }
+
+    /* ≤380px — badge & heading seragam */
+    @media (max-width: 380px) {
+      .spk-section { padding: 32px 15px 36px 15px; }
+      .spk-badge-label { font-size: 0.58rem; padding: 3px 10px; margin-bottom: 5px; }
+      .spk-title { font-size: 1.6rem; }
+    }
+    /* ≥1025px — badge & heading seragam */
+    @media (min-width: 1025px) {
+      .spk-badge-label { font-size: 0.8rem; padding: 6px 16px; }
+      .spk-title { font-size: clamp(2.6rem, 4.8vw, 3.6rem); }
+    }
+  </style>
+
+  <!-- Canonical & Theme -->
+  <link rel="canonical" href="https://bata-ringan-bricon.com/" />
+  <meta name="theme-color" content="#090c9b" />
+
+  <!-- Open Graph — url added -->
+  <meta property="og:url" content="https://bata-ringan-bricon.com/" />
+
+  <!-- JSON-LD LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Procon Lite",
+    "description": "Distributor bata ringan dan panel lantai berkualitas untuk area Jawa Timur.",
+    "url": "https://bata-ringan-bricon.com",
+    "telephone": "+6285184028183",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Perumahan Puri Bagus A7/23, Sedengan Mijen",
+      "addressLocality": "Krian",
+      "addressRegion": "Jawa Timur",
+      "addressCountry": "ID"
+    },
+    "openingHours": "Mo-Su 07:00-19:00",
+    "areaServed": "Jawa Timur"
+  }
+  </script>
+  <!-- Body styles consolidated into head -->
+  <style>
+    body.procon-lock {
+      overflow: hidden !important;
+      height: 100vh;
+      touch-action: none;
+    }
+    #procon-preloader {
+      position: fixed;
+      inset: 0;
+      background: #ededed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999999;
+      transition: opacity .6s cubic-bezier(.4,0,.2,1),
+                  visibility .6s cubic-bezier(.4,0,.2,1);
+    }
+    #procon-preloader.loaded {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .preloader-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .logo-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      z-index: 2;
+      animation: fadeInScale .6s ease-out forwards;
+    }
+    .spinner-ring {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid rgba(166,166,166,.2);
+      border-top-color: #a6a6a6;
+      border-right-color: #a6a6a6;
+      animation: spin 1.2s cubic-bezier(.68,-.55,.265,1.55) infinite;
+    }
+    .spinner-ring-2 {
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      border: 2px solid rgba(166,166,166,.15);
+      border-left-color: #a6a6a6;
+      animation: spin 1.8s cubic-bezier(.68,-.55,.265,1.55) infinite reverse;
+    }
+    .preloader-name {
+      font-family: Poppins, sans-serif;
+      font-size: 42px;
+      font-weight: 400;
+      color: #3d3844;
+      opacity: 0;
+      letter-spacing: -2px;
+      animation: slideUpFade .8s ease-out .5s forwards;
+    }
+    .preloader-name strong {
+      font-weight: 600;
+      color: #3d3844;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes fadeInScale {
+      from { opacity:0; transform:scale(.5); }
+      to   { opacity:1; transform:scale(1); }
+    }
+    @keyframes slideUpFade {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+  
+
+
+    /* SHARED: Badge & Heading (seragam semua section) */
+    .contact-badge,
+    .faq-badge {
+      display: block;
+      width: fit-content;
+      margin: 0 auto 8px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #090c9b;
+      background: rgba(9, 12, 155, 0.08);
+      padding: 5px 14px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .contact-heading,
+    .faq-heading {
+      display: inline-block;
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2rem, 4.2vw, 3rem);
+      font-weight: 600;
+      color: #3c3744;
+      margin: 0;
+      line-height: 1.2;
+      position: relative;
+    }
+    .contact-heading::after,
+    .faq-heading::after {
+      content: '';
+      display: block;
+      width: 60%;
+      height: 4px;
+      background-color: #090c9b;
+      border-radius: 2px;
+      margin: 4px auto 0;
+    }
+    @media (max-width: 768px) {
+      .contact-badge, .faq-badge { font-size: 0.62rem; padding: 4px 11px; margin-bottom: 6px; }
+    }
+    @media (max-width: 380px) {
+      .contact-badge, .faq-badge { font-size: 0.58rem; padding: 3px 10px; margin-bottom: 5px; }
+      .contact-heading, .faq-heading { font-size: 1.6rem; }
+    }
+    @media (min-width: 1025px) {
+      .contact-badge, .faq-badge { font-size: 0.8rem; padding: 6px 16px; }
+      .contact-heading, .faq-heading { font-size: clamp(2.6rem, 4.8vw, 3.6rem); }
+    }
+
+    /* CONTACT SECTION — 2-col layout (mirroring About Us) */
+    .contact-section {
+      position: relative;
+      background-color: #ededed;
+      padding: 64px 40px;
+      overflow: clip;
+      font-family: 'Poppins', sans-serif;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .contact-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* ── 2-Col Container (image | content) ── */
+    .contact-container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 32px;
+    }
+
+    /* ── LEFT: Hero Image (mirrors About Us) ── */
+    .contact-image-wrap {
+      flex-shrink: 0;
+      width: clamp(200px, 40vw, 280px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .contact-hero-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ── RIGHT: Content ── */
+    .contact-content {
+      flex: 1;
+      min-width: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Header — centered on all breakpoints ── */
+    .contact-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .contact-header .contact-badge {
+      margin: 0 auto 8px;
+    }
+    .contact-header .contact-heading::after {
+      margin: 4px auto 0;
+    }
+
+    /* ── Form (Poppins everywhere) ── */
+    /* ── Consult Text + CTA ── */
+    .contact-consult-text {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.875rem, 1.4vw, 1rem);
+      color: #4a4a5a;
+      line-height: 1.75;
+      margin: 0 0 28px 0;
+    }
+    .contact-consult-wrap {
+      position: relative;
+      display: inline-block;
+    }
+    .contact-consult-btn {
+      background-color: #090c9b;
+      color: #ffffff;
+      padding: 12px 26px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(9,12,155,0.3);
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .contact-consult-btn:link,
+    .contact-consult-btn:visited,
+    .contact-consult-btn:active {
+      color: #ffffff;
+    }
+    .contact-consult-btn img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      flex-shrink: 0;
+    }
+    .contact-consult-badge {
+      position: absolute;
+      top: -9px;
+      right: -10px;
+      background: #225dcf;
+      color: #ffffff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+      transform: rotate(14deg);
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      pointer-events: none;
+      line-height: 1.6;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .contact-consult-btn:hover {
+        background-color: #3d52d5;
+        color: #ffffff;
+        transform: scale(1.05);
+      }
+    }
+    @media (hover: none) and (pointer: coarse) {
+      .contact-consult-btn:active {
+        background-color: #3d52d5;
+        color: #ffffff !important;
+        transform: scale(1.05);
+      }
+    }
+
+    /* CONTACT INFO CARDS — clone of .benefit-card */
+    .contact-info-section {
+      max-width: 960px;
+      margin: clamp(24px, 3vw, 40px) auto 0;
+    }
+    .contact-info-grid {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+    }
+    .contact-info-card {
+      background-color: #d0d3da;
+      border-radius: 1.5rem;
+      padding: clamp(50px, 6vw, 3.5rem) 1.5rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, background-color 0.4s ease;
+      position: relative;
+      margin-top: clamp(50px, 6vw, 3.5rem);
+      flex: 1;
+      justify-content: flex-start;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .contact-info-card:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 24px 48px rgba(34, 93, 207, 0.2), 0 8px 16px rgba(0,0,0,0.06);
+        background-color: #c8cbd2;
+      }
+      .contact-info-card:hover .contact-info-icon { transform: scale(1.1); }
+    }
+    @media (hover: none) and (pointer: coarse) {
+      .contact-info-card:active {
+        transform: scale(0.97);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        background-color: #c4c7ce;
+        transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
+      }
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .contact-info-card:active {
+        transform: none;
+        box-shadow: none;
+        background-color: #d0d3da;
+      }
+    }
+    .contact-info-icon-wrapper {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+    .contact-info-icon {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+    }
+    .contact-info-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      font-weight: 700;
+      margin: 0 0 0.5rem 0;
+      color: #3c3744;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+    .contact-info-body {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(0.78rem, 1.3vw, 0.875rem);
+      font-weight: 500;
+      margin: 0;
+      color: #3c3744;
+      line-height: 1.55;
+    }
+
+    /* ── Google Maps ── */
+    .contact-map-wrap {
+      max-width: 960px;
+      margin: 40px auto 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(9, 12, 155, 0.08);
+      line-height: 0;
+    }
+    .contact-map-wrap iframe {
+      width: 100%;
+      height: 340px;
+      border: 0;
+      display: block;
+    }
+    /* Garis tipis pemisah peta & footnote */
+    .contact-map-divider {
+      max-width: 960px;
+      margin: 14px auto 12px;
+      height: 1px;
+      background: rgba(60, 55, 68, 0.18);
+    }
+    .contact-footnote {
+      max-width: 960px;
+      margin: 0 auto;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(0.72rem, 1.2vw, 0.78rem);
+      color: #6b6880;
+      text-align: left;
+      line-height: 1.5;
+    }
+
+    /* ── Divider footnote → footer (mobile only) ── */
+    .footnote-footer-divider {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .footnote-footer-divider {
+        display: block;
+        margin: 24px auto 0;
+        height: 1px;
+        background: rgba(60, 55, 68, 0.15);
+      }
+    }
+
+    /* Tablet 769-1024 — image scales like About */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .contact-section { padding: 48px 32px; }
+      .contact-container { gap: 32px; }
+      .contact-image-wrap { width: clamp(300px, 35vw, 360px); }
+      .contact-info-section { margin-top: 28px; }
+      .contact-info-grid { gap: 1rem; }
+      .contact-info-card {
+        padding: clamp(50px, 7vw, 80px) 1rem 2.5rem 1rem;
+        margin-top: clamp(50px, 7vw, 80px);
+      }
+      .contact-info-icon { width: clamp(100px, 12vw, 150px); height: clamp(100px, 12vw, 150px); }
+      .contact-info-title { font-size: clamp(0.95rem, 1.6vw, 1.1rem); }
+      .contact-info-body { font-size: clamp(0.75rem, 1.2vw, 0.85rem); }
+    }
+
+    /* Mobile ≤768 — stacked, image on top, header centered, lebih compact */
+    @media (max-width: 768px) {
+      .contact-section { padding: 40px 20px 44px 20px; }
+      .contact-container {
+        flex-direction: column;
+        gap: 24px;
+        align-items: center;
+      }
+      .contact-image-wrap {
+        order: 1;
+        width: min(210px, 58vw);
+      }
+      .contact-content {
+        order: 2;
+        width: 100%;
+        max-width: 340px;
+        text-align: center;
+        padding: 0 8px;
+        box-sizing: border-box;
+      }
+      .contact-header {
+        text-align: center;
+        margin-bottom: 12px;
+      }
+      .contact-heading {
+        font-size: clamp(1.5rem, 5vw, 2rem) !important;
+        margin-bottom: 12px !important;
+      }
+      .contact-badge {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .contact-consult-text {
+        font-size: clamp(0.75rem, 2.2vw, 0.85rem);
+        line-height: 1.4;
+        margin-bottom: 12px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .contact-consult-wrap {
+        display: flex;
+        justify-content: center;
+      }
+      .contact-info-section {
+        margin-top: 44px;
+      }
+      .contact-info-grid {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .contact-info-card {
+        margin-top: 55px;
+        padding: 55px 1.5rem 1.5rem 1.5rem;
+      }
+      .contact-info-icon { width: 110px; height: 110px; }
+      .contact-map-wrap { margin-top: 32px; }
+      .contact-map-wrap iframe { height: 260px; }
+    }
+
+    /* Small mobile ≤380 — max compact */
+    @media (max-width: 380px) {
+      .contact-section { padding: 32px 14px 36px 14px; }
+      .contact-image-wrap { width: min(180px, 52vw); }
+      .contact-heading { font-size: clamp(1.25rem, 4vw, 1.5rem) !important; margin-bottom: 10px !important; }
+      .contact-consult-text { font-size: 0.75rem; margin-bottom: 10px; }
+      .contact-info-card { margin-top: 50px; padding: 50px 1.25rem 1.25rem 1.25rem; }
+      .contact-info-icon { width: 100px; height: 100px; }
+    }
+
+    /* Desktop ≥1025 — balanced layout, larger icons (match benefit at ≥1230) */
+    @media (min-width: 1025px) {
+      .contact-section { padding: 64px clamp(24px, 6vw, 80px); }
+      .contact-container { gap: clamp(1.5rem, 2.2vw, 2rem); }
+      .contact-image-wrap { width: 360px; }
+      .contact-hero-img { width: 100%; }
+      .contact-info-section { margin-top: clamp(24px, 3vw, 36px); }
+      .contact-info-grid { gap: 2rem; }
+      .contact-info-card {
+        padding: clamp(60px, 7vw, 90px) 1.5rem 2.5rem 1.5rem;
+        margin-top: clamp(60px, 7vw, 90px);
+      }
+      .contact-info-icon { width: clamp(100px, 10vw, 180px); height: clamp(100px, 10vw, 180px); }
+      .contact-info-title { font-size: clamp(1rem, 1.4vw, 1.25rem); margin-bottom: 0.7rem; }
+      .contact-info-body { font-size: clamp(0.82rem, 1vw, 0.92rem); }
+      .contact-map-wrap { margin-top: 48px; }
+      .contact-map-wrap iframe { height: 380px; }
+    }
+
+    /* 1230px+ */
+    @media (min-width: 1230px) {
+      .contact-info-section { margin-top: clamp(28px, 3vw, 44px); }
+      .contact-info-card { padding: clamp(64px, 7vw, 90px) 2rem 3rem 2rem; }
+      .contact-info-title { font-size: clamp(1.1rem, 1.4vw, 1.4rem); margin-bottom: 1rem; }
+    }
+
+    /* ── Contact Deco — hexagon kiri & kanan, terpisah dari About Us ── */
+    .contact-deco {
+      display: none;
+      position: absolute;
+      top: 50%;
+      width: 400px;
+      height: 400px;
+      pointer-events: none;
+    }
+    .contact-deco img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+      opacity: 1;
+    }
+    .contact-deco-left {
+      left: calc(50% - 584px);
+      transform: translateY(-50%);
+      animation: hexFloatLeft 6s ease-in-out infinite;
+      -webkit-mask-image: linear-gradient(to right, transparent 42%, black 68%);
+              mask-image: linear-gradient(to right, transparent 42%, black 68%);
+    }
+    .contact-deco-right {
+      left: calc(50% + 184px);
+      transform: translateY(-50%);
+      animation: hexFloatRight 7s ease-in-out infinite;
+      -webkit-mask-image: linear-gradient(to left, transparent 42%, black 68%);
+              mask-image: linear-gradient(to left, transparent 42%, black 68%);
+    }
+    @media (min-width: 381px) and (max-width: 768px) {
+      .contact-deco { display: block; top: 340px; }
+    }
+
+  
+
+    /* ── Footer wrapper — full bleed dengan bg biru primer ── */
+    .footer-section {
+      background-color: #090c9b;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .footer-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 56px 40px 0;
+      box-sizing: border-box;
+      color: #ededed;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* ── 3-col grid ── */
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.4fr;
+      gap: 48px;
+      align-items: stretch;
+    }
+
+    /* ── Column 1: Brand ── */
+    .footer-brand-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-brand-left {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer-logo {
+      display: block;
+      max-width: 240px;
+      width: 240px;
+      height: auto;
+    }
+    .footer-tagline {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: rgba(237,237,237,0.85);
+      margin: 0;
+    }
+
+    /* ── Socials ── */
+    .footer-socials {
+      display: flex;
+      gap: 14px;
+      margin-top: 32px;
+    }
+    .footer-social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .footer-social-link img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+
+    /* ── Column 2: Navigation ── */
+    .footer-heading {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.35rem;
+      color: #ffffff;
+      margin: 0 0 18px 0;
+      line-height: 1.2;
+    }
+    .footer-nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-nav-list a,
+    .footer-nav-list a:link,
+    .footer-nav-list a:visited,
+    .footer-nav-list a:hover,
+    .footer-nav-list a:focus,
+    .footer-nav-list a:active {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      color: #ededed;
+      text-decoration: none;
+      display: inline-block;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ── Column 3: Contact info ── */
+    .footer-contact-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: 0.93rem;
+      line-height: 1.5;
+      color: #ededed;
+    }
+    .footer-contact-item--address { align-items: flex-start; }
+    .footer-contact-item--address .footer-contact-icon { margin-top: 3px; }
+    .footer-contact-icon {
+      display: block;
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+    .footer-contact-text,
+    .footer-contact-text:link,
+    .footer-contact-text:visited,
+    .footer-contact-text:hover,
+    .footer-contact-text:focus,
+    .footer-contact-text:active {
+      flex: 1;
+      min-width: 0;
+      color: #ededed;
+      text-decoration: none;
+    }
+
+    /* ── Divider & Copyright ── */
+    .footer-bottom {
+      margin-top: 32px;
+      padding: 24px 0 32px;
+      border-top: 1px solid rgba(237,237,237,0.25);
+      border-bottom: 1px solid rgba(237,237,237,0.25);
+      text-align: center;
+    }
+    .footer-copyright {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: 0.88rem;
+      color: rgba(237,237,237,0.8);
+      margin: 0;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── Tablet (769px – 1024px) ── */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .footer-container { padding: 48px 32px 0; }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr 1.3fr;
+        gap: 32px;
+      }
+      .footer-logo { max-width: 240px; width: 240px; }
+      .footer-bottom { margin-top: 28px; padding: 20px 0 28px; }
+    }
+
+    /* ── Mobile (≤768px) ── */
+    @media (max-width: 768px) {
+      .footer-container { padding: 40px 24px 0; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-brand-col {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .footer-brand-left { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+      .footer-logo { max-width: 240px; width: 240px; }
+      .footer-tagline { font-size: 0.8rem; }
+      .footer-socials { margin-top: 0; gap: 12px; align-items: center; }
+      .footer-social-link { width: 36px; height: 36px; }
+      .footer-heading { font-size: 1.2rem; margin-bottom: 14px; }
+      .footer-nav-list { gap: 9px; }
+      .footer-nav-list a { font-size: 0.95rem; }
+      .footer-contact-list { gap: 16px; }
+      .footer-contact-item { font-size: 0.88rem; gap: 12px; }
+      .footer-bottom { margin-top: 24px; padding: 20px 0 28px; }
+      .footer-copyright { font-size: 0.8rem; }
+    }
+
+    /* ── Small mobile (≤380px) ── */
+    @media (max-width: 380px) {
+      .footer-container { padding: 32px 16px 0; }
+      .footer-logo { max-width: 200px; width: 200px; }
+      .footer-social-link { width: 32px; height: 32px; }
+      .footer-contact-item { font-size: 0.82rem; }
+    }
+  
+  </style></head>
+
+<body>
+
+  <!-- ============================================================
+       LOADING SCREEN
+  ============================================================ -->
+
+  <noscript><style>#procon-preloader{display:none!important}</style></noscript>
+  <div id="procon-preloader">
+    <div class="preloader-logo">
+      <div class="logo-icon">
+        <img class="logo-image" src="assets/favicon.webp" alt="Procon Lite">
+        <div class="spinner-ring-2"></div>
+        <div class="spinner-ring"></div>
+      </div>
+      <h1 class="preloader-name"><strong>Procon</strong> lite</h1>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const loader = document.getElementById('procon-preloader');
+      if (!loader) return;
+      document.body.classList.add('procon-lock');
+      window.scrollTo(0, 0);
+
+      /* Animasi terakhir (slideUpFade) selesai di delay 0.5s + durasi 0.8s = 1.3s.
+         Tunggu 1.4s setelah window.load agar semua animasi tuntas baru dismiss. */
+      var ANIM_DONE = 1400;
+      var dismissed = false;
+
+      function dismiss() {
+        if (dismissed) return;
+        dismissed = true;
+        loader.classList.add('loaded');
+        document.body.classList.remove('procon-lock');
+        window.scrollTo(0, 0);
+      }
+
+      window.addEventListener('load', function(){
+        setTimeout(dismiss, ANIM_DONE);
+      });
+
+      /* Fallback absolut: 20 detik */
+      setTimeout(dismiss, 20000);
+    })();
+  </script>
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <nav class="navbar-wrapper">
+    <div class="navbar">
+      <div class="logo">
+        <img src="assets/navbar/logo.webp" alt="Logo Procon Lite" width="160" height="50">
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#benefit" class="nav-link">Benefits</a></li>
+        <li><a href="#about" class="nav-link">About Us</a></li>
+        <li><a href="#product" class="nav-link">Product</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer" class="cta-button">Contact Us</a>
+      <button class="menu-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-dropdown">
+      <ul class="mobile-menu">
+        <li>
+          <a href="#home" class="mobile-link active">
+            <span class="menu-icon"><img src="assets/navbar/icon-home.svg" alt="" width="22" height="22"></span>
+            <span>Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="#benefit" class="mobile-link">
+            <span class="menu-icon"><img src="assets/navbar/icon-benefits.svg" alt="" width="22" height="22"></span>
+            <span>Benefits</span>
+          </a>
+        </li>
+        <li>
+          <a href="#about" class="mobile-link">
+            <span class="menu-icon"><img src="assets/navbar/icon-about.svg" alt="" width="22" height="22"></span>
+            <span>About Us</span>
+          </a>
+        </li>
+        <li>
+          <a href="#product" class="mobile-link">
+            <span class="menu-icon"><img src="assets/navbar/icon-product.svg" alt="" width="22" height="22"></span>
+            <span>Product</span>
+          </a>
+        </li>
+        <li>
+          <a href="#contact" class="mobile-link">
+            <span class="menu-icon"><img src="assets/navbar/icon-contact.svg" alt="" width="22" height="22"></span>
+            <span>Contact</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section id="home" class="hero-section">
+    <div class="hero-wrapper">
+      <div class="hero-container">
+        <div class="hero-text">
+          <h1 class="hero-headline">
+            <span class="headline-line">Bangunan <span class="highlight">Kuat</span></span>
+            <span class="headline-line">Harga <span class="highlight">Bersahabat</span></span>
+          </h1>
+          <p class="hero-subheadline">
+            Wujudkan proyek Anda bersama distributor<br>
+            <span class="highlight">bata ringan</span> dan <span class="highlight">panel lantai</span> berkualitas,<br>
+            praktis dan hemat biaya.
+          </p>
+          <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer" class="hero-cta-button">
+            <img src="assets/navbar/icon-whatsapp.svg" alt="" width="24" height="24">
+            <span>Pesan Sekarang</span>
+          </a>
+        </div>
+        <div class="hero-hexagon-large">
+          <img src="assets/home/deco-hexagon-large.svg" alt="" width="500" height="500">
+        </div>
+        <div class="hero-image hero-image-desktop">
+          <img src="assets/home/hero-desktop.webp" alt="Hero Image" width="400" height="350" fetchpriority="high">
+        </div>
+        <div class="hero-hexagon-small">
+          <img src="assets/home/deco-hexagon-small.svg" alt="" width="120" height="120">
+        </div>
+        <div class="hero-image-mobile">
+          <img src="assets/home/hero-mobile.webp" alt="Hero Image" width="600" height="420" fetchpriority="high">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STATS BAR
+  ============================================================ -->
+  <section class="stats-bar-section">
+    <div class="stats-bar-wrapper">
+      <div class="stats-bar-container">
+        <div class="stat-item">
+          <p class="stat-number">8<span class="plus">+</span></p>
+          <p class="stat-label">Tahun<br>Pengalaman</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-number">300<span class="plus">+</span></p>
+          <p class="stat-label">Proyek<br>Terselesaikan</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-number">55k<span class="plus">+</span></p>
+          <p class="stat-label">Material<br>Tersuplai</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-number">30<span class="plus">+</span></p>
+          <p class="stat-label">Kabupaten/Kota<br>di Jawa Timur</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BENEFIT
+  ============================================================ -->
+  <div class="home-benefit-divider" aria-hidden="true"></div>
+
+  <section id="benefit" class="benefit-section">
+    <div class="benefit-inner">
+      <div class="benefit-header">
+        <span class="benefit-badge">Benefits</span>
+        <h2 class="benefit-heading">Apa Keunggulannya?</h2>
+      </div>
+      <div class="benefit-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon-wrapper">
+            <img src="assets/benefit/icon-1.webp" alt="Icon Suplai Bata Ringan" class="benefit-icon" width="110" height="110" loading="lazy">
+          </div>
+          <h3 class="benefit-title">
+            <span class="mobile-title">Suplai Bata Ringan &amp; Panel Lantai</span>
+            <span class="desktop-title">Suplai Bata Ringan<br class="benefit-br"> &amp; Panel Lantai</span>
+          </h3>
+          <p class="benefit-desc">
+            <span class="mobile-desc">Menyediakan bata ringan berkualitas dan panel lantai siap pakai untuk berbagai kebutuhan proyek.</span>
+            <span class="desktop-desc">Menyediakan bata ringan berkualitas dan panel lantai siap pakai untuk berbagai kebutuhan proyek konstruksi Anda.</span>
+          </p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon-wrapper">
+            <img src="assets/benefit/icon-2.webp" alt="Icon Jasa Pasang" class="benefit-icon" width="110" height="110" loading="lazy">
+          </div>
+          <h3 class="benefit-title">
+            <span class="mobile-title">Panel Lantai + Jasa Pasangnya</span>
+            <span class="desktop-title">Panel Lantai +<br class="benefit-br"> Jasa Pasangnya</span>
+          </h3>
+          <p class="benefit-desc">
+            <span class="mobile-desc">Layanan suplai sekaligus pemasangan panel lantai agar proyek lebih cepat, rapi, dan efisien.</span>
+            <span class="desktop-desc">Layanan suplai sekaligus pemasangan khusus untuk panel lantai agar proyek lebih cepat, rapi, dan efisien.</span>
+          </p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon-wrapper">
+            <img src="assets/benefit/icon-3.webp" alt="Icon Konsultasi" class="benefit-icon" width="110" height="110" loading="lazy">
+          </div>
+          <h3 class="benefit-title">
+            <span class="mobile-title">Konsultasi &amp; Survey Gratis</span>
+            <span class="desktop-title">Konsultasi &amp;<br class="benefit-br"> Survey Gratis</span>
+          </h3>
+          <p class="benefit-desc">
+            <span class="mobile-desc">Dapatkan perhitungan kebutuhan material dan survey lapangan tanpa biaya tambahan.</span>
+            <span class="desktop-desc">Dapatkan perhitungan kebutuhan material dan survey lapangan tanpa biaya tambahan untuk proyek Anda.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT US
+  ============================================================ -->
+  <section id="about" class="about-section">
+    <div class="about-container">
+      <div class="about-deco about-deco-left">
+        <img src="assets/about/deco-hexagon.webp" alt="" width="200" height="400" loading="lazy">
+      </div>
+      <div class="about-deco about-deco-right">
+        <img src="assets/about/deco-hexagon.webp" alt="" width="200" height="400" loading="lazy">
+      </div>
+      <div class="about-content">
+        <span class="about-badge">About Us</span>
+        <h2 class="about-heading">Siapa Kami?</h2>
+        <p class="about-desc">
+          Procon Lite menyediakan unit bata ringan dan panel lantai unggulan untuk
+          area Jawa Timur di bawah naungan
+          <span class="brand-procon">Procon</span>&nbsp;<span class="brand-persada">Persada.</span>
+        </p>
+        <a href="http://proconpersada.com" target="_blank" rel="noopener noreferrer" class="about-cta-btn">
+          <img src="assets/about/icon-procon-persada.svg" alt="Procon Persada" class="about-cta-icon" width="40" height="40" loading="lazy"/>
+          <span>Kunjungi Procon&nbsp;Persada</span>
+        </a>
+        <div class="about-sub-images">
+          <div class="about-sub-img-wrap">
+            <img src="assets/about/activity-1.webp" alt="Procon Lite aktivitas 1" width="200" height="150" loading="lazy"/>
+          </div>
+          <div class="about-sub-img-wrap">
+            <img src="assets/about/activity-2.webp" alt="Procon Lite aktivitas 2" width="200" height="150" loading="lazy"/>
+          </div>
+          <div class="about-sub-img-wrap">
+            <img src="assets/about/activity-3.webp" alt="Procon Lite aktivitas 3" width="200" height="150" loading="lazy"/>
+          </div>
+        </div>
+      </div>
+      <div class="about-image-wrap">
+        <img src="assets/about/hero.webp" alt="Procon Lite Engineer" class="about-hero-img" width="400" height="500" loading="lazy"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PRODUCT (Spesifikasi Produk)
+  ============================================================ -->
+  <section id="product" class="spk-section">
+    <div class="spk-header">
+      <span class="spk-badge-label">PRODUCT</span>
+      <h2 class="spk-title">Spesifikasi Produk</h2>
+    </div>
+
+    <div class="spk-brand-banner">
+
+      <!-- ① Logo -->
+      <div class="spk-brand-logo">
+        <img src="assets/product/logo-bricon.webp" alt="Logo Bricon" width="1722" height="644" loading="lazy">
+      </div>
+
+      <!-- ② Divider vertikal — tinggi mengikuti row otomatis -->
+      <div class="spk-brand-divider" aria-hidden="true"></div>
+
+      <!-- ③ Content group: overline + headline (max 1 baris) + subheadline (max 3 baris) -->
+      <div class="spk-brand-content">
+        <p class="spk-brand-title">Diproduksi oleh PT Material Konstruksi Bangunan</p>
+        <p class="spk-brand-desc">Seluruh produk diproduksi oleh Bricon dengan standar kualitas internasional dan teknologi inovatif.</p>
+      </div>
+
+      <!-- ④ CTA — push kanan natural karena content flex:1 -->
+      <a href="https://bataringanbricon.com/" target="_blank" rel="noopener noreferrer" class="spk-brand-cta">
+        Kunjungi Bricon
+        <span class="spk-brand-cta-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#ededed" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </span>
+      </a>
+
+    </div>
+
+    <div class="spk-tabs">
+      <div class="spk-tabs-inner">
+        <div class="spk-tabs-slider" id="spkSlider"></div>
+        <button class="spk-tab-btn active" id="spkTabBata" data-tab="bata">
+          <span class="icon">
+            <img class="icon-inactive" src="assets/product/icon-aac-block.svg" alt="" width="22" height="22">
+            <img class="icon-active" src="assets/product/icon-aac-block.svg" alt="" width="22" height="22">
+          </span>
+          <span>Bata Ringan</span>
+        </button>
+        <button class="spk-tab-btn" id="spkTabPanel" data-tab="panel">
+          <span class="icon">
+            <img class="icon-inactive" src="assets/product/icon-floor-panel.svg" alt="" width="22" height="22">
+            <img class="icon-active" src="assets/product/icon-floor-panel.svg" alt="" width="22" height="22">
+          </span>
+          <span>Panel Lantai</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="spk-cards">
+      <div class="spk-card" id="spkCardBata">
+        <img src="assets/product/aac-block.webp" class="spk-card-img" alt="Bata Ringan" width="300" height="220" loading="lazy">
+        <h3 class="spk-card-title">Bata Ringan</h3>
+        <p class="spk-card-desc">Blok dinding ringan presisi tinggi yang kuat, tahan panas, dan mempercepat proses pembangunan yang efisien.</p>
+        <div class="spk-specs">
+          <div class="spk-spec"><p><span class="spk-spec-label">Panjang</span><span class="spk-spec-value">60 cm</span></p></div>
+          <div class="spk-spec"><p><span class="spk-spec-label">Tinggi</span><span class="spk-spec-value">20 cm</span></p></div>
+          <div class="spk-spec"><p><span class="spk-spec-label">Tebal</span><span class="spk-spec-value">7.5 – 12.5 cm</span></p></div>
+        </div>
+        <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer" class="spk-wa-cta">
+          <img src="assets/navbar/icon-whatsapp.svg" alt="" width="20" height="20">
+          <span>Cek Harganya Sekarang</span>
+        </a>
+      </div>
+      <div class="spk-card hidden-mobile" id="spkCardPanel">
+        <img src="assets/product/floor-panel.webp" class="spk-card-img" alt="Panel Lantai" width="300" height="220" loading="lazy">
+        <h3 class="spk-card-title">Panel Lantai</h3>
+        <p class="spk-card-desc">Panel beton pracetak ringan bertulang yang kuat, presisi, dan mempercepat pembangunan lantai bangunan.</p>
+        <div class="spk-specs">
+          <div class="spk-spec"><p><span class="spk-spec-label">Panjang</span><span class="spk-spec-value">1470–3220 mm</span></p></div>
+          <div class="spk-spec"><p><span class="spk-spec-label">Lebar</span><span class="spk-spec-value">600 mm</span></p></div>
+          <div class="spk-spec"><p><span class="spk-spec-label">Tebal</span><span class="spk-spec-value">125 mm</span></p></div>
+        </div>
+        <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer" class="spk-wa-cta">
+          <img src="assets/navbar/icon-whatsapp.svg" alt="" width="20" height="20">
+          <span>Cek Harganya Sekarang</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    // ── Shared utility (defined once, used everywhere) ───────────────────────
+    function getNavbarOffset() {
+      var raw = getComputedStyle(document.documentElement)
+                  .getPropertyValue('--navbar-offset').trim();
+      var n = parseFloat(raw);
+      return isNaN(n) ? 88 : n;
+    }
+
+    // ── Smooth scroll helper ─────────────────────────────────────────────────
+    function smoothScrollTo(href) {
+      if (!href || href === '#') return;
+      if (href === '#home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        var target = document.querySelector(href);
+        if (target) {
+          var targetY = target.getBoundingClientRect().top + window.scrollY - getNavbarOffset();
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+        }
+      }
+    }
+
+    window.addEventListener('load', function () {
+      var menuToggle    = document.querySelector('.menu-toggle');
+      var mobileDropdown = document.querySelector('.mobile-dropdown');
+      var navbarWrapper = document.querySelector('.navbar-wrapper');
+      var allLinks      = document.querySelectorAll('.nav-link, .mobile-link');
+
+      // ── Burger menu (with aria-expanded) ──────────────────────────────────
+      if (menuToggle && mobileDropdown) {
+        menuToggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var opening = menuToggle.classList.toggle('active');
+          mobileDropdown.classList.toggle('open');
+          menuToggle.setAttribute('aria-expanded', opening ? 'true' : 'false');
+        });
+      }
+
+      document.addEventListener('click', function(e) {
+        if (!navbarWrapper.contains(e.target)) {
+          menuToggle.classList.remove('active');
+          mobileDropdown.classList.remove('open');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      document.querySelectorAll('.mobile-link').forEach(function(link) {
+        link.addEventListener('click', function() {
+          menuToggle.classList.remove('active');
+          mobileDropdown.classList.remove('open');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // ── Smooth scroll — nav & footer links ────────────────────────────────
+      document.querySelectorAll('.nav-link, .mobile-link, .footer-nav-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          var href = link.getAttribute('href');
+          if (!href || href === '#') return;
+          e.preventDefault();
+          smoothScrollTo(href);
+        });
+      });
+
+      // ── Active highlight on scroll ─────────────────────────────────────────
+      function updateActiveNav() {
+        var sections    = document.querySelectorAll('section[id]');
+        var navbarOffset = getNavbarOffset();
+        var scrollY      = window.scrollY;
+        var current      = 'home';
+
+        sections.forEach(function(sec) {
+          var top = sec.getBoundingClientRect().top + scrollY - navbarOffset;
+          if (scrollY >= top - 4) { current = sec.id; }
+        });
+
+        allLinks.forEach(function(l) { l.classList.remove('active'); });
+        document.querySelectorAll('a[href="#' + current + '"]').forEach(function(l) {
+          l.classList.add('active');
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveNav, { passive: true });
+      updateActiveNav();
+
+      // ── Floating CTA — berhenti di atas footer ────────────────────────────
+      (function() {
+        var floatingCta = document.querySelector('.floating-cta');
+        if (!floatingCta) return;
+        var defaultBottom = 20;
+
+        function updateFloatingCtaPosition() {
+          var footer = document.querySelector('.footer-section');
+          if (!footer) return;
+          var footerTop = footer.getBoundingClientRect().top;
+          var viewportH  = window.innerHeight;
+          var gap        = 16;
+          if (footerTop < viewportH) {
+            floatingCta.style.bottom = (viewportH - footerTop + gap) + 'px';
+          } else {
+            floatingCta.style.bottom = defaultBottom + 'px';
+          }
+          floatingCta.style.position = 'fixed';
+        }
+
+        window.addEventListener('scroll', updateFloatingCtaPosition, { passive: true });
+        window.addEventListener('resize', updateFloatingCtaPosition, { passive: true });
+        updateFloatingCtaPosition();
+      })();
+
+      // ── Product tab switch (event-listener based, no global function) ──────
+      document.querySelectorAll('.spk-tab-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var tab     = btn.getAttribute('data-tab');
+          var slider  = document.getElementById('spkSlider');
+          var btnBata = document.getElementById('spkTabBata');
+          var btnPanel= document.getElementById('spkTabPanel');
+          var cardBata= document.getElementById('spkCardBata');
+          var cardPanel=document.getElementById('spkCardPanel');
+          if (tab === 'bata') {
+            slider.classList.remove('panel-active');
+            btnBata.classList.add('active');    btnPanel.classList.remove('active');
+            cardBata.classList.remove('hidden-mobile'); cardPanel.classList.add('hidden-mobile');
+          } else {
+            slider.classList.add('panel-active');
+            btnPanel.classList.add('active');   btnBata.classList.remove('active');
+            cardPanel.classList.remove('hidden-mobile'); cardBata.classList.add('hidden-mobile');
+          }
+        });
+      });
+
+      // ── Footer copyright year ──────────────────────────────────────────────
+      var yearEl = document.getElementById('footer-year');
+      if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
+    });
+  </script>
+
+  <!-- ============================================================
+       PROJECT SECTION CSS
+
+
+  <!-- CONTACT & FAQ SECTIONS — REVISED -->
+  <section id="contact" class="contact-section">
+    <div class="contact-deco contact-deco-left">
+      <img src="assets/about/deco-hexagon.webp" alt="" width="200" height="400" loading="lazy">
+    </div>
+    <div class="contact-deco contact-deco-right">
+      <img src="assets/about/deco-hexagon.webp" alt="" width="200" height="400" loading="lazy">
+    </div>
+    <div class="contact-inner">
+
+      <!-- ─── 2-COL: Image (left/top) | Content (right/below) ─── -->
+      <div class="contact-container">
+
+        <!-- LEFT (or top on mobile) -->
+        <div class="contact-image-wrap">
+          <img src="assets/contact/hero.webp"
+               alt="Hubungi Procon Lite"
+               class="contact-hero-img"
+               width="280" height="360" loading="lazy"/>
+        </div>
+
+        <!-- RIGHT (or below on mobile) -->
+        <div class="contact-content">
+
+          <div class="contact-header">
+            <span class="contact-badge">Contact</span>
+            <h2 class="contact-heading">Hubungi Kami</h2>
+          </div>
+
+          <!-- Consult text + CTA -->
+          <p class="contact-consult-text">Konsultasikan kebutuhan proyek Anda secara langsung. Informasikan lokasi pengiriman dan estimasi kubikasi melalui WhatsApp untuk mendapatkan perhitungan harga &amp; ongkir tercepat.</p>
+          <div class="contact-consult-wrap">
+            <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer" class="contact-consult-btn">
+              <span class="contact-consult-badge">Gratis</span>
+              <img src="assets/navbar/icon-whatsapp.svg" alt="" width="22" height="22">
+              <span>Konsultasi Yuk!</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ─── Info Cards (3 horizontal on desktop, mimicking benefit-card) ─── -->
+      <div class="contact-info-section">
+        <div class="contact-info-grid">
+
+          <div class="contact-info-card">
+            <div class="contact-info-icon-wrapper">
+              <img src="assets/contact/icon-location.webp" alt="Alamat Kantor" class="contact-info-icon" width="110" height="110" loading="lazy"/>
+            </div>
+            <div class="contact-info-title">Alamat Kantor</div>
+            <div class="contact-info-body">Perumahan Puri Bagus A7/23, Sedengan Mijen, Krian, Sidoarjo, Jawa Timur</div>
+          </div>
+
+          <div class="contact-info-card">
+            <div class="contact-info-icon-wrapper">
+              <img src="assets/contact/icon-phone.webp" alt="Telepon / WhatsApp" class="contact-info-icon" width="110" height="110" loading="lazy"/>
+            </div>
+            <div class="contact-info-title">Telepon / WhatsApp</div>
+            <div class="contact-info-body">+62 851-8402-8183</div>
+          </div>
+
+          <div class="contact-info-card">
+            <div class="contact-info-icon-wrapper">
+              <img src="assets/contact/icon-hours.webp" alt="Jam Operasional" class="contact-info-icon" width="110" height="110" loading="lazy"/>
+            </div>
+            <div class="contact-info-title">Jam Operasional</div>
+            <div class="contact-info-body">
+              07.00 – 19.00 WIB<br>
+              Sesuai ketersediaan jadwal*
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ─── Google Maps ─── -->
+      <div class="contact-map-wrap">
+        <iframe
+          src="https://maps.google.com/maps?q=Perumahan%20Puri%20Bagus%20A7%2F23%2C%20Sedengan%20Mijen%2C%20Krian%2C%20Sidoarjo%2C%20Jawa%20Timur&t=&z=16&ie=UTF8&iwloc=&output=embed"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Lokasi Kantor Procon Lite — https://maps.app.goo.gl/2khG2VDzzWuAYynb7">
+        </iframe>
+      </div>
+      <div class="contact-map-divider" aria-hidden="true"></div>
+      <p class="contact-footnote">*Silakan hubungi terlebih dahulu untuk memastikan ketersediaan waktu.</p>
+
+    </div>
+
+    <!-- Floating WhatsApp CTA — docked di bawah section contact -->
+    <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer" class="floating-cta">
+      <img src="assets/navbar/icon-whatsapp.svg" alt="WhatsApp" width="28" height="28">
+      <span>Hubungi Kami</span>
+    </a>
+
+  </section>
+
+  <div class="footnote-footer-divider" aria-hidden="true"></div>
+
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  </main>
+
+  <footer class="footer-section">
+    <div class="footer-container">
+      <div class="footer-grid">
+
+        <!-- Column 1: Brand + tagline + sosmed -->
+        <div class="footer-brand-col">
+          <div class="footer-brand-left">
+            <img
+              src="assets/footer/logo-white.png"
+              alt="Logo Procon Lite"
+              class="footer-logo"
+              width="240" height="80"
+              loading="lazy"
+            />
+            <p class="footer-tagline">&ldquo;Satu Solusi, Seribu Konstruksi&rdquo;</p>
+          </div>
+          <div class="footer-socials" aria-label="Sosial media Procon Lite">
+            <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer"
+               class="footer-social-link" aria-label="WhatsApp Procon Lite">
+              <img src="assets/navbar/icon-whatsapp.svg" alt="" width="32" height="32" loading="lazy" />
+            </a>
+            <a href="https://bata-ringan-bricon.com/" target="_blank" rel="noopener noreferrer"
+               class="footer-social-link" aria-label="Website Procon Lite">
+              <img src="assets/footer/icon-website.svg" alt="" width="32" height="32" loading="lazy" />
+            </a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
+               class="footer-social-link" aria-label="Instagram Procon Lite">
+              <img src="assets/footer/icon-instagram.svg" alt="" width="32" height="32" loading="lazy" />
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2: Navigation -->
+        <nav class="footer-nav-col" aria-label="Navigasi footer">
+          <h3 class="footer-heading">Navigation</h3>
+          <ul class="footer-nav-list">
+            <li><a href="#home"    class="footer-nav-link">Home</a></li>
+            <li><a href="#benefit" class="footer-nav-link">Benefits</a></li>
+            <li><a href="#about"   class="footer-nav-link">About Us</a></li>
+            <li><a href="#product" class="footer-nav-link">Product</a></li>
+            <li><a href="#contact" class="footer-nav-link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <!-- Column 3: Contact info -->
+        <div class="footer-contact-col">
+          <ul class="footer-contact-list">
+            <li class="footer-contact-item footer-contact-item--address">
+              <img src="assets/footer/icon-location.svg"
+                   width="22" height="22" alt="" class="footer-contact-icon" loading="lazy" />
+              <span class="footer-contact-text">
+                Perumahan Puri Bagus A7/23, Sedengan Mijen, Krian, Sidoarjo, Jawa Timur
+              </span>
+            </li>
+            <li class="footer-contact-item">
+              <img src="assets/footer/icon-phone.svg"
+                   width="22" height="22" alt="" class="footer-contact-icon" loading="lazy" />
+              <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer"
+                 class="footer-contact-text">+62 851-8402-8183</a>
+            </li>
+            <li class="footer-contact-item">
+              <img src="assets/footer/icon-time.svg"
+                   width="22" height="22" alt="" class="footer-contact-icon" loading="lazy" />
+              <span class="footer-contact-text">07.00 &ndash; 19.00 WIB</span>
+            </li>
+          </ul>
+        </div>
+
+      </div><!-- /.footer-grid -->
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          &copy; <span id="footer-year"></span> Procon Lite Indonesia &bull; All rights reserved
+        </p>
+      </div>
+    </div><!-- /.footer-container -->
+  </footer>
+
+  <!-- Footer nav scroll handled by consolidated main script -->
+
+</body>
+</html>
