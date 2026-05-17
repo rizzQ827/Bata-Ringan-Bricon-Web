@@ -1650,10 +1650,15 @@
     .preloader-name {
       font-family: Poppins, sans-serif;
       font-size: 42px;
-      color: #3c3744;
+      font-weight: 400;
+      color: #3d3844;
       opacity: 0;
       letter-spacing: -2px;
       animation: slideUpFade .8s ease-out .5s forwards;
+    }
+    .preloader-name strong {
+      font-weight: 600;
+      color: #3d3844;
     }
     @keyframes spin {
       to { transform: rotate(360deg); }
@@ -1685,17 +1690,26 @@
       if (!loader) return;
       document.body.classList.add('procon-lock');
       window.scrollTo(0, 0);
-      window.addEventListener('load', function(){
-        setTimeout(function(){
-          loader.classList.add('loaded');
-          document.body.classList.remove('procon-lock');
-          window.scrollTo(0, 0);
-        }, 300);
-      });
-      setTimeout(function(){
+
+      /* Animasi terakhir (slideUpFade) selesai di delay 0.5s + durasi 0.8s = 1.3s.
+         Tunggu 1.4s setelah window.load agar semua animasi tuntas baru dismiss. */
+      var ANIM_DONE = 1400;
+      var dismissed = false;
+
+      function dismiss() {
+        if (dismissed) return;
+        dismissed = true;
         loader.classList.add('loaded');
         document.body.classList.remove('procon-lock');
-      }, 20000);
+        window.scrollTo(0, 0);
+      }
+
+      window.addEventListener('load', function(){
+        setTimeout(dismiss, ANIM_DONE);
+      });
+
+      /* Fallback absolut: 20 detik */
+      setTimeout(dismiss, 20000);
     })();
   </script>
 
@@ -2600,7 +2614,7 @@
               mask-image: linear-gradient(to left, transparent 42%, black 68%);
     }
     @media (min-width: 381px) and (max-width: 768px) {
-      .contact-deco { display: block; }
+      .contact-deco { display: block; top: 300px; }
     }
 
   </style>
