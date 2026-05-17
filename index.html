@@ -1526,16 +1526,15 @@
     /* Brand banner — CTA pindah ke bawah rata tengah di ≤776px */
     @media (max-width: 776px) {
       .spk-brand-banner { flex-wrap: wrap; gap: 12px 16px; }
-      /* Logo, divider, content = baris 1. CTA turun ke baris 2, selebar logo */
-      .spk-brand-logo { flex-basis: auto; }
       .spk-brand-cta {
-        /* Selebar logo: 170px (sama dengan .spk-brand-logo img di ≤768) */
-        flex-basis: 170px;
-        width: 170px;
-        flex-shrink: 0;
-        flex-grow: 0;
+        /* Turun ke baris baru, lebar menyesuaikan konten, padding vertikal tetap */
+        flex-basis: 100%;
+        width: auto;
+        display: flex;
         justify-content: center;
-        margin-top: 2px;
+        align-self: center;
+        margin: 0 auto;
+        /* padding vertikal tetap (tidak diubah dari base: 11px) */
       }
     }
 
@@ -1555,12 +1554,6 @@
       }
       .spk-brand-label { font-size: clamp(0.48rem, 1.8vw, 0.6rem); }
       .spk-brand-logo img { width: clamp(110px, 22vw, 170px); }
-      .spk-brand-cta {
-        flex-basis: clamp(110px, 22vw, 170px);
-        width: clamp(110px, 22vw, 170px);
-        font-size: clamp(0.7rem, 2.5vw, 0.9rem);
-        padding: 9px 10px 9px 14px;
-      }
     }
     /* ≤380px — badge & heading seragam */
     @media (max-width: 380px) {
