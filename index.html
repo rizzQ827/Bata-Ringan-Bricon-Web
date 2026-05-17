@@ -1325,68 +1325,79 @@
     .spk-tab-btn:not(.active) span { color: #3c3744; }
     .spk-tab-btn:hover, .spk-tab-btn:focus, .spk-tab-btn:active { background: transparent; outline: none; }
 
-    /* ── Brand Banner (above tabs, below section header) ── */
+    /* ── Brand Banner Bricon — single unified horizontal row ── */
     .spk-brand-banner {
-      /* mobile: full width of section */
-      width: 100%;
-      margin: 0 auto 24px;
+      max-width: calc(2 * 28rem + 32px);
+      margin: 0 auto 28px;
+      padding: 18px 24px;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
-      gap: 16px;
+      gap: 24px;
+      box-sizing: border-box;
     }
-    .spk-brand-label {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 400;
-      /* golden ratio: spk-title clamp(2rem,4.2vw,3rem) ÷ 1.618 */
-      font-size: clamp(1.236rem, 2.596vw, 1.854rem);
-      color: #3e3945;
-      margin: 0;
-      text-align: center;
-      line-height: 1.2;
-    }
-    .spk-brand-inner {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      width: 100%;
-    }
-    .spk-brand-logo {
-      flex-shrink: 0;
-    }
+
+    /* ① Logo */
+    .spk-brand-logo { flex-shrink: 0; }
     .spk-brand-logo img {
-      /* mobile: smaller logo so text stays 3-4 lines */
-      width: 90px;
-      height: auto;
       display: block;
+      width: 160px;   /* ratio 1722÷644 ≈ 2.67 → height ~60px */
+      height: auto;
     }
+
+    /* ② Divider — tinggi otomatis mengikuti row */
     .spk-brand-divider {
       flex-shrink: 0;
       width: 1px;
-      height: 48px;
+      align-self: stretch;
       background: rgba(60, 55, 68, 0.22);
     }
-    .spk-brand-text {
+
+    /* ③ Content group: overline + headline + subheadline */
+    .spk-brand-content {
       flex: 1;
-      text-align: left;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .spk-brand-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: #090c9b;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 0;
+      line-height: 1;
     }
     .spk-brand-title {
       font-family: 'Poppins', sans-serif;
       font-weight: 700;
-      font-size: 0.78rem;
+      font-size: clamp(0.82rem, 1.25vw, 0.98rem);
       color: #3e3945;
-      margin: 0 0 3px 0;
-      line-height: 1.35;
+      margin: 0;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .spk-brand-desc {
       font-family: 'Poppins', sans-serif;
       font-weight: 400;
-      font-size: 0.68rem;
+      font-size: clamp(0.72rem, 1vw, 0.82rem);
       color: #3e3945;
       margin: 0;
       line-height: 1.55;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
+
+    /* ④ CTA — push kanan natural karena content flex:1 */
     .spk-brand-cta {
+      flex-shrink: 0;
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -1394,13 +1405,14 @@
       color: #ededed;
       font-family: 'Poppins', sans-serif;
       font-weight: 700;
-      font-size: 0.82rem;
+      font-size: clamp(0.82rem, 1.1vw, 0.92rem);
       text-decoration: none;
-      padding: 10px 14px 10px 22px;
+      padding: 11px 16px 11px 22px;
       border-radius: 100px;
+      white-space: nowrap;
       transition: background 0.2s ease, transform 0.15s ease;
     }
-    .spk-brand-cta:hover { background: #b01318; transform: translateY(-1px); }
+    .spk-brand-cta:hover  { background: #b01318; transform: translateY(-1px); }
     .spk-brand-cta:active { transform: translateY(0); }
     .spk-brand-cta-icon {
       display: flex;
@@ -1408,14 +1420,11 @@
       justify-content: center;
       width: 26px;
       height: 26px;
-      background: rgba(255,255,255,0.2);
+      background: rgba(255, 255, 255, 0.2);
       border-radius: 100%;
       flex-shrink: 0;
     }
-    .spk-brand-cta-icon svg {
-      width: 14px;
-      height: 14px;
-    }
+    .spk-brand-cta-icon svg { width: 14px; height: 14px; }
 
     .spk-cards {
       max-width: 72rem;
@@ -1489,20 +1498,9 @@
       .spk-spec-label { font-size: 0.6rem; font-weight: 500; color: #6a6a7a; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
       .spk-spec-value { font-size: clamp(0.66rem, 1.15vw, 0.88rem); font-weight: 700; color: #3c3744; white-space: nowrap; }
 
-      /* Brand banner desktop: sejajar dengan 2 cards (2×28rem + 32px gap) */
-      .spk-brand-banner {
-        max-width: calc(2 * 28rem + 32px);
-        gap: 20px;
-        margin-bottom: 28px;
-      }
-      .spk-brand-inner { gap: 28px; }
+      /* Brand banner desktop — gap & padding lebih lega */
+      .spk-brand-banner { gap: 28px; padding: 20px 32px; }
       .spk-brand-logo img { width: 160px; }
-      .spk-brand-divider { height: 64px; }
-      .spk-brand-title { font-size: clamp(0.85rem, 1.4vw, 1rem); }
-      .spk-brand-desc { font-size: clamp(0.76rem, 1.1vw, 0.85rem); }
-      .spk-brand-cta { font-size: clamp(0.88rem, 1.3vw, 1rem); padding: 12px 18px 12px 26px; }
-      .spk-brand-cta-icon { width: 28px; height: 28px; }
-      .spk-brand-cta-icon svg { width: 15px; height: 15px; }
     }
 
     /* Mobile product */
@@ -1519,6 +1517,19 @@
       .spk-spec-value { display: block; }
       /* Badge seragam dengan About Us & Project di 381–768px */
       .spk-badge-label { font-size: 0.62rem; padding: 4px 11px; margin-bottom: 6px; }
+
+      /* Brand banner mobile — flex-wrap: logo+divider+content | CTA full-width */
+      .spk-brand-banner {
+        flex-wrap: wrap;
+        gap: 14px 16px;
+        padding: 16px 18px;
+      }
+      .spk-brand-logo img { width: 110px; }
+      .spk-brand-divider  { align-self: auto; height: 42px; }
+      .spk-brand-content  { flex: 1 1 0; min-width: 0; }
+      .spk-brand-title    { font-size: clamp(0.75rem, 3.2vw, 0.88rem); white-space: normal; }
+      .spk-brand-desc     { font-size: clamp(0.68rem, 2.6vw, 0.78rem); }
+      .spk-brand-cta      { flex: 0 0 100%; width: 100%; justify-content: center; font-size: 0.88rem; padding: 12px 20px; }
     }
     /* ≤380px — badge & heading seragam */
     @media (max-width: 380px) {
@@ -1529,184 +1540,6 @@
     @media (min-width: 1025px) {
       .spk-badge-label { font-size: 0.8rem; padding: 6px 16px; }
       .spk-title { font-size: clamp(2.6rem, 4.8vw, 3.6rem); }
-    }
-
-    /* ══════════════════════════════════════
-       BRICON HERO BANNER
-    ══════════════════════════════════════ */
-    .bricon-banner {
-      max-width: 72rem;
-      margin: 0 auto 32px;
-      padding: 0 12px;
-      box-sizing: border-box;
-    }
-    .bricon-banner-inner {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      background: linear-gradient(135deg, #0d1117 0%, #1a1f35 100%);
-      border-radius: 16px;
-      padding: 22px 28px;
-      border-left: 4px solid #dc2626;
-      box-shadow: 0 6px 28px rgba(0,0,0,0.22);
-      position: relative;
-      overflow: hidden;
-    }
-    /* Subtle red glow behind logo area */
-    .bricon-banner-inner::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 220px;
-      height: 100%;
-      background: radial-gradient(ellipse at left center, rgba(220,38,38,0.10) 0%, transparent 75%);
-      pointer-events: none;
-    }
-    /* Subtle noise texture strip */
-    .bricon-banner-inner::after {
-      content: '';
-      position: absolute;
-      top: 0; right: 0;
-      width: 40%;
-      height: 100%;
-      background: linear-gradient(to left, rgba(220,38,38,0.04), transparent);
-      pointer-events: none;
-    }
-
-    /* Logo */
-    .bricon-logo-wrap {
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-    .bricon-logo {
-      /* Logo ratio is 1722:644 ≈ 2.67:1 — fix height, width flows naturally */
-      height: 54px;
-      width: auto;
-      display: block;
-      object-fit: contain;
-      /* Logo background is white — invert to white-on-dark */
-      filter: brightness(0) invert(1);
-    }
-
-    /* Vertical divider */
-    .bricon-vdivider {
-      width: 1px;
-      align-self: stretch;
-      background: rgba(249,250,251,0.15);
-      flex-shrink: 0;
-      margin: 4px 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Text block */
-    .bricon-text {
-      flex: 1;
-      min-width: 0;
-      position: relative;
-      z-index: 1;
-    }
-    .bricon-eyebrow {
-      font-family: 'Nunito', sans-serif;
-      font-size: 0.63rem;
-      font-weight: 800;
-      color: rgba(249,250,251,0.55);
-      margin: 0 0 5px 0;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      line-height: 1;
-    }
-    .bricon-sub {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(0.72rem, 1.1vw, 0.82rem);
-      font-weight: 400;
-      color: rgba(249,250,251,0.72);
-      margin: 0;
-      line-height: 1.55;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    /* CTA */
-    .bricon-cta {
-      flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #dc2626;
-      color: #ffffff !important;
-      font-family: 'Nunito', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      text-decoration: none;
-      padding: 11px 22px;
-      border-radius: 9999px;
-      transition: background 0.3s ease, transform 0.2s ease;
-      white-space: nowrap;
-      position: relative;
-      z-index: 1;
-      box-shadow: 0 4px 14px rgba(220,38,38,0.35);
-    }
-    @media (hover: hover) and (pointer: fine) {
-      .bricon-cta:hover { background: #b91c1c; transform: scale(1.04); }
-    }
-    @media (hover: none) and (pointer: coarse) {
-      .bricon-cta:active { background: #b91c1c; transform: scale(0.97); }
-    }
-    .bricon-cta img {
-      width: 18px; height: 18px;
-      filter: brightness(0) invert(1);
-      flex-shrink: 0;
-    }
-
-    /* Tablet 769–1024px */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .bricon-banner { padding: 0; margin-bottom: 24px; }
-      .bricon-banner-inner { gap: 18px; padding: 18px 22px; }
-      .bricon-logo { height: 48px; }
-      .bricon-eyebrow { font-size: 0.6rem; }
-    }
-
-    /* Mobile ≤768px — stacked layout */
-    @media (max-width: 768px) {
-      .bricon-banner { padding: 0; margin-bottom: 20px; }
-      .bricon-banner-inner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-        padding: 18px 18px 18px 18px;
-        border-left: none;
-        border-top: 4px solid #dc2626;
-        border-radius: 14px;
-      }
-      .bricon-logo { height: 42px; }
-      .bricon-vdivider { display: none; }
-      .bricon-eyebrow {
-        white-space: normal;
-        font-size: 0.62rem;
-      }
-      .bricon-sub { font-size: 0.78rem; }
-      .bricon-cta {
-        width: 100%;
-        justify-content: center;
-        font-size: 0.92rem;
-        padding: 13px 20px;
-      }
-    }
-
-    /* Small mobile ≤380px */
-    @media (max-width: 380px) {
-      .bricon-banner-inner { padding: 16px 14px; gap: 10px; }
-      .bricon-logo { height: 36px; }
     }
   </style>
 </head>
@@ -1940,17 +1773,23 @@
     </div>
 
     <div class="spk-brand-banner">
-      <p class="spk-brand-label">Brand Kami</p>
-      <div class="spk-brand-inner">
-        <div class="spk-brand-logo">
-          <img src="assets/Product/Logo Bricon.webp" alt="Logo Bricon" width="160" height="72" loading="lazy">
-        </div>
-        <div class="spk-brand-divider" aria-hidden="true"></div>
-        <div class="spk-brand-text">
-          <p class="spk-brand-title">Diproduksi oleh PT Material Konstruksi Bangunan</p>
-          <p class="spk-brand-desc">Seluruh produk diproduksi oleh Bricon dengan standar kualitas internasional dan teknologi inovatif.</p>
-        </div>
+
+      <!-- ① Logo -->
+      <div class="spk-brand-logo">
+        <img src="assets/Product/Logo Bricon.webp" alt="Logo Bricon" width="1722" height="644" loading="lazy">
       </div>
+
+      <!-- ② Divider vertikal — tinggi mengikuti row otomatis -->
+      <div class="spk-brand-divider" aria-hidden="true"></div>
+
+      <!-- ③ Content group: overline + headline (max 1 baris) + subheadline (max 3 baris) -->
+      <div class="spk-brand-content">
+        <p class="spk-brand-label">Brand Kami</p>
+        <p class="spk-brand-title">Diproduksi oleh PT Material Konstruksi Bangunan</p>
+        <p class="spk-brand-desc">Seluruh produk diproduksi oleh Bricon dengan standar kualitas internasional dan teknologi inovatif.</p>
+      </div>
+
+      <!-- ④ CTA — push kanan natural karena content flex:1 -->
       <a href="https://bricon.co.id" target="_blank" rel="noopener noreferrer" class="spk-brand-cta">
         Kunjungi Bricon
         <span class="spk-brand-cta-icon" aria-hidden="true">
@@ -1960,28 +1799,7 @@
           </svg>
         </span>
       </a>
-    </div>
 
-    <!-- ── BRICON HERO BANNER ── -->
-    <div class="bricon-banner">
-      <div class="bricon-banner-inner">
-        <!-- Logo -->
-        <div class="bricon-logo-wrap">
-          <img src="assets/Product/Logo_Bricon.webp" alt="Bricon" class="bricon-logo" width="144" height="54" loading="lazy">
-        </div>
-        <!-- Vertical divider (desktop/tablet only) -->
-        <div class="bricon-vdivider" aria-hidden="true"></div>
-        <!-- Text -->
-        <div class="bricon-text">
-          <p class="bricon-eyebrow">Diproduksi oleh PT Material Konstruksi Bangunan</p>
-          <p class="bricon-sub">Seluruh produk diproduksi oleh Bricon dengan standar kualitas internasional dan teknologi inovatif.</p>
-        </div>
-        <!-- CTA -->
-        <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer" class="bricon-cta">
-          <img src="assets/Navbar/Icon Whatsapp.svg" alt="" width="18" height="18">
-          <span>Tanya Produk</span>
-        </a>
-      </div>
     </div>
 
     <div class="spk-tabs">
