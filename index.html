@@ -318,13 +318,12 @@
       gap: 8px;
       align-items: center;
       z-index: 999;
-      transition: background 0.3s ease, transform 0.3s ease;
+      transition: background 0.3s ease;
       white-space: nowrap;
     }
     .floating-cta:hover {
       background: #3d52d5;
       color: #ffffff !important;
-      transform: scale(1.05);
     }
     .floating-cta img {
       width: 28px;
@@ -333,7 +332,7 @@
       flex-shrink: 0;
       filter: brightness(0) invert(1);
     }
-    /* Floating CTA selalu fixed; bottom disesuaikan JS saat footnote mendekat */
+    /* Floating CTA: position dikontrol JS — berhenti di divider atas footer */
 
     /* Mobile Mobile & Tablet — burger menu (320px - 1023px) Tablet — burger menu (320px - 1024px) */
     @media (max-width: 1024px) {
@@ -600,20 +599,20 @@
     .stats-bar-container {
       max-width: 920px;
       margin: 0 auto;
-      padding: 3px 24px 13px;
+      padding: 0px 24px 6px;
       display: flex;
       justify-content: space-around;
       align-items: center;
       gap: 20px;
       background-color: #eff6ff;
-      border-radius: 22px;
+      border-radius: 18px;
       border: 3px solid rgba(176,182,194,0.45);
     }
     .stat-item {
       flex: 1;
       text-align: center;
       position: relative;
-      padding: 4px 0;
+      padding: 2px 0;
     }
     .stat-item:not(:last-child)::after {
       content: '';
@@ -662,9 +661,9 @@
       .stats-bar-container {
         max-width: 680px;
         margin: 0 auto;
-        padding: 3px 20px 13px;
+        padding: 0px 20px 6px;
         gap: 10px;
-        border-radius: 20px;
+        border-radius: 16px;
         border: 3px solid rgba(176,182,194,0.45);
         background-color: #eff6ff;
       }
@@ -687,9 +686,9 @@
       .stats-bar-container {
         max-width: 860px;
         margin: 0 auto;
-        padding: 3px 30px 13px;
+        padding: 0px 30px 6px;
         gap: 20px;
-        border-radius: 24px;
+        border-radius: 18px;
         border: 3px solid rgba(176,182,194,0.45);
         background-color: #eff6ff;
       }
@@ -714,7 +713,7 @@
         max-width: 100%;
         width: 100%;
         margin: 0;
-        padding: 2px 4px 10px;
+        padding: 0px 4px 6px;
         gap: 0;
         border-radius: 0;
         border: none;
@@ -1524,6 +1523,16 @@
       .spk-brand-desc     { font-size: clamp(0.76rem, 2.8vw, 0.88rem); }
       .spk-brand-cta      { font-size: 0.9rem; padding: 11px 18px 11px 20px; }
     }
+    /* Brand banner — CTA pindah ke bawah rata tengah di ≤776px */
+    @media (max-width: 776px) {
+      .spk-brand-banner { flex-wrap: wrap; gap: 12px 16px; }
+      .spk-brand-cta {
+        flex-basis: 100%;
+        width: 100%;
+        justify-content: center;
+        margin-top: 2px;
+      }
+    }
     /* ≤380px — badge & heading seragam */
     @media (max-width: 380px) {
       .spk-badge-label { font-size: 0.58rem; padding: 3px 10px; margin-bottom: 5px; }
@@ -1929,6 +1938,40 @@
 
       window.addEventListener('scroll', updateActiveNav, { passive: true });
       updateActiveNav();
+
+      // Floating CTA — berhenti tepat di divider atas footer
+      (function() {
+        var floatingCta = document.querySelector('.floating-cta');
+        if (!floatingCta) return;
+
+        var defaultBottomMobile = 20; // px, sesuai @media ≤1024px
+
+        function updateFloatingCtaPosition() {
+          var footer = document.querySelector('.footer-section');
+          if (!footer) return;
+
+          var footerTop = footer.getBoundingClientRect().top;
+          var viewportH = window.innerHeight;
+          var ctaH = floatingCta.offsetHeight;
+          var gap = 16; // jarak antara tombol dan divider footer
+
+          // Saat footer mulai masuk viewport
+          if (footerTop < viewportH) {
+            // Jarak dari bawah viewport ke atas footer
+            var distFromBottom = viewportH - footerTop;
+            var newBottom = distFromBottom + gap;
+            floatingCta.style.bottom = newBottom + 'px';
+            floatingCta.style.position = 'fixed';
+          } else {
+            floatingCta.style.bottom = defaultBottomMobile + 'px';
+            floatingCta.style.position = 'fixed';
+          }
+        }
+
+        window.addEventListener('scroll', updateFloatingCtaPosition, { passive: true });
+        window.addEventListener('resize', updateFloatingCtaPosition, { passive: true });
+        updateFloatingCtaPosition();
+      })();
     });
 
 
