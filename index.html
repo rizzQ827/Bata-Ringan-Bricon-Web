@@ -1537,16 +1537,23 @@
       .spk-brand-logo    { grid-column: 1; grid-row: 1; }
       .spk-brand-divider { grid-column: 2; grid-row: 1; }
       .spk-brand-content { grid-column: 3; grid-row: 1; }
-      /* Baris 2: CTA span full, rata tengah, shrink-wrap */
+      /* Baris 2: CTA span full, rata tengah, shrink-wrap — dikecilkan serentak */
       .spk-brand-cta {
         grid-column: 1 / -1;
         grid-row: 2;
         width: fit-content;
         justify-self: center;
-        padding: 14px 22px 14px 22px;
         justify-content: center;
         align-items: center;
+        font-size: 0.82rem;
+        padding: 10px 16px 10px 18px;
+        gap: 8px;
       }
+      .spk-brand-cta-icon {
+        width: 22px;
+        height: 22px;
+      }
+      .spk-brand-cta-icon svg { width: 12px; height: 12px; }
     }
 
     /* Brand banner — teks mengecil menyesuaikan layar ≤674px, tanpa ellipsis */
@@ -1572,7 +1579,7 @@
       .spk-card.hidden-mobile { display: none; }
     }
 
-    /* ≤500px — CTA Bricon mengecil serentak */
+    /* ≤500px — CTA Bricon makin kecil */
     @media (max-width: 500px) {
       .spk-brand-cta {
         font-size: 0.72rem;
@@ -2532,6 +2539,11 @@
       .contact-content {
         order: 2;
         width: 100%;
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 8px;
+        padding-right: 8px;
         text-align: center;
       }
       .contact-consult-text {
@@ -2634,7 +2646,7 @@
               mask-image: linear-gradient(to left, transparent 42%, black 68%);
     }
     @media (min-width: 381px) and (max-width: 768px) {
-      .contact-deco { display: block; top: 340px; }
+      .contact-deco { display: block; top: 350px; }
     }
 
   </style>
