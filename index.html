@@ -318,7 +318,7 @@
       gap: 8px;
       align-items: center;
       z-index: 999;
-      transition: all 0.3s ease;
+      transition: background 0.3s ease, transform 0.3s ease;
       white-space: nowrap;
     }
     .floating-cta:hover {
@@ -600,7 +600,7 @@
     .stats-bar-container {
       max-width: 920px;
       margin: 0 auto;
-      padding: 8px 24px;
+      padding: 3px 24px 13px;
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -662,7 +662,7 @@
       .stats-bar-container {
         max-width: 680px;
         margin: 0 auto;
-        padding: 8px 20px;
+        padding: 3px 20px 13px;
         gap: 10px;
         border-radius: 20px;
         border: 3px solid rgba(176,182,194,0.45);
@@ -687,7 +687,7 @@
       .stats-bar-container {
         max-width: 860px;
         margin: 0 auto;
-        padding: 8px 30px;
+        padding: 3px 30px 13px;
         gap: 20px;
         border-radius: 24px;
         border: 3px solid rgba(176,182,194,0.45);
@@ -714,7 +714,7 @@
         max-width: 100%;
         width: 100%;
         margin: 0;
-        padding: 6px 4px;
+        padding: 2px 4px 10px;
         gap: 0;
         border-radius: 0;
         border: none;
@@ -1517,12 +1517,12 @@
         gap: 14px 16px;
         padding: 16px 18px;
       }
-      .spk-brand-logo img { width: 140px; }
+      .spk-brand-logo img { width: 170px; }
       .spk-brand-divider  { align-self: auto; height: 42px; }
       .spk-brand-content  { flex: 1 1 0; min-width: 0; }
       .spk-brand-title    { font-size: clamp(0.86rem, 3.5vw, 1rem); }
       .spk-brand-desc     { font-size: clamp(0.76rem, 2.8vw, 0.88rem); }
-      .spk-brand-cta      { flex: 0 0 100%; justify-content: center; font-size: 0.9rem; padding: 12px 20px; }
+      .spk-brand-cta      { font-size: 0.9rem; padding: 11px 18px 11px 20px; }
     }
     /* ≤380px — badge & heading seragam */
     @media (max-width: 380px) {
@@ -2510,38 +2510,7 @@
 
   <div class="footnote-footer-divider" aria-hidden="true"></div>
 
-  <script>
-    // Floating CTA — berhenti di divider bawah footnote agar tidak menutupinya
-    (function() {
-      var btn      = document.querySelector('.floating-cta');
-      var footnote = document.querySelector('.contact-footnote');
-      var divider  = document.querySelector('.footnote-footer-divider');
-      if (!btn || !footnote) return;
 
-      function updateDock() {
-        var offset = window.innerWidth >= 1025 ? 30 : 20;
-        var btnH   = btn.offsetHeight;
-
-        // Gunakan divider (mobile) atau footnote (tablet) sebagai titik berhenti
-        var ref = (divider && getComputedStyle(divider).display !== 'none')
-                  ? divider
-                  : footnote;
-        var refRect = ref.getBoundingClientRect();
-
-        // Saat CTA akan overlap ref, naikkan bottom secara dinamis
-        var triggerTop = window.innerHeight - offset - btnH;
-        if (refRect.top <= triggerTop) {
-          btn.style.bottom = (window.innerHeight - refRect.top + 10) + 'px';
-        } else {
-          btn.style.bottom = offset + 'px';
-        }
-      }
-
-      window.addEventListener('scroll', updateDock, { passive: true });
-      window.addEventListener('resize', updateDock, { passive: true });
-      updateDock();
-    })();
-  </script>
 
   <!-- ============================================================
        FOOTER
