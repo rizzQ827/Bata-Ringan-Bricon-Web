@@ -1582,6 +1582,124 @@
 <body>
 
   <!-- ============================================================
+       LOADING SCREEN
+  ============================================================ -->
+  <style>
+    body.procon-lock {
+      overflow: hidden !important;
+      height: 100vh;
+      touch-action: none;
+    }
+    #procon-preloader {
+      position: fixed;
+      inset: 0;
+      background: #ededed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999999;
+      transition: opacity .6s cubic-bezier(.4,0,.2,1),
+                  visibility .6s cubic-bezier(.4,0,.2,1);
+    }
+    #procon-preloader.loaded {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .preloader-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .logo-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .logo-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      z-index: 2;
+      animation: fadeInScale .6s ease-out forwards;
+    }
+    .spinner-ring {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid rgba(166,166,166,.2);
+      border-top-color: #a6a6a6;
+      border-right-color: #a6a6a6;
+      animation: spin 1.2s cubic-bezier(.68,-.55,.265,1.55) infinite;
+    }
+    .spinner-ring-2 {
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      border: 2px solid rgba(166,166,166,.15);
+      border-left-color: #a6a6a6;
+      animation: spin 1.8s cubic-bezier(.68,-.55,.265,1.55) infinite reverse;
+    }
+    .preloader-name {
+      font-family: Poppins, sans-serif;
+      font-size: 42px;
+      color: #3c3744;
+      opacity: 0;
+      letter-spacing: -2px;
+      animation: slideUpFade .8s ease-out .5s forwards;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes fadeInScale {
+      from { opacity:0; transform:scale(.5); }
+      to   { opacity:1; transform:scale(1); }
+    }
+    @keyframes slideUpFade {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+  </style>
+
+  <div id="procon-preloader">
+    <div class="preloader-logo">
+      <div class="logo-icon">
+        <img class="logo-image" src="assets/favicon.webp" alt="Procon Lite">
+        <div class="spinner-ring-2"></div>
+        <div class="spinner-ring"></div>
+      </div>
+      <h1 class="preloader-name"><strong>Procon</strong> lite</h1>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const loader = document.getElementById('procon-preloader');
+      if (!loader) return;
+      document.body.classList.add('procon-lock');
+      window.scrollTo(0, 0);
+      window.addEventListener('load', function(){
+        setTimeout(function(){
+          loader.classList.add('loaded');
+          document.body.classList.remove('procon-lock');
+          window.scrollTo(0, 0);
+        }, 300);
+      });
+      setTimeout(function(){
+        loader.classList.add('loaded');
+        document.body.classList.remove('procon-lock');
+      }, 20000);
+    })();
+  </script>
+
+  <!-- ============================================================
        NAVBAR
   ============================================================ -->
   <nav class="navbar-wrapper">
@@ -2482,13 +2600,7 @@
               mask-image: linear-gradient(to left, transparent 42%, black 68%);
     }
     @media (min-width: 381px) and (max-width: 768px) {
-      .contact-deco {
-        display: block;
-        /* Diturunkan lebih ke bawah */
-        top: 220px;
-      }
-      .contact-deco-left  { transform: translateY(-50%); }
-      .contact-deco-right { transform: translateY(-50%); }
+      .contact-deco { display: block; }
     }
 
   </style>
