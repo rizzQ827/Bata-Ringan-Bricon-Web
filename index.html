@@ -1526,16 +1526,26 @@
     }
     /* Brand banner — CTA pindah ke bawah rata tengah di ≤776px */
     @media (max-width: 776px) {
-      .spk-brand-banner { flex-wrap: wrap; gap: 12px 16px; }
+      .spk-brand-banner {
+        display: grid;
+        grid-template-columns: auto auto 1fr;
+        grid-template-rows: auto auto;
+        gap: 12px 16px;
+        align-items: center;
+      }
+      /* Baris 1: logo | divider | content */
+      .spk-brand-logo    { grid-column: 1; grid-row: 1; }
+      .spk-brand-divider { grid-column: 2; grid-row: 1; }
+      .spk-brand-content { grid-column: 3; grid-row: 1; }
+      /* Baris 2: CTA span full, rata tengah, shrink-wrap */
       .spk-brand-cta {
-        /* Turun ke baris baru, lebar menyesuaikan konten, padding sama seperti desktop */
-        flex-basis: 100%;
-        width: auto;
-        display: flex;
+        grid-column: 1 / -1;
+        grid-row: 2;
+        width: fit-content;
+        justify-self: center;
+        padding: 14px 22px 14px 22px;
         justify-content: center;
-        align-self: center;
-        margin: 0 auto;
-        padding: 11px 10px 11px 10px;
+        align-items: center;
       }
     }
 
@@ -2475,7 +2485,7 @@
       .contact-deco {
         display: block;
         /* Naik sejajar hero image: section padding 40px + image center ~105px */
-        top: 90px;
+        top: 130px;
       }
       .contact-deco-left  { transform: translateY(-50%); }
       .contact-deco-right { transform: translateY(-50%); }
