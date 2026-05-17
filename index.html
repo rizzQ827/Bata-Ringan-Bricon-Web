@@ -1497,12 +1497,13 @@
       .spk-brand-logo img { width: 210px; }
     }
 
-    /* Mobile product */
+    /* Mobile product ≤768px — tabs aktif, card column, ramping di tengah */
     @media (max-width: 768px) {
       .spk-section { padding: 32px 15px; }
-      .spk-tabs { display: none; padding: 0; } /* hidden default, aktif di ≤500px */
-      .spk-cards { flex-direction: column; }
-      .spk-card { margin-bottom: 16px; }
+      .spk-tabs { display: block; padding: 0; }
+      .spk-card.hidden-mobile { display: none; }
+      .spk-cards { flex-direction: column; align-items: center; }
+      .spk-card { margin-bottom: 16px; width: 100%; max-width: 420px; }
       .spk-specs { flex-direction: column; gap: 8px; }
       /* Rata kiri: label kecil di atas, value besar di bawah */
       .spk-spec { text-align: left; }
@@ -1572,11 +1573,6 @@
       }
       .spk-brand-label { font-size: clamp(0.48rem, 1.8vw, 0.6rem); }
       .spk-brand-logo img { width: clamp(110px, 22vw, 170px); }
-    }
-    /* ≤500px — tabs product aktif */
-    @media (max-width: 500px) {
-      .spk-tabs { display: block; }
-      .spk-card.hidden-mobile { display: none; }
     }
 
     /* ≤500px — CTA Bricon makin kecil */
