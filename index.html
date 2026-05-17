@@ -1500,7 +1500,7 @@
     /* Mobile product */
     @media (max-width: 768px) {
       .spk-section { padding: 32px 15px; }
-      .spk-tabs { display: block; padding: 0; }
+      .spk-tabs { display: none; padding: 0; } /* hidden default, aktif di ≤500px */
       .spk-cards { flex-direction: column; }
       .spk-card { margin-bottom: 16px; }
       .spk-specs { flex-direction: column; gap: 8px; }
@@ -1566,6 +1566,26 @@
       .spk-brand-label { font-size: clamp(0.48rem, 1.8vw, 0.6rem); }
       .spk-brand-logo img { width: clamp(110px, 22vw, 170px); }
     }
+    /* ≤500px — tabs product aktif */
+    @media (max-width: 500px) {
+      .spk-tabs { display: block; }
+      .spk-card.hidden-mobile { display: none; }
+    }
+
+    /* ≤500px — CTA Bricon mengecil serentak */
+    @media (max-width: 500px) {
+      .spk-brand-cta {
+        font-size: 0.72rem;
+        padding: 9px 13px 9px 15px;
+        gap: 7px;
+      }
+      .spk-brand-cta-icon {
+        width: 20px;
+        height: 20px;
+      }
+      .spk-brand-cta-icon svg { width: 11px; height: 11px; }
+    }
+
     /* ≤380px — badge & heading seragam */
     @media (max-width: 380px) {
       .spk-badge-label { font-size: 0.58rem; padding: 3px 10px; margin-bottom: 5px; }
@@ -2614,7 +2634,7 @@
               mask-image: linear-gradient(to left, transparent 42%, black 68%);
     }
     @media (min-width: 381px) and (max-width: 768px) {
-      .contact-deco { display: block; top: 320px; }
+      .contact-deco { display: block; top: 340px; }
     }
 
   </style>
@@ -2652,7 +2672,7 @@
             <a href="https://wa.me/6285184028183" target="_blank" rel="noopener noreferrer" class="contact-consult-btn">
               <span class="contact-consult-badge">Gratis</span>
               <img src="assets/Navbar/Icon Whatsapp.svg" alt="" width="22" height="22">
-              <span>Konsultasi Yuk</span>
+              <span>Konsultasi Yuk!</span>
             </a>
           </div>
 
