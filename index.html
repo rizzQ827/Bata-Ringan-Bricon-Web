@@ -1036,9 +1036,9 @@
     }
 
     .about-brand-link { text-decoration: none; }
-    .brand-procon { color: #dc5f02; font-weight: 600; }
-    .brand-persada { color: #026602; font-weight: 600; }
-    .brand-bricon { color: #d01d22; font-weight: 600; }
+    .brand-procon { color: #C27A50; font-weight: 600; }
+    .brand-persada { color: #4E8C5F; font-weight: 600; }
+    .brand-bricon { color: #B86166; font-weight: 600; }
 
     .about-cta-btn {
       display: inline-flex;
@@ -1062,9 +1062,19 @@
       color: #ffffff !important;
     }
 
+    .about-cta-icon-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.22);
+      flex-shrink: 0;
+    }
     .about-cta-icon {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       object-fit: contain;
       filter: brightness(0) invert(1);
       flex-shrink: 0;
@@ -1104,32 +1114,37 @@
       to   { opacity: 1; transform: translateY(0) scale(1); }
     }
     .about-modal-badge {
-      display: inline-block;
+      display: block;
+      width: fit-content;
       font-family: 'Nunito', sans-serif;
-      font-size: 0.65rem;
+      font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #225dcf;
-      background: rgba(34,93,207,0.09);
-      padding: 4px 12px;
+      color: #090c9b;
+      background: rgba(9, 12, 155, 0.08);
+      padding: 5px 14px;
       border-radius: 999px;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
     }
     .about-modal-title {
+      display: inline-block;
       font-family: 'Poppins', sans-serif;
-      font-size: 1.2rem;
+      font-size: clamp(2rem, 4.2vw, 3rem);
       font-weight: 600;
       color: #3c3744;
-      margin: 0 0 14px;
-      line-height: 1.25;
+      margin: 0 0 20px;
+      line-height: 1.2;
+      position: relative;
     }
-    .about-modal-divider {
-      width: 48px;
-      height: 3px;
-      background: #225dcf;
+    .about-modal-title::after {
+      content: '';
+      display: block;
+      width: 60%;
+      height: 4px;
+      background-color: #090c9b;
       border-radius: 2px;
-      margin-bottom: 18px;
+      margin-top: 4px;
     }
     .about-modal-text {
       font-family: 'Poppins', sans-serif;
@@ -1157,7 +1172,7 @@
     .about-modal-close:hover { opacity: 0.85; }
     @media (max-width: 480px) {
       .about-modal-card { padding: 28px 22px 24px; border-radius: 18px; }
-      .about-modal-title { font-size: 1rem; }
+      .about-modal-title { font-size: 1.6rem; }
       .about-modal-text { font-size: 0.82rem; }
     }
 
@@ -2663,14 +2678,16 @@
         <img src="assets/about/deco-hexagon.webp" alt="" width="200" height="400" loading="lazy">
       </div>
       <div class="about-content">
-        <span class="about-badge">About Us</span>
+        <span class="about-badge">Siapa Kami</span>
         <h2 class="about-heading">Siapa Kami?</h2>
         <p class="about-desc">
           Di bawah naungan <span class="brand-procon">Procon</span>&nbsp;<span class="brand-persada">Persada,</span> Procon lite adalah distributor resmi <span class="brand-bricon">Bricon</span> yang menyediakan bata ringan dan panel lantai berkualitas tinggi untuk wilayah Jawa Timur.
         </p>
         <button class="about-cta-btn" id="aboutReadMoreBtn">
           <span>Baca Selengkapnya</span>
-          <img src="assets/about/icon-arrow-right.svg" alt="" class="about-cta-icon" width="18" height="18"/>
+          <span class="about-cta-icon-wrap">
+            <img src="assets/about/icon-arrow-right.svg" alt="" class="about-cta-icon" width="16" height="16"/>
+          </span>
         </button>
         <div class="about-sub-images">
           <div class="about-sub-img-wrap">
@@ -3047,9 +3064,8 @@
   <div class="about-modal-overlay" id="aboutModal" role="dialog" aria-modal="true" aria-labelledby="aboutModalTitle">
     <div class="about-modal-backdrop" id="aboutModalBackdrop"></div>
     <div class="about-modal-card">
-      <div class="about-modal-badge">Tentang Kami</div>
-      <h3 class="about-modal-title" id="aboutModalTitle">Procon Lite &amp; Bricon</h3>
-      <div class="about-modal-divider"></div>
+      <div class="about-modal-badge">ABOUT US</div>
+      <h3 class="about-modal-title" id="aboutModalTitle">Siapa Kami</h3>
       <p class="about-modal-text">
         Di bawah naungan <span class="brand-procon">Procon</span>&nbsp;<span class="brand-persada">Persada,</span> Procon lite hadir sebagai distributor resmi <span class="brand-bricon">Bricon</span> yang menyediakan unit bata ringan dan panel lantai unggulan untuk wilayah Jawa Timur. Seluruh produk kami diproduksi oleh PT Material Konstruksi Bangunan menggunakan teknologi inovatif dan standar kualitas internasional Bricon. Kami berkomitmen untuk selalu menghadirkan material konstruksi terbaik demi keamanan dan ketahanan proyek bangunan Anda.
       </p>
