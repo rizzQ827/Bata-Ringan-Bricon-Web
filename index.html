@@ -327,6 +327,7 @@
       background: #3d52d5;
       color: #ffffff !important;
     }
+    /* No float/bounce animation on floating-cta */
     .floating-cta img {
       width: 28px;
       height: 28px;
@@ -799,14 +800,14 @@
     .benefit-card {
       background-color: #d0d3da;
       border-radius: 1.5rem;
-      padding: clamp(50px, 6vw, 3.5rem) 1.5rem 1.5rem 1.5rem;
+      padding: 3.5rem 1.5rem 1.5rem 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, background-color 0.4s ease;
       position: relative;
-      margin-top: clamp(50px, 6vw, 3.5rem);
+      margin-top: 3.5rem;
       flex: 1;
       justify-content: flex-start;
     }
@@ -897,7 +898,7 @@
       .benefit-badge { font-size: 0.62rem; padding: 4px 11px; margin-bottom: 10px; }
       .benefit-heading { font-size: clamp(1.6rem, 7vw, 2rem); }
       .benefit-grid { flex-direction: column; gap: 1rem; }
-      .benefit-card { margin-top: clamp(50px, 6vw, 3.5rem); padding: clamp(50px, 6vw, 3.5rem) 1.5rem 1.5rem 1.5rem; }
+      .benefit-card { margin-top: 55px; padding: 55px 1.5rem 1.5rem 1.5rem; }
       .benefit-icon-wrapper { top: 0; transform: translate(-50%, -50%); }
       .benefit-icon { width: 110px; height: 110px; }
       .mobile-title { display: block; }
@@ -919,7 +920,7 @@
         --bd: calc(clamp(var(--benefit-title-min), var(--benefit-title-mid), var(--benefit-title-max)) / 2);
       }
       .benefit-grid { flex-direction: row; gap: 1rem; }
-      .benefit-card { padding: clamp(50px, 6vw, 3.5rem) 1rem 2.5rem 1rem; margin-top: clamp(50px, 6vw, 3.5rem); }
+      .benefit-card { padding: clamp(50px, 7vw, 80px) 1rem 2.5rem 1rem; margin-top: clamp(50px, 7vw, 80px); }
       .benefit-icon-wrapper { top: 0; transform: translate(-50%, -50%); }
       .benefit-icon { width: clamp(100px, 12vw, 150px); height: clamp(100px, 12vw, 150px); }
       .benefit-title { font-size: var(--bt); margin: 0 0 0.8rem 0; padding: 0 0.5rem; }
@@ -939,7 +940,7 @@
     @media (min-width: 1230px) {
       .benefit-section { margin-top: 3.5rem !important; padding: 48px 2rem 3rem 2rem; --bt: 1.6rem; --bd: calc(1.6rem / 2); }
       .benefit-grid { flex-direction: row; gap: 2rem; }
-      .benefit-card { padding: clamp(50px, 6vw, 3.5rem) 2rem 3rem 2rem; margin-top: clamp(50px, 6vw, 3.5rem); }
+      .benefit-card { padding: 90px 2rem 3rem 2rem; margin-top: 90px; }
       .benefit-icon-wrapper { top: 0; transform: translate(-50%, -50%); }
       .benefit-icon { width: 180px; height: 180px; }
       .benefit-title { font-size: var(--bt); margin: 0 0 1.2rem 0; padding: 0 1rem; }
@@ -1120,6 +1121,10 @@
       padding: 40px 40px 36px;
       box-shadow: 0 24px 64px rgba(9,12,155,0.14), 0 4px 16px rgba(0,0,0,0.08);
       animation: modalIn 0.28s cubic-bezier(0.34,1.36,0.64,1) both;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     @keyframes modalIn {
       from { opacity: 0; transform: translateY(18px) scale(0.97); }
@@ -1138,6 +1143,8 @@
       padding: 5px 14px;
       border-radius: 999px;
       margin-bottom: 8px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .about-modal-title {
       display: inline-block;
@@ -1170,7 +1177,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: #225dcf;
+      background: #3c55d3;
       color: #ffffff;
       font-family: 'Nunito', sans-serif;
       font-size: 0.82rem;
@@ -1942,7 +1949,7 @@
       position: absolute;
       top: -9px;
       right: -10px;
-      background: #225dcf;
+      background: #3c55d3;
       color: #ffffff;
       font-family: 'Nunito', sans-serif;
       font-size: 0.6rem;
@@ -1983,14 +1990,14 @@
     .contact-info-card {
       background-color: #d0d3da;
       border-radius: 1.5rem;
-      padding: clamp(50px, 6vw, 3.5rem) 1.5rem 1.5rem 1.5rem;
+      padding: 3.5rem 1.5rem 1.5rem 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, background-color 0.4s ease;
       position: relative;
-      margin-top: clamp(50px, 6vw, 3.5rem);
+      margin-top: 3.5rem;
       flex: 1;
       justify-content: flex-start;
     }
@@ -2491,6 +2498,7 @@
         loader.classList.add('loaded');
         document.body.classList.remove('procon-lock');
         window.scrollTo(0, 0);
+        window.dispatchEvent(new Event('procon:loaded'));
       }
 
       window.addEventListener('load', function(){
@@ -2997,17 +3005,36 @@
           setTimeout(function() { animateCount(el, target, duration); }, i * 120);
         });
       }
-      // Use IntersectionObserver if available, else fire on load
-      if ('IntersectionObserver' in window) {
+      // Fire setelah loading screen dismiss — tunggu event 'procon:loaded'
+      // Fallback: IntersectionObserver jika event tidak terpanggil
+      var counterStarted = false;
+      function maybeStartCounters() {
+        if (counterStarted) return;
         var statsSection = document.querySelector('.stats-bar-section');
-        if (statsSection) {
-          var obs = new IntersectionObserver(function(entries) {
-            if (entries[0].isIntersecting) { runCounters(); obs.disconnect(); }
-          }, { threshold: 0.3 });
-          obs.observe(statsSection);
+        if (!statsSection) return;
+        var rect = statsSection.getBoundingClientRect();
+        // Hanya jalankan jika stats section visible di viewport
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          counterStarted = true;
+          runCounters();
+        } else {
+          // Kalau belum visible, pasang observer
+          if ('IntersectionObserver' in window) {
+            var obs = new IntersectionObserver(function(entries) {
+              if (entries[0].isIntersecting) { runCounters(); obs.disconnect(); }
+            }, { threshold: 0.2 });
+            obs.observe(statsSection);
+          }
         }
-      } else {
-        runCounters();
+      }
+      // Listen event dari preloader dismiss
+      window.addEventListener('procon:loaded', function() {
+        setTimeout(maybeStartCounters, 200);
+      });
+      // Fallback jika event sudah lewat
+      if (document.getElementById('procon-preloader') === null ||
+          document.getElementById('procon-preloader').classList.contains('loaded')) {
+        setTimeout(maybeStartCounters, 200);
       }
     })();
       if (aboutOpenBtn)  aboutOpenBtn.addEventListener('click', openAboutModal);
