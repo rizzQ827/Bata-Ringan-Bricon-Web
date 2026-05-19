@@ -153,6 +153,12 @@
     @media (min-width: 1440px) {
       html { font-size: 90%; }
     }
+    /* Desktop zoom 90% — seluruh halaman tampak seperti zoom 90% */
+    @media (min-width: 1025px) {
+      html {
+        zoom: 0.9;
+      }
+    }
 
     /* ============================================================
        NAVBAR
@@ -1164,6 +1170,8 @@
       background-color: #090c9b;
       border-radius: 2px;
       margin-top: 4px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .about-modal-text {
       font-family: 'Poppins', sans-serif;
