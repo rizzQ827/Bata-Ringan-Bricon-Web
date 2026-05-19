@@ -1394,37 +1394,6 @@
       overflow: hidden;
     }
 
-    /* ④ CTA — push kanan; wraps to next line automatically when touching content */
-    .spk-brand-cta {
-      flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: #cf191e;
-      color: #ededed;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: clamp(0.88rem, 1.15vw, 0.98rem);
-      text-decoration: none;
-      padding: 11px 16px 11px 22px;
-      border-radius: 100px;
-      white-space: nowrap;
-      transition: background 0.2s ease, transform 0.15s ease;
-    }
-    .spk-brand-cta:hover  { background: #b01318; transform: translateY(-1px); }
-    .spk-brand-cta:active { transform: translateY(0); }
-    .spk-brand-cta-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 26px;
-      height: 26px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 100%;
-      flex-shrink: 0;
-    }
-    .spk-brand-cta-icon svg { width: 14px; height: 14px; }
-
     .spk-cards {
       max-width: 72rem;
       margin: 0 auto;
@@ -1531,38 +1500,19 @@
       .spk-brand-content  { flex: 1 1 0; min-width: 0; }
       .spk-brand-title    { font-size: clamp(0.86rem, 3.5vw, 1rem); }
       .spk-brand-desc     { font-size: clamp(0.76rem, 2.8vw, 0.88rem); }
-      .spk-brand-cta      { font-size: 0.9rem; padding: 11px 18px 11px 20px; }
     }
-    /* Brand banner — CTA pindah ke bawah rata tengah di ≤776px */
+    /* Brand banner — single row layout di ≤776px */
     @media (max-width: 776px) {
       .spk-brand-banner {
-        display: grid;
-        grid-template-columns: auto auto 1fr;
-        grid-template-rows: auto auto;
+        display: flex;
+        flex-wrap: wrap;
         gap: 12px 16px;
         align-items: center;
       }
       /* Baris 1: logo | divider | content */
-      .spk-brand-logo    { grid-column: 1; grid-row: 1; }
-      .spk-brand-divider { grid-column: 2; grid-row: 1; }
-      .spk-brand-content { grid-column: 3; grid-row: 1; }
-      /* Baris 2: CTA span full, rata tengah, shrink-wrap — dikecilkan serentak */
-      .spk-brand-cta {
-        grid-column: 1 / -1;
-        grid-row: 2;
-        width: fit-content;
-        justify-self: center;
-        justify-content: center;
-        align-items: center;
-        font-size: 0.82rem;
-        padding: 10px 16px 10px 18px;
-        gap: 8px;
-      }
-      .spk-brand-cta-icon {
-        width: 22px;
-        height: 22px;
-      }
-      .spk-brand-cta-icon svg { width: 12px; height: 12px; }
+      .spk-brand-logo    { flex-shrink: 0; }
+      .spk-brand-divider { flex-shrink: 0; }
+      .spk-brand-content { flex: 1 1 0; min-width: 0; }
     }
 
     /* Brand banner — teks mengecil menyesuaikan layar ≤674px, tanpa ellipsis */
@@ -1581,20 +1531,6 @@
       }
       .spk-brand-label { font-size: clamp(0.48rem, 1.8vw, 0.6rem); }
       .spk-brand-logo img { width: clamp(110px, 22vw, 170px); }
-    }
-
-    /* ≤500px — CTA Bricon makin kecil */
-    @media (max-width: 500px) {
-      .spk-brand-cta {
-        font-size: 0.72rem;
-        padding: 9px 13px 9px 15px;
-        gap: 7px;
-      }
-      .spk-brand-cta-icon {
-        width: 20px;
-        height: 20px;
-      }
-      .spk-brand-cta-icon svg { width: 11px; height: 11px; }
     }
 
     /* ≤380px — badge & heading seragam */
@@ -1733,7 +1669,7 @@
     .faq-badge {
       display: block;
       width: fit-content;
-      margin: 0 auto 14px;
+      margin: 0 0 14px;
       font-family: 'Nunito', sans-serif;
       font-size: 0.7rem;
       font-weight: 700;
@@ -1763,13 +1699,13 @@
       height: 4px;
       background-color: #090c9b;
       border-radius: 2px;
-      margin: 4px auto 0;
+      margin: 4px 0 0;
     }
     @media (max-width: 768px) {
-      .contact-badge, .faq-badge { font-size: 0.62rem; padding: 4px 11px; margin-bottom: 10px; }
+      .contact-badge, .faq-badge { font-size: 0.62rem; padding: 4px 11px; margin-bottom: 6px; }
     }
     @media (max-width: 380px) {
-      .contact-badge, .faq-badge { font-size: 0.58rem; padding: 3px 10px; margin-bottom: 8px; }
+      .contact-badge, .faq-badge { font-size: 0.58rem; padding: 3px 10px; margin-bottom: 5px; }
       .contact-heading, .faq-heading { font-size: 1.6rem; }
     }
     @media (min-width: 1025px) {
@@ -1828,14 +1764,13 @@
 
     /* ── Header — centered on all breakpoints ── */
     .contact-header {
-      text-align: center;
       margin-bottom: 24px;
     }
     .contact-header .contact-badge {
-      margin: 0 auto 14px;
+      margin: 0 0 14px;
     }
     .contact-header .contact-heading::after {
-      margin: 4px auto 0;
+      margin: 4px 0 0;
     }
 
     /* ── Form (Poppins everywhere) ── */
@@ -2081,8 +2016,11 @@
         margin-bottom: 12px;
       }
       .contact-heading {
-        font-size: clamp(1.5rem, 5vw, 2rem) !important;
-        margin-bottom: 12px !important;
+        margin-bottom: 12px;
+      }
+      .contact-heading::after {
+        margin-left: auto;
+        margin-right: auto;
       }
       .contact-badge {
         margin-left: auto;
@@ -2119,7 +2057,6 @@
     @media (max-width: 380px) {
       .contact-section { padding: 32px 14px 36px 14px; }
       .contact-image-wrap { width: min(180px, 52vw); }
-      .contact-heading { font-size: clamp(1.25rem, 4vw, 1.5rem) !important; margin-bottom: 10px !important; }
       .contact-consult-text { font-size: 0.75rem; margin-bottom: 10px; }
       .contact-info-card { margin-top: 50px; padding: 50px 1.25rem 1.25rem 1.25rem; }
       .contact-info-icon { width: 100px; height: 100px; }
@@ -2683,17 +2620,6 @@
         <p class="spk-brand-title">Diproduksi oleh PT Material Konstruksi Bangunan</p>
         <p class="spk-brand-desc">Seluruh produk diproduksi oleh Bricon dengan standar kualitas internasional dan teknologi inovatif.</p>
       </div>
-
-      <!-- ④ CTA — push kanan natural karena content flex:1 -->
-      <a href="https://bataringanbricon.com/" target="_blank" rel="noopener noreferrer" class="spk-brand-cta">
-        Kunjungi Bricon
-        <span class="spk-brand-cta-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#ededed" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"/>
-            <polyline points="12 5 19 12 12 19"/>
-          </svg>
-        </span>
-      </a>
 
     </div>
 
