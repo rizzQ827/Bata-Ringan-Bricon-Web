@@ -799,14 +799,14 @@
     .benefit-card {
       background-color: #d0d3da;
       border-radius: 1.5rem;
-      padding: 3.5rem 1.5rem 1.5rem 1.5rem;
+      padding: clamp(50px, 6vw, 3.5rem) 1.5rem 1.5rem 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, background-color 0.4s ease;
       position: relative;
-      margin-top: 3.5rem;
+      margin-top: clamp(50px, 6vw, 3.5rem);
       flex: 1;
       justify-content: flex-start;
     }
@@ -897,7 +897,7 @@
       .benefit-badge { font-size: 0.62rem; padding: 4px 11px; margin-bottom: 10px; }
       .benefit-heading { font-size: clamp(1.6rem, 7vw, 2rem); }
       .benefit-grid { flex-direction: column; gap: 1rem; }
-      .benefit-card { margin-top: 55px; padding: 55px 1.5rem 1.5rem 1.5rem; }
+      .benefit-card { margin-top: clamp(50px, 6vw, 3.5rem); padding: clamp(50px, 6vw, 3.5rem) 1.5rem 1.5rem 1.5rem; }
       .benefit-icon-wrapper { top: 0; transform: translate(-50%, -50%); }
       .benefit-icon { width: 110px; height: 110px; }
       .mobile-title { display: block; }
@@ -919,7 +919,7 @@
         --bd: calc(clamp(var(--benefit-title-min), var(--benefit-title-mid), var(--benefit-title-max)) / 2);
       }
       .benefit-grid { flex-direction: row; gap: 1rem; }
-      .benefit-card { padding: clamp(50px, 7vw, 80px) 1rem 2.5rem 1rem; margin-top: clamp(50px, 7vw, 80px); }
+      .benefit-card { padding: clamp(50px, 6vw, 3.5rem) 1rem 2.5rem 1rem; margin-top: clamp(50px, 6vw, 3.5rem); }
       .benefit-icon-wrapper { top: 0; transform: translate(-50%, -50%); }
       .benefit-icon { width: clamp(100px, 12vw, 150px); height: clamp(100px, 12vw, 150px); }
       .benefit-title { font-size: var(--bt); margin: 0 0 0.8rem 0; padding: 0 0.5rem; }
@@ -939,7 +939,7 @@
     @media (min-width: 1230px) {
       .benefit-section { margin-top: 3.5rem !important; padding: 48px 2rem 3rem 2rem; --bt: 1.6rem; --bd: calc(1.6rem / 2); }
       .benefit-grid { flex-direction: row; gap: 2rem; }
-      .benefit-card { padding: 90px 2rem 3rem 2rem; margin-top: 90px; }
+      .benefit-card { padding: clamp(50px, 6vw, 3.5rem) 2rem 3rem 2rem; margin-top: clamp(50px, 6vw, 3.5rem); }
       .benefit-icon-wrapper { top: 0; transform: translate(-50%, -50%); }
       .benefit-icon { width: 180px; height: 180px; }
       .benefit-title { font-size: var(--bt); margin: 0 0 1.2rem 0; padding: 0 1rem; }
@@ -1044,11 +1044,11 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background-color: #225dcf;
+      background-color: #3c55d3;
       color: #ffffff;
       font-family: 'Nunito', sans-serif;
       font-size: 0.88rem;
-      font-weight: 700;
+      font-weight: 600;
       text-decoration: none;
       padding: 12px 26px;
       border-radius: 999px;
@@ -1084,16 +1084,28 @@
     .about-modal-overlay {
       display: none;
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
       z-index: 2000;
       align-items: center;
       justify-content: center;
       padding: 24px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
     }
     .about-modal-overlay.active { display: flex; }
     .about-modal-backdrop {
-      position: absolute;
-      inset: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       background: rgba(28, 24, 40, 0.45);
@@ -2592,19 +2604,19 @@
     <div class="stats-bar-wrapper">
       <div class="stats-bar-container">
         <div class="stat-item">
-          <p class="stat-number">8<span class="plus">+</span></p>
+          <p class="stat-number" data-target="8" data-suffix=""><span class="stat-count">8</span><span class="plus">+</span></p>
           <p class="stat-label">Tahun<br>Pengalaman</p>
         </div>
         <div class="stat-item">
-          <p class="stat-number">300<span class="plus">+</span></p>
+          <p class="stat-number" data-target="300" data-suffix=""><span class="stat-count">300</span><span class="plus">+</span></p>
           <p class="stat-label">Proyek<br>Terselesaikan</p>
         </div>
         <div class="stat-item">
-          <p class="stat-number">55k<span class="plus">+</span></p>
+          <p class="stat-number" data-target="55" data-suffix="k"><span class="stat-count">55</span><span class="stat-suffix">k</span><span class="plus">+</span></p>
           <p class="stat-label">Material<br>Tersuplai</p>
         </div>
         <div class="stat-item">
-          <p class="stat-number">30<span class="plus">+</span></p>
+          <p class="stat-number" data-target="30" data-suffix=""><span class="stat-count">30</span><span class="plus">+</span></p>
           <p class="stat-label">Kabupaten/Kota<br>di Jawa Timur</p>
         </div>
       </div>
@@ -2678,7 +2690,7 @@
         <img src="assets/about/deco-hexagon.webp" alt="" width="200" height="400" loading="lazy">
       </div>
       <div class="about-content">
-        <span class="about-badge">Siapa Kami</span>
+        <span class="about-badge">ABOUT US</span>
         <h2 class="about-heading">Siapa Kami?</h2>
         <p class="about-desc">
           Di bawah naungan <span class="brand-procon">Procon</span>&nbsp;<span class="brand-persada">Persada,</span> Procon lite adalah distributor resmi <span class="brand-bricon">Bricon</span> yang menyediakan bata ringan dan panel lantai berkualitas tinggi untuk wilayah Jawa Timur.
@@ -2931,14 +2943,73 @@
       var aboutCloseBtn = document.getElementById('aboutModalClose');
       var aboutBackdrop = document.getElementById('aboutModalBackdrop');
 
+      var _scrollY = 0;
       function openAboutModal() {
-        aboutModal.classList.add('active');
+        _scrollY = window.scrollY;
+        document.body.style.position = 'fixed';
+        document.body.style.top = '-' + _scrollY + 'px';
+        document.body.style.left = '0';
+        document.body.style.right = '0';
         document.body.style.overflow = 'hidden';
+        aboutModal.classList.add('active');
       }
       function closeAboutModal() {
         aboutModal.classList.remove('active');
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
         document.body.style.overflow = '';
+        window.scrollTo(0, _scrollY);
       }
+
+    // ── Stats counting animation ─────────────────────────────────────────────
+    (function() {
+      var animated = false;
+      function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+      function animateCount(el, target, duration) {
+        var start = null;
+        var countEl = el.querySelector('.stat-count');
+        var suffixEl = el.querySelector('.stat-suffix');
+        var suffix = el.getAttribute('data-suffix') || '';
+        if (!countEl) return;
+        countEl.textContent = '0';
+        if (suffixEl) suffixEl.textContent = '';
+        function step(ts) {
+          if (!start) start = ts;
+          var progress = Math.min((ts - start) / duration, 1);
+          var eased = easeOutQuart(progress);
+          var current = Math.round(eased * target);
+          countEl.textContent = current;
+          if (suffixEl) suffixEl.textContent = progress >= 1 ? suffix : (suffix && current > 0 ? suffix : '');
+          if (progress < 1) requestAnimationFrame(step);
+          else { countEl.textContent = target; if (suffixEl) suffixEl.textContent = suffix; }
+        }
+        requestAnimationFrame(step);
+      }
+      function runCounters() {
+        if (animated) return;
+        animated = true;
+        var items = document.querySelectorAll('.stat-number[data-target]');
+        items.forEach(function(el, i) {
+          var target = parseInt(el.getAttribute('data-target'), 10);
+          var duration = 1800;
+          setTimeout(function() { animateCount(el, target, duration); }, i * 120);
+        });
+      }
+      // Use IntersectionObserver if available, else fire on load
+      if ('IntersectionObserver' in window) {
+        var statsSection = document.querySelector('.stats-bar-section');
+        if (statsSection) {
+          var obs = new IntersectionObserver(function(entries) {
+            if (entries[0].isIntersecting) { runCounters(); obs.disconnect(); }
+          }, { threshold: 0.3 });
+          obs.observe(statsSection);
+        }
+      } else {
+        runCounters();
+      }
+    })();
       if (aboutOpenBtn)  aboutOpenBtn.addEventListener('click', openAboutModal);
       if (aboutCloseBtn) aboutCloseBtn.addEventListener('click', closeAboutModal);
       if (aboutBackdrop) aboutBackdrop.addEventListener('click', closeAboutModal);
