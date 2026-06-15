@@ -325,6 +325,29 @@ p{margin:0}
 .dim .d-size{font-family:var(--mono);font-weight:700;font-size:.86rem;color:var(--ink);letter-spacing:-.01em}
 .dim .d-w{font-size:.72rem;color:var(--muted)}
 
+/* thickness mini-bar — shared by datasheet table + panel chips (factual: width ∝ ketebalan) */
+.t-bar{flex:none;display:inline-block;width:30px;height:6px;border-radius:3px;background:var(--line-strong);overflow:hidden;vertical-align:middle}
+.t-bar>i{display:block;height:100%;background:var(--red);border-radius:3px}
+
+/* panel chip — thickness-led layout */
+.dim.is-panel{padding:9px 13px}
+.dim.is-panel .pd-row{display:flex;align-items:center;gap:9px}
+.dim.is-panel .pd-row .d-size{font-size:.92rem}
+
+/* dimension datasheet table (Bata Ringan) — industrial spec sheet feel */
+.dim-table-wrap{border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--surface)}
+.dim-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.dim-table{width:100%;border-collapse:collapse;min-width:452px}
+.dim-table thead th{font-family:var(--mono);font-size:.64rem;letter-spacing:.05em;text-transform:uppercase;color:var(--on-dark-soft);font-weight:700;background:var(--charcoal);padding:11px 14px;text-align:right;white-space:nowrap}
+.dim-table thead th:first-child{text-align:left}
+.dim-table tbody td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:right;font-family:var(--mono);font-weight:700;color:var(--ink);font-size:.88rem;white-space:nowrap}
+.dim-table tbody td:first-child{text-align:left}
+.dim-table tbody tr:last-child td{border-bottom:none}
+.dim-table tbody tr{transition:background .15s var(--ease-out)}
+.dim-table tbody tr:hover td{background:var(--bg)}
+.dim-cell{display:inline-flex;align-items:center;gap:11px}
+.dim-note{margin-top:11px;font-size:.8rem;color:var(--muted);line-height:1.55;max-width:54ch}
+
 /* spec rows (datasheet style) */
 .specs{border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--bg)}
 .spec-row{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:11px 16px;border-bottom:1px solid var(--line)}
@@ -666,14 +689,29 @@ p{margin:0}
           <h3>Bata Ringan BRICON</h3>
           <p class="prod-desc">Bata ringan jenis AAC (Autoclaved Aerated Concrete) dengan teknologi microbubble: kuat, ringan, kedap suara, menjaga suhu ruangan stabil, dan tahan api — kombinasi yang tidak ditemukan pada bata konvensional.</p>
 
-          <div class="sub-label">Ukuran Tersedia</div>
-          <div class="dims">
-            <span class="dim"><span class="d-size">600×200×75</span><span class="d-w">5,4 kg/pcs</span></span>
-            <span class="dim"><span class="d-size">600×200×100</span><span class="d-w">7,2 kg/pcs</span></span>
-            <span class="dim"><span class="d-size">600×200×125</span><span class="d-w">9 kg/pcs</span></span>
-            <span class="dim"><span class="d-size">600×200×150</span><span class="d-w">10,8 kg/pcs</span></span>
-            <span class="dim"><span class="d-size">600×200×200</span><span class="d-w">14,4 kg/pcs</span></span>
+          <div class="sub-label">Ukuran &amp; Estimasi Material</div>
+          <div class="dim-table-wrap">
+            <div class="dim-scroll">
+              <table class="dim-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Dimensi (mm)</th>
+                    <th scope="col">Berat (kg)</th>
+                    <th scope="col">Luas (m²/m³)</th>
+                    <th scope="col">Bata (pcs/m³)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><span class="dim-cell"><span class="t-bar"><i style="width:37.5%"></i></span>600×200×75</span></td><td>5,4</td><td>13,33</td><td>± 111</td></tr>
+                  <tr><td><span class="dim-cell"><span class="t-bar"><i style="width:50%"></i></span>600×200×100</span></td><td>7,2</td><td>10</td><td>± 83</td></tr>
+                  <tr><td><span class="dim-cell"><span class="t-bar"><i style="width:62.5%"></i></span>600×200×125</span></td><td>9</td><td>8</td><td>± 67</td></tr>
+                  <tr><td><span class="dim-cell"><span class="t-bar"><i style="width:75%"></i></span>600×200×150</span></td><td>10,8</td><td>6,67</td><td>± 56</td></tr>
+                  <tr><td><span class="dim-cell"><span class="t-bar"><i style="width:100%"></i></span>600×200×200</span></td><td>14,4</td><td>5</td><td>± 42</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
+          <p class="dim-note"><b>Luas</b> = m² tembok yang bisa dibangun per 1&nbsp;m³ bata. <b>Bata</b> = jumlah pcs per 1&nbsp;m³. Bantu hitung kebutuhan material proyek sebelum order.</p>
 
           <div class="sub-label">Spesifikasi Umum</div>
           <div class="specs">
@@ -692,7 +730,9 @@ p{margin:0}
               </thead>
               <tbody>
                 <tr><th scope="row">Kecepatan pengerjaan</th><td class="col-bricon">20 m²/hari</td><td class="col-other">8 m²/hari</td></tr>
+                <tr><th scope="row">Lama pengerjaan /m³</th><td class="col-bricon">4,4 jam</td><td class="col-other">11,11 jam</td></tr>
                 <tr><th scope="row">Tebal spesi</th><td class="col-bricon">3 mm</td><td class="col-other">20–30 mm</td></tr>
+                <tr><th scope="row">Sisa potongan (avalan)</th><td class="col-bricon">&lt;1%</td><td class="col-other">&gt;5%</td></tr>
                 <tr><th scope="row">Berat jenis</th><td class="col-bricon">600 kg/m³</td><td class="col-other">1250 kg/m³</td></tr>
                 <tr><th scope="row">Insulasi panas</th><td class="col-bricon">0,14 W/mK</td><td class="col-other">0,65 W/mK</td></tr>
                 <tr><th scope="row">Tahan api</th><td class="col-bricon">4 jam</td><td class="col-other">2 jam</td></tr>
@@ -726,15 +766,16 @@ p{margin:0}
 
           <div class="sub-label">Ukuran Tersedia</div>
           <div class="dims">
-            <span class="dim"><span class="d-size">P 200–600 × L 60</span><span class="d-w">Tinggi 10 cm</span></span>
-            <span class="dim"><span class="d-size">P 200–600 × L 60</span><span class="d-w">Tinggi 12,5 cm</span></span>
-            <span class="dim"><span class="d-size">P 200–600 × L 60</span><span class="d-w">Tinggi 15 cm</span></span>
-            <span class="dim"><span class="d-size">P 200–600 × L 60</span><span class="d-w">Tinggi 20 cm</span></span>
+            <span class="dim is-panel"><span class="pd-row"><span class="t-bar"><i style="width:50%"></i></span><span class="d-size">10 cm</span></span><span class="d-w">P 200–600 × L 60 cm</span></span>
+            <span class="dim is-panel"><span class="pd-row"><span class="t-bar"><i style="width:62.5%"></i></span><span class="d-size">12,5 cm</span></span><span class="d-w">P 200–600 × L 60 cm</span></span>
+            <span class="dim is-panel"><span class="pd-row"><span class="t-bar"><i style="width:75%"></i></span><span class="d-size">15 cm</span></span><span class="d-w">P 200–600 × L 60 cm</span></span>
+            <span class="dim is-panel"><span class="pd-row"><span class="t-bar"><i style="width:100%"></i></span><span class="d-size">20 cm</span></span><span class="d-w">P 200–600 × L 60 cm</span></span>
           </div>
 
           <div class="sub-label">Spesifikasi Umum</div>
           <div class="specs">
             <div class="spec-row"><span class="s-key">Berat jenis kering</span><span class="s-val">650 kg/m³</span></div>
+            <div class="spec-row"><span class="s-key">Berat jenis normal</span><span class="s-val">700 kg/m³</span></div>
             <div class="spec-row"><span class="s-key">Kuat tekan</span><span class="s-val">≥4 N/mm²</span></div>
             <div class="spec-row"><span class="s-key">Konduktivitas termis</span><span class="s-val">0,12 W/mK</span></div>
           </div>
