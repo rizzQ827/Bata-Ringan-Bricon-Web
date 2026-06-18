@@ -233,39 +233,48 @@ p{margin:0}
 .hero-img-wrap{
   position:relative;
   display:flex;align-items:center;justify-content:center;
+  /* constrain so badges position relative to image area */
+  max-width:520px;
+  width:100%;
+  margin-inline:auto;
 }
 .hero-img{
-  width:100%;max-width:520px;
-  border-radius:var(--r-lg);
+  width:100%;
   display:block;
-  /* subtle drop shadow to blend on dark bg */
   filter:drop-shadow(0 32px 64px rgba(0,0,0,.55));
 }
 
-/* floating badge */
+/* floating badge — locked pixel offsets, never shifts */
 .hbadge{
   position:absolute;
-  display:inline-flex;align-items:center;gap:10px;
+  display:inline-flex;align-items:center;gap:9px;
   background:rgba(255,255,255,.10);
   border:1px solid rgba(255,255,255,.18);
   backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
   border-radius:var(--r-pill);
-  padding:10px 16px;
-  font-weight:700;font-size:.82rem;
+  padding:9px 15px;
+  font-weight:700;font-size:.78rem;
   color:#fff;
   white-space:nowrap;
-  box-shadow:0 8px 24px rgba(0,0,0,.3);
+  box-shadow:0 8px 24px rgba(0,0,0,.35);
+  /* prevent reflow from wrapping */
+  width:max-content;
 }
-.hbadge svg{width:18px;height:18px;flex:none}
-.hbadge--stok  {top:12%;left:-10%;}
-.hbadge--kirim {bottom:22%;left:-8%;}
-.hbadge--mutu  {top:14%;right:-8%;}
+.hbadge svg{width:16px;height:16px;flex:none;opacity:.92}
+/* Stok Lengkap — top-right, like reference screenshot */
+.hbadge--stok {top:10%;right:-5%;transform:translateX(8%);}
+/* Pengiriman Cepat — left side, mid-lower, like reference */
+.hbadge--kirim{bottom:30%;left:-5%;transform:translateX(-8%);}
+/* Kualitas SNI — bottom-right, like reference */
+.hbadge--mutu {bottom:14%;right:-5%;transform:translateX(8%);}
+
 .hbadge .hb-dot{
-  width:8px;height:8px;border-radius:50%;flex:none;
+  width:7px;height:7px;border-radius:50%;flex:none;
 }
-.hbadge--stok  .hb-dot{background:#4ADE80;box-shadow:0 0 0 3px rgba(74,222,128,.22)}
-.hbadge--kirim .hb-dot{background:var(--yellow);box-shadow:0 0 0 3px rgba(245,194,0,.22)}
-.hbadge--mutu  .hb-dot{background:#60A5FA;box-shadow:0 0 0 3px rgba(96,165,250,.22)}
+.hbadge--stok  .hb-dot{background:#4ADE80;box-shadow:0 0 0 3px rgba(74,222,128,.25)}
+.hbadge--kirim .hb-dot{background:var(--yellow);box-shadow:0 0 0 3px rgba(245,194,0,.25)}
+.hbadge--mutu  .hb-dot{background:#60A5FA;box-shadow:0 0 0 3px rgba(96,165,250,.25)}
 
 /* ============================================================
    STATS BAR
@@ -492,10 +501,6 @@ p{margin:0}
 
   .hero{min-height:auto;padding-block:48px 56px}
   .hero-grid{grid-template-columns:1fr;gap:34px}
-  .hero-img-wrap{max-width:480px;margin-inline:auto}
-  .hbadge--stok {top:8%;left:0%;}
-  .hbadge--kirim{bottom:12%;left:0%;}
-  .hbadge--mutu {top:8%;right:0%;}
 
   .prod{grid-template-columns:1fr;gap:26px}
   .prod.reverse .prod-media{order:0}
@@ -600,19 +605,19 @@ p{margin:0}
             alt="Produk bata ringan BRICON — bata beton ringan berteknologi Microbubble"
             id="heroImg"
           >
-          <!-- Floating badge: Stok Lengkap -->
+          <!-- Floating badge: Stok Lengkap (check icon) -->
           <span class="hbadge hbadge--stok" aria-hidden="true">
-            <span class="hb-dot"></span>
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21.93 7.66c-.02-.05-.04-.11-.07-.16a1 1 0 0 0-.06-.08c-.03-.04-.06-.09-.1-.12-.03-.03-.06-.04-.09-.07-.04-.03-.07-.06-.11-.09h-.01l-9-5.01a.99.99 0 0 0-.97 0l-9.01 5H2.5c-.04.02-.07.06-.11.09a.6.6 0 0 0-.09.07c-.04.04-.07.08-.1.12-.02.03-.05.05-.06.08-.03.05-.05.1-.07.16-.01.03-.03.05-.03.08-.02.08-.04.17-.04.26v8c0 .36.2.7.51.87l9 5 .15.06c.03.01.06.03.09.03a1.1 1.1 0 0 0 .5 0c.03 0 .06-.02.09-.03.05-.02.1-.03.15-.06l9-5c.32-.18.51-.51.51-.87v-8c0-.09-.01-.18-.04-.26 0-.03-.02-.05-.03-.08ZM12 4.15l6.94 3.86-2.44 1.36-6.94-3.86zm-4.5 2.5 6.94 3.86L12 11.87 5.06 8.01zM4 9.71l7 3.89v5.71l-7-3.89zm16 5.71-7 3.89V13.6l2.5-1.39v3.21l2-1.11V11.1L20 9.71z"/></svg>
             Stok Lengkap
           </span>
-          <!-- Floating badge: Pengiriman Cepat -->
+          <!-- Floating badge: Pengiriman Cepat (bolt icon) -->
           <span class="hbadge hbadge--kirim" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 9h-5V3a1 1 0 0 0-.69-.95c-.41-.13-.86.01-1.12.36l-8 11a1 1 0 0 0-.08 1.04A1 1 0 0 0 5 15h5v6a1 1 0 0 0 1 1c.31 0 .62-.15.81-.41l8-11a1 1 0 0 0 .08-1.04A1 1 0 0 0 19 9m-7 8.92V14c0-.55-.45-1-1-1H6.96L12 6.08V10c0 .55.45 1 1 1h4.04z"/></svg>
             Pengiriman Cepat
           </span>
-          <!-- Floating badge: Kualitas Premium -->
+          <!-- Floating badge: Kualitas SNI (seal-check icon) -->
           <span class="hbadge hbadge--mutu" aria-hidden="true">
-            <span class="hb-dot"></span>
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 9.09V6c0-.55-.45-1-1-1h-3.09L12.7 2.79a.996.996 0 0 0-1.41 0L9.08 5H5.99c-.55 0-1 .45-1 1v3.09L2.78 11.3a.996.996 0 0 0 0 1.41l2.21 2.21v3.09c0 .55.45 1 1 1h3.09l2.21 2.21c.2.2.45.29.71.29s.51-.1.71-.29l2.21-2.21h3.09c.55 0 1-.45 1-1v-3.09l2.21-2.21a.996.996 0 0 0 0-1.41l-2.21-2.21Zm-1.71 4.71a1 1 0 0 0-.29.71v2.5h-2.5c-.27 0-.52.11-.71.29L12 19.09l-1.79-1.79a1 1 0 0 0-.71-.29H7v-2.5c0-.27-.11-.52-.29-.71l-1.79-1.79 1.79-1.79A1 1 0 0 0 7 9.51v-2.5h2.5c.27 0 .52-.11.71-.29L12 4.93l1.79 1.79c.19.19.44.29.71.29H17v2.5c0 .27.11.52.29.71l1.79 1.79z"/><path d="m11 12.59-1.29-1.3-1.42 1.42 2.71 2.7 4.71-4.7-1.42-1.42z"/></svg>
             Kualitas SNI
           </span>
         </div>
