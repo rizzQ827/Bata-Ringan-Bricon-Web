@@ -224,7 +224,7 @@ p{margin:0}
   margin-top:22px;font-size:clamp(2.05rem,5.4vw,3.5rem);font-weight:800;line-height:1.06;
   letter-spacing:-.025em;color:#fff;max-width:16ch;
 }
-.hero .lead{margin-top:20px;font-size:clamp(1.02rem,1.7vw,1.2rem);color:var(--on-dark-soft);max-width:46ch;line-height:1.55}
+.hero .lead{margin-top:20px;font-size:clamp(1.27rem,3.34vw,2.16rem);color:var(--on-dark-soft);max-width:46ch;line-height:1.55}
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
 .hero-trust{margin-top:22px;font-size:.86rem;color:var(--on-dark-mute);display:flex;align-items:center;gap:9px}
 .hero-trust svg{width:17px;height:17px;color:var(--yellow);flex:none}
@@ -488,7 +488,6 @@ p{margin:0}
    RESPONSIVE
    ============================================================ */
 @media (max-width:1024px){
-  .feat-grid{grid-template-columns:1fr 1fr 1fr}
   .foot-grid{grid-template-columns:1fr 1fr}
   .foot-brand{grid-column:1/-1}
 }
@@ -501,6 +500,16 @@ p{margin:0}
 
   .hero{min-height:auto;padding-block:48px 56px}
   .hero-grid{grid-template-columns:1fr;gap:34px}
+
+  .hero-copy{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .hero h1{max-width:22ch}
+  .hero .lead{max-width:36ch}
+  .hero-cta{justify-content:center}
+  .hero-trust{justify-content:center}
+
+  .hero-img-wrap{max-width:280px}
+  .hbadge{padding:6px 11px;font-size:.66rem;gap:6px}
+  .hbadge svg{width:12px;height:12px}
 
   .prod{grid-template-columns:1fr;gap:26px}
   .prod.reverse .prod-media{order:0}
@@ -524,6 +533,10 @@ p{margin:0}
   .stat{padding-inline:16px}
   .stats-inner{gap:4px 0}
   .hero-cta .btn{flex:1 1 100%}
+
+  .hero-img-wrap{max-width:220px}
+  .hbadge{padding:5px 9px;font-size:.62rem;gap:5px}
+  .hbadge svg{width:11px;height:11px}
 }
 </style>
 </head>
@@ -655,7 +668,7 @@ p{margin:0}
         <p class="section-lead">Dari bata ringan sampai panel lantai — kami hadir lengkap dengan layanan konsultasi dan pemasangan agar proyek Anda berjalan lebih cepat dan efisien.</p>
       </div>
 
-      <div class="feat-grid stagger" style="grid-template-columns:repeat(3,1fr)">
+      <div class="feat-grid stagger">
         <article class="feat-card">
           <span class="feat-ico" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4 7.5 4.2"/><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
