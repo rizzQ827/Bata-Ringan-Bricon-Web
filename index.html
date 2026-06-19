@@ -543,10 +543,10 @@ p{margin:0}
   </a>
 </div>
 
-<main>
+<main id="top">
 
   <!-- ===================== HERO ===================== -->
-  <section class="hero dark-section" id="top">
+  <section class="hero dark-section" id="hero">
     <div class="container">
       <div class="hero-grid">
         <div class="hero-copy">
@@ -878,33 +878,57 @@ p{margin:0}
   }
 
   /* ---- Scrollspy (highlight active nav link) ---- */
-  var sections = ["top","keunggulan","produk","lokasi"]
-    .map(function(id){ return document.getElementById(id); })
+  var spyMap = [
+    {id:"hero",       href:"#top"},
+    {id:"keunggulan", href:"#keunggulan"},
+    {id:"produk",     href:"#produk"},
+    {id:"lokasi",     href:"#lokasi"}
+  ];
+  var sectionEls = spyMap
+    .map(function(m){ var el = document.getElementById(m.id); return el ? {el:el, href:m.href} : null; })
     .filter(Boolean);
-  var linkFor = {};
+  var linkForHref = {};
   document.querySelectorAll(".nav-link").forEach(function(l){
-    var id = (l.getAttribute("href")||"").replace("#","");
-    linkFor[id] = l;
+    linkForHref[l.getAttribute("href")] = l;
   });
-  function clearActive(){
+  function setActiveHref(href){
     document.querySelectorAll(".nav-link").forEach(function(l){
-      l.classList.remove("active"); l.removeAttribute("aria-current");
+      var isActive = l.getAttribute("href") === href;
+      l.classList.toggle("active", isActive);
+      if(isActive){ l.setAttribute("aria-current","true"); }
+      else{ l.removeAttribute("aria-current"); }
     });
   }
-  if("IntersectionObserver" in window && sections.length){
-    var spy = new IntersectionObserver(function(entries){
-      /* pick the most visible intersecting section */
-      var best=null, ratio=0;
-      entries.forEach(function(en){
-        if(en.isIntersecting && en.intersectionRatio > ratio){ ratio=en.intersectionRatio; best=en.target; }
-      });
-      if(best && linkFor[best.id]){
-        clearActive();
-        linkFor[best.id].classList.add("active");
-        linkFor[best.id].setAttribute("aria-current","true");
+  if(sectionEls.length){
+    var spyTicking = false;
+    function updateSpy(){
+      spyTicking = false;
+      var probeY = window.innerHeight * 0.35; /* point near top of viewport used to detect current section */
+      var current = sectionEls[0];
+      for(var i=0;i<sectionEls.length;i++){
+        var rect = sectionEls[i].el.getBoundingClientRect();
+        if(rect.top <= probeY){ current = sectionEls[i]; }
       }
-    }, {threshold:[0.25,0.5,0.75], rootMargin:"-40% 0px -45% 0px"});
-    sections.forEach(function(s){ spy.observe(s); });
+      /* if scrolled to (or near) the very bottom, force last section active */
+      var atBottom = (window.innerHeight + window.pageYOffset) >= (document.documentElement.scrollHeight - 4);
+      if(atBottom){ current = sectionEls[sectionEls.length-1]; }
+      setActiveHref(current.href);
+    }
+    function onSpyScroll(){
+      if(!spyTicking){
+        spyTicking = true;
+        requestAnimationFrame(updateSpy);
+      }
+    }
+    window.addEventListener("scroll", onSpyScroll, {passive:true});
+    window.addEventListener("resize", onSpyScroll);
+    /* update immediately on nav click instead of waiting for scroll-driven recalculation */
+    document.querySelectorAll(".nav-link").forEach(function(l){
+      l.addEventListener("click", function(){
+        setActiveHref(l.getAttribute("href"));
+      });
+    });
+    updateSpy();
   }
 })();
 </script>
