@@ -226,8 +226,8 @@ p{margin:0}
   letter-spacing:-.025em;color:#fff;max-width:16ch;
 }
 .hero .lead{margin-top:20px;font-size:clamp(.785rem,2.064vw,1.335rem);color:var(--on-dark-soft);max-width:46ch;line-height:1.55}
-.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
-.hero-trust{margin-top:22px;font-size:.86rem;color:var(--on-dark-mute);display:flex;align-items:center;gap:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px;max-width:100%;min-width:0}
+.hero-trust{margin-top:22px;font-size:.86rem;color:var(--on-dark-mute);display:flex;align-items:center;gap:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;min-width:0}
 .hero-trust svg{width:17px;height:17px;color:var(--yellow);flex:none}
 
 /* hero image panel with floating badges */
@@ -453,9 +453,9 @@ p{margin:0}
 /* Hero — layout tablet mulai 1059px ke bawah (khusus hero, breakpoint lain tetap di 860px) */
 @media (max-width:1059px){
   .hero{min-height:auto;padding-block:48px 56px}
-  .hero-grid{grid-template-columns:1fr;gap:34px}
+  .hero-grid{grid-template-columns:1fr;gap:34px;min-width:0}
 
-  .hero-copy{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .hero-copy{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;max-width:100%;min-width:0}
   .hero h1{max-width:22ch}
   .hero .lead{max-width:36ch}
   .hero-cta{justify-content:center}
@@ -472,11 +472,13 @@ p{margin:0}
 
   .hero-img-wrap{max-width:380px}
 
-  .prod{grid-template-columns:1fr;gap:26px}
+  .prod{grid-template-columns:minmax(0,1fr);gap:26px}
   .prod.reverse .prod-media{order:0}
   .ph{aspect-ratio:16/10}
+  .prod-cta .btn{width:100%}
 
-  .loc-grid{grid-template-columns:1fr}
+  .loc-grid{grid-template-columns:minmax(0,1fr)}
+  .loc-card{min-width:0}
   .map-frame{min-height:300px}
   .map-frame iframe{min-height:300px}
 
@@ -674,6 +676,7 @@ p{margin:0}
     font-size: 13px;
     padding: 10px 18px;
   }
+  .hbadge--mutu{left:64%}
 }
 
 </style>
