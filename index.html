@@ -120,6 +120,7 @@ p{margin:0}
   transition:transform .18s var(--ease-out),background .18s var(--ease-out),
              box-shadow .18s var(--ease-out),border-color .18s var(--ease-out),color .18s var(--ease-out);
   white-space:nowrap;
+  -webkit-tap-highlight-color:transparent;
 }
 .btn svg{width:20px;height:20px;flex:none}
 .btn:active{transform:translateY(1px)}
@@ -1076,7 +1077,24 @@ p{margin:0}
     }
     window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(updateSpy); } }, { passive: true });
     window.addEventListener('resize', updateSpy);
-    document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => setActiveHref(l.getAttribute('href'))));
+    document.querySelectorAll('.nav-link').forEach(l => {
+      l.addEventListener('click', e => {
+        var href = l.getAttribute('href');
+        setActiveHref(href);
+        /* Custom handler untuk #top: scroll ke y=0 agar mentok ke atas */
+        if (href === '#top') {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    });
+    /* Handler untuk semua links dengan href="#top" (navbar + footer) */
+    document.querySelectorAll('a[href="#top"]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
     updateSpy();
   }
 })();
