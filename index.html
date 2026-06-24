@@ -170,15 +170,15 @@ p{margin:0}
 
 .nav-right{display:flex;align-items:center;gap:14px}
 
-.nav-toggle{display:none;width:46px;height:46px;align-items:center;justify-content:center;background:transparent;border:1px solid var(--line-strong);border-radius:10px;cursor:pointer;color:var(--ink)}
-.nav-toggle-box{position:relative;display:block;width:22px;height:16px}
-.nav-bar{position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:2px;transition:transform .28s var(--ease-out),opacity .18s var(--ease-out),top .28s var(--ease-out)}
-.nav-bar-1{top:0}
-.nav-bar-2{top:7px}
-.nav-bar-3{top:14px}
-.nav-toggle[aria-expanded="true"] .nav-bar-1{top:7px;transform:rotate(45deg)}
-.nav-toggle[aria-expanded="true"] .nav-bar-2{opacity:0;transform:scaleX(.3)}
-.nav-toggle[aria-expanded="true"] .nav-bar-3{top:7px;transform:rotate(-45deg)}
+.nav-toggle{display:none;width:46px;height:46px;align-items:center;justify-content:center;background:transparent;border:1px solid var(--line-strong);border-radius:10px;cursor:pointer;color:var(--ink);padding:0}
+.burger-bars{position:relative;width:24px;height:calc(3px * 3 + 6px * 2);display:block}
+.burger-bars .bar{position:absolute;left:0;right:0;height:3px;border-radius:1.5px;background:var(--ink);opacity:1;transition:none .2s cubic-bezier(.5,-.35,.35,1.5) 0s}
+.burger-bars .bar--top{bottom:calc(50% + 6px + 3px/2);transition-property:bottom,transform;transition-delay:calc(0s + .2s),0s}
+.burger-bars .bar--middle{top:calc(50% - 3px/2);transition-property:opacity;transition-delay:calc(0s + .2s)}
+.burger-bars .bar--bottom{top:calc(50% + 6px + 3px/2);transition-property:top,transform;transition-delay:calc(0s + .2s),0s}
+.nav-toggle[aria-expanded="true"] .bar--top{bottom:calc(50% - 3px/2);transform:rotate(135deg);transition-delay:0s,calc(0s + .2s)}
+.nav-toggle[aria-expanded="true"] .bar--middle{opacity:0;transition-duration:0s;transition-delay:calc(0s + .2s)}
+.nav-toggle[aria-expanded="true"] .bar--bottom{top:calc(50% - 3px/2);transform:rotate(225deg);transition-delay:0s,calc(0s + .2s)}
 
 /* mobile menu panel */
 .mobile-menu{
@@ -230,6 +230,18 @@ p{margin:0}
 .hero h1{
   margin-top:22px;font-size:clamp(2.05rem,5.4vw,3.5rem);font-weight:800;line-height:1.06;
   letter-spacing:-.025em;color:#fff;max-width:16ch;
+}
+.hl{
+  --hl-bg:#E0A012;
+  position:relative;display:inline-block;white-space:nowrap;
+  color:#fff;background:none;
+}
+.hl::before{
+  content:"";position:absolute;z-index:-1;
+  left:-0.15em;right:-0.1em;bottom:0.02em;
+  height:0.46em;
+  background:var(--hl-bg);border-radius:2px;
+  transform:skewX(-14deg);transform-origin:left bottom;
 }
 .hero .lead{margin-top:20px;font-size:clamp(.785rem,2.064vw,1.335rem);color:var(--on-dark-soft);max-width:46ch;line-height:1.55}
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
@@ -408,10 +420,10 @@ p{margin:0}
 .foot-col a,.foot-col p{display:block;color:var(--on-dark-soft);font-size:.95rem;padding:6px 0;transition:color .16s var(--ease-out)}
 .foot-col a:hover{color:#fff}
 .foot-col .wa-line{color:#fff;font-weight:700;font-family:var(--mono);font-size:1.02rem}
-.foot-bottom{border-top:1px solid var(--line-dark);padding-block:22px;display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:space-between}
-.foot-distributor{font-size:.86rem;color:var(--on-dark-soft)}
+.foot-bottom{margin-top:8px;padding-top:22px;padding-bottom:22px;border-top:1px solid var(--line-dark);display:flex;flex-direction:column;gap:10px}
+.foot-copy{order:1;font-size:.82rem;color:var(--on-dark-mute)}
+.foot-distributor{order:2;font-size:.86rem;color:var(--on-dark-soft)}
 .foot-distributor b{color:#fff;font-weight:700}
-.foot-copy{font-size:.82rem;color:var(--on-dark-mute)}
 .foot-floatspace{display:none}
 
 /* ============================================================
@@ -755,10 +767,10 @@ p{margin:0}
         Pesan Sekarang!
       </a>
       <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false" aria-controls="mobileMenu">
-        <span class="nav-toggle-box" aria-hidden="true">
-          <span class="nav-bar nav-bar-1"></span>
-          <span class="nav-bar nav-bar-2"></span>
-          <span class="nav-bar nav-bar-3"></span>
+        <span class="burger-bars" aria-hidden="true">
+          <span class="bar bar--top"></span>
+          <span class="bar bar--middle"></span>
+          <span class="bar bar--bottom"></span>
         </span>
       </button>
     </div>
@@ -787,7 +799,7 @@ p{margin:0}
           <span class="hero-badge" data-anim="1" style=""><span class="dot"></span>Distributor Resmi BRICON · Jawa Timur</span>
           <h1 data-anim="2">
             <div style="display:block;white-space:nowrap">Pilihan Tepat untuk</div>
-            <div style="display:block;white-space:nowrap">Proyek Berkualitas</div>
+            <div style="display:block;white-space:nowrap">Proyek <mark class="hl">Berkualitas</mark></div>
           </h1>
           <p class="lead" data-anim="3">Distributor resmi BRICON di Jawa Timur — Bata Ringan &amp; Panel Lantai berteknologi Microbubble, stok lengkap, siap kirim.</p>
           <div class="hero-cta" data-anim="4">
@@ -852,8 +864,8 @@ p{margin:0}
   <section class="section features" id="keunggulan">
     <div class="container">
       <div class="feat-head reveal">
-        <span class="eyebrow-mark"><span class="bar"></span>Kenapa BRICON</span>
-        <h2 class="section-title" style="margin-top:14px">Lebih dari sekadar suplai material</h2>
+        <span class="eyebrow-mark"><span class="bar"></span>Keunggulan</span>
+        <h2 class="section-title" style="margin-top:14px">Kenapa harus memilih BRICON?</h2>
         <p class="section-lead">Dari bata ringan sampai panel lantai — kami hadir lengkap dengan layanan konsultasi dan pemasangan agar proyek Anda berjalan lebih cepat dan efisien.</p>
       </div>
 
@@ -979,8 +991,8 @@ p{margin:0}
   <section class="section location" id="lokasi">
     <div class="container">
       <div class="reveal" style="max-width:640px">
-        <span class="eyebrow-mark"><span class="bar"></span>Kunjungi Kami</span>
-        <h2 class="section-title" style="margin-top:14px">Lokasi Kami</h2>
+        <span class="eyebrow-mark"><span class="bar"></span>Kontak</span>
+        <h2 class="section-title" style="margin-top:14px">Hubungi kami atau kunjungi!</h2>
         <p class="section-lead">Berbasis di Sidoarjo, melayani pengiriman ke seluruh Jawa Timur. Mampir, hubungi, atau langsung pesan via WhatsApp.</p>
       </div>
 
@@ -1049,8 +1061,8 @@ p{margin:0}
     </div>
 
     <div class="foot-bottom">
-      <span class="foot-distributor">Distributor Resmi: <b>Procon lite</b> — Sidoarjo, Jawa Timur</span>
       <span class="foot-copy">Copyright © 2026 BRICON</span>
+      <span class="foot-distributor">Distributor Resmi: <b>Procon lite</b> — Sidoarjo, Jawa Timur</span>
     </div>
 
     <div class="foot-floatspace" aria-hidden="true"></div>
