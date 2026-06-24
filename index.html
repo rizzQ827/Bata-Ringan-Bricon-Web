@@ -232,7 +232,7 @@ p{margin:0}
   letter-spacing:-.025em;color:#fff;max-width:16ch;
 }
 .hl{
-  --hl-bg:#E0A012;
+  --hl-bg:#C77D00;
   position:relative;display:inline-block;white-space:nowrap;
   color:#fff;background:none;
 }
@@ -241,8 +241,10 @@ p{margin:0}
   left:-0.15em;right:-0.1em;bottom:0.02em;
   height:0.46em;
   background:var(--hl-bg);border-radius:2px;
-  transform:skewX(-14deg);transform-origin:left bottom;
+  transform:skewX(-14deg) scaleX(0);transform-origin:left bottom;
+  animation:hlSweep .5s 1s cubic-bezier(.4,0,.2,1) forwards;
 }
+@keyframes hlSweep{to{transform:skewX(-14deg) scaleX(1)}}
 .hero .lead{margin-top:20px;font-size:clamp(.785rem,2.064vw,1.335rem);color:var(--on-dark-soft);max-width:46ch;line-height:1.55}
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
 .hero-trust{margin-top:22px;font-size:.86rem;color:var(--on-dark-mute);display:inline-flex;align-items:center;gap:9px;max-width:100%}
@@ -420,10 +422,9 @@ p{margin:0}
 .foot-col a,.foot-col p{display:block;color:var(--on-dark-soft);font-size:.95rem;padding:6px 0;transition:color .16s var(--ease-out)}
 .foot-col a:hover{color:#fff}
 .foot-col .wa-line{color:#fff;font-weight:700;font-family:var(--mono);font-size:1.02rem}
-.foot-bottom{margin-top:8px;padding-top:22px;padding-bottom:22px;border-top:1px solid var(--line-dark);display:flex;flex-direction:column;gap:10px}
-.foot-copy{order:1;font-size:.82rem;color:var(--on-dark-mute)}
-.foot-distributor{order:2;font-size:.86rem;color:var(--on-dark-soft)}
-.foot-distributor b{color:#fff;font-weight:700}
+.foot-bottom{margin-top:8px;padding-top:22px;padding-bottom:22px;border-top:1px solid var(--line-dark)}
+.foot-copy{font-size:.84rem;color:var(--on-dark-soft)}
+.foot-copy b{color:#fff;font-weight:700}
 .foot-floatspace{display:none}
 
 /* ============================================================
@@ -468,6 +469,7 @@ p{margin:0}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *{animation:none!important;transition:none!important}
+  .hl::before{transform:skewX(-14deg)}
 }
 
 /* ============================================================
@@ -513,7 +515,7 @@ p{margin:0}
 
 @media (max-width:860px){
   .wa-float{display:inline-flex}
-  .foot-floatspace{display:block;height:72px;margin-top:8px;border-top:1px solid var(--line-dark)}
+  .foot-floatspace{display:block;height:72px;margin-top:8px}
 }
 
 @media (max-width:560px){
@@ -1061,8 +1063,7 @@ p{margin:0}
     </div>
 
     <div class="foot-bottom">
-      <span class="foot-copy">Copyright © 2026 BRICON</span>
-      <span class="foot-distributor">Distributor Resmi: <b>Procon lite</b> — Sidoarjo, Jawa Timur</span>
+      <span class="foot-copy">© 2026 BRICON · Distributor Resmi <b>Procon lite</b>, Sidoarjo</span>
     </div>
 
     <div class="foot-floatspace" aria-hidden="true"></div>
