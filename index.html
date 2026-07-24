@@ -575,8 +575,7 @@ p{margin:0}
 .mb-overlay.open{opacity:1;pointer-events:auto}
 
 .mb-card{
-  position:relative;width:100%;max-width:920px;max-height:min(720px,92vh);
-  margin-inline:auto;
+  position:relative;width:100%;max-width:none;max-height:min(720px,92vh);
   overflow:visible;
   background:var(--surface);border-radius:0;
   box-shadow:var(--sh-lg);
@@ -616,7 +615,8 @@ p{margin:0}
 }
 .mb-visual-img{
   position:relative;flex:none;
-  width:clamp(200px,26vw,290px);aspect-ratio:1/1;
+  width:calc(clamp(220px,24vw,260px) * 1.14);
+  aspect-ratio:1/1;
   z-index:2;
   align-self:center;
 }
