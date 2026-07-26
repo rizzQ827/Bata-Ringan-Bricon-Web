@@ -256,9 +256,11 @@ p{margin:0}
 .hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 4px rgba(245,194,0,.18)}
 
 .hero h1{
-  margin-top:22px;font-size:clamp(2.05rem,9.2cqi,3.5rem);font-weight:800;line-height:1.06;
+  margin-top:22px;font-weight:800;line-height:1.06;
   letter-spacing:-.025em;color:#fff;
+  font-size:3.3rem; /* fallback before JS runs; JS immediately overrides */
 }
+.h1-line{display:block;white-space:nowrap}
 .hl{
   --hl-bg:#C77D00;
   position:relative;display:inline-block;white-space:nowrap;
@@ -857,9 +859,8 @@ p{margin:0}
     margin-bottom: var(--badge-dist-mb, 16px);
   }
   
-  /* h1 */
+  /* h1 — font-size dikontrol JS (auto-fit), CSS hanya atur margin/line-height */
   .hero-copy h1 {
-    font-size: var(--h1-size-v, clamp(30px, 6.6vw, 46px));
     line-height: var(--h1-lh-v, 1.12);
     margin-bottom: var(--h1-mb-v, 16px);
     max-width: 100%;
@@ -910,11 +911,10 @@ p{margin:0}
   }
 }
 
-/* 550px → 320px: headline dibesarkan relatif vs subheadline, trust-line scale mengikuti viewport tanpa wrap/outframe */
+/* 550px → 320px: line-height headline, trust-line scale mengikuti viewport tanpa wrap/outframe */
 @media (max-width: 550px) {
   .hero h1,
   .hero-copy h1 {
-    font-size: clamp(24px, 8.4vw, 34px);
     line-height: 1.16;
   }
   .hero-trust{
@@ -941,7 +941,6 @@ p{margin:0}
   }
   .hero h1,
   .hero-copy h1 {
-    font-size: clamp(20px, 8vw, 24px);
     line-height: 1.18;
     margin-top: 12px;
   }
@@ -1028,8 +1027,8 @@ p{margin:0}
       <div class="hero-grid">
         <div class="hero-copy">
           <span class="hero-badge" data-anim="1" style=""><span class="dot"></span>Distributor Resmi Bata Ringan BRICON · Jawa Timur</span>
-          <h1 data-anim="2">
-            Bata Ringan BRICON<br>untuk Proyek <mark class="hl">Berkualitas</mark>
+          <h1 data-anim="2" id="heroH1">
+            <span class="h1-line">Bata Ringan BRICON</span><span class="h1-line">untuk Proyek <mark class="hl">Berkualitas</mark></span>
           </h1>
           <p class="lead" data-anim="3">Distributor resmi BRICON di Jawa Timur — Bata Ringan &amp; Panel Lantai berteknologi Microbubble, stok lengkap, siap kirim.</p>
           <div class="hero-cta" data-anim="4">
@@ -1358,6 +1357,76 @@ p{margin:0}
     el.style.transform = 'none';
     el.style.animation = 'none';
   });
+
+  /* ===================== HERO H1 AUTO-FIT (selalu 2 baris, semua breakpoint) =====================
+     Pendekatan CSS clamp() murni tidak reliable karena tidak tahu lebar container
+     sebenarnya (tergantung lebar gambar hero, font metrics, dsb). Solusi: ukur
+     langsung via JS dan binary-search font-size sampai setiap baris pas tanpa wrap. */
+  var heroH1 = document.getElementById('heroH1');
+  function fitHeroH1() {
+    if (!heroH1) return;
+    var lines = heroH1.querySelectorAll('.h1-line');
+    if (!lines.length) return;
+
+    var container = heroH1.parentElement; // .hero-copy
+    var containerWidth = container.getBoundingClientRect().width;
+    if (containerWidth <= 0) return;
+
+    var minFS = 12;
+    var maxFS = 56;
+
+    function widestLineScrollWidth() {
+      // paksa reflow dengan membaca layout property setelah style diubah
+      var widest = 0;
+      for (var i = 0; i < lines.length; i++) {
+        var w = lines[i].scrollWidth; // forces reflow/layout read
+        if (w > widest) widest = w;
+      }
+      return widest;
+    }
+
+    // Mulai dari maxFS, ukur, lalu skala linear ke estimasi awal
+    heroH1.style.fontSize = maxFS + 'px';
+    var naturalWidth = widestLineScrollWidth();
+    if (naturalWidth <= 0) { heroH1.style.fontSize = ''; return; }
+
+    var targetFS = Math.floor(maxFS * (containerWidth / naturalWidth));
+    targetFS = Math.max(minFS, Math.min(maxFS, targetFS));
+    heroH1.style.fontSize = targetFS + 'px';
+
+    // Fine-tune: turunkan sampai benar-benar muat (cek ulang tiap iterasi dengan reflow paksa)
+    var guard = 0;
+    while (widestLineScrollWidth() > containerWidth + 0.5 && targetFS > minFS && guard < 60) {
+      targetFS -= 1;
+      heroH1.style.fontSize = targetFS + 'px';
+      guard++;
+    }
+    // Jaga-jaga: kalau estimasi awal ternyata terlalu kecil (ada slack), naikkan sedikit
+    // tanpa pernah overflow, supaya tidak terlalu kecil dari yang seharusnya
+    guard = 0;
+    while (targetFS < maxFS && guard < 60) {
+      var nextFS = targetFS + 1;
+      heroH1.style.fontSize = nextFS + 'px';
+      if (widestLineScrollWidth() > containerWidth + 0.5) {
+        heroH1.style.fontSize = targetFS + 'px';
+        break;
+      }
+      targetFS = nextFS;
+      guard++;
+    }
+  }
+
+  // Jalankan setelah layout awal, saat resize (debounced), dan setelah font selesai load
+  fitHeroH1();
+  window.addEventListener('load', fitHeroH1);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(fitHeroH1);
+  }
+  var fitResizeTimer = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(fitResizeTimer);
+    fitResizeTimer = setTimeout(fitHeroH1, 100);
+  }, { passive: true });
 
   var nav     = document.getElementById('nav');
   var toggle  = document.getElementById('navToggle');
