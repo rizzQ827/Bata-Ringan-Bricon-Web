@@ -10,6 +10,14 @@
 
   gtag('config', 'AW-18295540896');
 </script>
+<!-- Event snippet: Klik WhatsApp conversion (AW-18295540896/_7E3CPa2l98cEKCZ_5NE) -->
+<script>
+  function trackWhatsAppConversion() {
+    gtag('event', 'conversion', {
+      'send_to': 'AW-18295540896/_7E3CPa2l98cEKCZ_5NE'
+    });
+  }
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Bata Ringan BRICON — distributor resmi di Jawa Timur. Bata ringan & panel lantai berteknologi Microbubble, stok lengkap, pengiriman cepat, kualitas SNI. Konsultasi gratis via WhatsApp.">
@@ -1648,6 +1656,11 @@ p{margin:0}
   if (mbRedbar) mbRedbar.addEventListener('click', mbCloseModal);
   if (mbOverlay) mbOverlay.addEventListener('click', function (e) { if (e.target === mbOverlay) mbCloseModal(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && mbOverlay && mbOverlay.classList.contains('open')) mbCloseModal(); });
+
+  /* Google Ads: track setiap klik CTA WhatsApp sebagai conversion "Klik WhatsApp" */
+  document.querySelectorAll('a[href*="wa.me"]').forEach(function (a) {
+    a.addEventListener('click', function () { trackWhatsAppConversion(); });
+  });
 
   /* "Beranda" (#top) selalu scroll mentok ke paling atas halaman */
   document.querySelectorAll('a[href="#top"]').forEach(function (a) {
