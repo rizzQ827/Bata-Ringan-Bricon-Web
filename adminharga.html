@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin Harga BRICON</title>
+<style>
+:root{
+  --bg:#FAFAFA; --surface:#FFFFFF; --ink:#1C1C1E; --text:#2A2A2E; --muted:#5C5C63;
+  --red:#D42B2B; --red-dark:#B71F1F; --red-soft:#FCEDED; --yellow:#F5C200;
+  --green:#1FA24A; --green-soft:#E9F8EE; --line:#E6E6E8; --line-strong:#D8D8DC;
+  --font:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r-sm:8px; --r-md:12px; --r-lg:16px;
+  --sh-sm:0 1px 2px rgba(28,28,30,.06),0 1px 1px rgba(28,28,30,.04);
+  --sh-md:0 6px 18px rgba(28,28,30,.08),0 2px 6px rgba(28,28,30,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text);font-size:15px;line-height:1.5}
+.wrap{max-width:960px;margin-inline:auto;padding:24px 18px 80px}
+h1{font-size:1.4rem;font-weight:800;color:var(--ink);margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:.92rem;margin:0 0 24px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px;box-shadow:var(--sh-sm)}
+
+/* login */
+#loginView{max-width:380px;margin:60px auto 0}
+#loginView h1{text-align:center}
+#loginView .sub{text-align:center}
+.field{margin-top:14px}
+.field label{display:block;font-size:.82rem;font-weight:700;color:var(--ink);margin-bottom:6px}
+.field input{width:100%;padding:11px 13px;border:1.5px solid var(--line-strong);border-radius:var(--r-sm);font-size:.95rem;font-family:inherit;background:var(--bg)}
+.field input:focus{outline:2px solid var(--red);outline-offset:1px;border-color:var(--red)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 20px;border-radius:var(--r-sm);font-weight:700;font-size:.92rem;cursor:pointer;border:1.5px solid transparent;background:var(--red);color:#fff;width:100%;margin-top:18px;transition:background .15s,transform .15s}
+.btn:hover{background:var(--red-dark)}
+.btn:active{transform:translateY(1px)}
+.btn-ghost{background:transparent;border-color:var(--line-strong);color:var(--ink);width:auto;margin-top:0;padding:8px 16px;min-height:38px;font-size:.85rem}
+.errmsg{margin-top:12px;padding:10px 12px;background:var(--red-soft);border:1px solid #F5D2D2;border-radius:var(--r-sm);color:var(--red-dark);font-size:.86rem;display:none}
+.errmsg.show{display:block}
+
+/* app */
+#appView{display:none}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:12px;flex-wrap:wrap}
+.who{font-size:.84rem;color:var(--muted)}
+.who b{color:var(--ink)}
+
+.city-card{margin-bottom:16px}
+.city-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
+.city-head h2{font-size:1.05rem;font-weight:800;color:var(--ink);margin:0}
+.city-head .slug{font-family:var(--mono);font-size:.74rem;color:var(--muted);background:var(--bg);padding:3px 8px;border-radius:6px;border:1px solid var(--line)}
+
+.prow{display:grid;grid-template-columns:70px 1fr 1fr 90px auto;gap:10px;align-items:end;padding:12px 0;border-top:1px dashed var(--line)}
+.prow:first-of-type{border-top:none}
+.prow label{display:block;font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+.prow .ptag{font-weight:800;color:var(--ink);font-size:.9rem;padding-bottom:11px}
+.prow input[type=number]{width:100%;padding:9px 10px;border:1.5px solid var(--line-strong);border-radius:8px;font-family:var(--mono);font-size:.9rem}
+.prow input[type=number]:focus{outline:2px solid var(--red);outline-offset:1px;border-color:var(--red)}
+.prow .save-btn{min-height:38px;padding:8px 14px;font-size:.82rem;margin:0;width:auto;white-space:nowrap}
+.prow .pub-toggle{display:flex;align-items:center;gap:6px;font-size:.76rem;color:var(--muted);padding-bottom:9px}
+.prow .pub-toggle input{width:15px;height:15px}
+.row-status{font-size:.74rem;color:var(--green);opacity:0;transition:opacity .3s;margin-left:8px}
+.row-status.show{opacity:1}
+
+@media (max-width:640px){
+  .prow{grid-template-columns:1fr 1fr;grid-template-areas:"tag tag" "min max" "unit pub" "save save"}
+  .prow .ptag{grid-area:tag}
+  .prow > div:nth-child(2){grid-area:min}
+  .prow > div:nth-child(3){grid-area:max}
+  .prow .pub-toggle{grid-area:pub}
+  .prow .save-btn{grid-area:save;width:100%}
+}
+
+.addcity{margin-top:24px}
+.addcity summary{cursor:pointer;font-weight:700;color:var(--red);font-size:.9rem;padding:10px 0}
+.addcity-form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.addcity-form .field{margin-top:0}
+.addcity-form .full{grid-column:1/-1}
+
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:var(--r-sm);font-size:.88rem;font-weight:600;box-shadow:var(--sh-md);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.err{background:var(--red-dark)}
+
+.note{font-size:.8rem;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 12px;margin-bottom:20px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- LOGIN -->
+  <div id="loginView">
+    <h1>Admin Harga BRICON</h1>
+    <p class="sub">Login untuk update harga per kota/kabupaten</p>
+    <div class="card">
+      <div class="field">
+        <label for="loginEmail">Email</label>
+        <input id="loginEmail" type="email" autocomplete="username" placeholder="email@domain.com">
+      </div>
+      <div class="field">
+        <label for="loginPass">Password</label>
+        <input id="loginPass" type="password" autocomplete="current-password" placeholder="••••••••">
+      </div>
+      <button class="btn" id="loginBtn" type="button">Masuk</button>
+      <div class="errmsg" id="loginErr"></div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="appView">
+    <div class="topbar">
+      <div>
+        <h1>Admin Harga BRICON</h1>
+        <p class="sub" style="margin:0">Update harga per kota/kabupaten. Perubahan langsung tersimpan di database.</p>
+      </div>
+      <div style="text-align:right">
+        <div class="who">Login sebagai <b id="whoEmail"></b></div>
+        <button class="btn btn-ghost" id="logoutBtn" type="button" style="margin-top:6px">Keluar</button>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>Cara pakai:</b> isi harga min &amp; max per m³ (bata) atau per m² (panel), lalu klik Simpan di baris itu. Centang "Tampilkan di web" kalau harga ini boleh muncul publik — kalau tidak dicentang, harga hanya tersimpan di database dan tidak ditampilkan di halaman kota terkait.
+    </div>
+
+    <div id="cityList"></div>
+
+    <details class="addcity card">
+      <summary>+ Tambah kota/kabupaten baru</summary>
+      <div class="addcity-form">
+        <div class="field">
+          <label for="newKab">Nama Kabupaten/Kota</label>
+          <input id="newKab" type="text" placeholder="contoh: Kediri">
+        </div>
+        <div class="field">
+          <label for="newSlug">Slug URL</label>
+          <input id="newSlug" type="text" placeholder="contoh: kediri">
+        </div>
+        <div class="full">
+          <button class="btn" id="addCityBtn" type="button" style="margin-top:4px">Tambah</button>
+        </div>
+      </div>
+    </details>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var SUPABASE_URL = "https://stfvhqexiftkwszihaxf.supabase.co";
+  var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN0ZnZocWV4aWZ0a3dzemloYXhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwNTgyOTYsImV4cCI6MjA5NjYzNDI5Nn0.1urQ_eXn2ThFtO6fXEnAElxk3bJ6d2zkDDMZjdE1ar4";
+
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  var loginView = document.getElementById('loginView');
+  var appView = document.getElementById('appView');
+  var loginBtn = document.getElementById('loginBtn');
+  var logoutBtn = document.getElementById('logoutBtn');
+  var loginErr = document.getElementById('loginErr');
+  var whoEmail = document.getElementById('whoEmail');
+  var cityList = document.getElementById('cityList');
+  var toastEl = document.getElementById('toast');
+  var toastTimer = null;
+
+  function showToast(msg, isErr) {
+    toastEl.textContent = msg;
+    toastEl.classList.toggle('err', !!isErr);
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 2600);
+  }
+
+  function showApp(session) {
+    loginView.style.display = 'none';
+    appView.style.display = 'block';
+    whoEmail.textContent = session.user.email;
+    loadPricing();
+  }
+  function showLogin() {
+    loginView.style.display = 'block';
+    appView.style.display = 'none';
+  }
+
+  loginBtn.addEventListener('click', function () {
+    var email = document.getElementById('loginEmail').value.trim();
+    var pass = document.getElementById('loginPass').value;
+    loginErr.classList.remove('show');
+    if (!email || !pass) { loginErr.textContent = 'Isi email dan password.'; loginErr.classList.add('show'); return; }
+    loginBtn.disabled = true; loginBtn.textContent = 'Memproses...';
+    sb.auth.signInWithPassword({ email: email, password: pass }).then(function (res) {
+      loginBtn.disabled = false; loginBtn.textContent = 'Masuk';
+      if (res.error) {
+        loginErr.textContent = 'Login gagal: email atau password salah.';
+        loginErr.classList.add('show');
+        return;
+      }
+      showApp(res.data.session);
+    });
+  });
+
+  logoutBtn.addEventListener('click', function () {
+    sb.auth.signOut().then(function () { showLogin(); });
+  });
+
+  sb.auth.getSession().then(function (res) {
+    if (res.data.session) showApp(res.data.session); else showLogin();
+  });
+
+  var PRODUCT_LABEL = { bata: 'Bata Ringan (per m³)', panel: 'Panel Lantai (per m²)' };
+
+  function loadPricing() {
+    cityList.innerHTML = '<p class="sub">Memuat data...</p>';
+    sb.from('city_pricing').select('*').order('kabupaten', { ascending: true }).order('product', { ascending: true })
+      .then(function (res) {
+        if (res.error) { cityList.innerHTML = '<p class="errmsg show">Gagal memuat data: ' + res.error.message + '</p>'; return; }
+        renderCities(res.data || []);
+      });
+  }
+
+  function renderCities(rows) {
+    var byKab = {};
+    rows.forEach(function (r) {
+      if (!byKab[r.kabupaten]) byKab[r.kabupaten] = { slug: r.slug, rows: [] };
+      byKab[r.kabupaten].rows.push(r);
+    });
+
+    cityList.innerHTML = '';
+    Object.keys(byKab).sort().forEach(function (kab) {
+      var group = byKab[kab];
+      var card = document.createElement('div');
+      card.className = 'card city-card';
+
+      var head = document.createElement('div');
+      head.className = 'city-head';
+      head.innerHTML = '<h2>' + escapeHtml(kab) + '</h2><span class="slug">/kota/' + escapeHtml(group.slug) + '</span>';
+      card.appendChild(head);
+
+      group.rows.forEach(function (row) {
+        card.appendChild(renderRow(row));
+      });
+
+      cityList.appendChild(card);
+    });
+  }
+
+  function renderRow(row) {
+    var prow = document.createElement('div');
+    prow.className = 'prow';
+
+    var tag = document.createElement('div');
+    tag.className = 'ptag';
+    tag.textContent = PRODUCT_LABEL[row.product] || row.product;
+    prow.appendChild(tag);
+
+    var minWrap = document.createElement('div');
+    minWrap.innerHTML = '<label>Harga Min (Rp)</label>';
+    var minInput = document.createElement('input');
+    minInput.type = 'number'; minInput.min = '0'; minInput.step = '1000';
+    minInput.value = row.price_min == null ? '' : row.price_min;
+    minWrap.appendChild(minInput);
+    prow.appendChild(minWrap);
+
+    var maxWrap = document.createElement('div');
+    maxWrap.innerHTML = '<label>Harga Max (Rp)</label>';
+    var maxInput = document.createElement('input');
+    maxInput.type = 'number'; maxInput.min = '0'; maxInput.step = '1000';
+    maxInput.value = row.price_max == null ? '' : row.price_max;
+    maxWrap.appendChild(maxInput);
+    prow.appendChild(maxWrap);
+
+    var pubWrap = document.createElement('label');
+    pubWrap.className = 'pub-toggle';
+    var pubInput = document.createElement('input');
+    pubInput.type = 'checkbox';
+    pubInput.checked = !!row.is_published;
+    pubWrap.appendChild(pubInput);
+    pubWrap.appendChild(document.createTextNode('Tampilkan di web'));
+    prow.appendChild(pubWrap);
+
+    var saveWrap = document.createElement('div');
+    var saveBtn = document.createElement('button');
+    saveBtn.className = 'btn save-btn';
+    saveBtn.type = 'button';
+    saveBtn.textContent = 'Simpan';
+    var status = document.createElement('span');
+    status.className = 'row-status';
+    status.textContent = 'Tersimpan';
+    saveWrap.appendChild(saveBtn);
+    saveWrap.appendChild(status);
+    prow.appendChild(saveWrap);
+
+    saveBtn.addEventListener('click', function () {
+      var minVal = minInput.value === '' ? null : Number(minInput.value);
+      var maxVal = maxInput.value === '' ? null : Number(maxInput.value);
+      saveBtn.disabled = true; saveBtn.textContent = 'Menyimpan...';
+      sb.from('city_pricing').update({
+        price_min: minVal,
+        price_max: maxVal,
+        is_published: pubInput.checked,
+        updated_at: new Date().toISOString()
+      }).eq('id', row.id).then(function (res) {
+        saveBtn.disabled = false; saveBtn.textContent = 'Simpan';
+        if (res.error) { showToast('Gagal simpan: ' + res.error.message, true); return; }
+        status.classList.add('show');
+        setTimeout(function () { status.classList.remove('show'); }, 2000);
+        showToast('Harga ' + PRODUCT_LABEL[row.product] + ' tersimpan.');
+      });
+    });
+
+    return prow;
+  }
+
+  document.getElementById('addCityBtn').addEventListener('click', function () {
+    var kab = document.getElementById('newKab').value.trim();
+    var slug = document.getElementById('newSlug').value.trim().toLowerCase().replace(/[^a-z0-9-]+/g, '-');
+    if (!kab || !slug) { showToast('Isi nama kabupaten dan slug dulu.', true); return; }
+    var btn = document.getElementById('addCityBtn');
+    btn.disabled = true; btn.textContent = 'Menambah...';
+    sb.from('city_pricing').insert([
+      { kabupaten: kab, slug: slug, product: 'bata', unit: 'm3', is_published: false },
+      { kabupaten: kab, slug: slug, product: 'panel', unit: 'm2', is_published: false }
+    ]).then(function (res) {
+      btn.disabled = false; btn.textContent = 'Tambah';
+      if (res.error) { showToast('Gagal menambah: ' + res.error.message, true); return; }
+      document.getElementById('newKab').value = '';
+      document.getElementById('newSlug').value = '';
+      showToast('Kota "' + kab + '" ditambahkan.');
+      loadPricing();
+    });
+  });
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+})();
+</script>
+</body>
+</html>
