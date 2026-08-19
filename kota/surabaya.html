@@ -1060,6 +1060,95 @@ p{margin:0}
   .hero-copy { margin-bottom: 64px; }
 }
 
+/* ============================================================
+   HARGA PUBLIK & TESTIMONI
+   Kedua section ini tersembunyi selama database belum punya data yang
+   ditandai "tampilkan di web". Skrip di bawah halaman yang memunculkannya.
+   ============================================================ */
+[hidden]{display:none!important}
+
+/* --- Plat harga di dalam card produk (halaman kota) --- */
+.harga-plate{
+  position:relative;overflow:hidden;
+  margin-top:22px;padding:16px 18px;
+  background:var(--ink);border-radius:var(--r-md);
+  box-shadow:var(--sh-md);
+}
+.harga-plate::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(120% 130% at 100% 0%,#000 25%,transparent 85%);
+          mask-image:radial-gradient(120% 130% at 100% 0%,#000 25%,transparent 85%);
+}
+.harga-plate > *{position:relative}
+.harga-plate .hp-label{
+  display:block;font-family:var(--mono);font-size:.68rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);
+}
+.harga-plate .hp-val{
+  display:block;margin-top:7px;font-family:var(--mono);font-weight:700;
+  font-size:clamp(1.02rem,3.4vw,1.38rem);color:#fff;letter-spacing:-.02em;line-height:1.25;
+}
+.harga-plate .hp-val.is-kosong{
+  font-family:var(--font);font-weight:600;font-size:.98rem;color:rgba(255,255,255,.82);letter-spacing:0;
+}
+.harga-plate .hp-note{margin-top:9px;font-size:.78rem;line-height:1.5;color:rgba(255,255,255,.55)}
+
+/* --- Daftar harga per kabupaten (beranda) --- */
+.harga{background:var(--bg)}
+.harga-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(266px,1fr));
+  gap:18px;margin-top:clamp(30px,4vw,46px);
+}
+.hcard{
+  display:flex;flex-direction:column;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:20px 20px 18px;
+  transition:transform .22s var(--ease-out),box-shadow .22s var(--ease-out),border-color .22s var(--ease-out);
+}
+.hcard:hover{transform:translateY(-3px);box-shadow:var(--sh-md);border-color:var(--line-strong)}
+.hcard-head{display:flex;align-items:center;gap:9px;padding-bottom:13px;border-bottom:1px solid var(--line)}
+.hcard-head svg{width:17px;height:17px;flex:none;color:var(--red)}
+.hcard-kab{font-weight:800;font-size:1.06rem;color:var(--ink);letter-spacing:-.015em}
+.hcard-rows{display:flex;flex-direction:column;flex:1}
+.hrow{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:13px 0;border-bottom:1px dashed var(--line)}
+.hcard-rows .hrow:last-child{border-bottom:none}
+.hrow-k{font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.hrow-v{font-family:var(--mono);font-weight:700;font-size:.97rem;color:var(--ink);letter-spacing:-.035em;line-height:1.3}
+.hrow-v em{font-style:normal;font-weight:500;color:var(--muted);font-size:.85em;letter-spacing:0}
+.hcard-cta{margin-top:16px;width:100%;white-space:normal}
+.harga-foot{
+  margin-top:24px;padding-left:14px;border-left:2px solid var(--line-strong);
+  font-size:.85rem;line-height:1.6;color:var(--muted);max-width:66ch;
+}
+
+/* --- Kalimat harga yang disisipkan ke jawaban FAQ --- */
+.faq-harga b{font-family:var(--mono);letter-spacing:-.02em;color:var(--ink)}
+
+/* --- Testimoni --- */
+.testi{background:var(--bg)}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:18px;margin-top:clamp(30px,4vw,46px)}
+.testi-kartu{
+  display:flex;flex-direction:column;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:22px;
+}
+.testi-kartu header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.testi-kartu header strong{font-size:1rem;color:var(--ink);letter-spacing:-.015em}
+.testi-lokasi{margin-top:5px;font-family:var(--mono);font-size:.71rem;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
+.testi-kartu blockquote{margin:14px 0 0;color:var(--text);font-size:.95rem;line-height:1.6}
+.bintang{display:inline-flex;gap:2px;flex:none}
+.bintang .b{position:relative;line-height:0;color:#E2E5EA}
+.bintang .b .isi{position:absolute;inset:0;overflow:hidden;color:var(--yellow);line-height:0}
+.bintang svg{width:15px;height:15px;display:block}
+
+@media (max-width:560px){
+  .harga-grid,.testi-grid{grid-template-columns:minmax(0,1fr)}
+}
+
 </style>
 </head>
 <body>
@@ -1248,6 +1337,12 @@ p{margin:0}
             <div class="spec-row"><span class="s-key">Tebal</span><span class="s-val">7,5 – 12,5 cm</span></div>
           </div>
 
+          <div class="harga-plate">
+            <span class="hp-label">Harga Bata Ringan &#183; Area Surabaya</span>
+            <span class="hp-val is-kosong" data-harga="surabaya-bata">Dihitung per proyek &#8212; tanya via WhatsApp</span>
+            <p class="hp-note">Dipengaruhi ketebalan (7,5&#8211;12,5 cm), volume order, dan jarak ke titik bongkar. Kami balas dengan rincian per m&#179;.</p>
+          </div>
+
           <div class="prod-promo">
             <span class="pp-ico" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.51 10.05 2 9.09 2 7.38 2 6 3.38 6 5.09c0 .35.07.7.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2M9.08 4c.62 0 1.19.31 1.53.83L12 6.6l1.4-1.77c.34-.52.91-.83 1.52-.83.99 0 1.8.81 1.8 1.8 0 .11-.01.22-.03.33H7.11a1.6 1.6 0 0 1-.03-.33c0-.99.81-1.8 1.8-1.8M20 19H4v-2h16zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76V14h2V8.76L15.38 12 17 10.83 14.92 8H20z"></path></svg>
@@ -1282,6 +1377,12 @@ p{margin:0}
             <div class="spec-row"><span class="s-key">Panjang</span><span class="s-val">1470 – 3220 mm</span></div>
             <div class="spec-row"><span class="s-key">Lebar</span><span class="s-val">600 mm</span></div>
             <div class="spec-row"><span class="s-key">Tebal</span><span class="s-val">125 mm</span></div>
+          </div>
+
+          <div class="harga-plate">
+            <span class="hp-label">Harga Panel Lantai &#183; Area Surabaya</span>
+            <span class="hp-val is-kosong" data-harga="surabaya-panel">Dihitung per proyek &#8212; tanya via WhatsApp</span>
+            <p class="hp-note">Dihitung per m&#178; sesuai bentang dan volume. Gratis survey lapangan dulu sebelum penawaran keluar.</p>
           </div>
 
           <div class="prod-promo">
@@ -1339,7 +1440,7 @@ p{margin:0}
           <summary>Berapa harga bata ringan per kubik di Surabaya?
             <span class="faq-plus" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span>
           </summary>
-          <p class="faq-a">Harga bata ringan per kubik BRICON bervariasi tergantung ketebalan (7,5–12,5 cm) dan jumlah pesanan. Untuk harga terbaru dan penawaran sesuai volume proyek Anda, chat langsung via WhatsApp — kami balas cepat dengan rincian harga per kubik dan estimasi ongkos kirim ke lokasi Anda di Surabaya.</p>
+          <p class="faq-a"><span class="faq-harga" data-harga-kalimat hidden>Untuk pengiriman area Surabaya, kisaran harga saat ini <b data-harga="surabaya-bata"></b>. </span>Harga bata ringan per kubik BRICON bervariasi tergantung ketebalan (7,5–12,5 cm) dan jumlah pesanan. Untuk harga terbaru dan penawaran sesuai volume proyek Anda, chat langsung via WhatsApp — kami balas cepat dengan rincian harga per kubik dan estimasi ongkos kirim ke lokasi Anda di Surabaya.</p>
         </details>
         <details class="faq-item">
           <summary>Apakah BRICON kirim bata ringan &amp; panel lantai ke seluruh Surabaya?
@@ -1366,6 +1467,20 @@ p{margin:0}
           <p class="faq-a">Bisa. Kami menyediakan konsultasi gratis untuk menghitung kebutuhan bata ringan atau panel lantai sesuai luas dan desain bangunan Anda, termasuk survey lapangan gratis khusus untuk pemasangan panel lantai.</p>
         </details>
       </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONI =====================
+       Tersembunyi selama belum ada testimoni di database. Begitu satu testimoni
+       ditandai "sudah di web" + izin nama, section ini muncul sendiri. -->
+  <section class="section testi" id="testimoni" hidden>
+    <div class="container">
+      <div style="max-width:640px">
+        <span class="eyebrow-mark"><span class="bar"></span>Testimoni</span>
+        <h2 class="section-title" style="margin-top:14px">Kata pelanggan BRICON</h2>
+        <p class="section-lead">Ulasan kontraktor, tukang, dan owner proyek yang sudah memakai bata ringan &amp; panel lantai BRICON.</p>
+      </div>
+      <div class="testi-grid" id="daftarTestimoni"></div>
     </div>
   </section>
 
@@ -1728,6 +1843,171 @@ p{margin:0}
       setActiveHref('#top');
     });
   });
+})();
+</script>
+<!-- ============================================================================
+     HARGA PUBLIK & TESTIMONI — ditarik langsung dari database BRICON.
+
+     Cara kerjanya: begitu Reyhan mengisi harga di Invoice Generator lalu mencentang
+     "Tampilkan harga ini di website", angkanya langsung muncul di sini tanpa perlu
+     upload file baru. Sama untuk testimoni yang sudah ditandai "sudah di web".
+     Selama belum ada data, section Harga & Testimoni tetap tersembunyi — bukan
+     tampil kosong, dan tidak pernah menampilkan angka karangan.
+
+     Kalau database tidak terjangkau, skrip ini diam saja: halaman tampil normal
+     seperti sebelumnya, tanpa pesan error.
+     ============================================================================ -->
+<script>
+(function () {
+  "use strict";
+
+  var SB_REST = 'https://stfvhqexiftkwszihaxf.supabase.co/rest/v1';
+  var SB_KEY  = 'sb_publishable_GDUpC76cdnPP4h3QMwbuvw_gsnaCXbr';
+  var WA      = 'https://wa.me/6285184028183?text=';
+  var HALAMAN = 'Surabaya';
+  var SLUG    = 'surabaya';   /* null = tampilkan semua kabupaten */
+
+  function ambil(query) {
+    if (typeof fetch !== 'function') return Promise.resolve(null);
+    return fetch(SB_REST + '/' + query, {
+      headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY }
+    }).then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; });
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function rupiah(n) { return 'Rp ' + Math.round(Number(n)).toLocaleString('id-ID'); }
+  function satuan(u) { return u === 'm3' ? 'm\u00B3' : u === 'm2' ? 'm\u00B2' : (u || ''); }
+  function labelProduk(p) { return p === 'panel' ? 'Panel Lantai' : 'Bata Ringan'; }
+
+  /* Rentang harga -> teks. Balikkan null kalau angkanya belum diisi, supaya
+     halaman tidak pernah menampilkan "Rp NaN" atau baris kosong. */
+  function angkaHarga(row) {
+    var min = (row.price_min === null || row.price_min === '' || row.price_min === undefined) ? null : Number(row.price_min);
+    var max = (row.price_max === null || row.price_max === '' || row.price_max === undefined) ? null : Number(row.price_max);
+    if (min !== null && !isFinite(min)) min = null;
+    if (max !== null && !isFinite(max)) max = null;
+    if (min === null && max === null) return null;
+    if (min !== null && max !== null && max !== min) {
+      return rupiah(min) + ' \u2013 ' + Math.round(max).toLocaleString('id-ID');
+    }
+    return rupiah(min !== null ? min : max);
+  }
+
+  var PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-5.5 10.2-7.4 11.8a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>';
+
+  function kartuKota(kab, rows) {
+    var baris = '';
+    rows.forEach(function (r) {
+      var h = angkaHarga(r);
+      if (!h) return;
+      baris += '<div class="hrow"><span class="hrow-k">' + labelProduk(r.product) + '</span>' +
+               '<span class="hrow-v">' + h + ' <em>/' + satuan(r.unit) + '</em></span></div>';
+    });
+    if (!baris) return '';
+    var pesan = 'Halo, saya ingin minta penawaran BRICON untuk area ' + kab + ' - ' + HALAMAN + ' - Harga';
+    return '<article class="hcard">' +
+      '<header class="hcard-head">' + PIN + '<span class="hcard-kab">' + esc(kab) + '</span></header>' +
+      '<div class="hcard-rows">' + baris + '</div>' +
+      '<a class="btn btn-ghost-red btn-sm hcard-cta" href="' + WA + encodeURIComponent(pesan) +
+      '" target="_blank" rel="noopener">Minta Penawaran</a>' +
+      '</article>';
+  }
+
+  function bukaSection(id) {
+    var el = document.getElementById(id);
+    if (el) el.hidden = false;
+    var tautan = document.querySelectorAll('[data-nav="' + id + '"]');
+    for (var i = 0; i < tautan.length; i++) tautan[i].hidden = false;
+  }
+
+  function segarkanHarga() {
+    var q = 'city_pricing?select=kabupaten,slug,product,price_min,price_max,unit' +
+            '&is_published=eq.true&order=kabupaten.asc,product.asc';
+    if (SLUG) q += '&slug=eq.' + encodeURIComponent(SLUG);
+
+    return ambil(q).then(function (data) {
+      if (!data || !data.length) return;
+
+      /* 1) Isi elemen bertanda data-harga="slug-produk" (plat harga & kalimat FAQ) */
+      data.forEach(function (r) {
+        var h = angkaHarga(r);
+        if (!h) return;
+        var teks = h + ' /' + satuan(r.unit);
+        var els = document.querySelectorAll('[data-harga="' + r.slug + '-' + r.product + '"]');
+        for (var i = 0; i < els.length; i++) {
+          els[i].textContent = teks;
+          els[i].classList.remove('is-kosong');
+          var bungkus = els[i].closest ? els[i].closest('[data-harga-kalimat]') : null;
+          if (bungkus) bungkus.hidden = false;
+        }
+      });
+
+      /* 2) Bangun daftar kartu harga per kabupaten (beranda) */
+      var wrap = document.getElementById('daftarHarga');
+      if (!wrap) return;
+      var urut = [], grup = {};
+      data.forEach(function (r) {
+        if (!grup[r.kabupaten]) { grup[r.kabupaten] = []; urut.push(r.kabupaten); }
+        grup[r.kabupaten].push(r);
+      });
+      var html = '';
+      urut.forEach(function (k) { html += kartuKota(k, grup[k]); });
+      if (!html) return;
+      wrap.innerHTML = html;
+      bukaSection('harga');
+    });
+  }
+
+  var SVG_BINTANG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
+    '<path d="M12 2.4l2.94 5.96 6.58.96-4.76 4.64 1.12 6.55L12 17.42l-5.88 3.09 1.12-6.55L2.48 9.32l6.58-.96z"/></svg>';
+
+  /* Bintang bisa separuh: lapisan emas di atas lapisan abu, lebarnya dipotong */
+  function bintang(nilai) {
+    var v = Math.round(Number(nilai) * 2) / 2;
+    if (!isFinite(v)) v = 0;
+    v = Math.max(0, Math.min(5, v));
+    var out = '';
+    for (var i = 1; i <= 5; i++) {
+      var lebar = v >= i ? 100 : (v >= i - 0.5 ? 50 : 0);
+      out += '<span class="b">' + SVG_BINTANG +
+             '<span class="isi" style="width:' + lebar + '%">' + SVG_BINTANG + '</span></span>';
+    }
+    return '<span class="bintang" role="img" aria-label="Penilaian ' +
+           v.toFixed(1).replace('.', ',') + ' dari 5">' + out + '</span>';
+  }
+
+  function kartuTestimoni(t) {
+    var meta = [];
+    if (t.kabupaten) meta.push(esc(t.kabupaten));
+    if (t.product) meta.push(labelProduk(t.product));
+    return '<article class="testi-kartu">' +
+      '<header><strong>' + esc(t.display_name) + '</strong>' + bintang(t.rating) + '</header>' +
+      (meta.length ? '<p class="testi-lokasi">' + meta.join(' \u00B7 ') + '</p>' : '') +
+      '<blockquote>' + esc(t.quote).replace(/\n/g, '<br>') + '</blockquote>' +
+      '</article>';
+  }
+
+  function segarkanTestimoni() {
+    var wrap = document.getElementById('daftarTestimoni');
+    if (!wrap) return;
+    return ambil('testimonials?select=display_name,kabupaten,rating,quote,product' +
+                 '&is_published=eq.true&consent_name=eq.true&order=created_at.desc')
+      .then(function (data) {
+        if (!data || !data.length) return;   /* belum ada testimoni: section tetap tersembunyi */
+        var html = '';
+        data.forEach(function (t) { html += kartuTestimoni(t); });
+        wrap.innerHTML = html;
+        bukaSection('testimoni');
+      });
+  }
+
+  segarkanHarga();
+  segarkanTestimoni();
 })();
 </script>
 </body>
