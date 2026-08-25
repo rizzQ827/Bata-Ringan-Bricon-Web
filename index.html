@@ -435,10 +435,10 @@ p{margin:0}
   background:radial-gradient(circle,rgba(245,194,0,.34) 0%,rgba(245,194,0,.16) 45%,rgba(245,194,0,0) 74%);
 }
 .spec-visual[data-glow="bata"] .spec-visual-glow{
-  left:var(--glow-bata-x,-6%);top:var(--glow-bata-y,2%);width:var(--glow-bata-s,40%);
+  left:var(--glow-bata-x,-3%);top:var(--glow-bata-y,3.5%);width:var(--glow-bata-s,54.5%);
 }
 .spec-visual[data-glow="panel"] .spec-visual-glow{
-  left:var(--glow-panel-x,58%);top:var(--glow-panel-y,2%);width:var(--glow-panel-s,40%);
+  left:var(--glow-panel-x,25.5%);top:var(--glow-panel-y,14.5%);width:var(--glow-panel-s,63.5%);
 }
 .spec-visual img{position:relative;display:block;width:100%;filter:drop-shadow(0 18px 26px rgba(28,28,30,.24))}
 
@@ -850,9 +850,9 @@ p{margin:0}
 
 /* Posisi badge modal — bisa disetel lewat panel Tweak (?tweak=1).
    Desktop pakai var tanpa akhiran, mobile pakai var berakhiran -m. */
-.mb-slot--a{top:var(--mb-a-y,4%);left:var(--mb-a-x,2%);animation-delay:.2s}
-.mb-slot--b{bottom:var(--mb-b-y,4%);left:var(--mb-b-x,2%);animation-delay:1.1s}
-.mb-slot--c{top:var(--mb-c-y,50%);right:var(--mb-c-x,2%);transform:translateY(-50%);animation-delay:.6s}
+.mb-slot--a{top:var(--mb-a-y,21%);left:var(--mb-a-x,-8%);animation-delay:.2s}
+.mb-slot--b{bottom:var(--mb-b-y,14%);left:var(--mb-b-x,-2.5%);animation-delay:1.1s}
+.mb-slot--c{top:var(--mb-c-y,50%);right:var(--mb-c-x,-9.5%);transform:translateY(-50%);animation-delay:.6s}
 .mb-slot--c.is-visible{transform:translateY(-50%);animation:mbFloatC 3.6s ease-in-out infinite}
 @keyframes mbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @keyframes mbFloatC{0%,100%{transform:translateY(-50%)}50%{transform:translateY(calc(-50% - 7px))}}
@@ -893,11 +893,11 @@ p{margin:0}
   .mb-visual-text p{max-width:none;margin-inline:auto}
   .mb-slot{font-size:.64rem;padding:5px 9px}
   .mb-slot svg{width:10px;height:10px}
-  .mb-slot--a{top:var(--mb-a-y-m,12%);left:var(--mb-a-x-m,-2%);bottom:auto;right:auto;transform:none}
+  .mb-slot--a{top:var(--mb-a-y-m,19%);left:var(--mb-a-x-m,-1.5%);bottom:auto;right:auto;transform:none}
   .mb-slot--a.is-visible{animation:mbFloat 3.6s ease-in-out infinite}
-  .mb-slot--b{bottom:var(--mb-b-y-m,2%);left:var(--mb-b-x-m,-4%);top:auto;right:auto;transform:none}
+  .mb-slot--b{bottom:var(--mb-b-y-m,9.5%);left:var(--mb-b-x-m,-5.5%);top:auto;right:auto;transform:none}
   .mb-slot--b.is-visible{animation:mbFloat 3.6s ease-in-out infinite 1.1s}
-  .mb-slot--c{top:var(--mb-c-y-m,50%);right:var(--mb-c-x-m,8%);left:auto;bottom:auto;transform:translateY(-50%)}
+  .mb-slot--c{top:var(--mb-c-y-m,60%);right:var(--mb-c-x-m,-20%);left:auto;bottom:auto;transform:translateY(-50%)}
   .mb-slot--c.is-visible{transform:translateY(-50%);animation:mbFloatC 3.6s ease-in-out infinite .6s}
   .mb-redbar{font-size:.6rem;padding:10px 8px;letter-spacing:0}
   .mb-redbar-inner{justify-content:center}
@@ -2164,33 +2164,33 @@ p{margin:0}
   if (location.search.indexOf('tweak=1') === -1) return;
 
   var root  = document.documentElement;
-  var STORE = 'bricon-tweak-v1';
+  var STORE = 'bricon-tweak-v2';
   var MQ    = window.matchMedia('(max-width:768px)');
 
   /* d  = nilai bawaan versi desktop
      dm = nilai bawaan versi mobile (hanya untuk grup responsif) */
   var GROUPS = [
     { t: 'Lingkaran kuning — Bata', r: false, items: [
-      { k: 'glow-bata-x', l: 'Posisi X', min: -60, max: 100, d: -6 },
-      { k: 'glow-bata-y', l: 'Posisi Y', min: -60, max: 100, d: 2 },
-      { k: 'glow-bata-s', l: 'Ukuran',   min: 10,  max: 110, d: 40 }
+      { k: 'glow-bata-x', l: 'Posisi X', min: -60, max: 100, d: -3 },
+      { k: 'glow-bata-y', l: 'Posisi Y', min: -60, max: 100, d: 3.5 },
+      { k: 'glow-bata-s', l: 'Ukuran',   min: 10,  max: 110, d: 54.5 }
     ]},
     { t: 'Lingkaran kuning — Panel', r: false, items: [
-      { k: 'glow-panel-x', l: 'Posisi X', min: -60, max: 100, d: 58 },
-      { k: 'glow-panel-y', l: 'Posisi Y', min: -60, max: 100, d: 2 },
-      { k: 'glow-panel-s', l: 'Ukuran',   min: 10,  max: 110, d: 40 }
+      { k: 'glow-panel-x', l: 'Posisi X', min: -60, max: 100, d: 25.5 },
+      { k: 'glow-panel-y', l: 'Posisi Y', min: -60, max: 100, d: 14.5 },
+      { k: 'glow-panel-s', l: 'Ukuran',   min: 10,  max: 110, d: 63.5 }
     ]},
     { t: 'Badge modal — kiri atas', r: true, items: [
-      { k: 'mb-a-x', l: 'X kiri', min: -40, max: 100, d: 2, dm: -2 },
-      { k: 'mb-a-y', l: 'Y atas', min: -40, max: 100, d: 4, dm: 12 }
+      { k: 'mb-a-x', l: 'X kiri', min: -40, max: 100, d: -8, dm: -1.5 },
+      { k: 'mb-a-y', l: 'Y atas', min: -40, max: 100, d: 21, dm: 19 }
     ]},
     { t: 'Badge modal — kiri bawah', r: true, items: [
-      { k: 'mb-b-x', l: 'X kiri',  min: -40, max: 100, d: 2, dm: -4 },
-      { k: 'mb-b-y', l: 'Y bawah', min: -40, max: 100, d: 4, dm: 2 }
+      { k: 'mb-b-x', l: 'X kiri',  min: -40, max: 100, d: -2.5, dm: -5.5 },
+      { k: 'mb-b-y', l: 'Y bawah', min: -40, max: 100, d: 14, dm: 9.5 }
     ]},
     { t: 'Badge modal — kanan', r: true, items: [
-      { k: 'mb-c-x', l: 'X kanan', min: -40, max: 100, d: 2,  dm: 8 },
-      { k: 'mb-c-y', l: 'Y atas',  min: -40, max: 100, d: 50, dm: 50 }
+      { k: 'mb-c-x', l: 'X kanan', min: -40, max: 100, d: -9.5,  dm: -20 },
+      { k: 'mb-c-y', l: 'Y atas',  min: -40, max: 100, d: 50, dm: 60 }
     ]}
   ];
 
