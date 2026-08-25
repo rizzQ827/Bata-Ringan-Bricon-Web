@@ -24,7 +24,7 @@
 <meta name="google-site-verification" content="EtZ7B828EFSwBBCtYXX05N6GE1jZ95Qwk9lPnJGPCII" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Bata Ringan BRICON — distributor resmi di Jawa Timur. Bata ringan &amp; panel lantai berteknologi Microbubble, stok lengkap, pengiriman cepat, kualitas SNI. Konsultasi gratis via WhatsApp.">
-<meta name="theme-color" content="#FAFAFA">
+<meta name="theme-color" content="#FAF9F6">
 <meta name="color-scheme" content="light">
 
 <!-- Favicon -->
@@ -115,13 +115,14 @@
 <style>
 /* ============================================================
    BRICON Landing Page — single file
-   Palette 60-30-10: #FAFAFA / #1C1C1E / #D42B2B (+ #F5C200 highlight)
+   Palette 60-30-10: #FAF9F6 / #1C1C1E / #D42B2B (+ #F5C200 highlight)
    ============================================================ */
 
 :root{
-  /* Colours */
-  --bg:#FAFAFA;
-  --surface:#FFFFFF;
+  /* Colours — dasar netral hangat, bukan putih murni (mengurangi silau) */
+  --bg:#FAF9F6;
+  --surface:#FFFFFF;      /* kartu — tetap putih supaya "naik" dari latar */
+  --surface-warm:#FAF7F1; /* section bertulisan panjang — putih hangat */
   --ink:#1C1C1E;          /* charcoal — headings & dark sections */
   --text:#2A2A2E;         /* body */
   --muted:#5C5C63;        /* tertiary (>=4.5:1 on bg) */
@@ -134,9 +135,9 @@
   --wa-dark:#1FB855;
   --charcoal:#1C1C1E;
   --charcoal-2:#26262A;
-  --line:#E6E6E8;
-  --line-strong:#D8D8DC;
-  --track:#F1F0EE;        /* tab track / technical field bg */
+  --line:#E7E3DC;
+  --line-strong:#D9D4CB;
+  --track:#F2EFE9;        /* technical field bg */
   --on-dark:#FFFFFF;
   --on-dark-soft:rgba(255,255,255,.72);
   --on-dark-mute:rgba(255,255,255,.52);
@@ -205,7 +206,7 @@ p{margin:0}
 .section-lead{margin-top:14px;color:var(--muted);font-size:clamp(1rem,1.6vw,1.12rem);max-width:54ch}
 
 /* gold underline treatment on the word "BRICON" in headings */
-.brand-uline{position:relative;display:inline-block;white-space:nowrap}
+.brand-uline{position:relative;z-index:0;display:inline-block;white-space:nowrap}
 .brand-uline::before{content:"";position:absolute;left:-2px;right:-4px;bottom:.06em;height:.42em;background:var(--yellow);border-radius:2px;transform:skewX(-14deg);z-index:-1}
 
 .skip{position:absolute;left:-999px;top:0;background:var(--ink);color:#fff;padding:12px 18px;border-radius:0 0 10px 0;z-index:400;font-weight:700}
@@ -245,7 +246,7 @@ p{margin:0}
    ============================================================ */
 .nav{
   position:sticky;top:0;z-index:var(--z-sticky);
-  background:rgba(250,250,250,.92);
+  background:rgba(250,249,246,.92);
   backdrop-filter:saturate(140%) blur(8px);
   border-bottom:1px solid transparent;
   transition:box-shadow .25s var(--ease-out),border-color .25s var(--ease-out),background .25s var(--ease-out);
@@ -256,12 +257,12 @@ p{margin:0}
 .brand{display:flex;align-items:center;gap:11px}
 .brand-logo{height:30px;width:auto;display:block;flex:none}
 
-.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links{display:flex;align-items:center;gap:2px}
 .nav-link{
-  position:relative;padding:8px 14px;font-weight:600;font-size:.95rem;color:var(--text);
-  border-radius:8px;transition:color .18s var(--ease-out),background .18s var(--ease-out);
+  position:relative;padding:8px 12px;font-weight:600;font-size:.93rem;color:var(--text);
+  border-radius:8px;transition:color .18s var(--ease-out),background .18s var(--ease-out);white-space:nowrap;
 }
-.nav-link::after{content:"";position:absolute;left:14px;right:14px;bottom:4px;height:2px;background:var(--red);border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .22s var(--ease-out)}
+.nav-link::after{content:"";position:absolute;left:12px;right:12px;bottom:4px;height:2px;background:var(--red);border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .22s var(--ease-out)}
 .nav-link:hover{color:var(--ink)}
 .nav-link.active{color:var(--red)}
 .nav-link.active::after{transform:scaleX(1)}
@@ -402,8 +403,9 @@ p{margin:0}
 
 /* ============================================================
    MATERI — deskripsi produk (section pertama setelah hero)
+   Latar putih hangat: teks panjang, ornamen minim, jadi jangan silau.
    ============================================================ */
-.materi{background:var(--surface);border-top:1px solid var(--line)}
+.materi{background:var(--surface-warm);border-top:1px solid var(--line)}
 .materi .container{overflow:hidden}   /* menahan glow kuning supaya tidak bocor keluar frame */
 .materi-head{max-width:76ch;margin-inline:auto;text-align:center}
 .materi-head .eyebrow-mark{justify-content:center}
@@ -412,12 +414,10 @@ p{margin:0}
 
 /* chip layanan — pengganti kartu keunggulan, tanpa grid generik */
 .materi-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:18px 0 0;padding:0;list-style:none}
-.materi-chips li{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-pill);font-size:.82rem;font-weight:600;color:var(--ink);white-space:nowrap}
+.materi-chips li{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-pill);font-size:.82rem;font-weight:600;color:var(--ink);white-space:nowrap}
 .materi-chips svg{width:15px;height:15px;flex:none;color:var(--red)}
 
-/* image with blueprint grid, glow and red measurement lines — datasheet feel.
-   Ukuran & posisi mengikuti mockup: grid 11px (mobile) / 17px (desktop),
-   garis ukur merah bertopi di kedua ujung, glow kuning kecil di belakang produk. */
+/* image with blueprint grid, glow and red measurement lines — datasheet feel. */
 .spec-visual{position:relative;padding:30px 34px 40px 26px}
 .spec-visual::before{
   content:"";position:absolute;inset:0;pointer-events:none;
@@ -428,8 +428,18 @@ p{margin:0}
   -webkit-mask-image:radial-gradient(ellipse 62% 58% at 50% 46%,#000 55%,rgba(0,0,0,0) 100%);
           mask-image:radial-gradient(ellipse 62% 58% at 50% 46%,#000 55%,rgba(0,0,0,0) 100%);
 }
-.spec-visual-glow{position:absolute;left:-6%;top:2%;width:40%;aspect-ratio:1;border-radius:999px;background:radial-gradient(circle,rgba(245,194,0,.34) 0%,rgba(245,194,0,.16) 45%,rgba(245,194,0,0) 74%);pointer-events:none}
-.materi-grid.reverse .spec-visual-glow{left:58%}
+/* Posisi & ukuran glow kuning — bisa disetel lewat panel Tweak (?tweak=1).
+   Nilai default ditulis sebagai fallback di dalam var(). */
+.spec-visual-glow{
+  position:absolute;aspect-ratio:1;border-radius:999px;pointer-events:none;
+  background:radial-gradient(circle,rgba(245,194,0,.34) 0%,rgba(245,194,0,.16) 45%,rgba(245,194,0,0) 74%);
+}
+.spec-visual[data-glow="bata"] .spec-visual-glow{
+  left:var(--glow-bata-x,-6%);top:var(--glow-bata-y,2%);width:var(--glow-bata-s,40%);
+}
+.spec-visual[data-glow="panel"] .spec-visual-glow{
+  left:var(--glow-panel-x,58%);top:var(--glow-panel-y,2%);width:var(--glow-panel-s,40%);
+}
 .spec-visual img{position:relative;display:block;width:100%;filter:drop-shadow(0 18px 26px rgba(28,28,30,.24))}
 
 /* garis ukur */
@@ -438,7 +448,7 @@ p{margin:0}
 .sv-dim span{
   position:absolute;font-family:var(--mono);white-space:nowrap;
   font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--red);
-  background:var(--surface);padding:0 6px;
+  background:var(--surface-warm);padding:0 6px;
 }
 .sv-dim--v{right:16px;top:42px;bottom:58px;width:1px}
 .sv-dim--v::before{left:-5px;top:0;width:11px;height:1px}
@@ -490,12 +500,13 @@ p{margin:0}
 }
 
 /* ============================================================
-   PRODUK — kartu harga & spesifikasi
+   PRODUK — kartu spesifikasi (beranda tidak menampilkan harga)
+   Hierarki: [1] DIMENSI (plat gelap) > [2] kalkulator ukuran (blok terang) > [3] CTA
    ============================================================ */
 .products{background:var(--bg)}
-.pcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2vw,22px);margin-top:clamp(30px,4vw,46px);align-items:start}
+.pcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2vw,22px);margin-top:clamp(30px,4vw,46px);align-items:stretch}
 
-.pcard{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-md)}
+.pcard{display:flex;flex-direction:column;height:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-md)}
 .pcard-media{position:relative}
 .pcard-media > img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block}
 
@@ -527,22 +538,7 @@ p{margin:0}
 .pcard-body{display:flex;flex-direction:column;flex:1;padding:16px clamp(16px,1.8vw,20px) clamp(18px,2vw,20px)}
 .pcard-body h3{font-size:clamp(1.22rem,2.1vw,1.42rem);font-weight:800;letter-spacing:-.02em}
 
-/* pengalih isi kartu */
-.pseg{display:flex;gap:4px;margin-top:12px;padding:4px;background:var(--track);border:1px solid var(--line);border-radius:11px}
-.pseg button{
-  flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  height:36px;padding:0 8px;border:none;border-radius:8px;background:transparent;color:var(--muted);
-  font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
-  white-space:nowrap;cursor:pointer;
-  transition:background .18s var(--ease-out),color .18s var(--ease-out),box-shadow .18s var(--ease-out);
-}
-.pseg button svg{width:13px;height:13px;flex:none}
-.pseg button:hover{color:var(--ink)}
-.pseg button[aria-selected="true"]{background:var(--yellow);color:var(--ink);box-shadow:0 2px 6px rgba(28,28,30,.16)}
-
-.pmode[hidden]{display:none}
-
-/* plat data gelap */
+/* --- [1] plat data gelap: DIMENSI, info paling penting --- */
 .plate{position:relative;overflow:hidden;padding:15px 16px;background:var(--ink);border-radius:var(--r-md)}
 .plate::before{
   content:"";position:absolute;inset:0;pointer-events:none;
@@ -551,69 +547,45 @@ p{margin:0}
 }
 .plate > *{position:relative}
 
-.plate-wrap{position:relative;margin-top:12px}
-.plate-info{
-  position:absolute;right:10px;top:10px;z-index:2;
-  display:flex;align-items:center;justify-content:center;width:24px;height:24px;
-  border-radius:999px;border:1.4px solid rgba(255,255,255,.35);background:rgba(255,255,255,.06);
-  color:rgba(255,255,255,.82);font-family:var(--mono);font-size:.7rem;font-weight:700;cursor:pointer;
-  transition:background .18s var(--ease-out),border-color .18s var(--ease-out);
-}
-.plate-info:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.6)}
-.plate-tip{
-  position:absolute;right:4px;bottom:calc(100% + 8px);z-index:5;
-  width:min(258px,calc(100% - 8px));padding:11px 13px;
-  background:var(--surface);border:1px solid var(--line);border-radius:10px;
-  box-shadow:0 12px 28px rgba(28,28,30,.22);
-  font-size:.74rem;line-height:1.55;color:var(--ink);
-}
-.plate-tip::after{
-  content:"";position:absolute;right:16px;bottom:-6px;width:11px;height:11px;
-  background:var(--surface);border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg);
-}
-.plate-tip[hidden]{display:none}
+.dimplate{margin-top:14px}
+.plate-label{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow)}
+.plate-label svg{width:12px;height:12px;flex:none}
+.dimrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:13px}
+.dimrow > div{min-width:0}
+.dimrow .dk{display:block;font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap}
+.dimrow .dv{display:block;margin-top:5px;font-family:var(--mono);font-size:clamp(.98rem,2.5vw,1.18rem);font-weight:700;color:#fff;white-space:nowrap;letter-spacing:-.02em}
+.dimrow .dv u{text-decoration:none;font-size:.62em;color:rgba(255,255,255,.5)}
+.dimrow .dv--range{font-size:clamp(.84rem,2.1vw,1rem)}
 
-.hprice{display:flex;align-items:baseline;gap:6px;font-family:var(--mono);font-weight:700;color:#fff;padding-right:30px}
-.hprice .hp-pm{font-size:1.32rem;color:var(--yellow)}
-.hprice .hp-num{font-size:clamp(1.34rem,3.4vw,1.68rem);letter-spacing:-.02em}
-.hprice .hp-unit{font-size:.8rem;color:rgba(255,255,255,.55)}
-
-/* tabel dimensi 3 kolom */
-.dimgrid[hidden]{display:none}
-.dimgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:12px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg);overflow:hidden}
-.dimgrid div{padding:11px 12px;border-right:1px solid var(--line);min-width:0}
-.dimgrid div:last-child{border-right:none}
-.dimgrid .dk{display:block;font-family:var(--mono);font-size:.56rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2)}
-.dimgrid .dv{display:block;margin-top:5px;font-family:var(--mono);font-size:.86rem;font-weight:700;color:var(--ink);white-space:nowrap}
-
-/* pemilih ukuran */
-.pick-label{display:block;margin-top:14px;font-family:var(--mono);font-size:.56rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)}
-.pick{display:flex;gap:7px;margin-top:7px}
+/* --- [2] kalkulator ukuran: sekunder, latar terang --- */
+.calc{margin-top:12px;padding:13px 14px 15px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg)}
+.pick-label{display:block;font-family:var(--mono);font-size:.56rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)}
+.pick{display:flex;gap:7px;margin-top:8px}
 .pick button{
   flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
-  height:48px;border-radius:9px;border:1px solid var(--line);background:var(--surface);
+  height:46px;border-radius:9px;border:1px solid var(--line-strong);background:var(--surface);
   font-family:var(--mono);cursor:pointer;
   transition:background .18s var(--ease-out),border-color .18s var(--ease-out),color .18s var(--ease-out);
 }
-.pick button .pb{font-size:.84rem;font-weight:700;white-space:nowrap;color:var(--ink)}
-.pick button .ps{font-size:.54rem;letter-spacing:.08em;white-space:nowrap;color:var(--muted2)}
-.pick button:hover{border-color:var(--line-strong);background:var(--track)}
+.pick button .pb{font-size:.82rem;font-weight:700;white-space:nowrap;color:var(--ink)}
+.pick button .ps{font-size:.53rem;letter-spacing:.08em;white-space:nowrap;color:var(--muted2)}
+.pick button:hover{border-color:var(--ink);background:var(--track)}
 .pick button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink)}
 .pick button[aria-pressed="true"] .pb{color:#fff}
 .pick button[aria-pressed="true"] .ps{color:var(--yellow)}
 
-.plate-dim{display:block;font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow)}
-.plate-stats{display:flex;gap:14px;margin-top:12px}
-.plate-stats > div{flex:1;min-width:0}
-.plate-stats .sk{display:block;font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap}
-.plate-stats .sv{display:block;margin-top:5px;font-family:var(--mono);font-size:clamp(1rem,2.6vw,1.2rem);font-weight:700;color:#fff;white-space:nowrap}
-.plate-stats .sv u{text-decoration:none;font-size:.62em;color:rgba(255,255,255,.5)}
-.plate-stats > div:last-child .sv{color:var(--yellow)}
+.calc-dim{margin-top:11px;font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.02em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.calc-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:11px;padding-top:11px;border-top:1px dashed var(--line-strong)}
+.calc-out > div{min-width:0}
+.calc-out .sk{display:block;font-family:var(--mono);font-size:.53rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);white-space:nowrap}
+.calc-out .sv{display:block;margin-top:4px;font-family:var(--mono);font-size:.94rem;font-weight:700;color:var(--ink);white-space:nowrap}
+.calc-out .sv u{text-decoration:none;font-size:.66em;color:var(--muted2)}
 
-/* CTA kartu — titik hijau = WhatsApp */
+/* --- [3] CTA kartu: selalu menempel di dasar kartu --- */
+.pcard-spacer{flex:1 1 auto;min-height:16px}
 .pcard-cta{
   display:flex;align-items:center;justify-content:center;gap:9px;
-  margin-top:auto;margin-top:16px;min-height:50px;padding:12px 16px;
+  min-height:50px;padding:12px 16px;
   background:var(--red);color:#fff;border-radius:var(--r-md);
   font-size:.95rem;font-weight:700;letter-spacing:-.01em;text-align:center;line-height:1.25;
   box-shadow:var(--sh-red);
@@ -627,15 +599,43 @@ p{margin:0}
   .pcards{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:400px){
-  .pseg button{font-size:.54rem;gap:4px;padding:0 6px}
-  .pseg button svg{width:12px;height:12px}
-  .plate-stats{gap:10px}
+  .dimrow{gap:8px}
+  .calc-out{gap:8px}
+}
+
+/* ============================================================
+   AREA LAYANAN — daftar wilayah (teks, bukan kartu)
+   ============================================================ */
+.area{background:var(--surface-warm);border-top:1px solid var(--line)}
+.area-list{list-style:none;margin:clamp(26px,3.4vw,38px) 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(28px,5vw,64px)}
+.area-list li{border-bottom:1px solid var(--line)}
+.area-list li:nth-child(-n+2){border-top:1px solid var(--line)}
+.area-list a{display:flex;align-items:center;gap:14px;padding:16px 6px 16px 2px;transition:padding-left .2s var(--ease-out)}
+.a-name{font-weight:700;font-size:1.04rem;color:var(--ink);letter-spacing:-.01em;transition:color .18s var(--ease-out)}
+.a-sub{font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);white-space:nowrap}
+.a-meta{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted2);white-space:nowrap;transition:color .18s var(--ease-out)}
+.a-meta svg{width:14px;height:14px;flex:none;transition:transform .2s var(--ease-out)}
+.area-list a.is-page .a-meta{color:var(--red)}
+.area-list a:hover .a-name{color:var(--red)}
+.area-list a:hover .a-meta{color:var(--red)}
+.area-list a:hover .a-meta svg{transform:translateX(4px)}
+.area-list a:hover{padding-left:8px}
+.area-note{margin-top:24px;font-size:.95rem;color:var(--muted);max-width:60ch}
+.area-note a{color:var(--red);font-weight:700;border-bottom:1.5px solid rgba(212,43,43,.32)}
+.area-note a:hover{border-bottom-color:var(--red)}
+
+@media (max-width:700px){
+  .area-list{grid-template-columns:minmax(0,1fr)}
+  .area-list li:nth-child(-n+2){border-top:none}
+  .area-list li:first-child{border-top:1px solid var(--line)}
+  .a-name{font-size:.98rem}
+  .area-list a{padding:14px 4px 14px 2px}
 }
 
 /* ============================================================
    PROMO MORTAR
    ============================================================ */
-.promo{background:var(--surface);border-top:1px solid var(--line)}
+.promo{background:var(--surface-warm);border-top:1px solid var(--line)}
 .promo-inner{
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.86fr);gap:clamp(30px,4.5vw,64px);
   align-items:center;
@@ -702,21 +702,6 @@ p{margin:0}
 .loc-item .li-value{margin-top:3px;font-weight:600;color:var(--ink);line-height:1.5}
 .loc-item .li-value a{color:var(--red);font-weight:700}
 .loc-card .btn{margin-top:auto;margin-top:28px}
-
-/* ============================================================
-   FAQ (halaman kota)
-   ============================================================ */
-.faq{background:var(--surface);border-top:1px solid var(--line)}
-.faq-list{margin-top:clamp(28px,3.5vw,40px);display:flex;flex-direction:column;gap:12px;max-width:760px}
-.faq-item{border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg);overflow:hidden}
-.faq-item summary{
-  list-style:none;cursor:pointer;padding:18px 20px;font-weight:700;color:var(--ink);
-  display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:1rem;
-}
-.faq-item summary::-webkit-details-marker{display:none}
-.faq-item summary .faq-plus{flex:none;width:22px;height:22px;display:flex;align-items:center;justify-content:center;color:var(--red);transition:transform .22s var(--ease-out)}
-.faq-item[open] summary .faq-plus{transform:rotate(45deg)}
-.faq-item .faq-a{padding:0 20px 18px;color:var(--muted);font-size:.95rem;line-height:1.6}
 
 /* ============================================================
    FOOTER
@@ -862,9 +847,12 @@ p{margin:0}
 }
 .mb-slot svg{width:14px;height:14px;flex:none;color:var(--red-dark)}
 .mb-slot.is-visible{opacity:1;transform:translateY(0);animation:mbFloat 3.6s ease-in-out infinite}
-.mb-slot--a{top:4%;left:2%;animation-delay:.2s}
-.mb-slot--b{bottom:4%;left:2%;animation-delay:1.1s}
-.mb-slot--c{top:50%;right:2%;transform:translateY(-50%);animation-delay:.6s}
+
+/* Posisi badge modal — bisa disetel lewat panel Tweak (?tweak=1).
+   Desktop pakai var tanpa akhiran, mobile pakai var berakhiran -m. */
+.mb-slot--a{top:var(--mb-a-y,4%);left:var(--mb-a-x,2%);animation-delay:.2s}
+.mb-slot--b{bottom:var(--mb-b-y,4%);left:var(--mb-b-x,2%);animation-delay:1.1s}
+.mb-slot--c{top:var(--mb-c-y,50%);right:var(--mb-c-x,2%);transform:translateY(-50%);animation-delay:.6s}
 .mb-slot--c.is-visible{transform:translateY(-50%);animation:mbFloatC 3.6s ease-in-out infinite}
 @keyframes mbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @keyframes mbFloatC{0%,100%{transform:translateY(-50%)}50%{transform:translateY(calc(-50% - 7px))}}
@@ -905,11 +893,11 @@ p{margin:0}
   .mb-visual-text p{max-width:none;margin-inline:auto}
   .mb-slot{font-size:.64rem;padding:5px 9px}
   .mb-slot svg{width:10px;height:10px}
-  .mb-slot--a{top:12%;left:-2%;bottom:auto;right:auto;transform:none}
+  .mb-slot--a{top:var(--mb-a-y-m,12%);left:var(--mb-a-x-m,-2%);bottom:auto;right:auto;transform:none}
   .mb-slot--a.is-visible{animation:mbFloat 3.6s ease-in-out infinite}
-  .mb-slot--b{bottom:2%;left:-4%;top:auto;right:auto;transform:none}
+  .mb-slot--b{bottom:var(--mb-b-y-m,2%);left:var(--mb-b-x-m,-4%);top:auto;right:auto;transform:none}
   .mb-slot--b.is-visible{animation:mbFloat 3.6s ease-in-out infinite 1.1s}
-  .mb-slot--c{top:50%;right:8%;left:auto;bottom:auto;transform:translateY(-50%)}
+  .mb-slot--c{top:var(--mb-c-y-m,50%);right:var(--mb-c-x-m,8%);left:auto;bottom:auto;transform:translateY(-50%)}
   .mb-slot--c.is-visible{transform:translateY(-50%);animation:mbFloatC 3.6s ease-in-out infinite .6s}
   .mb-redbar{font-size:.6rem;padding:10px 8px;letter-spacing:0}
   .mb-redbar-inner{justify-content:center}
@@ -1114,16 +1102,10 @@ p{margin:0}
 }
 
 /* ============================================================
-   HARGA PUBLIK & ULASAN
-   Angka harga masuk ke kartu produk; section Ulasan tersembunyi selama
-   database belum punya data. Skrip di bawah halaman yang mengisinya.
+   ULASAN — diisi dari database, tersembunyi selama belum ada data
    ============================================================ */
 [hidden]{display:none!important}
 
-/* --- Kalimat harga yang disisipkan ke jawaban FAQ --- */
-.faq-harga b{font-family:var(--mono);letter-spacing:-.02em;color:var(--ink)}
-
-/* --- Ulasan --- */
 .testi{background:var(--bg)}
 .testi-feature{
   position:relative;display:flex;flex-direction:column;gap:14px;
@@ -1167,7 +1149,48 @@ p{margin:0}
 .testi-feature .bintang svg{width:18px;height:18px}
 .testi-feature .bintang .b{color:rgba(255,255,255,.22)}
 
-
+/* ============================================================
+   PANEL TWEAK — hanya aktif kalau URL diberi ?tweak=1
+   Tidak pernah tampil untuk pengunjung biasa.
+   ============================================================ */
+.tw-panel{
+  position:fixed;left:14px;bottom:14px;z-index:600;
+  width:298px;max-height:min(78vh,660px);display:flex;flex-direction:column;
+  background:#141416;color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:14px;
+  box-shadow:0 24px 60px rgba(0,0,0,.55);
+  font-family:var(--mono);font-size:11px;
+  overflow:hidden;
+}
+.tw-head{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#1E1E21;border-bottom:1px solid rgba(255,255,255,.12);cursor:pointer;flex:none}
+.tw-head b{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow)}
+.tw-head .tw-x{margin-left:auto;font-size:14px;line-height:1;color:rgba(255,255,255,.55)}
+.tw-body{overflow-y:auto;padding:10px 12px 12px}
+.tw-panel.collapsed .tw-body,.tw-panel.collapsed .tw-foot{display:none}
+.tw-scope{margin:0 0 10px;padding:6px 8px;border-radius:7px;background:rgba(245,194,0,.12);border:1px solid rgba(245,194,0,.3);color:var(--yellow);font-size:10px;line-height:1.4}
+.tw-group{margin-top:12px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.16)}
+.tw-group:first-of-type{margin-top:0;padding-top:0;border-top:none}
+.tw-group > h5{margin:0 0 8px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.62);font-weight:700}
+.tw-row{display:flex;align-items:center;gap:8px;margin-top:7px}
+.tw-row label{flex:none;width:64px;color:rgba(255,255,255,.7)}
+.tw-row input[type=range]{flex:1;min-width:0;accent-color:#F5C200;height:18px}
+.tw-row output{flex:none;width:52px;text-align:right;color:#fff;font-weight:700}
+.tw-foot{flex:none;display:flex;gap:7px;padding:10px 12px;border-top:1px solid rgba(255,255,255,.12);background:#1E1E21}
+.tw-foot button{
+  flex:1;min-height:32px;border-radius:7px;border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.08);color:#fff;font-family:var(--mono);font-size:10px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;cursor:pointer;
+}
+.tw-foot button.primary{background:var(--yellow);border-color:var(--yellow);color:#1C1C1E}
+.tw-foot button:hover{filter:brightness(1.12)}
+.tw-open{
+  position:fixed;left:14px;bottom:14px;z-index:600;
+  padding:9px 13px;border-radius:10px;border:1px solid rgba(255,255,255,.2);
+  background:#141416;color:var(--yellow);font-family:var(--mono);font-size:10px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;cursor:pointer;box-shadow:0 12px 30px rgba(0,0,0,.4);
+}
+@media (max-width:560px){
+  .tw-panel{width:calc(100vw - 28px);max-height:62vh}
+}
 </style>
 </head>
 <body>
@@ -1183,6 +1206,7 @@ p{margin:0}
     <nav class="nav-links" aria-label="Navigasi utama">
       <a class="nav-link" href="#top">Beranda</a>
       <a class="nav-link" href="#produk">Produk</a>
+      <a class="nav-link" href="#area">Area Layanan</a>
       <a class="nav-link" data-nav="ulasan" hidden href="#ulasan">Ulasan</a>
       <a class="nav-link" href="#lokasi">Kontak</a>
     </nav>
@@ -1207,6 +1231,7 @@ p{margin:0}
 <div class="mobile-menu" id="mobileMenu">
   <a class="m-link" href="#top">Beranda</a>
   <a class="m-link" href="#produk">Produk</a>
+  <a class="m-link" href="#area">Area Layanan</a>
   <a class="m-link" data-nav="ulasan" hidden href="#ulasan">Ulasan</a>
   <a class="m-link" href="#lokasi">Kontak</a>
   <a class="btn btn-red" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20produk%20Bricon%20-%20Beranda%20-%20Menu%20Mobile" target="_blank" rel="noopener">
@@ -1300,7 +1325,7 @@ p{margin:0}
 
       <!-- Bata Ringan -->
       <div class="materi-grid reveal">
-        <div class="spec-visual">
+        <div class="spec-visual" data-glow="bata">
           <span class="spec-visual-glow" aria-hidden="true"></span>
           <img src="assets/images/bata-melayang.webp" alt="Bata Ringan BRICON — 600 x 200 mm" loading="lazy">
           <span class="sv-dim sv-dim--v"><span>200 mm</span></span>
@@ -1315,7 +1340,7 @@ p{margin:0}
 
       <!-- Panel Lantai -->
       <div class="materi-grid reverse reveal">
-        <div class="spec-visual">
+        <div class="spec-visual" data-glow="panel">
           <span class="spec-visual-glow" aria-hidden="true"></span>
           <img src="assets/images/panel-melayang.webp" alt="Panel Lantai BRICON — 3220 x 600 mm" loading="lazy">
           <span class="sv-dim sv-dim--v"><span>600 mm</span></span>
@@ -1330,13 +1355,13 @@ p{margin:0}
     </div>
   </section>
 
-  <!-- ===================== PRODUK — kartu harga &amp; spesifikasi ===================== -->
+  <!-- ===================== PRODUK — spesifikasi (harga ada di halaman kota) ===================== -->
   <section class="section products" id="produk">
     <div class="container">
       <div class="reveal" style="max-width:640px">
         <span class="eyebrow-mark"><span class="bar"></span>Produk</span>
-        <h2 class="section-title" style="margin-top:14px">Harga &amp; spesifikasi</h2>
-        <p class="section-lead">Dua produk, satu standar mutu. Pilih ukurannya — berat, isi per m&sup3;, dan kebutuhan per luas dihitung otomatis.</p>
+        <h2 class="section-title" style="margin-top:14px">Ukuran &amp; spesifikasi</h2>
+        <p class="section-lead">Dua produk, satu standar mutu. Pilih ukurannya — berat, isi per m&sup3;, dan kebutuhan per luas dihitung otomatis. Harga menyesuaikan ongkos kirim tiap kabupaten, jadi angkanya ada di halaman wilayah.</p>
       </div>
 
       <div class="pcards">
@@ -1355,32 +1380,28 @@ p{margin:0}
         <div class="pcard-body">
           <h3>Bata Ringan <span class="brand-uline">BRICON</span></h3>
 
-          <!-- Pengalih hanya muncul kalau harga sudah dipublikasikan di database.
-               Selama belum ada harga, kartu langsung menampilkan Ukuran & spek. -->
-          <div class="pseg" role="tablist" aria-label="Tampilan kartu Bata Ringan BRICON" hidden></div>
-
-          <div class="pmode pmode-harga" hidden>
-            <div class="plate-wrap">
-              <div class="plate-tip" hidden>Harga dipengaruhi ketebalan (7,5–12,5 cm), volume order, medan pengiriman, dan jarak ke titik bongkar.</div>
-              <div class="plate">
-                <button class="plate-info" type="button" aria-label="Apa saja yang memengaruhi harga">i</button>
-                <span class="hprice" data-harga-kartu="bata"><span class="hp-pm">±</span><span class="hp-num">&mdash;</span><span class="hp-unit">/m³</span></span>
-              </div>
+          <!-- [1] Dimensi — informasi paling penting, plat gelap -->
+          <div class="plate dimplate">
+            <span class="plate-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"></path><path d="m14.5 12.5 2-2"></path><path d="m11.5 9.5 2-2"></path><path d="m8.5 6.5 2-2"></path><path d="m17.5 15.5 2-2"></path></svg>
+              Dimensi
+            </span>
+            <div class="dimrow">
+              <div><span class="dk">Panjang</span><span class="dv">600<u> mm</u></span></div>
+              <div><span class="dk">Tinggi</span><span class="dv">200<u> mm</u></span></div>
+              <div><span class="dk">Tebal</span><span class="dv dv--range">75&ndash;125<u> mm</u></span></div>
             </div>
           </div>
 
-          <div class="pmode pmode-spek">
-            <span class="pick-label">Pilih ukuran</span>
+          <!-- [2] Kalkulator ukuran — turunan, blok terang -->
+          <div class="calc">
+            <span class="pick-label">Pilih ketebalan</span>
             <div class="pick"></div>
-            <div class="plate" style="margin-top:10px">
-              <span class="plate-dim"></span>
-              <div class="plate-stats"></div>
-            </div>
+            <div class="calc-dim"></div>
+            <div class="calc-out"></div>
           </div>
 
-          <!-- Ringkasan dimensi: selalu tampil kecuali saat user membuka tab Ukuran &amp; spek
-               (di sana angkanya sudah muncul per ukuran yang dipilih). -->
-          <div class="dimgrid"><div><span class="dk">Panjang</span><span class="dv">60 cm</span></div><div><span class="dk">Tinggi</span><span class="dv">20 cm</span></div><div><span class="dk">Tebal</span><span class="dv">7,5–12,5</span></div></div>
+          <span class="pcard-spacer" aria-hidden="true"></span>
 
           <a class="pcard-cta" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20Bata%20Ringan%20BRICON%20-%20Beranda%20-%20Produk%20Bata" data-wa-msg="Halo, saya ingin tanya Bata Ringan BRICON - Beranda - Produk Bata" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg><span class="cta-label">Tanya Harganya Sekarang!</span>
@@ -1403,32 +1424,28 @@ p{margin:0}
         <div class="pcard-body">
           <h3>Panel Lantai <span class="brand-uline">BRICON</span></h3>
 
-          <!-- Pengalih hanya muncul kalau harga sudah dipublikasikan di database.
-               Selama belum ada harga, kartu langsung menampilkan Ukuran & spek. -->
-          <div class="pseg" role="tablist" aria-label="Tampilan kartu Panel Lantai BRICON" hidden></div>
-
-          <div class="pmode pmode-harga" hidden>
-            <div class="plate-wrap">
-              <div class="plate-tip" hidden>Harga dipengaruhi bentang panel, volume order, medan pengiriman, dan jarak ke titik bongkar.</div>
-              <div class="plate">
-                <button class="plate-info" type="button" aria-label="Apa saja yang memengaruhi harga">i</button>
-                <span class="hprice" data-harga-kartu="panel"><span class="hp-pm">±</span><span class="hp-num">&mdash;</span><span class="hp-unit">/m²</span></span>
-              </div>
+          <!-- [1] Dimensi — informasi paling penting, plat gelap -->
+          <div class="plate dimplate">
+            <span class="plate-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"></path><path d="m14.5 12.5 2-2"></path><path d="m11.5 9.5 2-2"></path><path d="m8.5 6.5 2-2"></path><path d="m17.5 15.5 2-2"></path></svg>
+              Dimensi
+            </span>
+            <div class="dimrow">
+              <div><span class="dk">Panjang</span><span class="dv dv--range">1470&ndash;3220<u> mm</u></span></div>
+              <div><span class="dk">Lebar</span><span class="dv">600<u> mm</u></span></div>
+              <div><span class="dk">Tebal</span><span class="dv">125<u> mm</u></span></div>
             </div>
           </div>
 
-          <div class="pmode pmode-spek">
-            <span class="pick-label">Pilih ukuran</span>
+          <!-- [2] Kalkulator ukuran — turunan, blok terang -->
+          <div class="calc">
+            <span class="pick-label">Pilih bentang</span>
             <div class="pick"></div>
-            <div class="plate" style="margin-top:10px">
-              <span class="plate-dim"></span>
-              <div class="plate-stats"></div>
-            </div>
+            <div class="calc-dim"></div>
+            <div class="calc-out"></div>
           </div>
 
-          <!-- Ringkasan dimensi: selalu tampil kecuali saat user membuka tab Ukuran &amp; spek
-               (di sana angkanya sudah muncul per ukuran yang dipilih). -->
-          <div class="dimgrid"><div><span class="dk">Panjang</span><span class="dv">1470–3220</span></div><div><span class="dk">Lebar</span><span class="dv">600 mm</span></div><div><span class="dk">Tebal</span><span class="dv">125 mm</span></div></div>
+          <span class="pcard-spacer" aria-hidden="true"></span>
 
           <a class="pcard-cta" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20Panel%20Lantai%20BRICON%20-%20Beranda%20-%20Produk%20Panel" data-wa-msg="Halo, saya ingin tanya Panel Lantai BRICON - Beranda - Produk Panel" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg><span class="cta-label">Tanya Harganya Sekarang!</span>
@@ -1436,6 +1453,70 @@ p{margin:0}
         </div>
       </article>
       </div>
+    </div>
+  </section>
+
+  <!-- ===================== AREA LAYANAN — daftar wilayah ===================== -->
+  <section class="section area" id="area" aria-label="Area layanan BRICON">
+    <div class="container">
+      <div class="reveal" style="max-width:640px">
+        <span class="eyebrow-mark"><span class="bar"></span>Area Layanan</span>
+        <h2 class="section-title" style="margin-top:14px">Cek harga di kabupatenmu</h2>
+        <p class="section-lead">Harga bata ringan beda-beda tiap wilayah — yang membedakan ongkos kirim dan medan bongkar. Pilih kabupatenmu untuk lihat estimasi harga dan cakupan pengirimannya.</p>
+      </div>
+
+      <ul class="area-list reveal">
+        <li>
+          <a class="is-page" href="/kota/surabaya">
+            <span class="a-name">Surabaya</span>
+            <span class="a-meta">Lihat harga
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20harga%20Bata%20Ringan%20BRICON%20untuk%20area%20Sidoarjo%20-%20Beranda%20-%20Area%20Layanan" target="_blank" rel="noopener">
+            <span class="a-name">Sidoarjo</span>
+            <span class="a-meta">Tanya harga
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20harga%20Bata%20Ringan%20BRICON%20untuk%20area%20Mojokerto%20-%20Beranda%20-%20Area%20Layanan" target="_blank" rel="noopener">
+            <span class="a-name">Mojokerto</span>
+            <span class="a-meta">Tanya harga
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20harga%20Bata%20Ringan%20BRICON%20untuk%20area%20Jombang%20-%20Beranda%20-%20Area%20Layanan" target="_blank" rel="noopener">
+            <span class="a-name">Jombang</span>
+            <span class="a-meta">Tanya harga
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20harga%20Bata%20Ringan%20BRICON%20untuk%20area%20Tulungagung%20-%20Beranda%20-%20Area%20Layanan" target="_blank" rel="noopener">
+            <span class="a-name">Tulungagung</span>
+            <span class="a-meta">Tanya harga
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20harga%20Bata%20Ringan%20BRICON%20untuk%20area%20Sampang%20-%20Beranda%20-%20Area%20Layanan" target="_blank" rel="noopener">
+            <span class="a-name">Sampang</span>
+            <span class="a-meta">Tanya harga
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+            </span>
+          </a>
+        </li>
+      </ul>
+
+      <p class="area-note reveal">Kabupaten lain di Jawa Timur tetap kami kirim — minimum order 1 truk (11,52 m&sup3;). <a href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20ketersediaan%20dan%20ongkos%20kirim%20Bricon%20ke%20daerah%20saya%20-%20Beranda%20-%20Area%20Layanan%20Lainnya" target="_blank" rel="noopener">Tanya ketersediaan &amp; ongkos kirim &rarr;</a></p>
     </div>
   </section>
 
@@ -1576,12 +1657,13 @@ p{margin:0}
         <h4>Navigasi</h4>
         <a href="#top">Beranda</a>
         <a href="#produk">Produk</a>
+        <a href="#area">Area Layanan</a>
         <a href="#ulasan" data-nav="ulasan" hidden>Ulasan</a>
         <a href="#lokasi">Kontak</a>
       </nav>
 
-      <nav class="foot-col foot-area" aria-label="Area layanan">
-        <h4>Area Layanan</h4>
+      <nav class="foot-col foot-area" aria-label="Halaman wilayah">
+        <h4>Halaman Wilayah</h4>
         <a href="/kota/surabaya">Bata Ringan Surabaya</a>
       </nav>
 
@@ -1770,8 +1852,8 @@ p{margin:0}
     { label: "Tahan Gempa", svg: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m6.89 12.45 1.05-2.1 3.14 7.06c.16.36.52.59.91.59h.05c.41-.02.77-.29.9-.68l2.98-8.93 1.11 3.89c.12.43.52.73.96.73h4v-2h-3.25l-1.79-6.27c-.12-.42-.5-.72-.94-.73a.98.98 0 0 0-.97.68l-3.18 9.55L8.91 7.6c-.16-.35-.5-.58-.89-.59-.41-.04-.74.21-.92.55l-1.72 3.45H2v2h4c.38 0 .73-.21.89-.55Z"></path></svg>' },
     { label: "Aplikasi Cepat", svg: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m19.58 11.19-7-5A.997.997 0 0 0 11 7v3.06L5.58 6.19A.997.997 0 0 0 4 7v10c0 .37.21.72.54.89.14.07.3.11.46.11.2 0 .41-.06.58-.19L11 13.94V17c0 .37.21.72.54.89.14.07.3.11.46.11.2 0 .41-.06.58-.19l7-5c.26-.19.42-.49.42-.81s-.16-.63-.42-.81M6 15.06V8.95l4.28 3.06L6 15.07Zm7 0V8.95l4.28 3.06L13 15.07Z"></path></svg>' },
     { label: "Kedap Suara", svg: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12c0-4.09-2.47-7.61-6-9.16v2.24c2.39 1.39 4 3.96 4 6.92 0 1.85-.64 3.54-1.69 4.89l-1.42-1.42c.7-.98 1.12-2.17 1.12-3.47 0-1.77-.78-3.36-2-4.46v7.05l-2-2V4c0-.37-.2-.71-.53-.88-.32-.17-.72-.15-1.03.05L7.73 6.32 2.71 1.29 1.3 2.7l20 20 1.41-1.41-2.98-2.98A9.94 9.94 0 0 0 22 11.99Zm-10-1.41L9.17 7.76 12 5.87zm0 7.54-4.45-2.96s-.06-.02-.08-.03c-.06-.03-.12-.06-.19-.08s-.13-.03-.2-.04c-.03 0-.06-.02-.09-.02h-3V9h.76L3.02 7.27C2.41 7.61 2 8.26 2 9v6c0 1.1.9 2 2 2h2.7l5.75 3.83c.17.11.36.17.55.17.16 0 .32-.04.47-.12.33-.17.53-.51.53-.88v-1.76l-2-2z"></path></svg>' },
-    { label: "Ringan", svg: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.42 3.99 5.99 9.42c-2.27 2.27-2.6 5.71-.93 8.11L2.29 20.3l1.41 1.41 2.77-2.77c1 .7 2.19 1.06 3.4 1.06 1.67 0 3.39-.67 4.71-1.98l5.43-5.43c2.53-2.53 2.66-6.51.29-8.88s-6.35-2.24-8.88.29ZM7.4 10.83l5.43-5.43c1.48-1.48 3.64-1.79 5.24-.89L6.51 16.07c-.9-1.6-.59-3.76.89-5.24m5.77 5.77c-1.48 1.48-3.64 1.79-5.24.89L11.42 14h4.35zm5.43-5.43-.83.83h-4.35l6.07-6.07c.9 1.6.59 3.76-.89 5.24"></path></svg>' },
-    { label: "Bebas Hama", svg: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m21.55 9.11-1.84.92c-.37-1.63-1.09-3.09-2.07-4.25l2.07-2.07L18.3 2.3l-2.12 2.12c-1.22-.89-2.64-1.41-4.17-1.41s-2.96.52-4.17 1.41L5.72 2.3 4.31 3.71l2.07 2.07c-.98 1.16-1.7 2.62-2.07 4.25l-1.84-.92-.89 1.79 2.46 1.23c0 .12-.02.25-.02.37 0 .51.04 1.01.11 1.5H2.02v2h2.57c.17.5.37.97.6 1.42L3.31 19.3l1.41 1.41 1.58-1.58C7.75 20.9 9.78 22 12.02 22s4.26-1.1 5.72-2.87l1.58 1.58 1.41-1.41-1.88-1.88c.23-.45.43-.92.6-1.42h2.57v-2h-2.11c.07-.49.11-.99.11-1.5 0-.13-.01-.25-.02-.37l2.46-1.23-.89-1.79ZM16.79 8H7.21c1.1-1.82 2.83-3 4.79-3s3.69 1.18 4.79 3M13 19.89V13h-2v6.89c-1.28-.27-2.43-1.05-3.3-2.17s-.06-.07-.06-.07c-1.02-1.34-1.65-3.15-1.65-5.15 0-.88.13-1.72.35-2.5h11.3c.22.78.35 1.62.35 2.5 0 1.99-.63 3.8-1.65 5.15l-.06.06c-.87 1.13-2.02 1.91-3.3 2.18Z"></path></svg>' }
+    { label: "Ringan", svg: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.42 3.99 5.99 9.42c-2.27 2.27-2.6 5.71-.93 8.11L2.29 20.3l1.41 1.41 2.77-2.77c1 .7 2.19 1.06 3.4 1.06 1.67 0 3.39-.67 4.71-1.98l5.43-5.43c2.53-2.53 2.66-6.51.29-8.88s-6.35-2.24-8.88.29ZM7.4 10.83l5.43-5.43c1.48-1.48 3.64-1.79 5.24-.89L6.51 16.07c-.9-1.6-.59-3.76.89-5.24m5.77 5.77c-1.48 1.48-3.64 1.79-5.24.89L11.42 14h4.35zm5.43-5.43-.83.83h-4.35l6.07-6.07c.9 1.6.59 3.76-.89 5.24Z"></path></svg>' },
+    { label: "Bebas Hama", svg: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m21.55 9.11-1.84.92c-.37-1.63-1.09-3.09-2.07-4.25l2.07-2.07L18.3 2.3l-2.12 2.12c-1.22-.89-2.64-1.41-4.17-1.41s-2.96.52-4.17 1.41L5.72 2.3 4.31 3.71l2.07 2.07c-.98 1.16-1.7 2.62-2.07 4.25l-1.84-.92-.89 1.79 2.46 1.23c0 .12-.02.25-.02.37 0 .51.04 1.01.11 1.5H2.02v2h2.57c.17.5.37.97.6 1.42L3.31 19.3l1.41 1.41 1.58-1.58C7.75 20.9 9.78 22 12.02 22s4.26-1.1 5.72-2.87l1.58 1.58 1.41-1.41-1.88-1.88c.23-.45.43-.92.6-1.42h2.57v-2h-2.11c.07-.49.11-.99.11-1.5 0-.13-.01-.25-.02-.37l2.46-1.23-.89-1.79ZM16.79 8H7.21c1.1-1.82 2.83-3 4.79-3s3.69 1.18 4.79 3m-3.79 11.89V13h-2v6.89c-1.28-.27-2.43-1.05-3.3-2.17s-.06-.07-.06-.07c-1.02-1.34-1.65-3.15-1.65-5.15 0-.88.13-1.72.35-2.5h11.3c.22.78.35 1.62.35 2.5 0 1.99-.63 3.8-1.65 5.15l-.06.06c-.87 1.13-2.02 1.91-3.3 2.18Z"></path></svg>' }
   ];
 
   var mbOverlay  = document.getElementById('mbOverlay');
@@ -1826,11 +1908,14 @@ p{margin:0}
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && mbOverlay && mbOverlay.classList.contains('open')) mbCloseModal();
   });
+  /* dipakai panel Tweak untuk membuka modal saat menyetel posisi badge */
+  window.__mbOpen = mbOpen;
 
   /* ============================================================
-     KARTU PRODUK — pengalih "Estimasi harga" / "Ukuran & spek"
-     Semua angka di mode spesifikasi dihitung dari dimensi produk
-     (bukan angka hafalan), jadi tidak akan pernah meleset.
+     KARTU PRODUK — kalkulator ukuran
+     Semua angka dihitung dari dimensi produk (bukan angka hafalan),
+     jadi tidak akan pernah meleset. Beranda tidak menampilkan harga:
+     angka harga per kabupaten ada di halaman wilayah.
      ============================================================ */
   function angka(n) { return Number(n).toLocaleString('id-ID'); }
   function desimal(n, d, tetap) {
@@ -1884,29 +1969,18 @@ p{margin:0}
     }
   };
 
-  var ICO_TAG  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 13h6"></path><path d="m16.5 6.5-3.914-3.914A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l1.79-1.79"></path><path d="M19 10v6"></path><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"></circle></svg>';
-  var ICO_RULE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"></path><path d="m14.5 12.5 2-2"></path><path d="m11.5 9.5 2-2"></path><path d="m8.5 6.5 2-2"></path><path d="m17.5 15.5 2-2"></path></svg>';
-
   document.querySelectorAll('[data-pcard]').forEach(function (card) {
     var jenis = card.getAttribute('data-pcard');
     var conf  = PROD[jenis];
     if (!conf) return;
 
-    var seg      = card.querySelector('.pseg');
-    var modeH    = card.querySelector('.pmode-harga');
-    var modeS    = card.querySelector('.pmode-spek');
     var pickWrap = card.querySelector('.pick');
     var pickLbl  = card.querySelector('.pick-label');
-    var plateDim = card.querySelector('.plate-dim');
-    var plateSt  = card.querySelector('.plate-stats');
-    var dimgrid  = card.querySelector('.dimgrid');
+    var calcDim  = card.querySelector('.calc-dim');
+    var calcOut  = card.querySelector('.calc-out');
     var cta      = card.querySelector('.pcard-cta');
-    var ctaLabel = cta ? cta.querySelector('.cta-label') : null;
     var waBase   = cta ? (cta.getAttribute('data-wa-msg') || '') : '';
-    var tipBtn   = card.querySelector('.plate-info');
-    var tip      = card.querySelector('.plate-tip');
 
-    /* --- isi tombol pilihan ukuran --- */
     if (pickLbl) pickLbl.textContent = conf.pickLabel;
     if (pickWrap) {
       pickWrap.innerHTML = conf.opts.map(function (o) {
@@ -1916,102 +1990,40 @@ p{margin:0}
     }
 
     var nilai = conf.def;
-    var mode  = 'harga';
 
     function pilihanAktif() {
       for (var i = 0; i < conf.opts.length; i++) { if (conf.opts[i].v === nilai) return conf.opts[i]; }
       return conf.opts[0];
     }
 
-    function gambarSpek() {
+    function gambar() {
       if (pickWrap) {
         pickWrap.querySelectorAll('button').forEach(function (b) {
           b.setAttribute('aria-pressed', b.getAttribute('data-v') === nilai ? 'true' : 'false');
         });
       }
-      if (plateDim) plateDim.textContent = conf.dim(nilai);
-      if (plateSt) {
-        plateSt.innerHTML = conf.stats(nilai).map(function (s) {
+      if (calcDim) calcDim.textContent = conf.dim(nilai);
+      if (calcOut) {
+        calcOut.innerHTML = conf.stats(nilai).map(function (s) {
           return '<div><span class="sk">' + s.k + '</span><span class="sv">' + s.v + '<u> ' + s.u + '</u></span></div>';
         }).join('');
       }
-    }
-
-    function segarkanCta() {
-      if (!cta) return;
-      var teks = waBase;
-      if (mode === 'spek') { teks += ' (' + pilihanAktif().wa + ')'; }
-      cta.setAttribute('href', 'https://wa.me/6285184028183?text=' + encodeURIComponent(teks));
-      if (ctaLabel) {
-        ctaLabel.textContent = (mode === 'harga')
-          ? 'Minta Penawaran Resmi'
-          : 'Tanya Harganya Sekarang!';
+      if (cta) {
+        cta.setAttribute('href', 'https://wa.me/6285184028183?text=' +
+          encodeURIComponent(waBase + ' (' + pilihanAktif().wa + ')'));
       }
     }
 
-    function setMode(m) {
-      mode = m;
-      if (modeH) modeH.hidden = (m !== 'harga');
-      if (modeS) modeS.hidden = (m !== 'spek');
-      /* Ringkasan dimensi tetap tampil selama kartu belum punya harga —
-         itu satu-satunya info ukuran menyeluruh yang dilihat pengunjung. */
-      if (dimgrid) dimgrid.hidden = !(m === 'harga' || card.getAttribute('data-ada-harga') !== '1');
-      if (seg) {
-        seg.querySelectorAll('button').forEach(function (b) {
-          b.setAttribute('aria-selected', b.getAttribute('data-mode') === m ? 'true' : 'false');
-        });
-      }
-      if (tip) tip.hidden = true;
-      if (tipBtn) tipBtn.setAttribute('aria-expanded', 'false');
-      segarkanCta();
-    }
-
-    if (seg) {
-      seg.innerHTML =
-        '<button type="button" role="tab" data-mode="harga" aria-selected="true">' + ICO_TAG + 'Estimasi harga</button>' +
-        '<button type="button" role="tab" data-mode="spek" aria-selected="false">' + ICO_RULE + 'Ukuran &amp; spek</button>';
-      seg.addEventListener('click', function (e) {
-        var b = e.target.closest('button[data-mode]');
-        if (b) setMode(b.getAttribute('data-mode'));
-      });
-    }
     if (pickWrap) {
       pickWrap.addEventListener('click', function (e) {
         var b = e.target.closest('button[data-v]');
         if (!b) return;
         nilai = b.getAttribute('data-v');
-        gambarSpek();
-        segarkanCta();
-      });
-    }
-    if (tipBtn && tip) {
-      tipBtn.setAttribute('aria-expanded', 'false');
-      tipBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var buka = tip.hidden;
-        tip.hidden = !buka;
-        tipBtn.setAttribute('aria-expanded', buka ? 'true' : 'false');
-      });
-      document.addEventListener('click', function (e) {
-        if (!tip.hidden && !tip.contains(e.target) && e.target !== tipBtn) {
-          tip.hidden = true;
-          tipBtn.setAttribute('aria-expanded', 'false');
-        }
+        gambar();
       });
     }
 
-    /* Kondisi awal: harga belum tentu ada di database, jadi kartu tampil sebagai
-       "Ukuran & spek" saja — tanpa pengalih. Pengalih baru muncul kalau harga
-       benar-benar ada (dipanggil dari skrip database di bawah halaman). */
-    gambarSpek();
-    setMode('spek');
-    if (seg) seg.hidden = true;
-
-    card._aktifkanHarga = function () {
-      card.setAttribute('data-ada-harga', '1');
-      if (seg) seg.hidden = false;
-      setMode('harga');
-    };
+    gambar();
   });
 
   /* Google Ads: track setiap klik CTA WhatsApp sebagai conversion "Klik WhatsApp" */
@@ -2031,18 +2043,15 @@ p{margin:0}
   });
 })();
 </script>
+
 <!-- ============================================================================
-     HARGA PUBLIK & ULASAN — ditarik langsung dari database BRICON.
-
-     Cara kerjanya: begitu Reyhan mengisi satu angka harga di Invoice Generator lalu
-     mencentang "Tampilkan harga ini di website", angkanya langsung muncul sebagai
-     "± Rp ..." di kartu produk tanpa perlu upload file baru. Sama untuk ulasan yang
-     sudah ditandai tayang.
-     Selama belum ada harga, kartu produk menampilkan Ukuran & spek + ringkasan
-     dimensi (tanpa pengalih, tanpa elemen harga) dan section Ulasan tetap
-     tersembunyi — bukan tampil kosong atau angka karangan.
-
+     ULASAN — ditarik langsung dari database BRICON.
+     Begitu satu ulasan ditandai "tayang" + izin nama di Invoice Generator,
+     section Ulasan muncul sendiri tanpa perlu upload file baru.
      Kalau database tidak terjangkau, skrip ini diam saja: halaman tampil normal.
+
+     Catatan: beranda sengaja TIDAK menarik harga. Harga per kabupaten hanya
+     tampil di halaman wilayah (/kota/...).
      ============================================================================ -->
 <script>
 (function () {
@@ -2050,12 +2059,11 @@ p{margin:0}
 
   var SB_REST = 'https://stfvhqexiftkwszihaxf.supabase.co/rest/v1';
   var SB_KEY  = 'sb_publishable_GDUpC76cdnPP4h3QMwbuvw_gsnaCXbr';
-  var SLUG    = null;   /* null = semua kabupaten (beranda) */
 
   function ambil(query) {
     if (typeof fetch !== 'function') return Promise.resolve(null);
     return fetch(SB_REST + '/' + query, {
-      cache: 'no-store',   /* selalu ambil yang terbaru, jangan pakai simpanan browser */
+      cache: 'no-store',
       headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY }
     }).then(function (r) { return r.ok ? r.json() : null; })
       .catch(function () { return null; });
@@ -2066,88 +2074,13 @@ p{margin:0}
       .replace(/&/g, '&amp;').replace(/</g, '&lt;')
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
-  function rupiah(n) { return 'Rp ' + Math.round(Number(n)).toLocaleString('id-ID'); }
-  function satuan(u) { return u === 'm3' ? 'm³' : u === 'm2' ? 'm²' : (u || ''); }
   function labelProduk(p) { return p === 'panel' ? 'Panel Lantai' : 'Bata Ringan'; }
-
-  function nomor(x) {
-    if (x === null || x === '' || x === undefined) return null;
-    var n = Number(x);
-    return isFinite(n) ? n : null;
-  }
-
-  /* Harga publik sekarang satu angka "kurang lebih" per kabupaten.
-     Dashboard mengisi price_min (price_max diisi nilai yang sama); di sini
-     price_min yang dibaca, dengan price_max sebagai cadangan kalau kosong. */
-  function nilaiHarga(row) {
-    var min = nomor(row.price_min), max = nomor(row.price_max);
-    if (min !== null) return min;
-    return max;
-  }
-
-  /* --- Angka "± Rp ..." di dalam kartu produk --- */
-  function isiKartuProduk(data) {
-    ['bata', 'panel'].forEach(function (prod) {
-      var slot = document.querySelector('[data-harga-kartu="' + prod + '"]');
-      if (!slot) return;
-
-      var nilai = [], unit = null;
-      data.forEach(function (r) {
-        if (r.product !== prod) return;
-        if (SLUG && r.slug !== SLUG) return;
-        var n = nilaiHarga(r);
-        if (n === null) return;
-        nilai.push(n);
-        if (!unit) unit = r.unit;
-      });
-      if (!nilai.length) return;
-
-      /* Beranda melayani banyak kabupaten: pakai rata-ratanya, dibulatkan
-         ke kelipatan 10.000 supaya tetap terbaca sebagai perkiraan. */
-      var rata = nilai.reduce(function (a, b) { return a + b; }, 0) / nilai.length;
-      var bulat = Math.round(rata / 10000) * 10000;
-
-      slot.innerHTML = '<span class="hp-pm">±</span>' +
-                       '<span class="hp-num">' + rupiah(bulat) + '</span>' +
-                       '<span class="hp-unit">/' + satuan(unit) + '</span>';
-
-      /* Harga ada -> munculkan pengalih dan jadikan mode harga sebagai tampilan awal. */
-      var kartu = slot.closest('[data-pcard]');
-      if (kartu && typeof kartu._aktifkanHarga === 'function') kartu._aktifkanHarga();
-    });
-  }
 
   function bukaSection(id) {
     var el = document.getElementById(id);
     if (el) el.hidden = false;
     var tautan = document.querySelectorAll('[data-nav="' + id + '"]');
     for (var i = 0; i < tautan.length; i++) tautan[i].hidden = false;
-  }
-
-  function segarkanHarga() {
-    var q = 'city_pricing?select=kabupaten,slug,product,price_min,price_max,unit' +
-            '&is_published=eq.true&order=kabupaten.asc,product.asc';
-    if (SLUG) q += '&slug=eq.' + encodeURIComponent(SLUG);
-
-    return ambil(q).then(function (data) {
-      if (!data || !data.length) return;
-
-      /* 1) Angka di kartu produk */
-      isiKartuProduk(data);
-
-      /* 2) Elemen bertanda data-harga="slug-produk" (kalimat FAQ halaman kota) */
-      data.forEach(function (r) {
-        var n = nilaiHarga(r);
-        if (n === null) return;
-        var teks = '± ' + rupiah(n) + ' /' + satuan(r.unit);
-        var els = document.querySelectorAll('[data-harga="' + r.slug + '-' + r.product + '"]');
-        for (var i = 0; i < els.length; i++) {
-          els[i].textContent = teks;
-          var bungkus = els[i].closest ? els[i].closest('[data-harga-kalimat]') : null;
-          if (bungkus) bungkus.hidden = false;
-        }
-      });
-    });
   }
 
   var SVG_BINTANG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
@@ -2215,8 +2148,171 @@ p{margin:0}
       });
   }
 
-  segarkanHarga();
   segarkanUlasan();
+})();
+</script>
+
+<!-- ============================================================================
+     PANEL TWEAK — alat setel posisi (khusus Reyhan, bukan untuk pengunjung)
+     Cara pakai: buka halaman dengan menambahkan ?tweak=1 di belakang alamatnya,
+     contoh:  https://bata-ringan-bricon.com/?tweak=1
+     Tanpa itu panel tidak pernah muncul dan tidak memengaruhi apa pun.
+     ============================================================================ -->
+<script>
+(function () {
+  "use strict";
+  if (location.search.indexOf('tweak=1') === -1) return;
+
+  var root  = document.documentElement;
+  var STORE = 'bricon-tweak-v1';
+  var MQ    = window.matchMedia('(max-width:768px)');
+
+  /* d  = nilai bawaan versi desktop
+     dm = nilai bawaan versi mobile (hanya untuk grup responsif) */
+  var GROUPS = [
+    { t: 'Lingkaran kuning — Bata', r: false, items: [
+      { k: 'glow-bata-x', l: 'Posisi X', min: -60, max: 100, d: -6 },
+      { k: 'glow-bata-y', l: 'Posisi Y', min: -60, max: 100, d: 2 },
+      { k: 'glow-bata-s', l: 'Ukuran',   min: 10,  max: 110, d: 40 }
+    ]},
+    { t: 'Lingkaran kuning — Panel', r: false, items: [
+      { k: 'glow-panel-x', l: 'Posisi X', min: -60, max: 100, d: 58 },
+      { k: 'glow-panel-y', l: 'Posisi Y', min: -60, max: 100, d: 2 },
+      { k: 'glow-panel-s', l: 'Ukuran',   min: 10,  max: 110, d: 40 }
+    ]},
+    { t: 'Badge modal — kiri atas', r: true, items: [
+      { k: 'mb-a-x', l: 'X kiri', min: -40, max: 100, d: 2, dm: -2 },
+      { k: 'mb-a-y', l: 'Y atas', min: -40, max: 100, d: 4, dm: 12 }
+    ]},
+    { t: 'Badge modal — kiri bawah', r: true, items: [
+      { k: 'mb-b-x', l: 'X kiri',  min: -40, max: 100, d: 2, dm: -4 },
+      { k: 'mb-b-y', l: 'Y bawah', min: -40, max: 100, d: 4, dm: 2 }
+    ]},
+    { t: 'Badge modal — kanan', r: true, items: [
+      { k: 'mb-c-x', l: 'X kanan', min: -40, max: 100, d: 2,  dm: 8 },
+      { k: 'mb-c-y', l: 'Y atas',  min: -40, max: 100, d: 50, dm: 50 }
+    ]}
+  ];
+
+  GROUPS.forEach(function (g) { g.items.forEach(function (it) { it.r = g.r; }); });
+
+  var nilai = {};
+  try { nilai = JSON.parse(localStorage.getItem(STORE) || '{}') || {}; } catch (e) { nilai = {}; }
+
+  function mobile() { return MQ.matches; }
+  function namaVar(it) { return '--' + it.k + (it.r && mobile() ? '-m' : ''); }
+  function namaVarMode(it, m) { return '--' + it.k + (it.r && m ? '-m' : ''); }
+  function bawaan(it, m) { return (it.r && m) ? it.dm : it.d; }
+  function ambilNilai(it, m) {
+    var n = namaVarMode(it, m);
+    return (n in nilai) ? Number(nilai[n]) : bawaan(it, m);
+  }
+
+  function terapkan() {
+    Object.keys(nilai).forEach(function (n) { root.style.setProperty(n, nilai[n] + '%'); });
+  }
+  function simpan() {
+    try { localStorage.setItem(STORE, JSON.stringify(nilai)); } catch (e) {}
+  }
+
+  /* ---------- panel ---------- */
+  var panel = document.createElement('div');
+  panel.className = 'tw-panel';
+  panel.innerHTML =
+    '<div class="tw-head"><b>Tweak posisi</b><span class="tw-x">&minus;</span></div>' +
+    '<div class="tw-body"></div>' +
+    '<div class="tw-foot">' +
+      '<button type="button" data-act="modal">Buka modal</button>' +
+      '<button type="button" data-act="reset">Reset</button>' +
+      '<button type="button" class="primary" data-act="copy">Salin nilai</button>' +
+    '</div>';
+  document.body.appendChild(panel);
+
+  var body = panel.querySelector('.tw-body');
+
+  function gambar() {
+    var m = mobile();
+    var html = '<p class="tw-scope">Mode aktif: <b>' + (m ? 'MOBILE (lebar ≤768px)' : 'DESKTOP (lebar >768px)') +
+               '</b><br>Badge modal punya nilai sendiri untuk tiap mode — ubah lebar jendela untuk menyetel yang satunya.</p>';
+    GROUPS.forEach(function (g, gi) {
+      html += '<div class="tw-group"><h5>' + g.t + (g.r ? '' : ' <span style="opacity:.55">(1 nilai)</span>') + '</h5>';
+      g.items.forEach(function (it, ii) {
+        var v = ambilNilai(it, m);
+        html += '<div class="tw-row">' +
+                  '<label for="tw-' + gi + '-' + ii + '">' + it.l + '</label>' +
+                  '<input id="tw-' + gi + '-' + ii + '" type="range" min="' + it.min + '" max="' + it.max +
+                    '" step="0.5" value="' + v + '" data-g="' + gi + '" data-i="' + ii + '">' +
+                  '<output>' + v + '%</output>' +
+                '</div>';
+      });
+      html += '</div>';
+    });
+    body.innerHTML = html;
+  }
+
+  body.addEventListener('input', function (e) {
+    var el = e.target;
+    if (!el || el.type !== 'range') return;
+    var it = GROUPS[Number(el.getAttribute('data-g'))].items[Number(el.getAttribute('data-i'))];
+    var n  = namaVar(it);
+    nilai[n] = Number(el.value);
+    root.style.setProperty(n, el.value + '%');
+    var out = el.parentNode.querySelector('output');
+    if (out) out.textContent = el.value + '%';
+    simpan();
+  });
+
+  panel.querySelector('.tw-head').addEventListener('click', function () {
+    panel.classList.toggle('collapsed');
+    panel.querySelector('.tw-x').innerHTML = panel.classList.contains('collapsed') ? '+' : '&minus;';
+  });
+
+  panel.querySelector('.tw-foot').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-act]');
+    if (!b) return;
+    var act = b.getAttribute('data-act');
+
+    if (act === 'modal') {
+      if (typeof window.__mbOpen === 'function') window.__mbOpen();
+      return;
+    }
+
+    if (act === 'reset') {
+      Object.keys(nilai).forEach(function (n) { root.style.removeProperty(n); });
+      nilai = {};
+      simpan();
+      gambar();
+      return;
+    }
+
+    if (act === 'copy') {
+      var d = [], mm = [];
+      GROUPS.forEach(function (g) {
+        g.items.forEach(function (it) {
+          d.push('  ' + namaVarMode(it, false) + ':' + ambilNilai(it, false) + '%;');
+          if (it.r) mm.push('    ' + namaVarMode(it, true) + ':' + ambilNilai(it, true) + '%;');
+        });
+      });
+      var teks = '/* === NILAI TWEAK BRICON — tempel di dalam :root pada <style> === */\n' +
+                 ':root{\n' + d.join('\n') + '\n}\n\n' +
+                 '@media (max-width:768px){\n  :root{\n' + mm.join('\n') + '\n  }\n}';
+      var salin = function () {
+        b.textContent = 'Tersalin!';
+        setTimeout(function () { b.textContent = 'Salin nilai'; }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(teks).then(salin, function () { window.prompt('Salin manual:', teks); });
+      } else {
+        window.prompt('Salin manual:', teks);
+      }
+    }
+  });
+
+  if (MQ.addEventListener) { MQ.addEventListener('change', gambar); }
+  else if (MQ.addListener) { MQ.addListener(gambar); }
+
+  terapkan();
+  gambar();
 })();
 </script>
 </body>
