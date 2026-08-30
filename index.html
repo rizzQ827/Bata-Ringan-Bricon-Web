@@ -13,11 +13,20 @@
 </script>
 <!-- Event snippet: Klik WhatsApp conversion (AW-18295540896/_7E3CPa2l98cEKCZ_5NE) -->
 <script>
-  function trackWhatsAppConversion() {
+  window.BRICON_KOTA = 'Beranda';
+
+  /* Konversi "Klik WhatsApp" + catatan tombol mana yang diklik.
+     Atribusi masuk ke Google Analytics lewat data-cta, BUKAN ke isi pesan
+     WhatsApp — jadi pesan yang dibaca pelanggan tetap terdengar seperti
+     orang, bukan kode. */
+  function trackWhatsAppConversion(titik) {
     gtag('event', 'conversion', {
       'send_to': 'AW-18295540896/_7E3CPa2l98cEKCZ_5NE'
     });
-    gtag('event', 'whatsapp_click');
+    gtag('event', 'whatsapp_click', {
+      cta_lokasi: titik || 'lain',
+      kota: window.BRICON_KOTA
+    });
   }
 </script>
 <meta charset="UTF-8">
@@ -428,18 +437,13 @@ p{margin:0}
   -webkit-mask-image:radial-gradient(ellipse 62% 58% at 50% 46%,#000 55%,rgba(0,0,0,0) 100%);
           mask-image:radial-gradient(ellipse 62% 58% at 50% 46%,#000 55%,rgba(0,0,0,0) 100%);
 }
-/* Posisi & ukuran glow kuning — bisa disetel lewat panel Tweak (?tweak=1).
-   Nilai default ditulis sebagai fallback di dalam var(). */
+/* Lingkaran cahaya kuning — posisi sudah final, tidak lagi bisa disetel. */
 .spec-visual-glow{
   position:absolute;aspect-ratio:1;border-radius:999px;pointer-events:none;
   background:radial-gradient(circle,rgba(245,194,0,.34) 0%,rgba(245,194,0,.16) 45%,rgba(245,194,0,0) 74%);
 }
-.spec-visual[data-glow="bata"] .spec-visual-glow{
-  left:var(--glow-bata-x,-3%);top:var(--glow-bata-y,3.5%);width:var(--glow-bata-s,54.5%);
-}
-.spec-visual[data-glow="panel"] .spec-visual-glow{
-  left:var(--glow-panel-x,25.5%);top:var(--glow-panel-y,14.5%);width:var(--glow-panel-s,63.5%);
-}
+.spec-visual[data-glow="bata"] .spec-visual-glow{left:-3%;top:3.5%;width:54.5%}
+.spec-visual[data-glow="panel"] .spec-visual-glow{left:25.5%;top:14.5%;width:63.5%}
 .spec-visual img{position:relative;display:block;width:100%;filter:drop-shadow(0 18px 26px rgba(28,28,30,.24))}
 
 /* garis ukur */
@@ -501,7 +505,7 @@ p{margin:0}
 
 /* ============================================================
    PRODUK — kartu spesifikasi (beranda tidak menampilkan harga)
-   Hierarki: [1] DIMENSI (plat gelap) > [2] kalkulator ukuran (blok terang) > [3] CTA
+   Hierarki: [1] DIMENSI (plat gelap, angka hero) > [2] kalkulator ukuran (blok terang) > [3] CTA
    ============================================================ */
 .products{background:var(--bg)}
 .pcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2vw,22px);margin-top:clamp(30px,4vw,46px);align-items:stretch}
@@ -538,7 +542,7 @@ p{margin:0}
 .pcard-body{display:flex;flex-direction:column;flex:1;padding:16px clamp(16px,1.8vw,20px) clamp(18px,2vw,20px)}
 .pcard-body h3{font-size:clamp(1.22rem,2.1vw,1.42rem);font-weight:800;letter-spacing:-.02em}
 
-/* --- [1] plat data gelap: DIMENSI, info paling penting --- */
+/* --- [1] plat data gelap: DIMENSI, info paling penting — angka hero satu baris --- */
 .plate{position:relative;overflow:hidden;padding:15px 16px;background:var(--ink);border-radius:var(--r-md)}
 .plate::before{
   content:"";position:absolute;inset:0;pointer-events:none;
@@ -557,24 +561,30 @@ p{margin:0}
 .dimrow .dv u{text-decoration:none;font-size:.62em;color:rgba(255,255,255,.5)}
 .dimrow .dv--range{font-size:clamp(.84rem,2.1vw,1rem)}
 
-/* --- [2] kalkulator ukuran: sekunder, latar terang --- */
+/* Dimensi jadi satu angka hero — segmen yang berubah (tebal/bentang) disorot kuning,
+   tanda "×" dilemahkan supaya ritme visualnya tidak riuh. */
+.hero-dim{margin-top:14px;font-family:var(--mono);font-weight:700;font-size:clamp(1.5rem,4.4vw,2.05rem);letter-spacing:-.01em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero-dim .hd-x{color:rgba(255,255,255,.32);font-weight:600;margin:0 .12em}
+.hero-dim .hd-var{color:var(--yellow)}
+.hero-dim u{text-decoration:none;font-size:.46em;font-weight:600;color:rgba(255,255,255,.48);margin-left:3px}
+
+/* --- [2] kalkulator ukuran: sekunder, latar terang, segmented besar --- */
 .calc{margin-top:12px;padding:13px 14px 15px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg)}
 .pick-label{display:block;font-family:var(--mono);font-size:.56rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)}
-.pick{display:flex;gap:7px;margin-top:8px}
+.pick{display:flex;gap:8px;margin-top:8px}
 .pick button{
   flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
-  height:46px;border-radius:9px;border:1px solid var(--line-strong);background:var(--surface);
+  height:54px;border-radius:9px;border:1px solid var(--line-strong);background:var(--surface);
   font-family:var(--mono);cursor:pointer;
   transition:background .18s var(--ease-out),border-color .18s var(--ease-out),color .18s var(--ease-out);
 }
-.pick button .pb{font-size:.82rem;font-weight:700;white-space:nowrap;color:var(--ink)}
-.pick button .ps{font-size:.53rem;letter-spacing:.08em;white-space:nowrap;color:var(--muted2)}
+.pick button .pb{font-size:.9rem;font-weight:700;white-space:nowrap;color:var(--ink)}
+.pick button .ps{font-size:.58rem;letter-spacing:.08em;white-space:nowrap;color:var(--muted2)}
 .pick button:hover{border-color:var(--ink);background:var(--track)}
 .pick button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink)}
 .pick button[aria-pressed="true"] .pb{color:#fff}
 .pick button[aria-pressed="true"] .ps{color:var(--yellow)}
 
-.calc-dim{margin-top:11px;font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.02em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .calc-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:11px;padding-top:11px;border-top:1px dashed var(--line-strong)}
 .calc-out > div{min-width:0}
 .calc-out .sk{display:block;font-family:var(--mono);font-size:.53rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);white-space:nowrap}
@@ -762,7 +772,7 @@ p{margin:0}
 }
 
 /* ============================================================
-   MICROBUBBLE MODAL
+   MICROBUBBLE MODAL — posisi badge sudah final, tidak lagi disetel
    ============================================================ */
 .mb-overlay{
   position:fixed;inset:0;z-index:400;
@@ -848,11 +858,10 @@ p{margin:0}
 .mb-slot svg{width:14px;height:14px;flex:none;color:var(--red-dark)}
 .mb-slot.is-visible{opacity:1;transform:translateY(0);animation:mbFloat 3.6s ease-in-out infinite}
 
-/* Posisi badge modal — bisa disetel lewat panel Tweak (?tweak=1).
-   Desktop pakai var tanpa akhiran, mobile pakai var berakhiran -m. */
-.mb-slot--a{top:var(--mb-a-y,21%);left:var(--mb-a-x,-8%);animation-delay:.2s}
-.mb-slot--b{bottom:var(--mb-b-y,14%);left:var(--mb-b-x,-2.5%);animation-delay:1.1s}
-.mb-slot--c{top:var(--mb-c-y,50%);right:var(--mb-c-x,-9.5%);transform:translateY(-50%);animation-delay:.6s}
+/* Posisi badge modal — sudah final, tidak lagi bisa disetel. */
+.mb-slot--a{top:21%;left:-8%;animation-delay:.2s}
+.mb-slot--b{bottom:14%;left:-2.5%;animation-delay:1.1s}
+.mb-slot--c{top:50%;right:-9.5%;transform:translateY(-50%);animation-delay:.6s}
 .mb-slot--c.is-visible{transform:translateY(-50%);animation:mbFloatC 3.6s ease-in-out infinite}
 @keyframes mbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @keyframes mbFloatC{0%,100%{transform:translateY(-50%)}50%{transform:translateY(calc(-50% - 7px))}}
@@ -893,11 +902,11 @@ p{margin:0}
   .mb-visual-text p{max-width:none;margin-inline:auto}
   .mb-slot{font-size:.64rem;padding:5px 9px}
   .mb-slot svg{width:10px;height:10px}
-  .mb-slot--a{top:var(--mb-a-y-m,19%);left:var(--mb-a-x-m,-1.5%);bottom:auto;right:auto;transform:none}
+  .mb-slot--a{top:19%;left:-1.5%;bottom:auto;right:auto;transform:none}
   .mb-slot--a.is-visible{animation:mbFloat 3.6s ease-in-out infinite}
-  .mb-slot--b{bottom:var(--mb-b-y-m,9.5%);left:var(--mb-b-x-m,-5.5%);top:auto;right:auto;transform:none}
+  .mb-slot--b{bottom:9.5%;left:-5.5%;top:auto;right:auto;transform:none}
   .mb-slot--b.is-visible{animation:mbFloat 3.6s ease-in-out infinite 1.1s}
-  .mb-slot--c{top:var(--mb-c-y-m,60%);right:var(--mb-c-x-m,-20%);left:auto;bottom:auto;transform:translateY(-50%)}
+  .mb-slot--c{top:60%;right:-20%;left:auto;bottom:auto;transform:translateY(-50%)}
   .mb-slot--c.is-visible{transform:translateY(-50%);animation:mbFloatC 3.6s ease-in-out infinite .6s}
   .mb-redbar{font-size:.6rem;padding:10px 8px;letter-spacing:0}
   .mb-redbar-inner{justify-content:center}
@@ -1041,11 +1050,11 @@ p{margin:0}
   }
 }
 
-/* Badge positions — <=1074px (tweakable via props) */
+/* Posisi badge hero — sudah final, tidak bisa diatur lewat panel lagi. */
 @media (max-width: 1074px) {
-  .hbadge--stok{top:var(--stok-y-m,23%);left:var(--stok-x-m,-5%)}
-  .hbadge--kirim{top:var(--kirim-y-m,74%);left:var(--kirim-x-m,4.5%)}
-  .hbadge--mutu{top:var(--mutu-y-m,40%);left:var(--mutu-x-m,71.5%)}
+  .hbadge--stok{top:23%;left:-5%}
+  .hbadge--kirim{top:74%;left:4.5%}
+  .hbadge--mutu{top:40%;left:71.5%}
 }
 
 @media (max-width: 639px) {
@@ -1151,7 +1160,8 @@ p{margin:0}
 
 /* ============================================================
    PANEL TWEAK — hanya aktif kalau URL diberi ?tweak=1
-   Tidak pernah tampil untuk pengunjung biasa.
+   Sekarang isinya cuma slider jarak. Pengatur lingkaran kuning dan
+   badge microbubble sudah dihapus, nilainya dikunci di CSS di atas.
    ============================================================ */
 .tw-panel{
   position:fixed;left:14px;bottom:14px;z-index:600;
@@ -1182,19 +1192,39 @@ p{margin:0}
 }
 .tw-foot button.primary{background:var(--yellow);border-color:var(--yellow);color:#1C1C1E}
 .tw-foot button:hover{filter:brightness(1.12)}
-.tw-open{
-  position:fixed;left:14px;bottom:14px;z-index:600;
-  padding:9px 13px;border-radius:10px;border:1px solid rgba(255,255,255,.2);
-  background:#141416;color:var(--yellow);font-family:var(--mono);font-size:10px;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;cursor:pointer;box-shadow:0 12px 30px rgba(0,0,0,.4);
-}
 @media (max-width:560px){
   .tw-panel{width:calc(100vw - 28px);max-height:62vh}
+}
+
+/* ============================================================
+   JARAK YANG BISA DISETEL LEWAT PANEL TWEAK
+   Sengaja ditaruh paling bawah supaya menang atas aturan di atasnya.
+   ============================================================ */
+@media (max-width:1059px){
+  .hero-copy{margin-bottom:var(--hero-space-atas-m,0px)}
+  .hero-img{margin-bottom:var(--hero-space-bawah-m,0px)}
+}
+@media (min-width:861px){
+  .materi-grid + .materi-grid{
+    margin-top:var(--gap-materi-atas-d,0px);
+    padding-top:var(--gap-materi-bawah-d,0px);
+  }
 }
 </style>
 </head>
 <body>
 <a class="skip" href="#materi">Lewati ke konten utama</a>
+
+<!-- Ikon dipakai berulang lewat sprite <use> — file tetap ringan walau ikonnya banyak. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="ico-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></symbol>
+  <symbol id="ico-mb" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></g></symbol>
+  <symbol id="ico-ruler" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"></path><path d="m14.5 12.5 2-2"></path><path d="m11.5 9.5 2-2"></path><path d="m8.5 6.5 2-2"></path><path d="m17.5 15.5 2-2"></path></g></symbol>
+  <symbol id="ico-box" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4 7.5 4.2"></path><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></g></symbol>
+  <symbol id="ico-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5-5.5 10.2-7.4 11.8a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></g></symbol>
+  <symbol id="ico-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"></path></symbol>
+  <symbol id="ico-arrow" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></g></symbol>
+</svg>
 
 <!-- ===================== NAVBAR ===================== -->
 <header class="nav" id="nav">
@@ -1212,8 +1242,8 @@ p{margin:0}
     </nav>
 
     <div class="nav-right">
-      <a class="btn btn-red btn-sm" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20produk%20Bricon%20-%20Beranda%20-%20Navbar" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+      <a class="btn btn-red btn-sm" data-cta="navbar" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">
+        <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
         Pesan Sekarang!
       </a>
       <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false" aria-controls="mobileMenu">
@@ -1234,8 +1264,8 @@ p{margin:0}
   <a class="m-link" href="#area">Area Layanan</a>
   <a class="m-link" data-nav="ulasan" hidden href="#ulasan">Ulasan</a>
   <a class="m-link" href="#lokasi">Kontak</a>
-  <a class="btn btn-red" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20produk%20Bricon%20-%20Beranda%20-%20Menu%20Mobile" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+  <a class="btn btn-red" data-cta="menu-mobile" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">
+    <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
     Pesan Sekarang!
   </a>
 </div>
@@ -1253,20 +1283,20 @@ p{margin:0}
           </h1>
           <p class="lead" data-anim="3">Bata Ringan &amp; Panel Lantai BRICON berteknologi Microbubble — kuat, ringan, presisi ukuran. Stok lengkap, siap kirim ke seluruh Jawa Timur.</p>
           <div class="hero-cta" data-anim="4">
-            <a class="btn btn-red" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20produk%20Bricon%20-%20Beranda%20-%20Hero" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+            <a class="btn btn-red" data-cta="hero" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">
+              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
               Pesan Sekarang!
             </a>
             <a class="btn btn-outline-on-dark" href="#produk">Lihat Produk</a>
           </div>
           <p class="hero-trust" data-anim="5">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>
             <span class="hero-trust-text">Melayani kontraktor, tukang &amp; owner proyek se-Jawa Timur &middot; Min. order 1 truk (11,52 m&sup3;)</span>
           </p>
         </div>
 
         <div class="hero-visual hero-img-wrap" data-anim="4">
-          <div class="img-anchor" style="--stok-x-m:-5%;--stok-y-m:23%;--kirim-x-m:4.5%;--kirim-y-m:74%;--mutu-x-m:71.5%;--mutu-y-m:40%">
+          <div class="img-anchor">
           <!-- 3D product hero image -->
           <img src="assets/images/hero-bata-ringan.webp" class="hero-img" alt="Produk bata ringan BRICON — bata beton ringan berteknologi Microbubble" id="heroImg" fetchpriority="high" decoding="async">
           <!-- Floating badge: Stok Lengkap -->
@@ -1295,15 +1325,15 @@ p{margin:0}
     <div class="container">
       <div class="stats-inner">
         <span class="stat">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 9.4 7.5 4.2"></path><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-box"></use></svg>
           <span><b>2</b> Produk Unggulan</span>
         </span>
         <span class="stat">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-5.5 10.2-7.4 11.8a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg>
           Jawa Timur
         </span>
         <span class="stat">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>
           Stok Selalu Tersedia
         </span>
       </div>
@@ -1317,8 +1347,8 @@ p{margin:0}
         <h2 class="section-title">Dinding &amp; lantai dari satu pabrik</h2>
         <p class="section-lead">Satu supplier untuk dua kebutuhan — jadwal kirim tidak perlu dikejar ke dua tempat.</p>
         <ul class="materi-chips">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 9.4 7.5 4.2"></path><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>Stok siap kirim</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Konsultasi &amp; survey gratis</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-box"></use></svg>Stok siap kirim</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>Konsultasi &amp; survey gratis</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"></path></svg>Panel lantai + jasa pasang</li>
         </ul>
       </div>
@@ -1334,7 +1364,7 @@ p{margin:0}
         <div class="materi-body">
           <span class="eyebrow-mark"><span class="bar"></span>Produk 01 — Dinding</span>
           <h3>Bata Ringan <span class="brand-uline">BRICON</span></h3>
-          <p class="materi-desc">Bata ringan AAC dengan <button class="mb-inline" type="button" data-mb-trigger aria-haspopup="dialog">teknologi microbubble<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></button>: rongga udara mikro yang membuatnya ringan tanpa mengorbankan kekuatan. Dicetak presisi dengan permukaan halus dan sudut siku, sehingga plesteran lebih tipis dan pemakaian mortar jauh lebih hemat.</p>
+          <p class="materi-desc">Bata ringan AAC dengan <button class="mb-inline" type="button" data-mb-trigger aria-haspopup="dialog">teknologi microbubble<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-mb"></use></svg></button>: rongga udara mikro yang membuatnya ringan tanpa mengorbankan kekuatan. Dicetak presisi dengan permukaan halus dan sudut siku, sehingga plesteran lebih tipis dan pemakaian mortar jauh lebih hemat.</p>
         </div>
       </div>
 
@@ -1369,7 +1399,7 @@ p{margin:0}
         <div class="pcard-media">
           <img src="assets/images/bata-ringan.webp" alt="Bata Ringan BRICON — bata beton ringan AAC berteknologi Microbubble di lokasi proyek" width="1600" height="1200" loading="lazy">
           <span class="mbtag-wrap">
-            <button class="mbtag" type="button" data-mb-trigger aria-haspopup="dialog">Microbubble Technology<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></button>
+            <button class="mbtag" type="button" data-mb-trigger aria-haspopup="dialog">Microbubble Technology<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-mb"></use></svg></button>
           </span>
           <span class="pp-glass" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 22v-8"></path><path d="M2.336 8.89 10 14l11.715-7.029"></path><path d="M22 14a2 2 0 0 1-.971 1.715l-10 6a2 2 0 0 1-2.138-.05l-6-4A2 2 0 0 1 2 16v-6a2 2 0 0 1 .971-1.715l10-6a2 2 0 0 1 2.138.05l6 4A2 2 0 0 1 22 8z"></path></svg>
@@ -1380,31 +1410,23 @@ p{margin:0}
         <div class="pcard-body">
           <h3>Bata Ringan <span class="brand-uline">BRICON</span></h3>
 
-          <!-- [1] Dimensi — informasi paling penting, plat gelap -->
+          <!-- [1] Dimensi — hero, plat gelap -->
           <div class="plate dimplate">
-            <span class="plate-label">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"></path><path d="m14.5 12.5 2-2"></path><path d="m11.5 9.5 2-2"></path><path d="m8.5 6.5 2-2"></path><path d="m17.5 15.5 2-2"></path></svg>
-              Dimensi
-            </span>
-            <div class="dimrow">
-              <div><span class="dk">Panjang</span><span class="dv">600<u> mm</u></span></div>
-              <div><span class="dk">Tinggi</span><span class="dv">200<u> mm</u></span></div>
-              <div><span class="dk">Tebal</span><span class="dv dv--range">75&ndash;125<u> mm</u></span></div>
-            </div>
+            <span class="plate-label"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-ruler"></use></svg>Dimensi</span>
+            <div class="hero-dim" data-hero-dim></div>
           </div>
 
-          <!-- [2] Kalkulator ukuran — turunan, blok terang -->
+          <!-- [2] Kalkulator ukuran — turunan, blok terang, segmented besar -->
           <div class="calc">
             <span class="pick-label">Pilih ketebalan</span>
             <div class="pick"></div>
-            <div class="calc-dim"></div>
             <div class="calc-out"></div>
           </div>
 
           <span class="pcard-spacer" aria-hidden="true"></span>
 
-          <a class="pcard-cta" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20Bata%20Ringan%20BRICON%20-%20Beranda%20-%20Produk%20Bata" data-wa-msg="Halo, saya ingin tanya Bata Ringan BRICON - Beranda - Produk Bata" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg><span class="cta-label">Tanya Harganya Sekarang!</span>
+          <a class="pcard-cta" data-cta="kartu-bata" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20minta%20penawaran%20Bata%20Ringan%20BRICON%20tebal%2010%20cm%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg><span class="cta-label">Tanya Harganya Sekarang!</span>
           </a>
         </div>
       </article>
@@ -1413,7 +1435,7 @@ p{margin:0}
         <div class="pcard-media">
           <img src="assets/images/panel-lantai.webp" alt="Panel Lantai BRICON — panel lantai precast berteknologi Microbubble di lokasi proyek" width="1600" height="1200" loading="lazy">
           <span class="mbtag-wrap">
-            <button class="mbtag" type="button" data-mb-trigger aria-haspopup="dialog">Microbubble Technology<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></button>
+            <button class="mbtag" type="button" data-mb-trigger aria-haspopup="dialog">Microbubble Technology<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-mb"></use></svg></button>
           </span>
           <span class="pp-glass" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"></path></svg>
@@ -1424,31 +1446,23 @@ p{margin:0}
         <div class="pcard-body">
           <h3>Panel Lantai <span class="brand-uline">BRICON</span></h3>
 
-          <!-- [1] Dimensi — informasi paling penting, plat gelap -->
+          <!-- [1] Dimensi — hero, plat gelap -->
           <div class="plate dimplate">
-            <span class="plate-label">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"></path><path d="m14.5 12.5 2-2"></path><path d="m11.5 9.5 2-2"></path><path d="m8.5 6.5 2-2"></path><path d="m17.5 15.5 2-2"></path></svg>
-              Dimensi
-            </span>
-            <div class="dimrow">
-              <div><span class="dk">Panjang</span><span class="dv dv--range">1470&ndash;3220<u> mm</u></span></div>
-              <div><span class="dk">Lebar</span><span class="dv">600<u> mm</u></span></div>
-              <div><span class="dk">Tebal</span><span class="dv">125<u> mm</u></span></div>
-            </div>
+            <span class="plate-label"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-ruler"></use></svg>Dimensi</span>
+            <div class="hero-dim" data-hero-dim></div>
           </div>
 
-          <!-- [2] Kalkulator ukuran — turunan, blok terang -->
+          <!-- [2] Kalkulator ukuran — turunan, blok terang, segmented besar -->
           <div class="calc">
             <span class="pick-label">Pilih bentang</span>
             <div class="pick"></div>
-            <div class="calc-dim"></div>
             <div class="calc-out"></div>
           </div>
 
           <span class="pcard-spacer" aria-hidden="true"></span>
 
-          <a class="pcard-cta" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20Panel%20Lantai%20BRICON%20-%20Beranda%20-%20Produk%20Panel" data-wa-msg="Halo, saya ingin tanya Panel Lantai BRICON - Beranda - Produk Panel" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg><span class="cta-label">Tanya Harganya Sekarang!</span>
+          <a class="pcard-cta" data-cta="kartu-panel" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20minta%20penawaran%20Panel%20Lantai%20BRICON%20bentang%202%2C50%20m%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg><span class="cta-label">Tanya Harganya Sekarang!</span>
           </a>
         </div>
       </article>
@@ -1470,53 +1484,53 @@ p{margin:0}
           <a class="is-page" href="/kota/surabaya">
             <span class="a-name">Surabaya</span>
             <span class="a-meta">Lihat harga
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-arrow"></use></svg>
             </span>
           </a>
         </li>
         <li>
-          <a href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20harga%20Bata%20Ringan%20BRICON%20untuk%20area%20Sidoarjo%20-%20Beranda%20-%20Area%20Layanan" target="_blank" rel="noopener">
+          <a data-cta="area-sidoarjo" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Sidoarjo." target="_blank" rel="noopener">
             <span class="a-name">Sidoarjo</span>
             <span class="a-meta">Tanya harga
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
             </span>
           </a>
         </li>
         <li>
-          <a href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20harga%20Bata%20Ringan%20BRICON%20untuk%20area%20Mojokerto%20-%20Beranda%20-%20Area%20Layanan" target="_blank" rel="noopener">
+          <a data-cta="area-mojokerto" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Mojokerto." target="_blank" rel="noopener">
             <span class="a-name">Mojokerto</span>
             <span class="a-meta">Tanya harga
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
             </span>
           </a>
         </li>
         <li>
-          <a href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20harga%20Bata%20Ringan%20BRICON%20untuk%20area%20Jombang%20-%20Beranda%20-%20Area%20Layanan" target="_blank" rel="noopener">
+          <a data-cta="area-jombang" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Jombang." target="_blank" rel="noopener">
             <span class="a-name">Jombang</span>
             <span class="a-meta">Tanya harga
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
             </span>
           </a>
         </li>
         <li>
-          <a href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20harga%20Bata%20Ringan%20BRICON%20untuk%20area%20Tulungagung%20-%20Beranda%20-%20Area%20Layanan" target="_blank" rel="noopener">
+          <a data-cta="area-tulungagung" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Tulungagung." target="_blank" rel="noopener">
             <span class="a-name">Tulungagung</span>
             <span class="a-meta">Tanya harga
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
             </span>
           </a>
         </li>
         <li>
-          <a href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20harga%20Bata%20Ringan%20BRICON%20untuk%20area%20Sampang%20-%20Beranda%20-%20Area%20Layanan" target="_blank" rel="noopener">
+          <a data-cta="area-sampang" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Sampang." target="_blank" rel="noopener">
             <span class="a-name">Sampang</span>
             <span class="a-meta">Tanya harga
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
             </span>
           </a>
         </li>
       </ul>
 
-      <p class="area-note reveal">Kabupaten lain di Jawa Timur tetap kami kirim — minimum order 1 truk (11,52 m&sup3;). <a href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20ketersediaan%20dan%20ongkos%20kirim%20Bricon%20ke%20daerah%20saya%20-%20Beranda%20-%20Area%20Layanan%20Lainnya" target="_blank" rel="noopener">Tanya ketersediaan &amp; ongkos kirim &rarr;</a></p>
+      <p class="area-note reveal">Kabupaten lain di Jawa Timur tetap kami kirim — minimum order 1 truk (11,52 m&sup3;). <a data-cta="area-lainnya" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20ketersediaan%20dan%20ongkos%20kirim%20BRICON%20ke%20daerah%20saya." target="_blank" rel="noopener">Tanya ketersediaan &amp; ongkos kirim &rarr;</a></p>
     </div>
   </section>
 
@@ -1528,8 +1542,8 @@ p{margin:0}
           <h2><span class="promo-num">Gratis 8 Sak</span> Maju Mortar</h2>
           <p class="promo-sub">Setiap pembelian 11,52 kubik Bata Ringan BRICON (1 truk), dapatkan gratis 8 sak Maju Mortar — perekat bata ringan berkualitas.</p>
           <div class="promo-cta">
-            <a class="btn btn-red" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20promo%20gratis%20Maju%20Mortar%20Bricon%20-%20Beranda%20-%20Promo%20Mortar" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+            <a class="btn btn-red" data-cta="promo" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">
+              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
               Klaim Promo Sekarang!
             </a>
           </div>
@@ -1564,8 +1578,8 @@ p{margin:0}
       <div class="cta-inner reveal">
         <h2>Siap Memulai Proyek Anda?</h2>
         <p>Konsultasi gratis, harga terbaik, pengiriman ke seluruh Jawa Timur.</p>
-        <a class="btn btn-white" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20produk%20Bricon%20-%20Beranda%20-%20CTA%20Band" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+        <a class="btn btn-white" data-cta="cta-band" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">
+          <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           Konsultasikan Sekarang!
         </a>
       </div>
@@ -1605,12 +1619,12 @@ p{margin:0}
             </span>
             <div>
               <div class="li-label">WhatsApp</div>
-              <div class="li-value"><a href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20produk%20Bricon%20-%20Beranda%20-%20Lokasi%20Nomor" target="_blank" rel="noopener">0851-8402-8183</a></div>
+              <div class="li-value"><a data-cta="kontak-nomor" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">0851-8402-8183</a></div>
             </div>
           </div>
 
-          <a class="btn btn-red" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20produk%20Bricon%20-%20Beranda%20-%20Lokasi%20Tombol" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+          <a class="btn btn-red" data-cta="kontak-tombol" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
             Konsultasi Yuk!
           </a>
         </div>
@@ -1669,7 +1683,7 @@ p{margin:0}
 
       <div class="foot-col">
         <h4>Kontak</h4>
-        <a class="wa-line" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20produk%20Bricon%20-%20Beranda%20-%20Footer" target="_blank" rel="noopener">0851-8402-8183</a>
+        <a class="wa-line" data-cta="footer" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">0851-8402-8183</a>
         <p>Sidoarjo, Jawa Timur</p>
       </div>
     </div>
@@ -1683,8 +1697,8 @@ p{margin:0}
 </footer>
 
 <!-- Floating CTA WhatsApp (tampil di mode burger / mobile) -->
-<a class="wa-float" id="waFloat" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20ingin%20tanya%20produk%20Bricon%20-%20Beranda%20-%20Floating" target="_blank" rel="noopener" aria-label="Pesan Sekarang via WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"></path></svg>
+<a class="wa-float" id="waFloat" data-cta="floating" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener" aria-label="Pesan Sekarang via WhatsApp">
+  <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
   Pesan Sekarang!
 </a>
 
@@ -1908,8 +1922,6 @@ p{margin:0}
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && mbOverlay && mbOverlay.classList.contains('open')) mbCloseModal();
   });
-  /* dipakai panel Tweak untuk membuka modal saat menyetel posisi badge */
-  window.__mbOpen = mbOpen;
 
   /* ============================================================
      KARTU PRODUK — kalkulator ukuran
@@ -1926,6 +1938,7 @@ p{margin:0}
 
   var PROD = {
     bata: {
+      nama: 'Bata Ringan BRICON',
       pickLabel: 'Pilih ketebalan',
       def: '100',
       opts: [
@@ -1933,7 +1946,7 @@ p{margin:0}
         { v: '100', b: '10 cm',   s: '100 mm', wa: 'tebal 10 cm' },
         { v: '125', b: '12,5 cm', s: '125 mm', wa: 'tebal 12,5 cm' }
       ],
-      dim: function (v) { return '600 × 200 × ' + v + ' mm'; },
+      heroDim: function (v) { return '600<span class="hd-x">&times;</span>200<span class="hd-x">&times;</span><span class="hd-var">' + v + '</span><u> mm</u>'; },
       /* Berat jenis normal bata ringan BRICON: 600 kg/m³ (data resmi pabrik). */
       stats: function (v) {
         var t = Number(v) / 1000;
@@ -1946,6 +1959,7 @@ p{margin:0}
       }
     },
     panel: {
+      nama: 'Panel Lantai BRICON',
       pickLabel: 'Pilih bentang',
       def: '2500',
       opts: [
@@ -1954,7 +1968,7 @@ p{margin:0}
         { v: '2500', b: '2,50 m', s: '2500 mm', wa: 'bentang 2,50 m' },
         { v: '3220', b: '3,22 m', s: '3220 mm', wa: 'bentang 3,22 m' }
       ],
-      dim: function (v) { return v + ' × 600 × 125 mm'; },
+      heroDim: function (v) { return '<span class="hd-var">' + v + '</span><span class="hd-x">&times;</span>600<span class="hd-x">&times;</span>125<u> mm</u>'; },
       /* Berat jenis kering panel lantai BRICON: 650 kg/m³ (data resmi pabrik). */
       stats: function (v) {
         var pjg = Number(v) / 1000;
@@ -1976,10 +1990,9 @@ p{margin:0}
 
     var pickWrap = card.querySelector('.pick');
     var pickLbl  = card.querySelector('.pick-label');
-    var calcDim  = card.querySelector('.calc-dim');
+    var heroDimEl = card.querySelector('[data-hero-dim]');
     var calcOut  = card.querySelector('.calc-out');
     var cta      = card.querySelector('.pcard-cta');
-    var waBase   = cta ? (cta.getAttribute('data-wa-msg') || '') : '';
 
     if (pickLbl) pickLbl.textContent = conf.pickLabel;
     if (pickWrap) {
@@ -1991,7 +2004,7 @@ p{margin:0}
 
     var nilai = conf.def;
 
-    function pilihanAktif() {
+    function aktif() {
       for (var i = 0; i < conf.opts.length; i++) { if (conf.opts[i].v === nilai) return conf.opts[i]; }
       return conf.opts[0];
     }
@@ -2002,15 +2015,17 @@ p{margin:0}
           b.setAttribute('aria-pressed', b.getAttribute('data-v') === nilai ? 'true' : 'false');
         });
       }
-      if (calcDim) calcDim.textContent = conf.dim(nilai);
+      if (heroDimEl) heroDimEl.innerHTML = conf.heroDim(nilai);
       if (calcOut) {
         calcOut.innerHTML = conf.stats(nilai).map(function (s) {
           return '<div><span class="sk">' + s.k + '</span><span class="sv">' + s.v + '<u> ' + s.u + '</u></span></div>';
         }).join('');
       }
       if (cta) {
-        cta.setAttribute('href', 'https://wa.me/6285184028183?text=' +
-          encodeURIComponent(waBase + ' (' + pilihanAktif().wa + ')'));
+        /* Pesan WhatsApp dibangun jadi satu kalimat wajar, tanpa kode atribusi.
+           Atribusi tombolnya dikirim terpisah ke Analytics lewat data-cta. */
+        var pesan = 'Halo, saya mau minta penawaran ' + conf.nama + ' ' + aktif().wa + ' untuk proyek di Jawa Timur.';
+        cta.setAttribute('href', 'https://wa.me/6285184028183?text=' + encodeURIComponent(pesan));
       }
     }
 
@@ -2026,10 +2041,10 @@ p{margin:0}
     gambar();
   });
 
-  /* Google Ads: track setiap klik CTA WhatsApp sebagai conversion "Klik WhatsApp" */
+  /* Google Ads + Analytics: catat setiap klik CTA WhatsApp beserta tombolnya */
   document.addEventListener('click', function (e) {
-    var a = e.target.closest ? e.target.closest('a[href*="wa.me"]') : null;
-    if (a && typeof trackWhatsAppConversion === 'function') trackWhatsAppConversion();
+    var a = e.target.closest('a[href*="wa.me"]');
+    if (a) trackWhatsAppConversion(a.getAttribute('data-cta') || 'lain');
   });
 
   /* "Beranda" (#top) selalu scroll mentok ke paling atas halaman */
@@ -2153,10 +2168,13 @@ p{margin:0}
 </script>
 
 <!-- ============================================================================
-     PANEL TWEAK — alat setel posisi (khusus Reyhan, bukan untuk pengunjung)
-     Cara pakai: buka halaman dengan menambahkan ?tweak=1 di belakang alamatnya,
-     contoh:  https://bata-ringan-bricon.com/?tweak=1
+     PANEL TWEAK — alat setel jarak (khusus Reyhan, bukan untuk pengunjung)
+     Cara pakai: tambahkan ?tweak=1 di belakang alamat halaman, contoh:
+       https://bata-ringan-bricon.com/?tweak=1
      Tanpa itu panel tidak pernah muncul dan tidak memengaruhi apa pun.
+
+     Isinya sekarang cuma jarak. Pengatur lingkaran kuning dan badge
+     microbubble sudah dihapus — nilainya sudah dikunci permanen di CSS.
      ============================================================================ -->
 <script>
 (function () {
@@ -2164,65 +2182,40 @@ p{margin:0}
   if (location.search.indexOf('tweak=1') === -1) return;
 
   var root  = document.documentElement;
-  var STORE = 'bricon-tweak-v2';
-  var MQ    = window.matchMedia('(max-width:768px)');
+  var STORE = 'bricon-tweak-jarak-v1';
 
-  /* d  = nilai bawaan versi desktop
-     dm = nilai bawaan versi mobile (hanya untuk grup responsif) */
   var GROUPS = [
-    { t: 'Lingkaran kuning — Bata', r: false, items: [
-      { k: 'glow-bata-x', l: 'Posisi X', min: -60, max: 100, d: -3 },
-      { k: 'glow-bata-y', l: 'Posisi Y', min: -60, max: 100, d: 3.5 },
-      { k: 'glow-bata-s', l: 'Ukuran',   min: 10,  max: 110, d: 54.5 }
+    { t: 'Hero mobile — jarak gambar', hint: 'berlaku di lebar ≤1059px', items: [
+      { k: 'hero-space-atas-m',  l: 'Atas',  min: 0, max: 160, st: 2, d: 0 },
+      { k: 'hero-space-bawah-m', l: 'Bawah', min: 0, max: 160, st: 2, d: 0 }
     ]},
-    { t: 'Lingkaran kuning — Panel', r: false, items: [
-      { k: 'glow-panel-x', l: 'Posisi X', min: -60, max: 100, d: 25.5 },
-      { k: 'glow-panel-y', l: 'Posisi Y', min: -60, max: 100, d: 14.5 },
-      { k: 'glow-panel-s', l: 'Ukuran',   min: 10,  max: 110, d: 63.5 }
-    ]},
-    { t: 'Badge modal — kiri atas', r: true, items: [
-      { k: 'mb-a-x', l: 'X kiri', min: -40, max: 100, d: -8, dm: -1.5 },
-      { k: 'mb-a-y', l: 'Y atas', min: -40, max: 100, d: 21, dm: 19 }
-    ]},
-    { t: 'Badge modal — kiri bawah', r: true, items: [
-      { k: 'mb-b-x', l: 'X kiri',  min: -40, max: 100, d: -2.5, dm: -5.5 },
-      { k: 'mb-b-y', l: 'Y bawah', min: -40, max: 100, d: 14, dm: 9.5 }
-    ]},
-    { t: 'Badge modal — kanan', r: true, items: [
-      { k: 'mb-c-x', l: 'X kanan', min: -40, max: 100, d: -9.5,  dm: -20 },
-      { k: 'mb-c-y', l: 'Y atas',  min: -40, max: 100, d: 50, dm: 60 }
+    { t: 'Desktop — jarak Bata ↔ Panel', hint: 'berlaku di lebar ≥861px', items: [
+      { k: 'gap-materi-atas-d',  l: 'Atas garis',  min: 0, max: 220, st: 2, d: 0 },
+      { k: 'gap-materi-bawah-d', l: 'Bawah garis', min: 0, max: 220, st: 2, d: 0 }
     ]}
   ];
-
-  GROUPS.forEach(function (g) { g.items.forEach(function (it) { it.r = g.r; }); });
 
   var nilai = {};
   try { nilai = JSON.parse(localStorage.getItem(STORE) || '{}') || {}; } catch (e) { nilai = {}; }
 
-  function mobile() { return MQ.matches; }
-  function namaVar(it) { return '--' + it.k + (it.r && mobile() ? '-m' : ''); }
-  function namaVarMode(it, m) { return '--' + it.k + (it.r && m ? '-m' : ''); }
-  function bawaan(it, m) { return (it.r && m) ? it.dm : it.d; }
-  function ambilNilai(it, m) {
-    var n = namaVarMode(it, m);
-    return (n in nilai) ? Number(nilai[n]) : bawaan(it, m);
+  function nama(it) { return '--' + it.k; }
+  function ambilNilai(it) {
+    var n = nama(it);
+    return (n in nilai) ? Number(nilai[n]) : it.d;
   }
-
   function terapkan() {
-    Object.keys(nilai).forEach(function (n) { root.style.setProperty(n, nilai[n] + '%'); });
+    Object.keys(nilai).forEach(function (n) { root.style.setProperty(n, nilai[n] + 'px'); });
   }
   function simpan() {
     try { localStorage.setItem(STORE, JSON.stringify(nilai)); } catch (e) {}
   }
 
-  /* ---------- panel ---------- */
   var panel = document.createElement('div');
   panel.className = 'tw-panel';
   panel.innerHTML =
-    '<div class="tw-head"><b>Tweak posisi</b><span class="tw-x">&minus;</span></div>' +
+    '<div class="tw-head"><b>Tweak jarak</b><span class="tw-x">&minus;</span></div>' +
     '<div class="tw-body"></div>' +
     '<div class="tw-foot">' +
-      '<button type="button" data-act="modal">Buka modal</button>' +
       '<button type="button" data-act="reset">Reset</button>' +
       '<button type="button" class="primary" data-act="copy">Salin nilai</button>' +
     '</div>';
@@ -2231,18 +2224,17 @@ p{margin:0}
   var body = panel.querySelector('.tw-body');
 
   function gambar() {
-    var m = mobile();
-    var html = '<p class="tw-scope">Mode aktif: <b>' + (m ? 'MOBILE (lebar ≤768px)' : 'DESKTOP (lebar >768px)') +
-               '</b><br>Badge modal punya nilai sendiri untuk tiap mode — ubah lebar jendela untuk menyetel yang satunya.</p>';
+    var html = '<p class="tw-scope">Nilai di sini satuannya piksel. ' +
+               'Kalau sudah pas, tekan “Salin nilai” lalu kirim hasilnya untuk dikunci permanen.</p>';
     GROUPS.forEach(function (g, gi) {
-      html += '<div class="tw-group"><h5>' + g.t + (g.r ? '' : ' <span style="opacity:.55">(1 nilai)</span>') + '</h5>';
+      html += '<div class="tw-group"><h5>' + g.t + ' <span style="opacity:.55">(' + g.hint + ')</span></h5>';
       g.items.forEach(function (it, ii) {
-        var v = ambilNilai(it, m);
+        var v = ambilNilai(it);
         html += '<div class="tw-row">' +
                   '<label for="tw-' + gi + '-' + ii + '">' + it.l + '</label>' +
                   '<input id="tw-' + gi + '-' + ii + '" type="range" min="' + it.min + '" max="' + it.max +
-                    '" step="0.5" value="' + v + '" data-g="' + gi + '" data-i="' + ii + '">' +
-                  '<output>' + v + '%</output>' +
+                    '" step="' + it.st + '" value="' + v + '" data-g="' + gi + '" data-i="' + ii + '">' +
+                  '<output>' + v + 'px</output>' +
                 '</div>';
       });
       html += '</div>';
@@ -2254,11 +2246,11 @@ p{margin:0}
     var el = e.target;
     if (!el || el.type !== 'range') return;
     var it = GROUPS[Number(el.getAttribute('data-g'))].items[Number(el.getAttribute('data-i'))];
-    var n  = namaVar(it);
+    var n = nama(it);
     nilai[n] = Number(el.value);
-    root.style.setProperty(n, el.value + '%');
+    root.style.setProperty(n, el.value + 'px');
     var out = el.parentNode.querySelector('output');
-    if (out) out.textContent = el.value + '%';
+    if (out) out.textContent = el.value + 'px';
     simpan();
   });
 
@@ -2272,11 +2264,6 @@ p{margin:0}
     if (!b) return;
     var act = b.getAttribute('data-act');
 
-    if (act === 'modal') {
-      if (typeof window.__mbOpen === 'function') window.__mbOpen();
-      return;
-    }
-
     if (act === 'reset') {
       Object.keys(nilai).forEach(function (n) { root.style.removeProperty(n); });
       nilai = {};
@@ -2286,30 +2273,23 @@ p{margin:0}
     }
 
     if (act === 'copy') {
-      var d = [], mm = [];
+      var baris = [];
       GROUPS.forEach(function (g) {
-        g.items.forEach(function (it) {
-          d.push('  ' + namaVarMode(it, false) + ':' + ambilNilai(it, false) + '%;');
-          if (it.r) mm.push('    ' + namaVarMode(it, true) + ':' + ambilNilai(it, true) + '%;');
-        });
+        g.items.forEach(function (it) { baris.push('  ' + nama(it) + ':' + ambilNilai(it) + 'px;'); });
       });
-      var teks = '/* === NILAI TWEAK BRICON — tempel di dalam :root pada <style> === */\n' +
-                 ':root{\n' + d.join('\n') + '\n}\n\n' +
-                 '@media (max-width:768px){\n  :root{\n' + mm.join('\n') + '\n  }\n}';
-      var salin = function () {
+      var teks = '/* === NILAI JARAK BRICON — tempel di dalam :root pada <style> === */\n' +
+                 ':root{\n' + baris.join('\n') + '\n}';
+      var ok = function () {
         b.textContent = 'Tersalin!';
         setTimeout(function () { b.textContent = 'Salin nilai'; }, 1600);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(teks).then(salin, function () { window.prompt('Salin manual:', teks); });
+        navigator.clipboard.writeText(teks).then(ok, function () { window.prompt('Salin manual:', teks); });
       } else {
         window.prompt('Salin manual:', teks);
       }
     }
   });
-
-  if (MQ.addEventListener) { MQ.addEventListener('change', gambar); }
-  else if (MQ.addListener) { MQ.addListener(gambar); }
 
   terapkan();
   gambar();
