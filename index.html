@@ -1182,7 +1182,7 @@ p{margin:0}
 }
 @media (max-width: 560px) {
   .hbadge--stok{top:47.5%;left:-2.5%}
-  .hbadge--kirim{top:var(--badge-kirim-y-560,110%);left:-0.5%}
+  .hbadge--kirim{top:var(--badge-kirim-y-560,120.5%);left:-0.5%}
   .hbadge--mutu{top:68.5%;left:69.5%}
 }
 
@@ -1211,7 +1211,7 @@ p{margin:0}
 @media (max-width: 364px) {
   /* layar 320px: badge kanan digeser masuk supaya tidak terpotong tepi layar */
   .hbadge--stok{top:43%;left:-2.5%}
-  .hbadge--kirim{top:var(--badge-kirim-y-364,110%);left:-1.5%}
+  .hbadge--kirim{top:var(--badge-kirim-y-364,123.5%);left:-1.5%}
   .hbadge--mutu{top:71.5%;left:70.5%}
   .hero-badge {
     font-size: 9px;
@@ -1362,10 +1362,10 @@ p{margin:0}
    presisi — margin -80px di atas ikut menggeser dasar hitungan persen badge,
    jadi kepastian pas/nggaknya perlu dicek langsung di ?tweak=1. Kalau masih
    ketiban atau malah kejauhan, kabari — tinggal disetel ulang. */
-@media (max-width:1059px){ .hero-trust{margin-top:56px} }
-@media (max-width:860px){  .hero-trust{margin-top:52px} }
-@media (max-width:560px){  .hero-trust{margin-top:46px} }
-@media (max-width:364px){  .hero-trust{margin-top:42px} }
+@media (max-width:1059px){ .hero-trust{margin-top:var(--trust-gap-1059,56px)} }
+@media (max-width:860px){  .hero-trust{margin-top:var(--trust-gap-860,52px)} }
+@media (max-width:560px){  .hero-trust{margin-top:var(--trust-gap-560,46px)} }
+@media (max-width:364px){  .hero-trust{margin-top:var(--trust-gap-364,42px)} }
 
 /* Dua instance hero-trust: satu di bawah CTA (kolom kiri, buat desktop),
    satu di bawah gambar (buat mobile/tumpuk). Cuma satu yang tampil,
@@ -1860,7 +1860,7 @@ p{margin:0}
           <h2><span class="promo-num">Gratis 8 Sak</span> Maju Mortar</h2>
           <p class="promo-sub">Setiap pembelian 11,52 kubik Bata Ringan BRICON (1 truk), dapatkan gratis 8 sak Maju Mortar — perekat bata ringan berkualitas.</p>
           <div class="promo-cta">
-            <a class="btn btn-red" data-cta="promo" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">
+            <a class="btn btn-red" data-cta="promo" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20promo%20gratis%208%20sak%20Maju%20Mortar%20untuk%20pembelian%201%20truk.%20Proyek%20saya%20di%20Jawa%20Timur." target="_blank" rel="noopener">
               <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
               Klaim Promo Sekarang!
             </a>
@@ -1895,7 +1895,7 @@ p{margin:0}
     <div class="container">
       <div class="cta-inner reveal">
         <h2>Siap Memulai Proyek Anda?</h2>
-        <p>Konsultasi gratis, harga terbaik, pengiriman ke seluruh Jawa Timur.</p>
+        <p>Konsultasi gratis, harga terbaik, pengiriman cepat ke seluruh Jawa Timur.</p>
         <a class="btn btn-white" data-cta="cta-band" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">
           <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           Konsultasikan Sekarang!
@@ -2772,11 +2772,29 @@ p{margin:0}
   var STORE = 'bricon-tweak-jarak-v1';
 
   var GROUPS = [
+    { t: 'Kirim Y — 861–1059px', hint: 'badge "Pengiriman Cepat"; boleh lewat 100% (turun di bawah gambar)', items: [
+      { k: 'badge-kirim-y-1059', l: 'Kirim Y', min: -20, max: 220, st: .5, d: 104.5, unit: '%' }
+    ]},
+    { t: 'Kirim Y — 561–860px', hint: 'badge "Pengiriman Cepat"; boleh lewat 100% (turun di bawah gambar)', items: [
+      { k: 'badge-kirim-y-860', l: 'Kirim Y', min: -20, max: 220, st: .5, d: 107.5, unit: '%' }
+    ]},
     { t: 'Kirim Y — 365–560px', hint: 'badge "Pengiriman Cepat"; boleh lewat 100% (turun di bawah gambar)', items: [
-      { k: 'badge-kirim-y-560', l: 'Kirim Y', min: -20, max: 220, st: .5, d: 110, unit: '%' }
+      { k: 'badge-kirim-y-560', l: 'Kirim Y', min: -20, max: 220, st: .5, d: 120.5, unit: '%' }
     ]},
     { t: 'Kirim Y — 320–364px', hint: 'badge "Pengiriman Cepat"; boleh lewat 100% (turun di bawah gambar)', items: [
-      { k: 'badge-kirim-y-364', l: 'Kirim Y', min: -20, max: 220, st: .5, d: 110, unit: '%' }
+      { k: 'badge-kirim-y-364', l: 'Kirim Y', min: -20, max: 220, st: .5, d: 123.5, unit: '%' }
+    ]},
+    { t: 'Jarak "Melayani kontraktor..." — 861–1059px', hint: 'jarak dari tepi bawah gambar', items: [
+      { k: 'trust-gap-1059', l: 'Jarak', min: 0, max: 160, st: 2, d: 56 }
+    ]},
+    { t: 'Jarak "Melayani kontraktor..." — 561–860px', hint: 'jarak dari tepi bawah gambar', items: [
+      { k: 'trust-gap-860', l: 'Jarak', min: 0, max: 160, st: 2, d: 52 }
+    ]},
+    { t: 'Jarak "Melayani kontraktor..." — 365–560px', hint: 'jarak dari tepi bawah gambar', items: [
+      { k: 'trust-gap-560', l: 'Jarak', min: 0, max: 160, st: 2, d: 46 }
+    ]},
+    { t: 'Jarak "Melayani kontraktor..." — 320–364px', hint: 'jarak dari tepi bawah gambar', items: [
+      { k: 'trust-gap-364', l: 'Jarak', min: 0, max: 160, st: 2, d: 42 }
     ]}
   ];
 
