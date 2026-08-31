@@ -2,18 +2,13 @@
 <html lang="id">
 <head>
 <!-- ============================================================================
-     HALAMAN KOTA BRICON — TEMPLATE
-     File ini sudah final dan siap tayang untuk Surabaya.
+     HALAMAN KOTA BRICON — MOJOKERTO
+     Dibuat dari kota/surabaya.html (master template per 30 Agustus 2026)
+     lewat find & replace Surabaya->Mojokerto / surabaya->mojokerto.
 
-     UNTUK MEMBUAT HALAMAN KOTA BARU (contoh: Mojokerto):
-       1. Copy file ini, simpan sebagai kota/mojokerto.html
-       2. Find & replace  Surabaya  ->  Mojokerto   (huruf besar di awal)
-       3. Find & replace  surabaya  ->  mojokerto   (huruf kecil semua)
-       4. Ganti koordinat peta kalau titik bongkarnya beda — cari kata
-          "KOORDINAT PETA" di bawah.
-       5. Pastikan di dashboard Invoice Generator sudah ada baris harga
-          untuk kabupaten itu, dengan slug yang sama persis.
-     Selesai. Tidak ada yang lain yang perlu disentuh.
+     Kalau mau bikin halaman kota lain lagi, salin ulang dari kota/surabaya.html
+     (BUKAN dari file ini), supaya semua kota tetap berdasar template yang sama.
+     Lihat panduan lengkap di dokumen "panduan-tambah-kota" project ini.
      ============================================================================ -->
 
 <!-- Google tag (gtag.js) -->
@@ -29,8 +24,8 @@
 <script>
   /* ====== DUA BARIS INI DIPAKAI SELURUH HALAMAN ======
      Ikut terganti otomatis waktu kamu find & replace nama kota. */
-  window.BRICON_KOTA = 'Surabaya';
-  window.BRICON_SLUG = 'surabaya';
+  window.BRICON_KOTA = 'Mojokerto';
+  window.BRICON_SLUG = 'mojokerto';
 
   /* Konversi "Klik WhatsApp" + catatan tombol mana yang diklik.
      Atribusi sekarang masuk ke Google Analytics, BUKAN ke isi pesan WhatsApp —
@@ -47,7 +42,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Bata ringan Surabaya berteknologi Microbubble — kuat, ringan, presisi ukuran. Jual bata ringan &amp; panel lantai, harga bersaing, kirim cepat ke seluruh Surabaya. Konsultasi gratis via WhatsApp.">
+<meta name="description" content="Bata ringan Mojokerto berteknologi Microbubble — kuat, ringan, presisi ukuran. Jual bata ringan &amp; panel lantai, harga bersaing, kirim cepat ke seluruh Mojokerto. Konsultasi gratis via WhatsApp.">
 <meta name="theme-color" content="#FAF9F6">
 <meta name="color-scheme" content="light">
 
@@ -60,28 +55,28 @@
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://bata-ringan-bricon.com/kota/surabaya">
-<meta property="og:title" content="Bata Ringan Surabaya — BRICON Microbubble Technology">
-<meta property="og:description" content="Jual bata ringan &amp; panel lantai Surabaya berteknologi Microbubble. Harga bersaing, stok lengkap, kirim cepat. Konsultasi gratis via WhatsApp.">
+<meta property="og:url" content="https://bata-ringan-bricon.com/kota/mojokerto">
+<meta property="og:title" content="Bata Ringan Mojokerto — BRICON Microbubble Technology">
+<meta property="og:description" content="Jual bata ringan &amp; panel lantai Mojokerto berteknologi Microbubble. Harga bersaing, stok lengkap, kirim cepat. Konsultasi gratis via WhatsApp.">
 <meta property="og:locale" content="id_ID">
 <meta property="og:image" content="https://bata-ringan-bricon.com/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="BRICON — Bata Ringan &amp; Panel Lantai Surabaya">
+<meta property="og:image:alt" content="BRICON — Bata Ringan &amp; Panel Lantai Mojokerto">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Bata Ringan Surabaya — BRICON Microbubble Technology">
-<meta name="twitter:description" content="Jual bata ringan &amp; panel lantai Surabaya berteknologi Microbubble. Harga bersaing, stok lengkap, kirim cepat.">
+<meta name="twitter:title" content="Bata Ringan Mojokerto — BRICON Microbubble Technology">
+<meta name="twitter:description" content="Jual bata ringan &amp; panel lantai Mojokerto berteknologi Microbubble. Harga bersaing, stok lengkap, kirim cepat.">
 <meta name="twitter:image" content="https://bata-ringan-bricon.com/assets/og-image.jpg">
 
 <!-- Canonical -->
-<link rel="canonical" href="https://bata-ringan-bricon.com/kota/surabaya">
+<link rel="canonical" href="https://bata-ringan-bricon.com/kota/mojokerto">
 
 <!-- Preload gambar hero: dia elemen LCP -->
 <link rel="preload" as="image" href="../assets/images/hero-bata-ringan.webp" fetchpriority="high">
 
-<title>Bata Ringan Surabaya — Jual Bata Ringan &amp; Panel Lantai BRICON</title>
+<title>Bata Ringan Mojokerto — Jual Bata Ringan &amp; Panel Lantai BRICON</title>
 
 <!-- Schema.org: LocalBusiness — sekarang membawa koordinat asli dari
      Google Business Profile "Kantor Bata Ringan Bricon". -->
@@ -91,8 +86,8 @@
   "@type": "HomeAndConstructionBusiness",
   "name": "BRICON",
   "alternateName": ["CV Bricon", "Kantor Bata Ringan Bricon"],
-  "description": "Jual Bata Ringan & Panel Lantai BRICON berteknologi Microbubble di Surabaya. Stok lengkap, pengiriman cepat, kualitas SNI.",
-  "url": "https://bata-ringan-bricon.com/kota/surabaya",
+  "description": "Jual Bata Ringan & Panel Lantai BRICON berteknologi Microbubble di Mojokerto. Stok lengkap, pengiriman cepat, kualitas SNI.",
+  "url": "https://bata-ringan-bricon.com/kota/mojokerto",
   "image": "https://bata-ringan-bricon.com/assets/og-image.jpg",
   "telephone": "+6285184028183",
   "priceRange": "$$",
@@ -111,7 +106,7 @@
   "hasMap": "https://maps.app.goo.gl/73j47gAytFDi74RR7",
   "areaServed": {
     "@type": "City",
-    "name": "Surabaya"
+    "name": "Mojokerto"
   },
   "makesOffer": [
     {
@@ -143,18 +138,18 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Berapa harga bata ringan per kubik di Surabaya?",
+      "name": "Berapa harga bata ringan per kubik di Mojokerto?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Harga bata ringan per kubik BRICON bervariasi tergantung ketebalan (7,5–12,5 cm) dan jumlah pesanan. Untuk harga terbaru dan penawaran sesuai volume proyek Anda, chat langsung via WhatsApp — kami balas cepat dengan rincian harga per kubik dan estimasi ongkos kirim ke lokasi Anda di Surabaya."
+        "text": "Harga bata ringan per kubik BRICON bervariasi tergantung ketebalan (7,5–12,5 cm) dan jumlah pesanan. Untuk harga terbaru dan penawaran sesuai volume proyek Anda, chat langsung via WhatsApp — kami balas cepat dengan rincian harga per kubik dan estimasi ongkos kirim ke lokasi Anda di Mojokerto."
       }
     },
     {
       "@type": "Question",
-      "name": "Apakah BRICON kirim bata ringan & panel lantai ke seluruh Surabaya?",
+      "name": "Apakah BRICON kirim bata ringan & panel lantai ke seluruh Mojokerto?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Ya. Kami rutin mengirim bata ringan dan panel lantai ke berbagai wilayah Surabaya, termasuk area proyek kontraktor dan pengembang perumahan. Stok selalu tersedia sehingga pengiriman bisa diproses cepat begitu pesanan dikonfirmasi."
+        "text": "Ya. Kami rutin mengirim bata ringan dan panel lantai ke berbagai wilayah Mojokerto, termasuk area proyek kontraktor dan pengembang perumahan. Stok selalu tersedia sehingga pengiriman bisa diproses cepat begitu pesanan dikonfirmasi."
       }
     },
     {
@@ -167,7 +162,7 @@
     },
     {
       "@type": "Question",
-      "name": "Berapa minimal order untuk pengiriman ke Surabaya?",
+      "name": "Berapa minimal order untuk pengiriman ke Mojokerto?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Minimal order tergantung jarak dan skema pengiriman. Untuk pembelian 1 truk (11,52 m³) bata ringan, Anda juga mendapat gratis 8 sak Maju Mortar. Tanyakan langsung via WhatsApp untuk skema order yang sesuai kebutuhan proyek Anda."
@@ -1214,15 +1209,15 @@ p{margin:0}
    ============================================================ */
 @media (max-width:1059px){
   /* jarak DI ATAS gambar hero (turun dari blok teks) */
-  .hero-copy{margin-bottom:var(--hero-space-atas-m,64px)}
+  .hero-copy{margin-bottom:var(--hero-space-atas-m,0px)}
   /* jarak DI BAWAH gambar hero, sebelum tepi bawah section */
-  .hero-img{margin-bottom:var(--hero-space-bawah-m,32px)}
+  .hero-img{margin-bottom:var(--hero-space-bawah-m,0px)}
 }
 @media (min-width:861px){
   /* jarak antara blok Bata Ringan dan Panel Lantai */
   .materi-grid + .materi-grid{
-    margin-top:var(--gap-materi-atas-d,90px);
-    padding-top:var(--gap-materi-bawah-d,90px);
+    margin-top:var(--gap-materi-atas-d,0px);
+    padding-top:var(--gap-materi-bawah-d,0px);
   }
 }
 
@@ -1266,7 +1261,7 @@ p{margin:0}
     </nav>
 
     <div class="nav-right">
-      <a class="btn btn-red btn-sm" data-cta="navbar" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
+      <a class="btn btn-red btn-sm" data-cta="navbar" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Mojokerto." target="_blank" rel="noopener">
         <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
         Pesan Sekarang!
       </a>
@@ -1287,7 +1282,7 @@ p{margin:0}
   <a class="m-link" data-nav="ulasan" hidden href="#ulasan">Ulasan</a>
   <a class="m-link" href="#faq">FAQ</a>
   <a class="m-link" href="#lokasi">Kontak</a>
-  <a class="btn btn-red" data-cta="menu-mobile" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
+  <a class="btn btn-red" data-cta="menu-mobile" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Mojokerto." target="_blank" rel="noopener">
     <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
     Pesan Sekarang!
   </a>
@@ -1300,13 +1295,13 @@ p{margin:0}
     <div class="container">
       <div class="hero-grid">
         <div class="hero-copy">
-          <span class="hero-badge" data-anim="1"><span class="dot"></span>Teknologi Microbubble &middot; Kualitas SNI &middot; Surabaya</span>
+          <span class="hero-badge" data-anim="1"><span class="dot"></span>Teknologi Microbubble &middot; Kualitas SNI &middot; Mojokerto</span>
           <h1 data-anim="2" id="heroH1">
-            <span class="h1-line">Bata Ringan Surabaya</span><span class="h1-line">Kirim Cepat, <mark class="hl">Harga Bersaing</mark></span>
+            <span class="h1-line">Bata Ringan Mojokerto</span><span class="h1-line">Kirim Cepat, <mark class="hl">Harga Bersaing</mark></span>
           </h1>
-          <p class="lead" data-anim="3">Jual Bata Ringan &amp; Panel Lantai BRICON berteknologi Microbubble di Surabaya — kuat, ringan, presisi ukuran. Stok lengkap, siap kirim ke seluruh wilayah Surabaya.</p>
+          <p class="lead" data-anim="3">Jual Bata Ringan &amp; Panel Lantai BRICON berteknologi Microbubble di Mojokerto — kuat, ringan, presisi ukuran. Stok lengkap, siap kirim ke seluruh wilayah Mojokerto.</p>
           <div class="hero-cta" data-anim="4">
-            <a class="btn btn-red" data-cta="hero" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
+            <a class="btn btn-red" data-cta="hero" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Mojokerto." target="_blank" rel="noopener">
               <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
               Tanya Harga Sekarang!
             </a>
@@ -1314,7 +1309,7 @@ p{margin:0}
           </div>
           <p class="hero-trust hero-trust--d" data-anim="5">
             <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>
-            <span class="hero-trust-text">Melayani kontraktor, tukang &amp; owner proyek se-Surabaya &middot; Min. order 1 truk (11,52 m&sup3;)</span>
+            <span class="hero-trust-text">Melayani kontraktor, tukang &amp; owner proyek se-Mojokerto &middot; Min. order 1 truk (11,52 m&sup3;)</span>
           </p>
         </div>
 
@@ -1336,7 +1331,7 @@ p{margin:0}
           </div>
           <p class="hero-trust hero-trust--m" data-anim="5">
             <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>
-            <span class="hero-trust-text">Melayani kontraktor, tukang &amp; owner proyek se-Surabaya &middot; Min. order 1 truk (11,52 m&sup3;)</span>
+            <span class="hero-trust-text">Melayani kontraktor, tukang &amp; owner proyek se-Mojokerto &middot; Min. order 1 truk (11,52 m&sup3;)</span>
           </p>
         </div>
       </div>
@@ -1348,7 +1343,7 @@ p{margin:0}
     <div class="container">
       <div class="stats-inner">
         <span class="stat"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-box"></use></svg><span><b>2</b> Produk Unggulan</span></span>
-        <span class="stat"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg>Surabaya</span>
+        <span class="stat"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg>Mojokerto</span>
         <span class="stat"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>Stok Selalu Tersedia</span>
       </div>
     </div>
@@ -1359,7 +1354,7 @@ p{margin:0}
     <div class="container">
       <div class="materi-head reveal">
         <h2 class="section-title">Dinding &amp; lantai dari satu pabrik</h2>
-        <p class="section-lead">Satu supplier untuk dua kebutuhan — kirim harian ke seluruh Surabaya.</p>
+        <p class="section-lead">Satu supplier untuk dua kebutuhan — kirim harian ke seluruh Mojokerto.</p>
         <ul class="materi-chips">
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-box"></use></svg>Stok siap kirim</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>Konsultasi &amp; survey gratis</li>
@@ -1429,7 +1424,7 @@ p{margin:0}
                    plat gelap isinya cuma Dimensi. -->
               <div class="hblok" data-harga-blok="bata" hidden>
                 <div class="plate-head">
-                  <span class="plate-label"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-tag"></use></svg>Harga di Surabaya</span>
+                  <span class="plate-label"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-tag"></use></svg>Harga di Mojokerto</span>
                   <button class="plate-info" type="button" aria-label="Apa saja yang memengaruhi harga">i</button>
                 </div>
                 <span class="hprice" data-harga-kartu="bata"></span>
@@ -1449,7 +1444,7 @@ p{margin:0}
 
           <span class="pcard-spacer" aria-hidden="true"></span>
 
-          <a class="pcard-cta" data-cta="kartu-bata" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20Bata%20Ringan%20BRICON%20tebal%2010%20cm%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
+          <a class="pcard-cta" data-cta="kartu-bata" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20Bata%20Ringan%20BRICON%20tebal%2010%20cm%20untuk%20proyek%20di%20Mojokerto." target="_blank" rel="noopener">
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg><span class="cta-label">Tanya Harga Sekarang!</span>
           </a>
         </div>
@@ -1478,7 +1473,7 @@ p{margin:0}
                    plat gelap isinya cuma Dimensi. -->
               <div class="hblok" data-harga-blok="panel" hidden>
                 <div class="plate-head">
-                  <span class="plate-label"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-tag"></use></svg>Harga di Surabaya</span>
+                  <span class="plate-label"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-tag"></use></svg>Harga di Mojokerto</span>
                   <button class="plate-info" type="button" aria-label="Apa saja yang memengaruhi harga">i</button>
                 </div>
                 <span class="hprice" data-harga-kartu="panel"></span>
@@ -1498,7 +1493,7 @@ p{margin:0}
 
           <span class="pcard-spacer" aria-hidden="true"></span>
 
-          <a class="pcard-cta" data-cta="kartu-panel" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20Panel%20Lantai%20BRICON%20bentang%202%2C50%20m%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
+          <a class="pcard-cta" data-cta="kartu-panel" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20Panel%20Lantai%20BRICON%20bentang%202%2C50%20m%20untuk%20proyek%20di%20Mojokerto." target="_blank" rel="noopener">
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg><span class="cta-label">Tanya Harga Sekarang!</span>
           </a>
         </div>
@@ -1515,7 +1510,7 @@ p{margin:0}
           <h2><span class="promo-num">Gratis 8 Sak</span> Maju Mortar</h2>
           <p class="promo-sub">Setiap pembelian 11,52 kubik Bata Ringan BRICON (1 truk), dapatkan gratis 8 sak Maju Mortar — perekat bata ringan berkualitas.</p>
           <div class="promo-cta">
-            <a class="btn btn-red" data-cta="promo" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20promo%20gratis%208%20sak%20Maju%20Mortar%20untuk%20pembelian%201%20truk.%20Proyek%20saya%20di%20Surabaya." target="_blank" rel="noopener">
+            <a class="btn btn-red" data-cta="promo" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20promo%20gratis%208%20sak%20Maju%20Mortar%20untuk%20pembelian%201%20truk.%20Proyek%20saya%20di%20Mojokerto." target="_blank" rel="noopener">
               <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
               Klaim Promo Sekarang!
             </a>
@@ -1544,30 +1539,30 @@ p{margin:0}
   </section>
 
   <!-- ===================== FAQ ===================== -->
-  <section class="section faq" id="faq" aria-label="Pertanyaan seputar bata ringan Surabaya">
+  <section class="section faq" id="faq" aria-label="Pertanyaan seputar bata ringan Mojokerto">
     <div class="container">
       <div class="reveal" style="max-width:640px">
         <span class="eyebrow-mark"><span class="bar"></span>FAQ</span>
-        <h2 class="section-title" style="margin-top:14px">Pertanyaan Seputar Bata Ringan Surabaya</h2>
+        <h2 class="section-title" style="margin-top:14px">Pertanyaan Seputar Bata Ringan Mojokerto</h2>
       </div>
 
       <div class="faq-accordion reveal" id="faqAccordion">
         <div class="faq-item">
           <h3 class="faq-q-h"><button type="button" class="faq-trigger" id="faqBtn1" aria-expanded="false" aria-controls="faqPanel1">
-            <span class="faq-q"><svg class="faq-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Berapa harga bata ringan per kubik di Surabaya?</span>
+            <span class="faq-q"><svg class="faq-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Berapa harga bata ringan per kubik di Mojokerto?</span>
             <svg class="faq-chevron" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-chevron"></use></svg>
           </button></h3>
           <div class="faq-panel" id="faqPanel1" role="region" aria-labelledby="faqBtn1" hidden>
-            <p class="faq-a"><span class="faq-harga" data-harga-kalimat hidden>Untuk pengiriman area Surabaya, kisaran harga saat ini <b data-harga="surabaya-bata"></b>. </span>Harga bata ringan per kubik BRICON bervariasi tergantung ketebalan (7,5&ndash;12,5 cm) dan jumlah pesanan. Untuk harga terbaru dan penawaran sesuai volume proyek Anda, chat langsung via WhatsApp &mdash; kami balas cepat dengan rincian harga per kubik dan estimasi ongkos kirim ke lokasi Anda di Surabaya.</p>
+            <p class="faq-a"><span class="faq-harga" data-harga-kalimat hidden>Untuk pengiriman area Mojokerto, kisaran harga saat ini <b data-harga="mojokerto-bata"></b>. </span>Harga bata ringan per kubik BRICON bervariasi tergantung ketebalan (7,5&ndash;12,5 cm) dan jumlah pesanan. Untuk harga terbaru dan penawaran sesuai volume proyek Anda, chat langsung via WhatsApp &mdash; kami balas cepat dengan rincian harga per kubik dan estimasi ongkos kirim ke lokasi Anda di Mojokerto.</p>
           </div>
         </div>
         <div class="faq-item">
           <h3 class="faq-q-h"><button type="button" class="faq-trigger" id="faqBtn2" aria-expanded="false" aria-controls="faqPanel2">
-            <span class="faq-q"><svg class="faq-icon" aria-hidden="true"><use href="#ico-bata"></use></svg><svg class="faq-icon" aria-hidden="true"><use href="#ico-panel"></use></svg>Apakah BRICON kirim bata ringan &amp; panel lantai ke seluruh Surabaya?</span>
+            <span class="faq-q"><svg class="faq-icon" aria-hidden="true"><use href="#ico-bata"></use></svg><svg class="faq-icon" aria-hidden="true"><use href="#ico-panel"></use></svg>Apakah BRICON kirim bata ringan &amp; panel lantai ke seluruh Mojokerto?</span>
             <svg class="faq-chevron" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-chevron"></use></svg>
           </button></h3>
           <div class="faq-panel" id="faqPanel2" role="region" aria-labelledby="faqBtn2" hidden>
-            <p class="faq-a">Ya. Kami rutin mengirim bata ringan dan panel lantai ke berbagai wilayah Surabaya, termasuk area proyek kontraktor dan pengembang perumahan. Stok selalu tersedia sehingga pengiriman bisa diproses cepat begitu pesanan dikonfirmasi.</p>
+            <p class="faq-a">Ya. Kami rutin mengirim bata ringan dan panel lantai ke berbagai wilayah Mojokerto, termasuk area proyek kontraktor dan pengembang perumahan. Stok selalu tersedia sehingga pengiriman bisa diproses cepat begitu pesanan dikonfirmasi.</p>
           </div>
         </div>
         <div class="faq-item">
@@ -1581,7 +1576,7 @@ p{margin:0}
         </div>
         <div class="faq-item">
           <h3 class="faq-q-h"><button type="button" class="faq-trigger" id="faqBtn4" aria-expanded="false" aria-controls="faqPanel4">
-            <span class="faq-q">Berapa minimal order untuk pengiriman ke Surabaya?</span>
+            <span class="faq-q">Berapa minimal order untuk pengiriman ke Mojokerto?</span>
             <svg class="faq-chevron" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-chevron"></use></svg>
           </button></h3>
           <div class="faq-panel" id="faqPanel4" role="region" aria-labelledby="faqBtn4" hidden>
@@ -1600,12 +1595,12 @@ p{margin:0}
       </div>
 
       <p class="faq-more">Pertanyaanmu belum ada di sini?</p>
-      <a class="btn btn-red faq-cta" data-cta="faq" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
+      <a class="btn btn-red faq-cta" data-cta="faq" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Mojokerto." target="_blank" rel="noopener">
         <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
         Tanya Langsung
       </a>
 
-      <p class="area-note reveal">Proyek Anda di luar Surabaya? <a href="/#area">Lihat kabupaten lain yang kami layani&nbsp;&rarr;</a></p>
+      <p class="area-note reveal">Proyek Anda di luar Mojokerto? <a href="/#area">Lihat kabupaten lain yang kami layani&nbsp;&rarr;</a></p>
 
     </div>
   </section>
@@ -1615,8 +1610,8 @@ p{margin:0}
     <div class="container">
       <div class="cta-inner reveal">
         <h2>Siap Memulai Proyek Anda?</h2>
-        <p>Konsultasi gratis, harga terbaik, pengiriman cepat ke seluruh Surabaya.</p>
-        <a class="btn btn-white" data-cta="cta-band" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
+        <p>Konsultasi gratis, harga terbaik, pengiriman cepat ke seluruh Mojokerto.</p>
+        <a class="btn btn-white" data-cta="cta-band" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Mojokerto." target="_blank" rel="noopener">
           <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           Konsultasikan Sekarang!
         </a>
@@ -1630,7 +1625,7 @@ p{margin:0}
       <div class="reveal" style="max-width:640px">
         <span class="eyebrow-mark"><span class="bar"></span>Kontak</span>
         <h2 class="section-title" style="margin-top:14px">Hubungi kami atau kunjungi!</h2>
-        <p class="section-lead">Berbasis di Sidoarjo, melayani pengiriman bata ringan &amp; panel lantai ke seluruh Surabaya. Hubungi atau langsung pesan via WhatsApp.</p>
+        <p class="section-lead">Berbasis di Sidoarjo, melayani pengiriman bata ringan &amp; panel lantai ke seluruh Mojokerto. Hubungi atau langsung pesan via WhatsApp.</p>
       </div>
 
       <div class="loc-grid">
@@ -1660,11 +1655,11 @@ p{margin:0}
             <span class="li-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.07 22h.35c.47-.02.9-.26 1.17-.64l2.14-3.09c.23-.33.32-.74.24-1.14s-.31-.74-.64-.97l-4.64-3.09a1.47 1.47 0 0 0-.83-.25c-.41 0-.81.16-1.1.48l-1.47 1.59c-.69-.43-1.61-1.07-2.36-1.82-.72-.72-1.37-1.64-1.82-2.36l1.59-1.47c.54-.5.64-1.32.23-1.93L7.84 2.67c-.22-.33-.57-.57-.97-.64a1.46 1.46 0 0 0-1.13.24L2.65 4.41c-.39.27-.62.7-.64 1.17-.03.69-.16 6.9 4.68 11.74 4.35 4.35 9.81 4.69 11.38 4.69ZM6.88 10.05c-.16.15-.21.39-.11.59.05.09 1.15 2.24 2.74 3.84 1.6 1.6 3.75 2.7 3.84 2.75.2.1.44.06.59-.11l1.99-2.15 3.86 2.57-1.7 2.46c-1.16 0-6.13-.24-9.99-4.1S4 7.06 4 5.91l2.46-1.7 2.57 3.86-2.15 1.99Z"></path></svg></span>
             <div>
               <div class="li-label">WhatsApp</div>
-              <div class="li-value"><a data-cta="kontak-nomor" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">0851-8402-8183</a></div>
+              <div class="li-value"><a data-cta="kontak-nomor" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Mojokerto." target="_blank" rel="noopener">0851-8402-8183</a></div>
             </div>
           </div>
 
-          <a class="btn btn-red" data-cta="kontak-tombol" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
+          <a class="btn btn-red" data-cta="kontak-tombol" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Mojokerto." target="_blank" rel="noopener">
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
             Konsultasi Yuk!
           </a>
@@ -1720,7 +1715,7 @@ p{margin:0}
 
       <div class="foot-col">
         <h4>Kontak</h4>
-        <a class="wa-line" data-cta="footer" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">0851-8402-8183</a>
+        <a class="wa-line" data-cta="footer" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Mojokerto." target="_blank" rel="noopener">0851-8402-8183</a>
         <p>Sidoarjo, Jawa Timur</p>
       </div>
     </div>
@@ -1733,7 +1728,7 @@ p{margin:0}
   </div>
 </footer>
 
-<a class="wa-float" id="waFloat" data-cta="floating" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener" aria-label="Pesan Sekarang via WhatsApp">
+<a class="wa-float" id="waFloat" data-cta="floating" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Mojokerto." target="_blank" rel="noopener" aria-label="Pesan Sekarang via WhatsApp">
   <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
   Pesan Sekarang!
 </a>
@@ -1743,7 +1738,7 @@ p{margin:0}
   "use strict";
   document.documentElement.classList.add('js');
 
-  var KOTA = window.BRICON_KOTA || 'Surabaya';
+  var KOTA = window.BRICON_KOTA || 'Mojokerto';
 
   document.querySelectorAll('[data-anim]').forEach(function (el) { el.classList.add('is-visible'); });
   document.querySelectorAll('.hero [data-anim]').forEach(function (el) {
@@ -2162,7 +2157,7 @@ p{margin:0}
 
   var SB_REST = 'https://stfvhqexiftkwszihaxf.supabase.co/rest/v1';
   var SB_KEY  = 'sb_publishable_GDUpC76cdnPP4h3QMwbuvw_gsnaCXbr';
-  var SLUG    = window.BRICON_SLUG || 'surabaya';
+  var SLUG    = window.BRICON_SLUG || 'mojokerto';
 
   function ambil(query) {
     if (typeof fetch !== 'function') return Promise.resolve(null);
@@ -2369,7 +2364,7 @@ p{margin:0}
 <!-- ============================================================================
      PANEL TWEAK — alat setel jarak (khusus Reyhan, bukan untuk pengunjung)
      Cara pakai: tambahkan ?tweak=1 di belakang alamat halaman, contoh:
-       https://bata-ringan-bricon.com/kota/surabaya?tweak=1
+       https://bata-ringan-bricon.com/kota/mojokerto?tweak=1
      Tanpa itu panel tidak pernah muncul dan tidak memengaruhi apa pun.
 
      Isinya sekarang cuma jarak. Pengatur lingkaran kuning dan badge
@@ -2385,12 +2380,12 @@ p{margin:0}
 
   var GROUPS = [
     { t: 'Hero mobile — jarak gambar', hint: 'berlaku di lebar ≤1059px', items: [
-      { k: 'hero-space-atas-m',  l: 'Atas',  min: 0, max: 160, st: 2, d: 64 },
-      { k: 'hero-space-bawah-m', l: 'Bawah', min: 0, max: 160, st: 2, d: 32 }
+      { k: 'hero-space-atas-m',  l: 'Atas',  min: 0, max: 160, st: 2, d: 0 },
+      { k: 'hero-space-bawah-m', l: 'Bawah', min: 0, max: 160, st: 2, d: 0 }
     ]},
     { t: 'Desktop — jarak Bata ↔ Panel', hint: 'berlaku di lebar ≥861px', items: [
-      { k: 'gap-materi-atas-d',  l: 'Atas garis',  min: 0, max: 220, st: 2, d: 90 },
-      { k: 'gap-materi-bawah-d', l: 'Bawah garis', min: 0, max: 220, st: 2, d: 90 }
+      { k: 'gap-materi-atas-d',  l: 'Atas garis',  min: 0, max: 220, st: 2, d: 0 },
+      { k: 'gap-materi-bawah-d', l: 'Bawah garis', min: 0, max: 220, st: 2, d: 0 }
     ]}
   ];
 
