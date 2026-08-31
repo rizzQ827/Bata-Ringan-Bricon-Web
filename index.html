@@ -391,9 +391,9 @@ p{margin:0}
   width:max-content;
 }
 .hbadge svg{width:clamp(12px,3.1cqw,16px);height:clamp(12px,3.1cqw,16px);flex:none;opacity:.92}
-.hbadge--stok{top:var(--badge-stok-y-d,23%);left:var(--badge-stok-x-d,3%);transform:none;bottom:auto;right:auto}
-.hbadge--kirim{top:var(--badge-kirim-y-d,82%);left:var(--badge-kirim-x-d,4.5%);bottom:auto;right:auto;transform:none}
-.hbadge--mutu{top:var(--badge-mutu-y-d,49.5%);left:var(--badge-mutu-x-d,71.5%);bottom:auto;right:auto;transform:none}
+.hbadge--stok{top:23%;left:3%;transform:none;bottom:auto;right:auto}
+.hbadge--kirim{top:82%;left:4.5%;bottom:auto;right:auto;transform:none}
+.hbadge--mutu{top:49.5%;left:71.5%;bottom:auto;right:auto;transform:none}
 
 .hbadge .hb-dot{width:7px;height:7px;border-radius:50%;flex:none}
 .hbadge--stok  .hb-dot{background:#4ADE80;box-shadow:0 0 0 3px rgba(74,222,128,.25)}
@@ -1143,11 +1143,24 @@ p{margin:0}
   }
 }
 
-/* Posisi badge hero — bisa disetel lewat panel tweak (?tweak=1). */
-@media (max-width: 1074px) {
-  .hbadge--stok{top:var(--badge-stok-y-t,23%);left:var(--badge-stok-x-t,-5%)}
-  .hbadge--kirim{top:var(--badge-kirim-y-t,74%);left:var(--badge-kirim-x-t,4.5%)}
-  .hbadge--mutu{top:var(--badge-mutu-y-t,40%);left:var(--badge-mutu-x-t,71.5%)}
+/* Posisi badge hero — 4 titik ini SAMA PERSIS dengan titik ganti ukuran
+   gambar hero (.hero-img-wrap max-width, lihat di bawah), supaya badge
+   & gambar selalu ganti ukuran bareng — nggak ada rentang lebar yang
+   "nyasar" pakai nilai badge dari ukuran gambar yang beda. */
+@media (max-width: 1059px) {
+  .hbadge--stok{top:var(--badge-stok-y-1059,23%);left:var(--badge-stok-x-1059,-5%)}
+  .hbadge--kirim{top:var(--badge-kirim-y-1059,74%);left:var(--badge-kirim-x-1059,4.5%)}
+  .hbadge--mutu{top:var(--badge-mutu-y-1059,40%);left:var(--badge-mutu-x-1059,71.5%)}
+}
+@media (max-width: 860px) {
+  .hbadge--stok{top:var(--badge-stok-y-860,23%);left:var(--badge-stok-x-860,-5%)}
+  .hbadge--kirim{top:var(--badge-kirim-y-860,74%);left:var(--badge-kirim-x-860,4.5%)}
+  .hbadge--mutu{top:var(--badge-mutu-y-860,40%);left:var(--badge-mutu-x-860,71.5%)}
+}
+@media (max-width: 560px) {
+  .hbadge--stok{top:var(--badge-stok-y-560,23%);left:var(--badge-stok-x-560,-5%)}
+  .hbadge--kirim{top:var(--badge-kirim-y-560,74%);left:var(--badge-kirim-x-560,4.5%)}
+  .hbadge--mutu{top:var(--badge-mutu-y-560,40%);left:var(--badge-mutu-x-560,71.5%)}
 }
 
 @media (max-width: 639px) {
@@ -1174,9 +1187,9 @@ p{margin:0}
 
 @media (max-width: 364px) {
   /* layar 320px: badge kanan digeser masuk supaya tidak terpotong tepi layar */
-  .hbadge--stok{top:var(--badge-stok-y-s,23%);left:var(--badge-stok-x-s,-2%)}
-  .hbadge--kirim{top:var(--badge-kirim-y-s,74%);left:var(--badge-kirim-x-s,4.5%)}
-  .hbadge--mutu{top:var(--badge-mutu-y-s,40%);left:var(--badge-mutu-x-s,54%)}
+  .hbadge--stok{top:var(--badge-stok-y-364,23%);left:var(--badge-stok-x-364,-2%)}
+  .hbadge--kirim{top:var(--badge-kirim-y-364,74%);left:var(--badge-kirim-x-364,4.5%)}
+  .hbadge--mutu{top:var(--badge-mutu-y-364,40%);left:var(--badge-mutu-x-364,54%)}
   .hero-badge {
     font-size: 9px;
     padding: 4px 8px;
@@ -1310,13 +1323,13 @@ p{margin:0}
    Sengaja ditaruh paling bawah supaya menang atas aturan di atasnya.
    ============================================================ */
 @media (max-width:1059px){
-  .hero-copy{margin-bottom:var(--hero-space-atas-m,0px)}
-  .hero-img{margin-bottom:var(--hero-space-bawah-m,0px)}
+  .hero-copy{margin-bottom:0px}
+  .hero-img{margin-bottom:-80px}
 }
 @media (min-width:861px){
   .materi-grid + .materi-grid{
-    margin-top:var(--gap-materi-atas-d,0px);
-    padding-top:var(--gap-materi-bawah-d,0px);
+    margin-top:22px;
+    padding-top:22px;
   }
 }
 </style>
@@ -2704,37 +2717,37 @@ p{margin:0}
   var STORE = 'bricon-tweak-jarak-v1';
 
   var GROUPS = [
-    { t: 'Hero mobile — jarak gambar', hint: 'berlaku di lebar ≤1059px', items: [
-      { k: 'hero-space-atas-m',  l: 'Atas',  min: 0, max: 160, st: 2, d: 0 },
-      { k: 'hero-space-bawah-m', l: 'Bawah (divider)', min: -80, max: 160, st: 2, d: 0 }
+    { t: 'Badge hero — 861–1059px', hint: 'gambar hero mulai capped 440px', items: [
+      { k: 'badge-stok-x-1059',  l: 'Stok X',  min: -20, max: 110, st: .5, d: -5,   unit: '%' },
+      { k: 'badge-stok-y-1059',  l: 'Stok Y',  min: -20, max: 110, st: .5, d: 23,   unit: '%' },
+      { k: 'badge-kirim-x-1059', l: 'Kirim X', min: -20, max: 110, st: .5, d: 4.5,  unit: '%' },
+      { k: 'badge-kirim-y-1059', l: 'Kirim Y', min: -20, max: 110, st: .5, d: 74,   unit: '%' },
+      { k: 'badge-mutu-x-1059',  l: 'Mutu X',  min: -20, max: 110, st: .5, d: 71.5, unit: '%' },
+      { k: 'badge-mutu-y-1059',  l: 'Mutu Y',  min: -20, max: 110, st: .5, d: 40,   unit: '%' }
     ]},
-    { t: 'Desktop — jarak Bata ↔ Panel', hint: 'berlaku di lebar ≥861px', items: [
-      { k: 'gap-materi-atas-d',  l: 'Atas garis',  min: 0, max: 220, st: 2, d: 0 },
-      { k: 'gap-materi-bawah-d', l: 'Bawah garis', min: 0, max: 220, st: 2, d: 0 }
+    { t: 'Badge hero — 561–860px', hint: 'gambar hero capped 380px', items: [
+      { k: 'badge-stok-x-860',  l: 'Stok X',  min: -20, max: 110, st: .5, d: -5,   unit: '%' },
+      { k: 'badge-stok-y-860',  l: 'Stok Y',  min: -20, max: 110, st: .5, d: 23,   unit: '%' },
+      { k: 'badge-kirim-x-860', l: 'Kirim X', min: -20, max: 110, st: .5, d: 4.5,  unit: '%' },
+      { k: 'badge-kirim-y-860', l: 'Kirim Y', min: -20, max: 110, st: .5, d: 74,   unit: '%' },
+      { k: 'badge-mutu-x-860',  l: 'Mutu X',  min: -20, max: 110, st: .5, d: 71.5, unit: '%' },
+      { k: 'badge-mutu-y-860',  l: 'Mutu Y',  min: -20, max: 110, st: .5, d: 40,   unit: '%' }
     ]},
-    { t: 'Badge hero — Desktop', hint: 'berlaku di lebar >1074px', items: [
-      { k: 'badge-stok-x-d',  l: 'Stok X',  min: -20, max: 110, st: .5, d: 3,    unit: '%' },
-      { k: 'badge-stok-y-d',  l: 'Stok Y',  min: -20, max: 110, st: .5, d: 23,   unit: '%' },
-      { k: 'badge-kirim-x-d', l: 'Kirim X', min: -20, max: 110, st: .5, d: 4.5,  unit: '%' },
-      { k: 'badge-kirim-y-d', l: 'Kirim Y', min: -20, max: 110, st: .5, d: 82,   unit: '%' },
-      { k: 'badge-mutu-x-d',  l: 'Mutu X',  min: -20, max: 110, st: .5, d: 71.5, unit: '%' },
-      { k: 'badge-mutu-y-d',  l: 'Mutu Y',  min: -20, max: 110, st: .5, d: 49.5, unit: '%' }
+    { t: 'Badge hero — 365–560px', hint: 'gambar hero capped 300px', items: [
+      { k: 'badge-stok-x-560',  l: 'Stok X',  min: -20, max: 110, st: .5, d: -5,   unit: '%' },
+      { k: 'badge-stok-y-560',  l: 'Stok Y',  min: -20, max: 110, st: .5, d: 23,   unit: '%' },
+      { k: 'badge-kirim-x-560', l: 'Kirim X', min: -20, max: 110, st: .5, d: 4.5,  unit: '%' },
+      { k: 'badge-kirim-y-560', l: 'Kirim Y', min: -20, max: 110, st: .5, d: 74,   unit: '%' },
+      { k: 'badge-mutu-x-560',  l: 'Mutu X',  min: -20, max: 110, st: .5, d: 71.5, unit: '%' },
+      { k: 'badge-mutu-y-560',  l: 'Mutu Y',  min: -20, max: 110, st: .5, d: 40,   unit: '%' }
     ]},
-    { t: 'Badge hero — Tablet/mobile', hint: 'berlaku di lebar ≤1074px', items: [
-      { k: 'badge-stok-x-t',  l: 'Stok X',  min: -20, max: 110, st: .5, d: -5,   unit: '%' },
-      { k: 'badge-stok-y-t',  l: 'Stok Y',  min: -20, max: 110, st: .5, d: 23,   unit: '%' },
-      { k: 'badge-kirim-x-t', l: 'Kirim X', min: -20, max: 110, st: .5, d: 4.5,  unit: '%' },
-      { k: 'badge-kirim-y-t', l: 'Kirim Y', min: -20, max: 110, st: .5, d: 74,   unit: '%' },
-      { k: 'badge-mutu-x-t',  l: 'Mutu X',  min: -20, max: 110, st: .5, d: 71.5, unit: '%' },
-      { k: 'badge-mutu-y-t',  l: 'Mutu Y',  min: -20, max: 110, st: .5, d: 40,   unit: '%' }
-    ]},
-    { t: 'Badge hero — Layar kecil', hint: 'berlaku di lebar ≤364px', items: [
-      { k: 'badge-stok-x-s',  l: 'Stok X',  min: -20, max: 110, st: .5, d: -2,   unit: '%' },
-      { k: 'badge-stok-y-s',  l: 'Stok Y',  min: -20, max: 110, st: .5, d: 23,   unit: '%' },
-      { k: 'badge-kirim-x-s', l: 'Kirim X', min: -20, max: 110, st: .5, d: 4.5,  unit: '%' },
-      { k: 'badge-kirim-y-s', l: 'Kirim Y', min: -20, max: 110, st: .5, d: 74,   unit: '%' },
-      { k: 'badge-mutu-x-s',  l: 'Mutu X',  min: -20, max: 110, st: .5, d: 54,   unit: '%' },
-      { k: 'badge-mutu-y-s',  l: 'Mutu Y',  min: -20, max: 110, st: .5, d: 40,   unit: '%' }
+    { t: 'Badge hero — 320–364px', hint: 'layar HP paling kecil', items: [
+      { k: 'badge-stok-x-364',  l: 'Stok X',  min: -20, max: 110, st: .5, d: -2,   unit: '%' },
+      { k: 'badge-stok-y-364',  l: 'Stok Y',  min: -20, max: 110, st: .5, d: 23,   unit: '%' },
+      { k: 'badge-kirim-x-364', l: 'Kirim X', min: -20, max: 110, st: .5, d: 4.5,  unit: '%' },
+      { k: 'badge-kirim-y-364', l: 'Kirim Y', min: -20, max: 110, st: .5, d: 74,   unit: '%' },
+      { k: 'badge-mutu-x-364',  l: 'Mutu X',  min: -20, max: 110, st: .5, d: 54,   unit: '%' },
+      { k: 'badge-mutu-y-364',  l: 'Mutu Y',  min: -20, max: 110, st: .5, d: 40,   unit: '%' }
     ]}
   ];
 
