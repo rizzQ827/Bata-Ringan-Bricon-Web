@@ -392,8 +392,10 @@ p{margin:0}
 .hero-copy{container-type:inline-size}
 
 .hero-badge{
-  display:inline-flex;align-items:center;gap:8px;color:#fff;font-weight:600;
+  display:inline-flex;align-items:center;gap:10px;color:#fff;font-weight:600;
   font-size:13px;letter-spacing:.005em;margin-bottom:18px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
+  padding:8px 14px;border-radius:var(--r-pill);white-space:nowrap;max-width:100%;
 }
 .hero-badge .dot{
   width:8px;height:8px;border-radius:50%;background:#F5C518;flex-shrink:0;
@@ -427,13 +429,13 @@ p{margin:0}
 @keyframes hlSweep{to{transform:skewX(-14deg) scaleX(1)}}
 .hero .lead{margin-top:20px;font-size:clamp(.785rem,2.064vw,1.335rem);color:var(--on-dark-soft);max-width:46ch;line-height:1.55}
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
-.hero-trust{margin-top:22px;font-size:.86rem;color:var(--on-dark-mute);display:inline-flex;align-items:center;gap:9px;max-width:100%}
-.hero-trust svg{width:17px;height:17px;color:var(--yellow);flex:none}
-.hero-trust-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.hero-trust{margin-top:18px;font-size:.86rem;color:var(--on-dark-mute);display:inline-flex;align-items:center;gap:.55em;max-width:100%;white-space:nowrap}
+.hero-trust svg{width:1.05em;height:1.05em;color:var(--yellow);flex:none}
+.hero-trust-text{white-space:nowrap}
 
 .hero-img-wrap{
   position:relative;
-  display:flex;align-items:center;justify-content:center;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
   max-width:520px;
   width:100%;
   margin-inline:auto;
@@ -1125,43 +1127,32 @@ p{margin:0}
 .plate-sep{height:1px;background:rgba(255,255,255,.14);margin:15px 0 14px}
 
 .faq{background:var(--surface-warm);border-top:1px solid var(--line)}
-.faq-split{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,72px);align-items:start;margin-top:0}
 
-/* Panel kiri ikut menempel saat daftar di kanan di-scroll, jadi tombol WA
-   selalu ada di layar selama pengunjung membaca jawaban. */
-.faq-aside{position:sticky;top:calc(var(--nav-h) + 24px)}
-.faq-aside .section-title{max-width:15ch}
-.faq-ask{
-  position:relative;overflow:hidden;margin-top:26px;padding:20px;
-  background:var(--ink);border-radius:var(--r-lg);
+.faq-accordion{margin-top:clamp(24px,3vw,32px);max-width:760px;border-top:1px solid var(--line-strong)}
+.faq-item{border-bottom:1px solid var(--line-strong)}
+.faq-q-h{margin:0}
+.faq-trigger{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;
+  padding:18px 4px;background:none;border:none;cursor:pointer;text-align:left;
 }
-.faq-ask::before{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
-  background-size:24px 24px;
-}
-.faq-ask > *{position:relative}
-.faq-ask-t{color:#fff;font-weight:700;font-size:1.02rem;line-height:1.35;letter-spacing:-.01em}
-.faq-ask-s{margin-top:8px;font-size:.86rem;line-height:1.55;color:var(--on-dark-mute)}
-.faq-ask .btn{margin-top:16px;width:100%}
-
-.faq-nums{list-style:none;margin:0;padding:0}
-.faq-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;padding:22px 0;border-top:1px solid var(--line-strong)}
-.faq-row:first-child{border-top:none;padding-top:0}
-.faq-row:last-child{padding-bottom:0}
-.faq-n{font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.08em;color:var(--red);padding-top:4px}
-.faq-q{font-size:1.04rem;font-weight:700;line-height:1.35;letter-spacing:-.01em;color:var(--ink)}
-.faq-a{margin-top:9px;color:var(--muted);font-size:.95rem;line-height:1.65}
+.faq-trigger .faq-q{font-size:1.02rem;font-weight:700;line-height:1.35;letter-spacing:-.01em;color:var(--ink)}
+.faq-chevron{flex:none;width:20px;height:20px;color:var(--muted);transition:transform .22s var(--ease-out)}
+.faq-trigger[aria-expanded="true"] .faq-chevron{transform:rotate(180deg);color:var(--red)}
+.faq-trigger:hover .faq-q{color:var(--red)}
+.faq-panel{overflow:hidden}
+.faq-panel[hidden]{display:none}
+.faq-a{padding:0 4px 18px;color:var(--muted);font-size:.95rem;line-height:1.65}
 .faq-harga b{font-family:var(--mono);letter-spacing:-.02em;color:var(--ink)}
 
+.faq-cta{margin-top:24px}
+
 @media (max-width:900px){
-  .faq-split{grid-template-columns:minmax(0,1fr);gap:30px}
-  .faq-aside{position:static}
-  .faq-ask{margin-top:22px}
-  .faq-row{gap:12px;padding:18px 0}
-  .faq-n{font-size:.66rem}
-  .faq-q{font-size:.98rem}
-  .faq-a{font-size:.9rem}
+  .faq-trigger{padding:16px 2px}
+  .faq-trigger .faq-q{font-size:.98rem}
+  .faq-a{font-size:.9rem;padding:0 2px 16px}
+}
+@media (max-width:560px){
+  .faq-cta{width:100%}
 }
 .area-note{margin-top:24px;font-size:.95rem;color:var(--muted);max-width:60ch}
 .area-note a{color:var(--red);font-weight:700;border-bottom:1.5px solid rgba(212,43,43,.32)}
@@ -1237,6 +1228,7 @@ p{margin:0}
   <symbol id="ico-box" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4 7.5 4.2"></path><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></g></symbol>
   <symbol id="ico-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5-5.5 10.2-7.4 11.8a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></g></symbol>
   <symbol id="ico-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"></path></symbol>
+  <symbol id="ico-chevron" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"></path></symbol>
 </svg>
 
 <!-- ===================== NAVBAR ===================== -->
@@ -1301,10 +1293,6 @@ p{margin:0}
             </a>
             <a class="btn btn-outline-on-dark" href="#produk">Lihat Produk</a>
           </div>
-          <p class="hero-trust" data-anim="5">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>
-            <span class="hero-trust-text">Melayani kontraktor, tukang &amp; owner proyek se-Surabaya &middot; Min. order 1 truk (11,52 m&sup3;)</span>
-          </p>
         </div>
 
         <div class="hero-visual hero-img-wrap" data-anim="4">
@@ -1323,6 +1311,10 @@ p{margin:0}
             Kualitas SNI
           </span>
           </div>
+          <p class="hero-trust" data-anim="5">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>
+            <span class="hero-trust-text">Melayani kontraktor, tukang &amp; owner proyek se-Surabaya &middot; Min. order 1 truk (11,52 m&sup3;)</span>
+          </p>
         </div>
       </div>
     </div>
@@ -1532,63 +1524,66 @@ p{margin:0}
   <!-- ===================== FAQ ===================== -->
   <section class="section faq" id="faq" aria-label="Pertanyaan seputar bata ringan Surabaya">
     <div class="container">
-      <div class="faq-split">
-        <aside class="faq-aside reveal">
-          <span class="eyebrow-mark"><span class="bar"></span>FAQ</span>
-          <h2 class="section-title" style="margin-top:14px">Pertanyaan Seputar Bata Ringan Surabaya</h2>
-          <p class="section-lead">Beberapa hal yang sering ditanyakan kontraktor &amp; owner proyek di Surabaya sebelum order.</p>
-
-          <div class="faq-ask">
-            <p class="faq-ask-t">Pertanyaanmu belum ada di sini?</p>
-            <p class="faq-ask-s">Kirim ukuran atau luas bangunannya &mdash; kami hitungkan kebutuhan materialnya dan kirim rincian harga ke lokasi proyek Anda.</p>
-            <a class="btn btn-red" data-cta="faq" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
-              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
-              Tanya Langsung
-            </a>
-          </div>
-        </aside>
-
-        <ol class="faq-nums reveal">
-          <li class="faq-row">
-            <span class="faq-n">01</span>
-            <div>
-              <h3 class="faq-q">Berapa harga bata ringan per kubik di Surabaya?</h3>
-              <p class="faq-a"><span class="faq-harga" data-harga-kalimat hidden>Untuk pengiriman area Surabaya, kisaran harga saat ini <b data-harga="surabaya-bata"></b>. </span>Harga bata ringan per kubik BRICON bervariasi tergantung ketebalan (7,5&ndash;12,5 cm) dan jumlah pesanan. Untuk harga terbaru dan penawaran sesuai volume proyek Anda, chat langsung via WhatsApp &mdash; kami balas cepat dengan rincian harga per kubik dan estimasi ongkos kirim ke lokasi Anda di Surabaya.</p>
-            </div>
-          </li>
-          <li class="faq-row">
-            <span class="faq-n">02</span>
-            <div>
-              <h3 class="faq-q">Apakah BRICON kirim bata ringan &amp; panel lantai ke seluruh Surabaya?</h3>
-              <p class="faq-a">Ya. Kami rutin mengirim bata ringan dan panel lantai ke berbagai wilayah Surabaya, termasuk area proyek kontraktor dan pengembang perumahan. Stok selalu tersedia sehingga pengiriman bisa diproses cepat begitu pesanan dikonfirmasi.</p>
-            </div>
-          </li>
-          <li class="faq-row">
-            <span class="faq-n">03</span>
-            <div>
-              <h3 class="faq-q">Apa beda bata ringan BRICON dengan bata ringan merek lain?</h3>
-              <p class="faq-a">BRICON menggunakan teknologi Microbubble yang menghasilkan pori-pori lebih presisi dan seragam dibanding bata ringan konvensional &mdash; hasilnya kombinasi kuat, ringan, kedap suara, dan tahan api dalam satu produk, dengan kualitas sesuai standar SNI.</p>
-            </div>
-          </li>
-          <li class="faq-row">
-            <span class="faq-n">04</span>
-            <div>
-              <h3 class="faq-q">Berapa minimal order untuk pengiriman ke Surabaya?</h3>
-              <p class="faq-a">Minimal order tergantung jarak dan skema pengiriman. Untuk pembelian 1 truk (11,52 m&sup3;) bata ringan, Anda juga mendapat gratis 8 sak Maju Mortar. Tanyakan langsung via WhatsApp untuk skema order yang sesuai kebutuhan proyek Anda.</p>
-            </div>
-          </li>
-          <li class="faq-row">
-            <span class="faq-n">05</span>
-            <div>
-              <h3 class="faq-q">Apakah bisa konsultasi kebutuhan material sebelum order?</h3>
-              <p class="faq-a">Bisa. Kami menyediakan konsultasi gratis untuk menghitung kebutuhan bata ringan atau panel lantai sesuai luas dan desain bangunan Anda, termasuk survey lapangan gratis khusus untuk pemasangan panel lantai.</p>
-            </div>
-          </li>
-        </ol>
+      <div class="reveal" style="max-width:640px">
+        <span class="eyebrow-mark"><span class="bar"></span>FAQ</span>
+        <h2 class="section-title" style="margin-top:14px">Pertanyaan Seputar Bata Ringan Surabaya</h2>
       </div>
 
+      <div class="faq-accordion reveal" id="faqAccordion">
+        <div class="faq-item">
+          <h3 class="faq-q-h"><button type="button" class="faq-trigger" id="faqBtn1" aria-expanded="false" aria-controls="faqPanel1">
+            <span class="faq-q">Berapa harga bata ringan per kubik di Surabaya?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-chevron"></use></svg>
+          </button></h3>
+          <div class="faq-panel" id="faqPanel1" role="region" aria-labelledby="faqBtn1" hidden>
+            <p class="faq-a"><span class="faq-harga" data-harga-kalimat hidden>Untuk pengiriman area Surabaya, kisaran harga saat ini <b data-harga="surabaya-bata"></b>. </span>Harga bata ringan per kubik BRICON bervariasi tergantung ketebalan (7,5&ndash;12,5 cm) dan jumlah pesanan. Untuk harga terbaru dan penawaran sesuai volume proyek Anda, chat langsung via WhatsApp &mdash; kami balas cepat dengan rincian harga per kubik dan estimasi ongkos kirim ke lokasi Anda di Surabaya.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q-h"><button type="button" class="faq-trigger" id="faqBtn2" aria-expanded="false" aria-controls="faqPanel2">
+            <span class="faq-q">Apakah BRICON kirim bata ringan &amp; panel lantai ke seluruh Surabaya?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-chevron"></use></svg>
+          </button></h3>
+          <div class="faq-panel" id="faqPanel2" role="region" aria-labelledby="faqBtn2" hidden>
+            <p class="faq-a">Ya. Kami rutin mengirim bata ringan dan panel lantai ke berbagai wilayah Surabaya, termasuk area proyek kontraktor dan pengembang perumahan. Stok selalu tersedia sehingga pengiriman bisa diproses cepat begitu pesanan dikonfirmasi.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q-h"><button type="button" class="faq-trigger" id="faqBtn3" aria-expanded="false" aria-controls="faqPanel3">
+            <span class="faq-q">Apa beda bata ringan BRICON dengan bata ringan merek lain?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-chevron"></use></svg>
+          </button></h3>
+          <div class="faq-panel" id="faqPanel3" role="region" aria-labelledby="faqBtn3" hidden>
+            <p class="faq-a">BRICON menggunakan teknologi Microbubble yang menghasilkan pori-pori lebih presisi dan seragam dibanding bata ringan konvensional &mdash; hasilnya kombinasi kuat, ringan, kedap suara, dan tahan api dalam satu produk, dengan kualitas sesuai standar SNI.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q-h"><button type="button" class="faq-trigger" id="faqBtn4" aria-expanded="false" aria-controls="faqPanel4">
+            <span class="faq-q">Berapa minimal order untuk pengiriman ke Surabaya?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-chevron"></use></svg>
+          </button></h3>
+          <div class="faq-panel" id="faqPanel4" role="region" aria-labelledby="faqBtn4" hidden>
+            <p class="faq-a">Minimal order tergantung jarak dan skema pengiriman. Untuk pembelian 1 truk (11,52 m&sup3;) bata ringan, Anda juga mendapat gratis 8 sak Maju Mortar. Tanyakan langsung via WhatsApp untuk skema order yang sesuai kebutuhan proyek Anda.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q-h"><button type="button" class="faq-trigger" id="faqBtn5" aria-expanded="false" aria-controls="faqPanel5">
+            <span class="faq-q">Apakah bisa konsultasi kebutuhan material sebelum order?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-chevron"></use></svg>
+          </button></h3>
+          <div class="faq-panel" id="faqPanel5" role="region" aria-labelledby="faqBtn5" hidden>
+            <p class="faq-a">Bisa. Kami menyediakan konsultasi gratis untuk menghitung kebutuhan bata ringan atau panel lantai sesuai luas dan desain bangunan Anda, termasuk survey lapangan gratis khusus untuk pemasangan panel lantai.</p>
+          </div>
+        </div>
+      </div>
+
+      <a class="btn btn-red faq-cta" data-cta="faq" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
+        <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+        Pertanyaanmu belum ada di sini? Tanya Langsung
+      </a>
+
       <p class="area-note reveal">Proyek Anda di luar Surabaya? <a href="/#area">Lihat kabupaten lain yang kami layani&nbsp;&rarr;</a></p>
-    
+
     </div>
   </section>
 
@@ -1778,9 +1773,51 @@ p{margin:0}
   window.addEventListener('load', fitHeroH1);
   if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fitHeroH1); }
   var fitTimer = null;
+
+  /* ===================== HERO TRUST-LINE AUTO-FIT (selalu 1 baris, tidak pernah "...") ===================== */
+  var heroTrust = document.querySelector('.hero-trust');
+  function fitHeroTrust() {
+    if (!heroTrust) return;
+    var containerWidth = heroTrust.parentElement.getBoundingClientRect().width;
+    if (containerWidth <= 0) return;
+
+    var minFS = 5;
+    var maxFS = 16;
+
+    heroTrust.style.fontSize = maxFS + 'px';
+    var naturalWidth = heroTrust.scrollWidth;
+    if (naturalWidth <= 0) { heroTrust.style.fontSize = ''; return; }
+
+    var targetFS = Math.floor(maxFS * (containerWidth / naturalWidth));
+    targetFS = Math.max(minFS, Math.min(maxFS, targetFS));
+    heroTrust.style.fontSize = targetFS + 'px';
+
+    var guard = 0;
+    while (heroTrust.scrollWidth > containerWidth + 0.5 && targetFS > minFS && guard < 60) {
+      targetFS -= 1;
+      heroTrust.style.fontSize = targetFS + 'px';
+      guard++;
+    }
+    guard = 0;
+    while (targetFS < maxFS && guard < 60) {
+      var nextFS = targetFS + 1;
+      heroTrust.style.fontSize = nextFS + 'px';
+      if (heroTrust.scrollWidth > containerWidth + 0.5) {
+        heroTrust.style.fontSize = targetFS + 'px';
+        break;
+      }
+      targetFS = nextFS;
+      guard++;
+    }
+  }
+
+  fitHeroTrust();
+  window.addEventListener('load', fitHeroTrust);
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fitHeroTrust); }
+
   window.addEventListener('resize', function () {
     clearTimeout(fitTimer);
-    fitTimer = setTimeout(fitHeroH1, 100);
+    fitTimer = setTimeout(function () { fitHeroH1(); fitHeroTrust(); }, 100);
   }, { passive: true });
 
   var nav = document.getElementById('nav');
@@ -2063,6 +2100,20 @@ p{margin:0}
       setActiveHref('#top');
     });
   });
+
+  /* ===================== FAQ — accordion ===================== */
+  (function () {
+    var acc = document.getElementById('faqAccordion');
+    if (!acc) return;
+    acc.querySelectorAll('.faq-trigger').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var buka = btn.getAttribute('aria-expanded') === 'true';
+        var panel = document.getElementById(btn.getAttribute('aria-controls'));
+        btn.setAttribute('aria-expanded', buka ? 'false' : 'true');
+        if (panel) panel.hidden = buka;
+      });
+    });
+  })();
 })();
 </script>
 
