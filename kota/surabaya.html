@@ -621,24 +621,29 @@ p{margin:0}
 .dimrow .dv{display:block;margin-top:5px;font-family:var(--mono);font-size:clamp(.98rem,2.5vw,1.18rem);font-weight:700;color:#fff;white-space:nowrap;letter-spacing:-.02em}
 .dimrow .dv u{text-decoration:none;font-size:.62em;color:rgba(255,255,255,.5)}
 .dimrow .dv--range{font-size:clamp(.84rem,2.1vw,1rem)}
+/* Dimensi jadi satu angka hero — segmen yang berubah (tebal/bentang) disorot kuning,
+   tanda "×" dilemahkan supaya ritme visualnya tidak riuh. Sama persis dengan beranda. */
+.hero-dim{margin-top:14px;font-family:var(--mono);font-weight:700;font-size:clamp(1.5rem,4.4vw,2.05rem);letter-spacing:-.01em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero-dim .hd-x{color:rgba(255,255,255,.32);font-weight:600;margin:0 .12em}
+.hero-dim .hd-var{color:var(--yellow)}
+.hero-dim u{text-decoration:none;font-size:.46em;font-weight:600;color:rgba(255,255,255,.48);margin-left:3px}
 
 .calc{margin-top:12px;padding:13px 14px 15px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg)}
 .pick-label{display:block;font-family:var(--mono);font-size:.56rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)}
-.pick{display:flex;gap:7px;margin-top:8px}
+.pick{display:flex;gap:8px;margin-top:8px}
 .pick button{
   flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
-  height:46px;border-radius:9px;border:1px solid var(--line-strong);background:var(--surface);
+  height:54px;border-radius:9px;border:1px solid var(--line-strong);background:var(--surface);
   font-family:var(--mono);cursor:pointer;
   transition:background .18s var(--ease-out),border-color .18s var(--ease-out),color .18s var(--ease-out);
 }
-.pick button .pb{font-size:.82rem;font-weight:700;white-space:nowrap;color:var(--ink)}
-.pick button .ps{font-size:.53rem;letter-spacing:.08em;white-space:nowrap;color:var(--muted2)}
+.pick button .pb{font-size:.9rem;font-weight:700;white-space:nowrap;color:var(--ink)}
+.pick button .ps{font-size:.58rem;letter-spacing:.08em;white-space:nowrap;color:var(--muted2)}
 .pick button:hover{border-color:var(--ink);background:var(--track)}
 .pick button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink)}
 .pick button[aria-pressed="true"] .pb{color:#fff}
 .pick button[aria-pressed="true"] .ps{color:var(--yellow)}
 
-.calc-dim{margin-top:11px;font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.02em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .calc-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:11px;padding-top:11px;border-top:1px dashed var(--line-strong)}
 .calc-out > div{min-width:0}
 .calc-out .sk{display:block;font-family:var(--mono);font-size:.53rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);white-space:nowrap}
@@ -1028,8 +1033,8 @@ p{margin:0}
 
 .testi{background:var(--bg)}
 .testi-feature{
-  position:relative;display:flex;flex-direction:column;gap:14px;
-  padding:clamp(22px,3vw,28px);background:var(--ink);border-radius:18px;overflow:hidden;
+  position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:14px;
+  padding:clamp(24px,3.2vw,32px);background:var(--ink);border-radius:18px;overflow:hidden;
   margin-top:clamp(30px,4vw,46px);
 }
 .testi-feature::before{
@@ -1038,34 +1043,49 @@ p{margin:0}
   background-size:24px 24px;
 }
 .testi-feature > *{position:relative}
+.tq-mark{flex:none;width:30px;height:30px;color:var(--yellow);opacity:.85}
 .testi-feature blockquote{margin:0;font-size:clamp(1.02rem,2vw,1.18rem);line-height:1.55;font-weight:600;letter-spacing:-.01em;color:#fff;text-wrap:pretty}
-.testi-feature footer{display:flex;align-items:center;gap:11px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14)}
-.tf-avatar{flex:none;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;background:var(--yellow);color:var(--ink);font-family:var(--mono);font-size:13px;font-weight:700}
-.tf-name{margin:0;font-size:.95rem;font-weight:700;color:#fff}
-.tf-loc{display:inline-flex;align-items:center;gap:5px;margin-top:2px;font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.testi-feature footer{display:flex;align-items:center;gap:12px;width:100%;padding-top:16px;border-top:1px solid rgba(255,255,255,.14)}
+.tf-avatar{flex:none;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);color:var(--yellow)}
+.tf-avatar svg{width:19px;height:19px}
+.tf-id{min-width:0}
+.tf-name{margin:0;font-size:.95rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tf-loc{display:inline-flex;align-items:center;gap:5px;margin-top:2px;font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 .tf-loc svg{flex:none;width:10px;height:10px;color:var(--yellow)}
-.tf-prod{margin-left:auto;font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap}
+.tf-prod{margin-left:auto;flex:none;font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.68);white-space:nowrap;padding:5px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06)}
 
 .testi-strip{display:flex;gap:10px;margin-top:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
 .testi-strip::-webkit-scrollbar{display:none}
-.ts-card{flex:0 0 82%;scroll-snap-align:start;display:flex;gap:10px;padding:13px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md)}
-.ts-avatar{flex:none;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:var(--track);color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:700}
-.ts-body{min-width:0}
-.ts-head{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.ts-name{margin:0;font-size:.85rem;font-weight:700;color:var(--ink)}
-.ts-loc{display:inline-flex;align-items:center;gap:4px;margin-top:2px;font-family:var(--mono);font-size:.56rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ts-card{flex:0 0 82%;scroll-snap-align:start;display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md)}
+.ts-mark{flex:none;width:20px;height:20px;color:var(--red);opacity:.5}
+.ts-quote{margin:0;font-size:.83rem;line-height:1.6;color:var(--text)}
+.ts-foot{display:flex;align-items:center;gap:9px;width:100%;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
+.ts-avatar{flex:none;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:var(--track);color:var(--muted)}
+.ts-avatar svg{width:16px;height:16px}
+.ts-id{flex:1 1 auto;min-width:0}
+.ts-name{margin:0;font-size:.85rem;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ts-loc{display:flex;align-items:center;gap:4px;margin-top:2px;font-family:var(--mono);font-size:.54rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ts-loc svg{flex:none;width:9px;height:9px;color:var(--red)}
-.ts-quote{margin:6px 0 0;font-size:.8rem;line-height:1.55;color:var(--muted)}
+.ts-prod{margin-left:auto;flex:none;font-family:var(--mono);font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:var(--bg)}
 
 @media (min-width:720px){
-  .testi-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));overflow:visible;padding:0}
+  .testi-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));overflow:visible;padding:0}
   .ts-card{flex:auto}
+}
+/* Layar sempit: label produk turun jadi baris sendiri (bukan disembunyikan),
+   digeser sejajar kolom nama supaya tetap terbaca sebagai satu kesatuan. */
+@media (max-width:400px){
+  .testi-feature footer{flex-wrap:wrap}
+  .tf-prod{margin-left:50px;margin-top:10px}
+  .ts-foot{flex-wrap:wrap}
+  .ts-prod{margin-left:41px;margin-top:9px}
 }
 
 .bintang{display:inline-flex;gap:2px;flex:none}
 .bintang .b{position:relative;line-height:0;color:#E2E5EA}
 .bintang .b .isi{position:absolute;inset:0;overflow:hidden;color:var(--yellow);line-height:0}
 .bintang svg{width:11px;height:11px;display:block}
+.ts-card .bintang svg{width:13px;height:13px}
 .testi-feature .bintang svg{width:18px;height:18px}
 .testi-feature .bintang .b{color:rgba(255,255,255,.22)}
 
@@ -1101,22 +1121,48 @@ p{margin:0}
 .hprice .hp-pm{font-size:1.2rem;color:var(--yellow)}
 .hprice .hp-num{font-size:clamp(1.3rem,3.2vw,1.6rem);letter-spacing:-.02em;color:var(--yellow)}
 .hprice .hp-unit{font-size:.78rem;color:rgba(255,255,255,.55)}
-.hprice .hp-ask{font-size:.98rem;font-weight:700;letter-spacing:-.01em;color:var(--yellow)}
 
 .plate-sep{height:1px;background:rgba(255,255,255,.14);margin:15px 0 14px}
 
 .faq{background:var(--surface-warm);border-top:1px solid var(--line)}
-.faq-list{margin-top:clamp(28px,3.5vw,40px);display:flex;flex-direction:column;gap:12px;max-width:760px}
-.faq-item{border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface);overflow:hidden}
-.faq-item summary{
-  list-style:none;cursor:pointer;padding:18px 20px;font-weight:700;color:var(--ink);
-  display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:1rem;
+.faq-split{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,72px);align-items:start;margin-top:0}
+
+/* Panel kiri ikut menempel saat daftar di kanan di-scroll, jadi tombol WA
+   selalu ada di layar selama pengunjung membaca jawaban. */
+.faq-aside{position:sticky;top:calc(var(--nav-h) + 24px)}
+.faq-aside .section-title{max-width:15ch}
+.faq-ask{
+  position:relative;overflow:hidden;margin-top:26px;padding:20px;
+  background:var(--ink);border-radius:var(--r-lg);
 }
-.faq-item summary::-webkit-details-marker{display:none}
-.faq-item summary .faq-plus{flex:none;width:22px;height:22px;display:flex;align-items:center;justify-content:center;color:var(--red);transition:transform .22s var(--ease-out)}
-.faq-item[open] summary .faq-plus{transform:rotate(45deg)}
-.faq-item .faq-a{padding:0 20px 18px;color:var(--muted);font-size:.95rem;line-height:1.6}
+.faq-ask::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:24px 24px;
+}
+.faq-ask > *{position:relative}
+.faq-ask-t{color:#fff;font-weight:700;font-size:1.02rem;line-height:1.35;letter-spacing:-.01em}
+.faq-ask-s{margin-top:8px;font-size:.86rem;line-height:1.55;color:var(--on-dark-mute)}
+.faq-ask .btn{margin-top:16px;width:100%}
+
+.faq-nums{list-style:none;margin:0;padding:0}
+.faq-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;padding:22px 0;border-top:1px solid var(--line-strong)}
+.faq-row:first-child{border-top:none;padding-top:0}
+.faq-row:last-child{padding-bottom:0}
+.faq-n{font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.08em;color:var(--red);padding-top:4px}
+.faq-q{font-size:1.04rem;font-weight:700;line-height:1.35;letter-spacing:-.01em;color:var(--ink)}
+.faq-a{margin-top:9px;color:var(--muted);font-size:.95rem;line-height:1.65}
 .faq-harga b{font-family:var(--mono);letter-spacing:-.02em;color:var(--ink)}
+
+@media (max-width:900px){
+  .faq-split{grid-template-columns:minmax(0,1fr);gap:30px}
+  .faq-aside{position:static}
+  .faq-ask{margin-top:22px}
+  .faq-row{gap:12px;padding:18px 0}
+  .faq-n{font-size:.66rem}
+  .faq-q{font-size:.98rem}
+  .faq-a{font-size:.9rem}
+}
 .area-note{margin-top:24px;font-size:.95rem;color:var(--muted);max-width:60ch}
 .area-note a{color:var(--red);font-weight:700;border-bottom:1.5px solid rgba(212,43,43,.32)}
 .area-note a:hover{border-bottom-color:var(--red)}
@@ -1191,7 +1237,6 @@ p{margin:0}
   <symbol id="ico-box" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4 7.5 4.2"></path><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></g></symbol>
   <symbol id="ico-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5-5.5 10.2-7.4 11.8a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></g></symbol>
   <symbol id="ico-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"></path></symbol>
-  <symbol id="ico-plus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14"></path></symbol>
 </svg>
 
 <!-- ===================== NAVBAR ===================== -->
@@ -1342,8 +1387,8 @@ p{margin:0}
     <div class="container">
       <div class="reveal" style="max-width:640px">
         <span class="eyebrow-mark"><span class="bar"></span>Produk</span>
-        <h2 class="section-title" style="margin-top:14px">Harga &amp; spesifikasi</h2>
-        <p class="section-lead">Dua produk, satu standar mutu. Angka harga di bawah adalah perkiraan untuk pengiriman area Surabaya — pilih ukurannya, berat dan kebutuhan per luas dihitung otomatis.</p>
+        <h2 class="section-title" style="margin-top:14px"><span data-judul-harga>Ukuran</span> &amp; spesifikasi</h2>
+        <p class="section-lead">Dua produk, satu standar mutu. Pilih ukurannya — berat, isi per m&sup3;, dan kebutuhan per luas dihitung otomatis.<span data-lead-harga hidden> Angka harga di kartu adalah perkiraan untuk pengiriman area Surabaya.</span></p>
       </div>
 
       <div class="pcards">
@@ -1365,34 +1410,33 @@ p{margin:0}
           <div class="plate-wrap">
             <div class="plate-tip" hidden>Harga dipengaruhi ketebalan (7,5–12,5 cm), volume order, medan pengiriman, dan jarak ke titik bongkar.</div>
             <div class="plate dimplate">
-              <div class="plate-head">
-                <span class="plate-label"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-tag"></use></svg>Harga di Surabaya</span>
-                <button class="plate-info" type="button" aria-label="Apa saja yang memengaruhi harga">i</button>
+              <!-- Baris harga hanya muncul kalau angkanya sudah tayang di database.
+                   Selama belum ada, kartu tampil persis seperti di beranda:
+                   plat gelap isinya cuma Dimensi. -->
+              <div class="hblok" data-harga-blok="bata" hidden>
+                <div class="plate-head">
+                  <span class="plate-label"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-tag"></use></svg>Harga di Surabaya</span>
+                  <button class="plate-info" type="button" aria-label="Apa saja yang memengaruhi harga">i</button>
+                </div>
+                <span class="hprice" data-harga-kartu="bata"></span>
+                <div class="plate-sep" aria-hidden="true"></div>
               </div>
-              <span class="hprice" data-harga-kartu="bata"><span class="hp-ask">Tanya via WhatsApp</span></span>
-
-              <div class="plate-sep" aria-hidden="true"></div>
 
               <span class="plate-label"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-ruler"></use></svg>Dimensi</span>
-              <div class="dimrow">
-                <div><span class="dk">Panjang</span><span class="dv">600<u> mm</u></span></div>
-                <div><span class="dk">Tinggi</span><span class="dv">200<u> mm</u></span></div>
-                <div><span class="dk">Tebal</span><span class="dv dv--range">75&ndash;125<u> mm</u></span></div>
-              </div>
+              <div class="hero-dim" data-hero-dim></div>
             </div>
           </div>
 
           <div class="calc">
             <span class="pick-label">Pilih ketebalan</span>
             <div class="pick"></div>
-            <div class="calc-dim"></div>
             <div class="calc-out"></div>
           </div>
 
           <span class="pcard-spacer" aria-hidden="true"></span>
 
-          <a class="pcard-cta" data-cta="kartu-bata" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20minta%20penawaran%20Bata%20Ringan%20BRICON%20tebal%2010%20cm%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
-            <svg aria-hidden="true"><use href="#ico-wa"></use></svg><span class="cta-label">Minta Penawaran Resmi</span>
+          <a class="pcard-cta" data-cta="kartu-bata" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20Bata%20Ringan%20BRICON%20tebal%2010%20cm%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg><span class="cta-label">Tanya Harga Sekarang!</span>
           </a>
         </div>
       </article>
@@ -1415,34 +1459,33 @@ p{margin:0}
           <div class="plate-wrap">
             <div class="plate-tip" hidden>Harga dipengaruhi bentang panel, volume order, medan pengiriman, dan jarak ke titik bongkar.</div>
             <div class="plate dimplate">
-              <div class="plate-head">
-                <span class="plate-label"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-tag"></use></svg>Harga di Surabaya</span>
-                <button class="plate-info" type="button" aria-label="Apa saja yang memengaruhi harga">i</button>
+              <!-- Baris harga hanya muncul kalau angkanya sudah tayang di database.
+                   Selama belum ada, kartu tampil persis seperti di beranda:
+                   plat gelap isinya cuma Dimensi. -->
+              <div class="hblok" data-harga-blok="panel" hidden>
+                <div class="plate-head">
+                  <span class="plate-label"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-tag"></use></svg>Harga di Surabaya</span>
+                  <button class="plate-info" type="button" aria-label="Apa saja yang memengaruhi harga">i</button>
+                </div>
+                <span class="hprice" data-harga-kartu="panel"></span>
+                <div class="plate-sep" aria-hidden="true"></div>
               </div>
-              <span class="hprice" data-harga-kartu="panel"><span class="hp-ask">Tanya via WhatsApp</span></span>
-
-              <div class="plate-sep" aria-hidden="true"></div>
 
               <span class="plate-label"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-ruler"></use></svg>Dimensi</span>
-              <div class="dimrow">
-                <div><span class="dk">Panjang</span><span class="dv dv--range">1470&ndash;3220<u> mm</u></span></div>
-                <div><span class="dk">Lebar</span><span class="dv">600<u> mm</u></span></div>
-                <div><span class="dk">Tebal</span><span class="dv">125<u> mm</u></span></div>
-              </div>
+              <div class="hero-dim" data-hero-dim></div>
             </div>
           </div>
 
           <div class="calc">
             <span class="pick-label">Pilih bentang</span>
             <div class="pick"></div>
-            <div class="calc-dim"></div>
             <div class="calc-out"></div>
           </div>
 
           <span class="pcard-spacer" aria-hidden="true"></span>
 
-          <a class="pcard-cta" data-cta="kartu-panel" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20minta%20penawaran%20Panel%20Lantai%20BRICON%20bentang%202%2C50%20m%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
-            <svg aria-hidden="true"><use href="#ico-wa"></use></svg><span class="cta-label">Minta Penawaran Resmi</span>
+          <a class="pcard-cta" data-cta="kartu-panel" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20Panel%20Lantai%20BRICON%20bentang%202%2C50%20m%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg><span class="cta-label">Tanya Harga Sekarang!</span>
           </a>
         </div>
       </article>
@@ -1489,46 +1532,63 @@ p{margin:0}
   <!-- ===================== FAQ ===================== -->
   <section class="section faq" id="faq" aria-label="Pertanyaan seputar bata ringan Surabaya">
     <div class="container">
-      <div class="reveal" style="max-width:640px">
-        <span class="eyebrow-mark"><span class="bar"></span>FAQ</span>
-        <h2 class="section-title" style="margin-top:14px">Pertanyaan Seputar Bata Ringan Surabaya</h2>
-        <p class="section-lead">Beberapa hal yang sering ditanyakan kontraktor &amp; owner proyek di Surabaya sebelum order.</p>
+      <div class="faq-split">
+        <aside class="faq-aside reveal">
+          <span class="eyebrow-mark"><span class="bar"></span>FAQ</span>
+          <h2 class="section-title" style="margin-top:14px">Pertanyaan Seputar Bata Ringan Surabaya</h2>
+          <p class="section-lead">Beberapa hal yang sering ditanyakan kontraktor &amp; owner proyek di Surabaya sebelum order.</p>
+
+          <div class="faq-ask">
+            <p class="faq-ask-t">Pertanyaanmu belum ada di sini?</p>
+            <p class="faq-ask-s">Kirim ukuran atau luas bangunannya &mdash; kami hitungkan kebutuhan materialnya dan kirim rincian harga ke lokasi proyek Anda.</p>
+            <a class="btn btn-red" data-cta="faq" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
+              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+              Tanya Langsung
+            </a>
+          </div>
+        </aside>
+
+        <ol class="faq-nums reveal">
+          <li class="faq-row">
+            <span class="faq-n">01</span>
+            <div>
+              <h3 class="faq-q">Berapa harga bata ringan per kubik di Surabaya?</h3>
+              <p class="faq-a"><span class="faq-harga" data-harga-kalimat hidden>Untuk pengiriman area Surabaya, kisaran harga saat ini <b data-harga="surabaya-bata"></b>. </span>Harga bata ringan per kubik BRICON bervariasi tergantung ketebalan (7,5&ndash;12,5 cm) dan jumlah pesanan. Untuk harga terbaru dan penawaran sesuai volume proyek Anda, chat langsung via WhatsApp &mdash; kami balas cepat dengan rincian harga per kubik dan estimasi ongkos kirim ke lokasi Anda di Surabaya.</p>
+            </div>
+          </li>
+          <li class="faq-row">
+            <span class="faq-n">02</span>
+            <div>
+              <h3 class="faq-q">Apakah BRICON kirim bata ringan &amp; panel lantai ke seluruh Surabaya?</h3>
+              <p class="faq-a">Ya. Kami rutin mengirim bata ringan dan panel lantai ke berbagai wilayah Surabaya, termasuk area proyek kontraktor dan pengembang perumahan. Stok selalu tersedia sehingga pengiriman bisa diproses cepat begitu pesanan dikonfirmasi.</p>
+            </div>
+          </li>
+          <li class="faq-row">
+            <span class="faq-n">03</span>
+            <div>
+              <h3 class="faq-q">Apa beda bata ringan BRICON dengan bata ringan merek lain?</h3>
+              <p class="faq-a">BRICON menggunakan teknologi Microbubble yang menghasilkan pori-pori lebih presisi dan seragam dibanding bata ringan konvensional &mdash; hasilnya kombinasi kuat, ringan, kedap suara, dan tahan api dalam satu produk, dengan kualitas sesuai standar SNI.</p>
+            </div>
+          </li>
+          <li class="faq-row">
+            <span class="faq-n">04</span>
+            <div>
+              <h3 class="faq-q">Berapa minimal order untuk pengiriman ke Surabaya?</h3>
+              <p class="faq-a">Minimal order tergantung jarak dan skema pengiriman. Untuk pembelian 1 truk (11,52 m&sup3;) bata ringan, Anda juga mendapat gratis 8 sak Maju Mortar. Tanyakan langsung via WhatsApp untuk skema order yang sesuai kebutuhan proyek Anda.</p>
+            </div>
+          </li>
+          <li class="faq-row">
+            <span class="faq-n">05</span>
+            <div>
+              <h3 class="faq-q">Apakah bisa konsultasi kebutuhan material sebelum order?</h3>
+              <p class="faq-a">Bisa. Kami menyediakan konsultasi gratis untuk menghitung kebutuhan bata ringan atau panel lantai sesuai luas dan desain bangunan Anda, termasuk survey lapangan gratis khusus untuk pemasangan panel lantai.</p>
+            </div>
+          </li>
+        </ol>
       </div>
 
-      <div class="faq-list reveal">
-        <details class="faq-item">
-          <summary>Berapa harga bata ringan per kubik di Surabaya?
-            <span class="faq-plus" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#ico-plus"></use></svg></span>
-          </summary>
-          <p class="faq-a"><span class="faq-harga" data-harga-kalimat hidden>Untuk pengiriman area Surabaya, kisaran harga saat ini <b data-harga="surabaya-bata"></b>. </span>Harga bata ringan per kubik BRICON bervariasi tergantung ketebalan (7,5&ndash;12,5 cm) dan jumlah pesanan. Untuk harga terbaru dan penawaran sesuai volume proyek Anda, chat langsung via WhatsApp &mdash; kami balas cepat dengan rincian harga per kubik dan estimasi ongkos kirim ke lokasi Anda di Surabaya.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Apakah BRICON kirim bata ringan &amp; panel lantai ke seluruh Surabaya?
-            <span class="faq-plus" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#ico-plus"></use></svg></span>
-          </summary>
-          <p class="faq-a">Ya. Kami rutin mengirim bata ringan dan panel lantai ke berbagai wilayah Surabaya, termasuk area proyek kontraktor dan pengembang perumahan. Stok selalu tersedia sehingga pengiriman bisa diproses cepat begitu pesanan dikonfirmasi.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Apa beda bata ringan BRICON dengan bata ringan merek lain?
-            <span class="faq-plus" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#ico-plus"></use></svg></span>
-          </summary>
-          <p class="faq-a">BRICON menggunakan teknologi Microbubble yang menghasilkan pori-pori lebih presisi dan seragam dibanding bata ringan konvensional &mdash; hasilnya kombinasi kuat, ringan, kedap suara, dan tahan api dalam satu produk, dengan kualitas sesuai standar SNI.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Berapa minimal order untuk pengiriman ke Surabaya?
-            <span class="faq-plus" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#ico-plus"></use></svg></span>
-          </summary>
-          <p class="faq-a">Minimal order tergantung jarak dan skema pengiriman. Untuk pembelian 1 truk (11,52 m&sup3;) bata ringan, Anda juga mendapat gratis 8 sak Maju Mortar. Tanyakan langsung via WhatsApp untuk skema order yang sesuai kebutuhan proyek Anda.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Apakah bisa konsultasi kebutuhan material sebelum order?
-            <span class="faq-plus" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#ico-plus"></use></svg></span>
-          </summary>
-          <p class="faq-a">Bisa. Kami menyediakan konsultasi gratis untuk menghitung kebutuhan bata ringan atau panel lantai sesuai luas dan desain bangunan Anda, termasuk survey lapangan gratis khusus untuk pemasangan panel lantai.</p>
-        </details>
-      </div>
-
-      <p class="area-note reveal">Proyek Anda di luar Surabaya? <a href="/#area">Lihat kabupaten lain yang kami layani &rarr;</a></p>
+      <p class="area-note reveal">Proyek Anda di luar Surabaya? <a href="/#area">Lihat kabupaten lain yang kami layani&nbsp;&rarr;</a></p>
+    
     </div>
   </section>
 
@@ -1880,7 +1940,7 @@ p{margin:0}
         { v: '100', b: '10 cm',   s: '100 mm', wa: 'tebal 10 cm' },
         { v: '125', b: '12,5 cm', s: '125 mm', wa: 'tebal 12,5 cm' }
       ],
-      dim: function (v) { return '600 × 200 × ' + v + ' mm'; },
+      heroDim: function (v) { return '600<span class="hd-x">&times;</span>200<span class="hd-x">&times;</span><span class="hd-var">' + v + '</span><u> mm</u>'; },
       /* Berat jenis normal bata ringan BRICON: 600 kg/m³ (data resmi pabrik). */
       stats: function (v) {
         var t = Number(v) / 1000;
@@ -1902,7 +1962,7 @@ p{margin:0}
         { v: '2500', b: '2,50 m', s: '2500 mm', wa: 'bentang 2,50 m' },
         { v: '3220', b: '3,22 m', s: '3220 mm', wa: 'bentang 3,22 m' }
       ],
-      dim: function (v) { return v + ' × 600 × 125 mm'; },
+      heroDim: function (v) { return '<span class="hd-var">' + v + '</span><span class="hd-x">&times;</span>600<span class="hd-x">&times;</span>125<u> mm</u>'; },
       /* Berat jenis kering panel lantai BRICON: 650 kg/m³ (data resmi pabrik). */
       stats: function (v) {
         var pjg = Number(v) / 1000;
@@ -1917,15 +1977,24 @@ p{margin:0}
     }
   };
 
+  /* Setiap kartu punya dua mode:
+       - belum ada harga  -> tampilan sama persis dengan beranda, CTA "Tanya Harga Sekarang!"
+       - harga sudah ada  -> baris harga muncul di plat, CTA "Minta Penawaran Resmi"
+     Perpindahannya dipicu skrip harga di bawah lewat window.BRICON_kartuAdaHarga(). */
+  var KARTU = {};
+
   document.querySelectorAll('[data-pcard]').forEach(function (card) {
-    var conf = PROD[card.getAttribute('data-pcard')];
+    var jenis = card.getAttribute('data-pcard');
+    var conf = PROD[jenis];
     if (!conf) return;
 
-    var pickWrap = card.querySelector('.pick');
-    var pickLbl  = card.querySelector('.pick-label');
-    var calcDim  = card.querySelector('.calc-dim');
-    var calcOut  = card.querySelector('.calc-out');
-    var cta      = card.querySelector('.pcard-cta');
+    var pickWrap  = card.querySelector('.pick');
+    var pickLbl   = card.querySelector('.pick-label');
+    var heroDimEl = card.querySelector('[data-hero-dim]');
+    var calcOut   = card.querySelector('.calc-out');
+    var cta       = card.querySelector('.pcard-cta');
+    var ctaLabel  = card.querySelector('.cta-label');
+    var hargaAda  = false;
 
     if (pickLbl) pickLbl.textContent = conf.pickLabel;
     if (pickWrap) {
@@ -1946,17 +2015,18 @@ p{margin:0}
           b.setAttribute('aria-pressed', b.getAttribute('data-v') === nilai ? 'true' : 'false');
         });
       }
-      if (calcDim) calcDim.textContent = conf.dim(nilai);
+      if (heroDimEl) heroDimEl.innerHTML = conf.heroDim(nilai);
       if (calcOut) {
         calcOut.innerHTML = conf.stats(nilai).map(function (s) {
           return '<div><span class="sk">' + s.k + '</span><span class="sv">' + s.v + '<u> ' + s.u + '</u></span></div>';
         }).join('');
       }
+      if (ctaLabel) ctaLabel.textContent = hargaAda ? 'Minta Penawaran Resmi' : 'Tanya Harga Sekarang!';
       if (cta) {
         /* Pesan WhatsApp dibangun jadi satu kalimat wajar, tanpa kode atribusi.
            Atribusi tombolnya dikirim terpisah ke Analytics lewat data-cta. */
-        var pesan = 'Halo, saya mau minta penawaran ' + conf.nama + ' ' + aktif().wa +
-                    ' untuk proyek di ' + KOTA + '.';
+        var pesan = (hargaAda ? 'Halo, saya mau minta penawaran ' : 'Halo, saya mau tanya harga ') +
+                    conf.nama + ' ' + aktif().wa + ' untuk proyek di ' + KOTA + '.';
         cta.setAttribute('href', 'https://wa.me/6285184028183?text=' + encodeURIComponent(pesan));
       }
     }
@@ -1969,7 +2039,13 @@ p{margin:0}
       });
     }
     gambar();
+    KARTU[jenis] = function () { hargaAda = true; gambar(); };
   });
+
+  /* Dipanggil skrip harga begitu angka dari database berhasil dibaca. */
+  window.BRICON_kartuAdaHarga = function (prod) {
+    if (typeof KARTU[prod] === 'function') KARTU[prod]();
+  };
 
   /* Google Ads + Analytics: catat setiap klik CTA WhatsApp beserta tombolnya */
   document.addEventListener('click', function (e) {
@@ -2082,6 +2158,19 @@ p{margin:0}
       slot.innerHTML = '<span class="hp-pm">±</span>' +
                        '<span class="hp-num">' + rupiah(nilai) + '</span>' +
                        '<span class="hp-unit">/' + satuan(unit) + '</span>';
+
+      /* Baru di sini baris harga dimunculkan, dan CTA kartu berubah jadi
+         "Minta Penawaran Resmi". Sebelum ini kartunya sama dengan beranda. */
+      var blok = document.querySelector('[data-harga-blok="' + prod + '"]');
+      if (blok) blok.hidden = false;
+      if (typeof window.BRICON_kartuAdaHarga === 'function') window.BRICON_kartuAdaHarga(prod);
+
+      /* Judul dan kalimat pengantar section ikut berubah — selama belum ada
+         harga, halaman tidak boleh menjanjikan angka yang tidak ada. */
+      var judul = document.querySelector('[data-judul-harga]');
+      if (judul) judul.textContent = 'Harga';
+      var lead = document.querySelector('[data-lead-harga]');
+      if (lead) lead.hidden = false;
     });
   }
 
@@ -2131,22 +2220,32 @@ p{margin:0}
            v.toFixed(1).replace('.', ',') + ' dari 5">' + out + '</span>';
   }
 
-  function inisial(nama) {
-    var parts = String(nama || '').trim().split(/\s+/);
-    if (!parts.length || !parts[0]) return '?';
-    return (parts[0][0] + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase();
-  }
+  /* Ikon kutip (pembuka kartu) dan ikon orang (baris identitas). */
+  var SVG_KUTIP = '<svg class="__CLS__" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.01 14v4c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2h-2.85c.27-1.02 1.01-2.51 3.1-3.03l.76-.19V4h-1c-2.78 0-4.91.77-6.31 2.29-1.89 2.05-1.7 4.68-1.69 4.71v3Zm3.18-6.37c.48-.52 1.11-.91 1.87-1.19-1.56 1.42-2.04 3.4-2.04 4.56v1h5v6h-6v-7.08s-.12-1.9 1.18-3.29ZM1.01 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2H6.16c.27-1.02 1.01-2.51 3.1-3.03l.76-.19V4h-1c-2.78 0-4.91.77-6.31 2.29C.82 8.34 1.01 10.97 1.02 11v7Zm2-7.08s-.12-1.9 1.18-3.29c.48-.52 1.11-.91 1.87-1.19C4.5 7.86 4.02 9.84 4.02 11v1h5v6H3.01z"></path></svg>';
+  function kutip(cls) { return SVG_KUTIP.replace('__CLS__', cls); }
+
+  var SVG_ORANG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
 
   var PIN_KECIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>';
 
+  /* Kartu kecil ruangnya sempit, jadi labelnya dipendekkan supaya nama pembeli
+     tidak ikut terpotong. */
+  function labelProdukPendek(p) { return p === 'panel' ? 'Panel' : 'Bata'; }
+
+  /* Urutan isi kartu ulasan (dikunci 30 Agustus 2026):
+     ikon kutip -> bintang -> kutipan -> baris identitas.
+     Baris identitas: ikon orang + nama + lokasi pengiriman di kiri,
+     label produk (Bata Ringan / Panel Lantai) menempel di ujung kanan. */
   function kartuUlasanUtama(t) {
     return '<article class="testi-feature">' +
+      kutip('tq-mark') +
       bintang(t.rating) +
-      '<blockquote>&ldquo;' + esc(t.quote).replace(/\n/g, '<br>') + '&rdquo;</blockquote>' +
+      '<blockquote>' + esc(t.quote).replace(/\n/g, '<br>') + '</blockquote>' +
       '<footer>' +
-        '<span class="tf-avatar">' + esc(inisial(t.display_name)) + '</span>' +
-        '<div><p class="tf-name">' + esc(t.display_name) + '</p>' +
-        (t.kabupaten ? '<span class="tf-loc">' + PIN_KECIL + esc(t.kabupaten) + '</span>' : '') +
+        '<span class="tf-avatar" aria-hidden="true">' + SVG_ORANG + '</span>' +
+        '<div class="tf-id">' +
+          '<p class="tf-name">' + esc(t.display_name) + '</p>' +
+          (t.kabupaten ? '<span class="tf-loc">' + PIN_KECIL + 'Kirim ke ' + esc(t.kabupaten) + '</span>' : '') +
         '</div>' +
         (t.product ? '<span class="tf-prod">' + esc(labelProduk(t.product)) + '</span>' : '') +
       '</footer></article>';
@@ -2154,11 +2253,16 @@ p{margin:0}
 
   function kartuUlasanRingkas(t) {
     return '<article class="ts-card">' +
-      '<span class="ts-avatar">' + esc(inisial(t.display_name)) + '</span>' +
-      '<div class="ts-body">' +
-        '<div class="ts-head"><p class="ts-name">' + esc(t.display_name) + '</p>' + bintang(t.rating) + '</div>' +
-        (t.kabupaten ? '<span class="ts-loc">' + PIN_KECIL + esc(t.kabupaten) + '</span>' : '') +
-        '<p class="ts-quote">' + esc(t.quote) + '</p>' +
+      kutip('ts-mark') +
+      bintang(t.rating) +
+      '<p class="ts-quote">' + esc(t.quote) + '</p>' +
+      '<div class="ts-foot">' +
+        '<span class="ts-avatar" aria-hidden="true">' + SVG_ORANG + '</span>' +
+        '<div class="ts-id">' +
+          '<p class="ts-name">' + esc(t.display_name) + '</p>' +
+          (t.kabupaten ? '<span class="ts-loc">' + PIN_KECIL + 'Kirim ke ' + esc(t.kabupaten) + '</span>' : '') +
+        '</div>' +
+        (t.product ? '<span class="ts-prod">' + esc(labelProdukPendek(t.product)) + '</span>' : '') +
       '</div></article>';
   }
 
