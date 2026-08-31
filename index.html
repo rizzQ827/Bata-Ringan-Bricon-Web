@@ -146,10 +146,7 @@
   --red-dark:#B71F1F;
   --red-soft:#FCEDED;     /* subtle red tint surface */
   --yellow:#F5C200;
-  --wa:#25D366;
-  --wa-dark:#1FB855;
   --charcoal:#1C1C1E;
-  --charcoal-2:#26262A;
   --line:#E7E3DC;
   --line-strong:#D9D4CB;
   --track:#F2EFE9;        /* technical field bg */
@@ -162,15 +159,10 @@
   --font:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 
-  /* Spacing (8pt) */
-  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--s8:32px;
-  --s10:40px;--s12:48px;--s16:64px;--s20:80px;--s24:96px;
-
   /* Radii — modest, solid/industrial */
   --r-sm:8px;--r-md:12px;--r-lg:16px;--r-pill:999px;
 
   /* Shadows */
-  --sh-sm:0 1px 2px rgba(28,28,30,.06),0 1px 1px rgba(28,28,30,.04);
   --sh-md:0 6px 18px rgba(28,28,30,.08),0 2px 6px rgba(28,28,30,.05);
   --sh-lg:0 18px 48px rgba(28,28,30,.14),0 6px 16px rgba(28,28,30,.08);
   --sh-red:0 8px 22px rgba(212,43,43,.28);
@@ -180,10 +172,16 @@
   --ease-reveal:cubic-bezier(.16,1,.3,1);
 
   /* z-index scale (semantic) */
-  --z-base:1;--z-sticky:100;--z-float:200;--z-menu:300;
+  --z-sticky:100;--z-float:200;--z-menu:300;
 
   --nav-h:68px;
   --maxw:1180px;
+
+  /* Seberapa jauh gambar hero "ditarik" naik saat layar menyempit.
+     Bayangan & badge "Pengiriman Cepat" menggantung di bawah tepi gambar,
+     jadi tanpa tarikan ini ada ruang kosong yang tidak perlu. Dipakai
+     ulang oleh dua slider di panel ?tweak=1 supaya angkanya konsisten. */
+  --hero-img-pull:80px;
 }
 
 *{box-sizing:border-box}
@@ -242,8 +240,6 @@ p{margin:0}
 .btn-red{background:var(--red);color:#fff;box-shadow:var(--sh-red)}
 .btn-red:hover{background:var(--red-dark);transform:translateY(-2px);box-shadow:0 12px 28px rgba(212,43,43,.34)}
 
-.btn-ghost-red{background:transparent;border-color:var(--red);color:var(--ink)}
-.btn-ghost-red:hover{background:var(--red-soft);transform:translateY(-2px)}
 
 /* outline button on dark hero */
 .btn-outline-on-dark{background:transparent;border-color:var(--red);color:#fff}
@@ -338,8 +334,13 @@ p{margin:0}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(36px,7vw,112px);align-items:center}
 .hero-copy{container-type:inline-size}
 
-.hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:8px 14px;border-radius:var(--r-pill);font-size:.82rem;font-weight:600;color:#fff;letter-spacing:.01em;white-space:nowrap;max-width:100%}
-.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 4px rgba(245,194,0,.18)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:8px 14px;border-radius:var(--r-pill);font-size:13px;font-weight:600;color:#fff;letter-spacing:.005em;white-space:nowrap;max-width:100%;margin-bottom:18px}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:#F5C518;flex:none;animation:dotRadiate 1.2s ease-out .4s infinite}
+@keyframes dotRadiate{
+  0%  {box-shadow:0 0 0 0 rgba(245,197,24,.7)}
+  50% {box-shadow:0 0 0 6px rgba(245,197,24,.3),0 0 0 12px rgba(245,197,24,0)}
+  100%{box-shadow:0 0 0 6px rgba(245,197,24,0),0 0 0 12px rgba(245,197,24,0)}
+}
 
 .hero h1{
   margin-top:22px;font-weight:800;line-height:1.06;
@@ -401,10 +402,6 @@ p{margin:0}
 .hbadge--kirim{top:82%;left:4.5%;bottom:auto;right:auto;transform:none}
 .hbadge--mutu{top:49.5%;left:71.5%;bottom:auto;right:auto;transform:none}
 
-.hbadge .hb-dot{width:7px;height:7px;border-radius:50%;flex:none}
-.hbadge--stok  .hb-dot{background:#4ADE80;box-shadow:0 0 0 3px rgba(74,222,128,.25)}
-.hbadge--kirim .hb-dot{background:var(--yellow);box-shadow:0 0 0 3px rgba(245,194,0,.25)}
-.hbadge--mutu  .hb-dot{background:#60A5FA;box-shadow:0 0 0 3px rgba(96,165,250,.25)}
 
 /* ============================================================
    STATS BAR — selalu horizontal, tidak boleh wrap di breakpoint manapun
@@ -423,7 +420,6 @@ p{margin:0}
 .materi{background:var(--surface-warm);border-top:1px solid var(--line)}
 .materi .container{overflow:hidden}   /* menahan glow kuning supaya tidak bocor keluar frame */
 .materi-head{max-width:76ch;margin-inline:auto;text-align:center}
-.materi-head .eyebrow-mark{justify-content:center}
 .materi-head .section-title{max-width:22ch;margin-inline:auto}
 .materi-head .section-lead{margin-inline:auto;max-width:62ch}
 
@@ -493,7 +489,7 @@ p{margin:0}
 
 .materi-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,4vw,60px);align-items:center;margin-top:clamp(38px,4.5vw,60px)}
 .materi-grid.reverse .spec-visual{order:2}
-.materi-grid + .materi-grid{margin-top:clamp(48px,7vw,90px);padding-top:clamp(48px,7vw,90px);border-top:1px dashed var(--line-strong)}
+.materi-grid + .materi-grid{margin-top:22px;padding-top:22px;border-top:1px dashed var(--line-strong)}
 .materi-body h3{margin-top:16px;font-size:clamp(1.5rem,2.8vw,2rem);font-weight:800}
 .materi-body .materi-desc{margin-top:14px;color:var(--muted);font-size:1rem;line-height:1.6;max-width:50ch}
 
@@ -560,12 +556,6 @@ p{margin:0}
 .dimplate{margin-top:14px}
 .plate-label{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow)}
 .plate-label svg{width:12px;height:12px;flex:none}
-.dimrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:13px}
-.dimrow > div{min-width:0}
-.dimrow .dk{display:block;font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap}
-.dimrow .dv{display:block;margin-top:5px;font-family:var(--mono);font-size:clamp(.98rem,2.5vw,1.18rem);font-weight:700;color:#fff;white-space:nowrap;letter-spacing:-.02em}
-.dimrow .dv u{text-decoration:none;font-size:.62em;color:rgba(255,255,255,.5)}
-.dimrow .dv--range{font-size:clamp(.84rem,2.1vw,1rem)}
 
 /* Dimensi jadi satu angka hero — segmen yang berubah (tebal/bentang) disorot kuning,
    tanda "×" dilemahkan supaya ritme visualnya tidak riuh. */
@@ -615,7 +605,6 @@ p{margin:0}
   .pcards{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:400px){
-  .dimrow{gap:8px}
   .calc-out{gap:8px}
 }
 
@@ -830,7 +819,6 @@ p{margin:0}
    ============================================================ */
 .footer{background:var(--charcoal);color:var(--on-dark-soft)}
 .foot-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:36px;padding-block:clamp(46px,6vw,68px)}
-.foot-grid.cols-3{grid-template-columns:1.4fr 1fr 1fr}
 .foot-tagline{margin-top:16px;font-size:.92rem;color:var(--on-dark-mute);max-width:34ch;line-height:1.6}
 .foot-col h4{color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 16px}
 .foot-col a,.foot-col p{display:block;color:var(--on-dark-soft);font-size:.95rem;padding:6px 0;transition:color .16s var(--ease-out)}
@@ -863,19 +851,7 @@ p{margin:0}
 @media (prefers-reduced-motion:no-preference){
   .js .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease-reveal),transform .7s var(--ease-reveal)}
   .js .reveal.is-visible{opacity:1;transform:none}
-  .js .stagger > *{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease-reveal),transform .6s var(--ease-reveal)}
-  .js .stagger.is-visible > *{opacity:1;transform:none}
-  .js .stagger.is-visible > *:nth-child(2){transition-delay:.08s}
-  .js .stagger.is-visible > *:nth-child(3){transition-delay:.16s}
-
-  .hero [data-anim]{opacity:0;transform:translateY(22px);animation:heroIn .8s var(--ease-reveal) forwards}
-  .hero [data-anim="1"]{animation-delay:.05s}
-  .hero [data-anim="2"]{animation-delay:.15s}
-  .hero [data-anim="3"]{animation-delay:.25s}
-  .hero [data-anim="4"]{animation-delay:.35s}
-  .hero [data-anim="5"]{animation-delay:.45s}
 }
-@keyframes heroIn{to{opacity:1;transform:none}}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -983,8 +959,6 @@ p{margin:0}
 .mb-redbar-spacer{flex:none;width:calc(clamp(220px,24vw,260px) * 1.32);visibility:hidden}
 .mb-redbar-inner span{padding-left:clamp(4px,1vw,8px)}
 
-.mb-body{padding:clamp(20px,3.6vw,28px) clamp(22px,4vw,56px)}
-.mb-body p{color:var(--muted);font-size:.94rem;line-height:1.6}
 
 @media (prefers-reduced-motion:reduce){
   .mb-slot.is-visible{animation:none}
@@ -1028,216 +1002,119 @@ p{margin:0}
 
 /* ============================================================
    RESPONSIVE
+   Satu titik-ganti = satu blok, urut dari layar lebar ke sempit.
+   Titik ganti: 1024 > 1059 (hero jadi tumpuk) > 860 > 768 > 639 > 560 > 550 > 364
    ============================================================ */
 @media (max-width:1024px){
   .foot-grid{grid-template-columns:1fr 1fr}
-  .foot-grid.cols-3{grid-template-columns:1fr 1fr}
   .foot-brand{grid-column:1/-1}
   .foot-area{grid-column:1/-1}
 }
 
-/* Hero — layout tablet mulai 1059px ke bawah (khusus hero, breakpoint lain tetap di 860px) */
+/* <=1059px — hero jadi tumpuk: teks di atas, gambar di bawah.
+   Tiga jarak di sini bisa disetel lewat panel ?tweak=1 dan SEMUANYA
+   dihitung dari tepi bawah gambar hero:
+     --badge-kirim-y-*   posisi badge "Pengiriman Cepat"
+     --trust-gap-*       jarak ke baris "Melayani kontraktor..."
+     --hero-stats-gap-*  jarak ke Stats Bar merah
+   Baris "Melayani kontraktor..." digeser pakai `top`, BUKAN `transform`:
+   skrip hero menulis transform:none langsung ke elemen, jadi geseran
+   lewat transform selalu dimentahkan. */
 @media (max-width:1059px){
-  .hero{min-height:auto;padding-block:48px 160px}
-  .hero-grid{grid-template-columns:minmax(0,1fr);gap:34px}
+  .hero{
+    min-height:auto;
+    padding-top:48px;
+    padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-1059,72px));
+  }
+  .hero-grid{grid-template-columns:minmax(0,1fr);gap:0}
 
-  .hero-copy{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;max-width:100%}
-  .hero .lead{max-width:36ch}
-  .hero-cta{justify-content:center;width:100%;max-width:100%}
-  .hero-trust{max-width:100%}
+  .hero-copy{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;max-width:100%;margin-bottom:0}
+  .hero-badge{margin-top:0;margin-bottom:16px}
+  .hero-copy h1{line-height:1.12;margin-top:0;margin-bottom:24px;max-width:100%}
+  .hero .lead{font-size:clamp(12px,2.2vw,16.5px);max-width:36ch;margin-top:0;margin-bottom:32px}
+  .hero-cta{justify-content:center;width:100%;max-width:100%;margin-top:0;margin-bottom:0}
+  .hero-cta .btn{font-size:15px;padding:12px 24px}
 
   .hero-img-wrap{max-width:440px;width:100%}
+  .hero-img{margin-bottom:calc(-1 * var(--hero-img-pull))}
+
+  .hbadge--stok{top:38.5%;left:7%}
+  .hbadge--kirim{top:var(--badge-kirim-y-1059,104.5%);left:4.5%}
+  .hbadge--mutu{top:62%;left:72.5%}
+
+  .hero-trust{max-width:100%;margin-top:14px;margin-bottom:0}
+  .hero-trust--d{display:none}
+  .hero-trust--m{
+    position:absolute;left:0;right:0;margin-top:0;
+    top:calc(100% + var(--hero-img-pull) + var(--trust-gap-1059,32px));
+  }
 }
+@media (min-width:1060px){ .hero-trust--m{display:none} }
 
 @media (max-width:860px){
   :root{--nav-h:62px}
   .nav-links,.nav-right .btn{display:none}
   .nav-toggle{display:flex}
   .mobile-menu{display:block}
-
-  .hero-img-wrap{max-width:380px}
-
-  .loc-grid{grid-template-columns:minmax(0,1fr)}
-  .map-frame{min-height:300px}
-  .map-frame iframe{min-height:300px}
-}
-
-@media (max-width:860px){
   .wa-float{display:inline-flex}
   .foot-floatspace{display:block;height:72px;margin-top:8px}
-}
 
-@media (max-width:560px){
-  .foot-grid,.foot-grid.cols-3{grid-template-columns:1fr;gap:30px}
-  .foot-col{border-top:1px solid var(--line-dark);padding-top:8px}
-  .foot-brand{border-top:none}
-  .hero-cta{max-width:360px;margin-inline:auto}
-  .hero-cta .btn{flex:1 1 100%}
+  .loc-grid{grid-template-columns:minmax(0,1fr)}
+  .map-frame,.map-frame iframe{min-height:300px}
 
-  .hero-img-wrap{max-width:300px}
-}
-
-/* Mobile hero controls — triggered at <=768px */
-@media (max-width: 768px) {
-  .hero-img {
-    width: var(--hero-img-width-m, 100%);
-    max-width: var(--hero-img-maxw-m, 100%);
-    height: var(--hero-img-height-m, auto);
-    margin-inline: var(--hero-img-margin-m, auto);
-  }
-  .hero-lead {
-    font-size: var(--lead-size-m, clamp(16px, 4.5vw, 20px));
-    line-height: var(--lead-lh-m, 1.5);
-    margin-bottom: var(--lead-mb-m, 28px);
-  }
-  .hbadge {
-    font-size: var(--badge-size-m, clamp(10px, 2.2cqw, 13px));
-    padding: var(--badge-pad-m, clamp(6px, 1.5cqw, 8px) clamp(10px, 2.5cqw, 14px));
-  }
-  .hbadge svg {
-    width: var(--badge-icon-m, clamp(12px, 2.8cqw, 16px));
-    height: var(--badge-icon-m, clamp(12px, 2.8cqw, 16px));
-  }
-}
-
-.hero-badge {
-  font-size: var(--badge-dist-size, 13px);
-  margin-bottom: var(--badge-dist-mb, 18px);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: #fff;
-  font-weight: 600;
-  letter-spacing: .005em;
-}
-
-.hero-badge .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #F5C518;
-  flex-shrink: 0;
-  animation: dotRadiate 1.2s ease-out 0.4s infinite;
-}
-
-@keyframes dotRadiate {
-  0%   { box-shadow: 0 0 0 0 rgba(245, 197, 24, 0.7); }
-  50%  { box-shadow: 0 0 0 6px rgba(245, 197, 24, 0.3), 0 0 0 12px rgba(245, 197, 24, 0); }
-  100% { box-shadow: 0 0 0 6px rgba(245, 197, 24, 0), 0 0 0 12px rgba(245, 197, 24, 0); }
-}
-
-/* Vertical hero layout — <=1075px */
-@media (max-width: 1075px) {
-  .hero-grid { flex-direction: column; }
-  .hero-copy { order: 1; }
-  .hero-visual { order: 2; }
-
-  .hero-badge {
-    font-size: var(--badge-dist-size, 13px);
-    margin-bottom: var(--badge-dist-mb, 16px);
-  }
-
-  .hero-copy h1 {
-    line-height: var(--h1-lh-v, 1.12);
-    margin-bottom: var(--h1-mb-v, 16px);
-    max-width: 100%;
-  }
-
-  .hero .lead,
-  .hero-lead {
-    font-size: var(--lead-size-v, clamp(12px, 2.2vw, 16.5px));
-    line-height: var(--lead-lh-v, 1.55);
-    margin-bottom: var(--lead-mb-v, 20px);
-  }
-
-  .hero-img {
-    width: var(--hero-img-w-v, 100%);
-    height: var(--hero-img-h-v, auto);
-    margin-bottom: var(--hero-img-mb-v, 32px);
-  }
-
-  .hero-cta .btn {
-    font-size: var(--btn-size-v, 15px);
-    padding: var(--btn-pad-v, 12px 24px);
-  }
-}
-
-/* Posisi badge hero — 4 titik ini SAMA PERSIS dengan titik ganti ukuran
-   gambar hero (.hero-img-wrap max-width, lihat di bawah), supaya badge
-   & gambar selalu ganti ukuran bareng — nggak ada rentang lebar yang
-   "nyasar" pakai nilai badge dari ukuran gambar yang beda.
-   Kirim Y sengaja dibiarkan lewat 100% (badge "Pengiriman Cepat" turun
-   sampai di bawah tepi gambar) — padding-bottom .img-anchor di bawah
-   ini menyediakan ruang ekstra sebesar itu supaya baris kepercayaan di
-   bawahnya tidak ketiban badge. Rasio 0.8417 = tinggi:lebar gambar asli. */
-@media (max-width: 1059px) {
-  .hbadge--stok{top:38.5%;left:7%}
-  .hbadge--kirim{top:var(--badge-kirim-y-1059,104.5%);left:4.5%}
-  .hbadge--mutu{top:62%;left:72.5%}
-}
-@media (max-width: 860px) {
+  .hero{padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-860,72px))}
+  .hero-img-wrap{max-width:380px}
   .hbadge--stok{top:42%;left:4%}
   .hbadge--kirim{top:var(--badge-kirim-y-860,107.5%);left:-0.5%}
   .hbadge--mutu{top:65%;left:72%}
+  .hero-trust--m{top:calc(100% + var(--hero-img-pull) + var(--trust-gap-860,32px))}
 }
-@media (max-width: 560px) {
+
+@media (max-width:768px){
+  .hero-badge{font-size:10px}
+  .hbadge{font-size:clamp(10px,2.2cqw,13px);padding:clamp(6px,1.5cqw,8px) clamp(10px,2.5cqw,14px)}
+  .hbadge svg{width:clamp(12px,2.8cqw,16px);height:clamp(12px,2.8cqw,16px)}
+}
+
+@media (max-width:639px){
+  .hero .lead{font-size:13px}
+}
+
+@media (max-width:560px){
+  .foot-grid{grid-template-columns:1fr;gap:30px}
+  .foot-col{border-top:1px solid var(--line-dark);padding-top:8px}
+  .foot-brand{border-top:none}
+
+  .hero{padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-560,66px))}
+  .hero-cta{max-width:360px;margin-inline:auto}
+  .hero-cta .btn{flex:1 1 100%}
+  .hero-img-wrap{max-width:300px}
   .hbadge--stok{top:47.5%;left:-2.5%}
   .hbadge--kirim{top:var(--badge-kirim-y-560,120.5%);left:-0.5%}
   .hbadge--mutu{top:68.5%;left:69.5%}
+  .hero-trust--m{top:calc(100% + var(--hero-img-pull) + var(--trust-gap-560,30px))}
 }
 
-@media (max-width: 639px) {
-  .hero .lead,
-  .hero-lead { font-size: 13px; }
+@media (max-width:550px){
+  .hero-copy h1{line-height:1.16}
+  .hero-trust{font-size:clamp(.62rem,3vw,.8rem);gap:clamp(5px,1.6vw,8px)}
+  .hero-trust svg{width:clamp(13px,4vw,16px);height:clamp(13px,4vw,16px)}
 }
 
-@media (max-width: 768px) {
-  .hero-badge { font-size: 10px; }
-}
-
-@media (max-width: 550px) {
-  .hero h1,
-  .hero-copy h1 { line-height: 1.16; }
-  .hero-trust{
-    font-size:clamp(.62rem, 3vw, .8rem);
-    gap:clamp(5px, 1.6vw, 8px);
-  }
-  .hero-trust svg{
-    width:clamp(13px, 4vw, 16px);
-    height:clamp(13px, 4vw, 16px);
-  }
-}
-
-@media (max-width: 364px) {
+@media (max-width:364px){
   /* layar 320px: badge kanan digeser masuk supaya tidak terpotong tepi layar */
+  .hero{padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-364,60px))}
   .hbadge--stok{top:43%;left:-2.5%}
   .hbadge--kirim{top:var(--badge-kirim-y-364,123.5%);left:-1.5%}
   .hbadge--mutu{top:71.5%;left:70.5%}
-  .hero-badge {
-    font-size: 9px;
-    padding: 4px 8px;
-    gap: 6px;
-    letter-spacing: 0;
-  }
-  .hero-badge .dot { width: 6px; height: 6px; }
-  .hero h1,
-  .hero-copy h1 { line-height: 1.18; margin-top: 12px; }
-  .hero .lead { font-size: 12px; margin-top: 12px; }
-  .hero-trust{ font-size:clamp(.58rem, 3.2vw, .68rem); }
-  .hero-cta { gap: 10px; margin-top: 20px; }
-  .hero-cta .btn { font-size: 13px; padding: 10px 18px; }
-}
-
-/* Hero layout vertikal — rhythm spacing eksplisit saat stack (<=1059px) */
-@media (max-width: 1059px) {
-  .hero-grid { gap: 0; }
-  .hero-badge { margin-top: 0; margin-bottom: 16px; }
-  .hero-copy h1 { margin-top: 0; margin-bottom: 24px; }
-  .hero .lead,
-  .hero-lead { margin-top: 0; margin-bottom: 32px; }
-  .hero-cta { margin-top: 0; margin-bottom: 0; }
-  .hero-trust { margin-top: 14px; margin-bottom: 0; }
-  .hero-copy { margin-bottom: 64px; }
+  .hero-badge{font-size:9px;padding:4px 8px;gap:6px;letter-spacing:0}
+  .hero-badge .dot{width:6px;height:6px}
+  .hero-copy h1{line-height:1.18}
+  .hero .lead{font-size:12px}
+  .hero-trust{font-size:clamp(.58rem,3.2vw,.68rem)}
+  .hero-cta{gap:10px}
+  .hero-cta .btn{font-size:13px;padding:10px 18px}
+  .hero-trust--m{top:calc(100% + var(--hero-img-pull) + var(--trust-gap-364,28px))}
 }
 
 /* ============================================================
@@ -1305,8 +1182,8 @@ p{margin:0}
 
 /* ============================================================
    PANEL TWEAK — hanya aktif kalau URL diberi ?tweak=1
-   Sekarang isinya cuma slider jarak. Pengatur lingkaran kuning dan
-   badge microbubble sudah dihapus, nilainya dikunci di CSS di atas.
+   Isinya 3 slider per titik-ganti layar: posisi badge "Pengiriman
+   Cepat", jarak baris "Melayani kontraktor...", dan jarak ke Stats Bar.
    ============================================================ */
 .tw-panel{
   position:fixed;left:14px;bottom:14px;z-index:600;
@@ -1341,46 +1218,6 @@ p{margin:0}
   .tw-panel{width:calc(100vw - 28px);max-height:62vh}
 }
 
-/* ============================================================
-   JARAK YANG BISA DISETEL LEWAT PANEL TWEAK
-   Sengaja ditaruh paling bawah supaya menang atas aturan di atasnya.
-   ============================================================ */
-@media (max-width:1059px){
-  .hero-copy{margin-bottom:0px}
-  .hero-img{margin-bottom:-80px}
-}
-@media (min-width:861px){
-  .materi-grid + .materi-grid{
-    margin-top:22px;
-    padding-top:22px;
-  }
-}
-
-/* Jarak aman antara gambar hero & baris "Melayani kontraktor..." (mobile) —
-   badge "Pengiriman Cepat" sengaja diposisikan lewat 100% (turun di bawah
-   tepi gambar). Nilai di bawah ini estimasi jarak aman, BUKAN hasil hitungan
-   presisi — margin -80px di atas ikut menggeser dasar hitungan persen badge,
-   jadi kepastian pas/nggaknya perlu dicek langsung di ?tweak=1. Kalau masih
-   ketiban atau malah kejauhan, kabari — tinggal disetel ulang. */
-/* Baris "Melayani kontraktor..." versi mobile digeser pakai position:absolute +
-   transform, BUKAN margin-top — supaya menggeser cuma menggerakkan tulisannya
-   sendiri, tidak ikut menambah tinggi section hero (yang tadinya bikin Stats
-   Bar dan section di bawahnya ikut turun kalau slider digeser). */
-@media (max-width:1059px){
-  .hero-trust--m{
-    position:absolute;left:0;right:0;top:100%;margin-top:0;
-    transform:translateY(var(--trust-gap-1059,56px));
-  }
-}
-@media (max-width:860px){ .hero-trust--m{ transform:translateY(var(--trust-gap-860,52px)); } }
-@media (max-width:560px){ .hero-trust--m{ transform:translateY(var(--trust-gap-560,46px)); } }
-@media (max-width:364px){ .hero-trust--m{ transform:translateY(var(--trust-gap-364,42px)); } }
-
-/* Dua instance hero-trust: satu di bawah CTA (kolom kiri, buat desktop),
-   satu di bawah gambar (buat mobile/tumpuk). Cuma satu yang tampil,
-   ditentukan lebar layar — bukan JS, jadi nggak ada delay/kedip. */
-@media (min-width:1060px){ .hero-trust--m{display:none} }
-@media (max-width:1059px){ .hero-trust--d{display:none} }
 </style>
 </head>
 <body>
@@ -1451,28 +1288,28 @@ p{margin:0}
     <div class="container">
       <div class="hero-grid">
         <div class="hero-copy">
-          <span class="hero-badge" data-anim="1"><span class="dot"></span>Teknologi Microbubble &middot; Kualitas SNI &middot; Jawa Timur</span>
-          <h1 data-anim="2" id="heroH1">
+          <span class="hero-badge"><span class="dot"></span>Teknologi Microbubble &middot; Kualitas SNI &middot; Jawa Timur</span>
+          <h1 id="heroH1">
             <span class="h1-line">Bata Ringan BRICON</span><span class="h1-line">untuk Proyek <mark class="hl">Berkualitas</mark></span>
           </h1>
-          <p class="lead" data-anim="3">Bata Ringan &amp; Panel Lantai BRICON berteknologi Microbubble — kuat, ringan, presisi ukuran. Stok lengkap, siap kirim ke seluruh Jawa Timur.</p>
-          <div class="hero-cta" data-anim="4">
+          <p class="lead">Bata Ringan &amp; Panel Lantai BRICON berteknologi Microbubble — kuat, ringan, presisi ukuran. Stok lengkap, siap kirim ke seluruh Jawa Timur.</p>
+          <div class="hero-cta">
             <a class="btn btn-red" data-cta="hero" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">
               <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
               Pesan Sekarang!
             </a>
             <a class="btn btn-outline-on-dark" href="#produk">Lihat Produk</a>
           </div>
-          <p class="hero-trust hero-trust--d" data-anim="5">
+          <p class="hero-trust hero-trust--d">
             <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>
             <span class="hero-trust-text">Melayani kontraktor, tukang &amp; owner proyek se-Jawa Timur &middot; Min. order 1 truk (11,52 m&sup3;)</span>
           </p>
         </div>
 
-        <div class="hero-visual hero-img-wrap" data-anim="4">
+        <div class="hero-visual hero-img-wrap">
           <div class="img-anchor">
           <!-- 3D product hero image -->
-          <img src="assets/images/hero-bata-ringan.webp" class="hero-img" alt="Produk bata ringan BRICON — bata beton ringan berteknologi Microbubble" id="heroImg" fetchpriority="high" decoding="async">
+          <img src="assets/images/hero-bata-ringan.webp" class="hero-img" alt="Produk bata ringan BRICON — bata beton ringan berteknologi Microbubble" fetchpriority="high" decoding="async">
           <!-- Floating badge: Stok Lengkap -->
           <span class="hbadge hbadge--stok" aria-hidden="true" style="font-weight:700;width:max-content">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21.93 7.66c-.02-.05-.04-.11-.07-.16a1 1 0 0 0-.06-.08c-.03-.04-.06-.09-.1-.12-.03-.03-.06-.04-.09-.07-.04-.03-.07-.06-.11-.09h-.01l-9-5.01a.99.99 0 0 0-.97 0l-9.01 5H2.5c-.04.02-.07.06-.11.09a.6.6 0 0 0-.09.07c-.04.04-.07.08-.1.12-.02.03-.05.05-.06.08-.03.05-.05.1-.07.16-.01.03-.03.05-.03.08-.02.08-.04.17-.04.26v8c0 .36.2.7.51.87l9 5 .15.06c.03.01.06.03.09.03a1.1 1.1 0 0 0 .5 0c.03 0 .06-.02.09-.03.05-.02.1-.03.15-.06l9-5c.32-.18.51-.51.51-.87v-8c0-.09-.01-.18-.04-.26 0-.03-.02-.05-.03-.08ZM12 4.15l6.94 3.86-2.44 1.36-6.94-3.86zm-4.5 2.5 6.94 3.86L12 11.87 5.06 8.01zM4 9.71l7 3.89v5.71l-7-3.89zm16 5.71-7 3.89V13.6l2.5-1.39v3.21l2-1.11V11.1L20 9.71z"></path></svg>
@@ -1489,7 +1326,7 @@ p{margin:0}
             Kualitas SNI
           </span>
           </div><!-- /img-anchor -->
-          <p class="hero-trust hero-trust--m" data-anim="5">
+          <p class="hero-trust hero-trust--m">
             <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>
             <span class="hero-trust-text">Melayani kontraktor, tukang &amp; owner proyek se-Jawa Timur &middot; Min. order 1 truk (11,52 m&sup3;)</span>
           </p>
@@ -2029,7 +1866,7 @@ p{margin:0}
 </footer>
 
 <!-- Floating CTA WhatsApp (tampil di mode burger / mobile) -->
-<a class="wa-float" id="waFloat" data-cta="floating" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener" aria-label="Pesan Sekarang via WhatsApp">
+<a class="wa-float" data-cta="floating" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener" aria-label="Pesan Sekarang via WhatsApp">
   <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
   Pesan Sekarang!
 </a>
@@ -2038,14 +1875,6 @@ p{margin:0}
 (function () {
   "use strict";
   document.documentElement.classList.add('js');
-
-  /* Hero entrance: reveal immediately, no flash */
-  document.querySelectorAll('[data-anim]').forEach(function (el) { el.classList.add('is-visible'); });
-  document.querySelectorAll('.hero [data-anim]').forEach(function (el) {
-    el.style.opacity = '1';
-    el.style.transform = 'none';
-    el.style.animation = 'none';
-  });
 
   /* ===================== HERO H1 AUTO-FIT (selalu 2 baris, semua breakpoint) ===================== */
   var heroH1 = document.getElementById('heroH1');
@@ -2177,7 +2006,7 @@ p{margin:0}
   window.addEventListener('resize', function () { if (window.innerWidth > 860) setMenu(false); });
 
   /* Reveal on scroll */
-  var revealEls = document.querySelectorAll('.reveal, .stagger, [data-anim]');
+  var revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
@@ -2425,7 +2254,6 @@ p{margin:0}
     if (a) trackWhatsAppConversion(a.getAttribute('data-cta') || 'lain');
   });
 
-  /* "Beranda" (#top) selalu scroll mentok ke paling atas halaman */
   /* ============================================================
      AREA LAYANAN — pencarian kabupaten (pintar)
      Kartu diurutkan dari yang paling sering dicari; sisanya disembunyikan
@@ -2568,6 +2396,7 @@ p{margin:0}
     gambar();
   })();
 
+  /* "Beranda" (#top) selalu scroll mentok ke paling atas halaman */
   document.querySelectorAll('a[href="#top"]').forEach(function (a) {
     a.addEventListener('click', function (e) {
       e.preventDefault();
@@ -2780,33 +2609,30 @@ p{margin:0}
   var root  = document.documentElement;
   var STORE = 'bricon-tweak-jarak-v1';
 
+  /* Satu grup = satu titik-ganti layar, isinya 3 slider.
+     Semua jaraknya dihitung dari TEPI BAWAH GAMBAR HERO. */
   var GROUPS = [
-    { t: 'Kirim Y — 861–1059px', hint: 'badge "Pengiriman Cepat"; boleh lewat 100% (turun di bawah gambar)', items: [
-      { k: 'badge-kirim-y-1059', l: 'Kirim Y', min: -20, max: 220, st: .5, d: 104.5, unit: '%' }
+    { t: 'Layar 861 - 1059px (tablet)', items: [
+      { k: 'badge-kirim-y-1059',  l: 'Badge Y', min: -20, max: 220, st: .5, d: 104.5, unit: '%' },
+      { k: 'trust-gap-1059',      l: 'Teks',    min: 0,   max: 200, st: 2,  d: 32 },
+      { k: 'hero-stats-gap-1059', l: 'Stats',   min: 0,   max: 240, st: 2,  d: 72 }
     ]},
-    { t: 'Kirim Y — 561–860px', hint: 'badge "Pengiriman Cepat"; boleh lewat 100% (turun di bawah gambar)', items: [
-      { k: 'badge-kirim-y-860', l: 'Kirim Y', min: -20, max: 220, st: .5, d: 107.5, unit: '%' }
+    { t: 'Layar 561 - 860px', items: [
+      { k: 'badge-kirim-y-860',  l: 'Badge Y', min: -20, max: 220, st: .5, d: 107.5, unit: '%' },
+      { k: 'trust-gap-860',      l: 'Teks',    min: 0,   max: 200, st: 2,  d: 32 },
+      { k: 'hero-stats-gap-860', l: 'Stats',   min: 0,   max: 240, st: 2,  d: 72 }
     ]},
-    { t: 'Kirim Y — 365–560px', hint: 'badge "Pengiriman Cepat"; boleh lewat 100% (turun di bawah gambar)', items: [
-      { k: 'badge-kirim-y-560', l: 'Kirim Y', min: -20, max: 220, st: .5, d: 120.5, unit: '%' }
+    { t: 'Layar 365 - 560px (HP)', items: [
+      { k: 'badge-kirim-y-560',  l: 'Badge Y', min: -20, max: 220, st: .5, d: 120.5, unit: '%' },
+      { k: 'trust-gap-560',      l: 'Teks',    min: 0,   max: 200, st: 2,  d: 30 },
+      { k: 'hero-stats-gap-560', l: 'Stats',   min: 0,   max: 240, st: 2,  d: 66 }
     ]},
-    { t: 'Kirim Y — 320–364px', hint: 'badge "Pengiriman Cepat"; boleh lewat 100% (turun di bawah gambar)', items: [
-      { k: 'badge-kirim-y-364', l: 'Kirim Y', min: -20, max: 220, st: .5, d: 123.5, unit: '%' }
-    ]},
-    { t: 'Jarak "Melayani kontraktor..." — 861–1059px', hint: 'jarak dari tepi bawah gambar', items: [
-      { k: 'trust-gap-1059', l: 'Jarak', min: 0, max: 160, st: 2, d: 56 }
-    ]},
-    { t: 'Jarak "Melayani kontraktor..." — 561–860px', hint: 'jarak dari tepi bawah gambar', items: [
-      { k: 'trust-gap-860', l: 'Jarak', min: 0, max: 160, st: 2, d: 52 }
-    ]},
-    { t: 'Jarak "Melayani kontraktor..." — 365–560px', hint: 'jarak dari tepi bawah gambar', items: [
-      { k: 'trust-gap-560', l: 'Jarak', min: 0, max: 160, st: 2, d: 46 }
-    ]},
-    { t: 'Jarak "Melayani kontraktor..." — 320–364px', hint: 'jarak dari tepi bawah gambar', items: [
-      { k: 'trust-gap-364', l: 'Jarak', min: 0, max: 160, st: 2, d: 42 }
+    { t: 'Layar 320 - 364px (HP kecil)', items: [
+      { k: 'badge-kirim-y-364',  l: 'Badge Y', min: -20, max: 220, st: .5, d: 123.5, unit: '%' },
+      { k: 'trust-gap-364',      l: 'Teks',    min: 0,   max: 200, st: 2,  d: 28 },
+      { k: 'hero-stats-gap-364', l: 'Stats',   min: 0,   max: 240, st: 2,  d: 60 }
     ]}
   ];
-
   var nilai = {};
   try { nilai = JSON.parse(localStorage.getItem(STORE) || '{}') || {}; } catch (e) { nilai = {}; }
 
@@ -2841,11 +2667,13 @@ p{margin:0}
   var body = panel.querySelector('.tw-body');
 
   function gambar() {
-    var html = '<p class="tw-scope">Nilai di sini satuannya piksel/persen (lihat tiap slider). ' +
-               'Panel ini bisa digeser — tarik dari judul di atas. ' +
-               'Kalau sudah pas, tekan “Salin nilai” lalu kirim hasilnya untuk dikunci permanen.</p>';
+    var html = '<p class="tw-scope"><b>Badge Y</b> posisi badge “Pengiriman Cepat” (%). ' +
+               '<b>Teks</b> jarak baris “Melayani kontraktor...” dari tepi bawah gambar (px). ' +
+               '<b>Stats</b> jarak dari tepi bawah gambar ke Stats Bar merah (px).<br>' +
+               'Panel bisa digeser — tarik dari judul di atas. Kalau sudah pas, ' +
+               'tekan “Salin nilai” lalu kirim hasilnya untuk dikunci permanen.</p>';
     GROUPS.forEach(function (g, gi) {
-      html += '<div class="tw-group"><h5>' + g.t + ' <span style="opacity:.55">(' + g.hint + ')</span></h5>';
+      html += '<div class="tw-group"><h5>' + g.t + '</h5>';
       g.items.forEach(function (it, ii) {
         var v = ambilNilai(it);
         html += '<div class="tw-row">' +
