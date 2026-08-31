@@ -1038,7 +1038,7 @@ p{margin:0}
 
 /* Hero — layout tablet mulai 1059px ke bawah (khusus hero, breakpoint lain tetap di 860px) */
 @media (max-width:1059px){
-  .hero{min-height:auto;padding-block:48px 56px}
+  .hero{min-height:auto;padding-block:48px 160px}
   .hero-grid{grid-template-columns:minmax(0,1fr);gap:34px}
 
   .hero-copy{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;max-width:100%}
@@ -1362,10 +1362,19 @@ p{margin:0}
    presisi — margin -80px di atas ikut menggeser dasar hitungan persen badge,
    jadi kepastian pas/nggaknya perlu dicek langsung di ?tweak=1. Kalau masih
    ketiban atau malah kejauhan, kabari — tinggal disetel ulang. */
-@media (max-width:1059px){ .hero-trust{margin-top:var(--trust-gap-1059,56px)} }
-@media (max-width:860px){  .hero-trust{margin-top:var(--trust-gap-860,52px)} }
-@media (max-width:560px){  .hero-trust{margin-top:var(--trust-gap-560,46px)} }
-@media (max-width:364px){  .hero-trust{margin-top:var(--trust-gap-364,42px)} }
+/* Baris "Melayani kontraktor..." versi mobile digeser pakai position:absolute +
+   transform, BUKAN margin-top — supaya menggeser cuma menggerakkan tulisannya
+   sendiri, tidak ikut menambah tinggi section hero (yang tadinya bikin Stats
+   Bar dan section di bawahnya ikut turun kalau slider digeser). */
+@media (max-width:1059px){
+  .hero-trust--m{
+    position:absolute;left:0;right:0;top:100%;margin-top:0;
+    transform:translateY(var(--trust-gap-1059,56px));
+  }
+}
+@media (max-width:860px){ .hero-trust--m{ transform:translateY(var(--trust-gap-860,52px)); } }
+@media (max-width:560px){ .hero-trust--m{ transform:translateY(var(--trust-gap-560,46px)); } }
+@media (max-width:364px){ .hero-trust--m{ transform:translateY(var(--trust-gap-364,42px)); } }
 
 /* Dua instance hero-trust: satu di bawah CTA (kolom kiri, buat desktop),
    satu di bawah gambar (buat mobile/tumpuk). Cuma satu yang tampil,
