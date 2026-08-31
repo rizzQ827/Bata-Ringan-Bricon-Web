@@ -357,13 +357,13 @@ p{margin:0}
 @keyframes hlSweep{to{transform:skewX(-14deg) scaleX(1)}}
 .hero .lead{margin-top:20px;font-size:clamp(.785rem,2.064vw,1.335rem);color:var(--on-dark-soft);max-width:46ch;line-height:1.55}
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
-.hero-trust{margin-top:22px;font-size:.86rem;color:var(--on-dark-mute);display:inline-flex;align-items:center;gap:9px;max-width:100%}
-.hero-trust svg{width:17px;height:17px;color:var(--yellow);flex:none}
-.hero-trust-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.hero-trust{margin-top:18px;font-size:.86rem;color:var(--on-dark-mute);display:inline-flex;align-items:center;gap:.55em;max-width:100%;white-space:nowrap}
+.hero-trust svg{width:1.05em;height:1.05em;color:var(--yellow);flex:none}
+.hero-trust-text{white-space:nowrap}
 
 .hero-img-wrap{
   position:relative;
-  display:flex;align-items:center;justify-content:center;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
   max-width:520px;
   width:100%;
   margin-inline:auto;
@@ -391,9 +391,9 @@ p{margin:0}
   width:max-content;
 }
 .hbadge svg{width:clamp(12px,3.1cqw,16px);height:clamp(12px,3.1cqw,16px);flex:none;opacity:.92}
-.hbadge--stok{top:23%;left:3%;transform:none;bottom:auto;right:auto}
-.hbadge--kirim{top:82%;left:4.5%;bottom:auto;right:auto;transform:none}
-.hbadge--mutu{top:49.5%;left:71.5%;bottom:auto;right:auto;transform:none}
+.hbadge--stok{top:var(--badge-stok-y-d,23%);left:var(--badge-stok-x-d,3%);transform:none;bottom:auto;right:auto}
+.hbadge--kirim{top:var(--badge-kirim-y-d,82%);left:var(--badge-kirim-x-d,4.5%);bottom:auto;right:auto;transform:none}
+.hbadge--mutu{top:var(--badge-mutu-y-d,49.5%);left:var(--badge-mutu-x-d,71.5%);bottom:auto;right:auto;transform:none}
 
 .hbadge .hb-dot{width:7px;height:7px;border-radius:50%;flex:none}
 .hbadge--stok  .hb-dot{background:#4ADE80;box-shadow:0 0 0 3px rgba(74,222,128,.25)}
@@ -641,6 +641,9 @@ p{margin:0}
 .area-clear:hover{background:var(--track);color:var(--ink)}
 .area-search.is-filled .area-clear{display:flex}
 
+.area-cakupan{margin-top:10px;font-size:.84rem;line-height:1.5;color:var(--muted)}
+.area-cakupan b{color:var(--ink)}
+
 .area-grid{list-style:none;margin:clamp(20px,2.6vw,28px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,16px)}
 .kk{
   display:flex;flex-direction:column;height:100%;padding:18px;
@@ -649,9 +652,10 @@ p{margin:0}
 }
 .kk:hover{border-color:var(--line-strong);box-shadow:var(--sh-md);transform:translateY(-2px)}
 .kk-head{display:flex;align-items:center;gap:9px}
-.kk-name{font-size:1.06rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);min-width:0}
+.kk-name{display:inline-flex;align-items:center;gap:6px;font-size:1.06rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);min-width:0}
 .kk-name a{transition:color .18s var(--ease-out)}
 .kk-name a:hover{color:var(--red)}
+.kk-pin{width:15px;height:15px;flex:none;color:var(--red);opacity:.85}
 .kk-tag{
   margin-left:auto;flex:none;white-space:nowrap;
   font-family:var(--mono);font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
@@ -698,6 +702,9 @@ p{margin:0}
 .area-kosong a{display:inline-block;margin-top:6px;color:var(--red);font-weight:700;border-bottom:1.5px solid rgba(212,43,43,.32)}
 .area-kosong a:hover{border-bottom-color:var(--red)}
 
+.area-terbatas{border-style:solid;border-color:#F0D488;background:#FDF8E9;color:#7A5C00}
+.area-terbatas b{color:#5C4400}
+
 .area-note{margin-top:24px;font-size:.95rem;color:var(--muted);max-width:60ch}
 .area-note a{color:var(--red);font-weight:700;border-bottom:1.5px solid rgba(212,43,43,.32)}
 .area-note a:hover{border-bottom-color:var(--red)}
@@ -706,8 +713,26 @@ p{margin:0}
   .area-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:560px){
-  .area-grid{grid-template-columns:minmax(0,1fr)}
   .area-search{max-width:none}
+
+  /* Mode jelajah (tanpa kata kunci): geser horizontal supaya ringkas —
+     tidak perlu scroll panjang ke bawah sebelum sampai ke kotak cari. */
+  .area-grid{
+    grid-template-columns:none;
+    display:flex;flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;
+    gap:12px;padding:2px 2px 10px;-webkit-overflow-scrolling:touch;
+  }
+  .area-grid::-webkit-scrollbar{display:none}
+  .area-grid .kk{flex:0 0 78%;scroll-snap-align:start}
+  .area-more{display:none}
+
+  /* Mode pencarian (ada kata kunci): balik ke daftar vertikal biasa,
+     supaya hasil yang cocok langsung terlihat tanpa perlu geser. */
+  .area-grid.is-search{
+    display:grid;grid-template-columns:minmax(0,1fr);
+    overflow-x:visible;scroll-snap-type:none;padding:0;
+  }
+  .area-grid.is-search .kk{flex:auto}
 }
 
 /* ============================================================
@@ -1118,11 +1143,11 @@ p{margin:0}
   }
 }
 
-/* Posisi badge hero — sudah final, tidak bisa diatur lewat panel lagi. */
+/* Posisi badge hero — bisa disetel lewat panel tweak (?tweak=1). */
 @media (max-width: 1074px) {
-  .hbadge--stok{top:23%;left:-5%}
-  .hbadge--kirim{top:74%;left:4.5%}
-  .hbadge--mutu{top:40%;left:71.5%}
+  .hbadge--stok{top:var(--badge-stok-y-t,23%);left:var(--badge-stok-x-t,-5%)}
+  .hbadge--kirim{top:var(--badge-kirim-y-t,74%);left:var(--badge-kirim-x-t,4.5%)}
+  .hbadge--mutu{top:var(--badge-mutu-y-t,40%);left:var(--badge-mutu-x-t,71.5%)}
 }
 
 @media (max-width: 639px) {
@@ -1149,8 +1174,9 @@ p{margin:0}
 
 @media (max-width: 364px) {
   /* layar 320px: badge kanan digeser masuk supaya tidak terpotong tepi layar */
-  .hbadge--stok{left:-2%}
-  .hbadge--mutu{left:54%}
+  .hbadge--stok{top:var(--badge-stok-y-s,23%);left:var(--badge-stok-x-s,-2%)}
+  .hbadge--kirim{top:var(--badge-kirim-y-s,74%);left:var(--badge-kirim-x-s,4.5%)}
+  .hbadge--mutu{top:var(--badge-mutu-y-s,40%);left:var(--badge-mutu-x-s,54%)}
   .hero-badge {
     font-size: 9px;
     padding: 4px 8px;
@@ -1373,10 +1399,6 @@ p{margin:0}
             </a>
             <a class="btn btn-outline-on-dark" href="#produk">Lihat Produk</a>
           </div>
-          <p class="hero-trust" data-anim="5">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>
-            <span class="hero-trust-text">Melayani kontraktor, tukang &amp; owner proyek se-Jawa Timur &middot; Min. order 1 truk (11,52 m&sup3;)</span>
-          </p>
         </div>
 
         <div class="hero-visual hero-img-wrap" data-anim="4">
@@ -1399,6 +1421,10 @@ p{margin:0}
             Kualitas SNI
           </span>
           </div><!-- /img-anchor -->
+          <p class="hero-trust" data-anim="5">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>
+            <span class="hero-trust-text">Melayani kontraktor, tukang &amp; owner proyek se-Jawa Timur &middot; Min. order 1 truk (11,52 m&sup3;)</span>
+          </p>
         </div>
       </div>
     </div>
@@ -1475,7 +1501,7 @@ p{margin:0}
       <div class="reveal" style="max-width:640px">
         <span class="eyebrow-mark"><span class="bar"></span>Produk</span>
         <h2 class="section-title" style="margin-top:14px">Ukuran &amp; spesifikasi</h2>
-        <p class="section-lead">Dua produk, satu standar mutu. Pilih ukurannya — berat, isi per m&sup3;, dan kebutuhan per luas dihitung otomatis. Harga menyesuaikan ongkos kirim tiap kabupaten, jadi angkanya ada di halaman wilayah.</p>
+        <p class="section-lead">Pilih ukurannya — spesifikasi langsung terhitung otomatis.</p>
       </div>
 
       <div class="pcards">
@@ -1560,7 +1586,7 @@ p{margin:0}
       <div class="reveal" style="max-width:640px">
         <span class="eyebrow-mark"><span class="bar"></span>Area Layanan</span>
         <h2 class="section-title" style="margin-top:14px">Cek harga di kabupatenmu</h2>
-        <p class="section-lead">Harga bata ringan beda tiap wilayah &mdash; yang membedakan ongkos kirim dan medan bongkar. Cari kabupatenmu, harganya langsung kelihatan.</p>
+        <p class="section-lead">Cari kabupatenmu, harganya langsung kelihatan.</p>
       </div>
 
       <div class="area-search reveal" id="areaSearch">
@@ -1568,11 +1594,12 @@ p{margin:0}
         <input id="areaCari" type="search" autocomplete="off" spellcheck="false" placeholder="Cari kabupaten / kota&hellip;" aria-label="Cari kabupaten atau kota">
         <button class="area-clear" type="button" id="areaClear" aria-label="Hapus pencarian">&times;</button>
       </div>
+      <p class="area-cakupan" id="areaCatatan" hidden></p>
 
       <ul class="area-grid reveal" id="areaGrid">
-        <li class="kk" data-kota="surabaya" data-nama="Surabaya" data-cari="sby kota surabaya rungkut wiyung lakarsantri" data-halaman="/kota/surabaya" data-utama="1">
+        <li class="kk" data-kota="surabaya" data-nama="Surabaya" data-cari="sby kota surabaya rungkut wiyung lakarsantri gubeng wonokromo tandes sukolilo mulyorejo simokerto kenjeran wonocolo jambangan sawahan tegalsari benowo pakal gunung anyar kertajaya ngagel darmo ketintang" data-halaman="/kota/surabaya" data-utama="1">
           <div class="kk-head">
-            <h3 class="kk-name"><a href="/kota/surabaya">Surabaya</a></h3>
+            <h3 class="kk-name"><svg class="kk-pin" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg><a href="/kota/surabaya">Surabaya</a></h3>
             <span class="kk-tag">Halaman kota</span>
           </div>
           <div class="kk-rows">
@@ -1585,9 +1612,9 @@ p{margin:0}
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li class="kk" data-kota="sidoarjo" data-nama="Sidoarjo" data-cari="sda krian taman waru porong tulangan candi" data-utama="1">
+        <li class="kk" data-kota="sidoarjo" data-nama="Sidoarjo" data-cari="sda krian taman waru porong tulangan candi sidoarjo kota gedangan sukodono buduran sepanjang wonoayu krembung tarik prambon balongbendo tanggulangin jabon" data-utama="1">
           <div class="kk-head">
-            <h3 class="kk-name">Sidoarjo</h3>
+            <h3 class="kk-name"><svg class="kk-pin" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg>Sidoarjo</h3>
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
@@ -1600,9 +1627,9 @@ p{margin:0}
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li class="kk" data-kota="gresik" data-nama="Gresik" data-cari="kebomas manyar driyorejo menganti cerme" data-utama="1">
+        <li class="kk" data-kota="gresik" data-nama="Gresik" data-cari="kebomas manyar driyorejo menganti cerme gresik kota duduksampeyan bungah sidayu panceng ujungpangkah wringinanom kedamean" data-utama="1">
           <div class="kk-head">
-            <h3 class="kk-name">Gresik</h3>
+            <h3 class="kk-name"><svg class="kk-pin" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg>Gresik</h3>
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
@@ -1615,9 +1642,9 @@ p{margin:0}
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li class="kk" data-kota="mojokerto" data-nama="Mojokerto" data-cari="mojosari sooko trowulan pungging ngoro" data-halaman="/kota/mojokerto" data-utama="1">
+        <li class="kk" data-kota="mojokerto" data-nama="Mojokerto" data-cari="mojosari sooko trowulan pungging ngoro kota mojokerto pacet trawas dlanggu bangsal jetis puri gondang kutorejo" data-halaman="/kota/mojokerto" data-utama="1">
           <div class="kk-head">
-            <h3 class="kk-name"><a href="/kota/mojokerto">Mojokerto</a></h3>
+            <h3 class="kk-name"><svg class="kk-pin" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg><a href="/kota/mojokerto">Mojokerto</a></h3>
             <span class="kk-tag">Halaman kota</span>
           </div>
           <div class="kk-rows">
@@ -1630,9 +1657,9 @@ p{margin:0}
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li class="kk" data-kota="malang" data-nama="Malang" data-cari="kota malang kabupaten malang kepanjen singosari batu" data-utama="1">
+        <li class="kk" data-kota="malang" data-nama="Malang" data-cari="kota malang kabupaten malang kepanjen singosari batu lawang turen dau pakis tumpang dampit pujon wagir karangploso ngajum sumbermanjing" data-utama="1">
           <div class="kk-head">
-            <h3 class="kk-name">Malang</h3>
+            <h3 class="kk-name"><svg class="kk-pin" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg>Malang</h3>
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
@@ -1645,9 +1672,9 @@ p{margin:0}
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li class="kk" data-kota="pasuruan" data-nama="Pasuruan" data-cari="bangil pandaan grati gempol rembang" data-utama="1">
+        <li class="kk" data-kota="pasuruan" data-nama="Pasuruan" data-cari="bangil pandaan grati gempol rembang kota pasuruan purwosari beji sukorejo winongan nguling prigen puspo" data-utama="1">
           <div class="kk-head">
-            <h3 class="kk-name">Pasuruan</h3>
+            <h3 class="kk-name"><svg class="kk-pin" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg>Pasuruan</h3>
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
@@ -1660,9 +1687,9 @@ p{margin:0}
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li class="kk" data-kota="jombang" data-nama="Jombang" data-cari="mojoagung ploso diwek tembelang" hidden>
+        <li class="kk" data-kota="jombang" data-nama="Jombang" data-cari="mojoagung ploso diwek tembelang jombang kota peterongan perak bandarkedungmulyo jogoroto mojowarno" hidden>
           <div class="kk-head">
-            <h3 class="kk-name">Jombang</h3>
+            <h3 class="kk-name"><svg class="kk-pin" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg>Jombang</h3>
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
@@ -1675,9 +1702,9 @@ p{margin:0}
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li class="kk" data-kota="lamongan" data-nama="Lamongan" data-cari="babat paciran brondong sukodadi" hidden>
+        <li class="kk" data-kota="lamongan" data-nama="Lamongan" data-cari="babat paciran brondong sukodadi lamongan kota turi ngimbang deket karanggeneng sarirejo" hidden>
           <div class="kk-head">
-            <h3 class="kk-name">Lamongan</h3>
+            <h3 class="kk-name"><svg class="kk-pin" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg>Lamongan</h3>
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
@@ -1690,9 +1717,9 @@ p{margin:0}
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li class="kk" data-kota="kediri" data-nama="Kediri" data-cari="pare kota kediri wates ngasem" hidden>
+        <li class="kk" data-kota="kediri" data-nama="Kediri" data-cari="pare kota kediri wates ngasem kabupaten kediri gampengrejo grogol kandat ngadiluwih papar plosoklaten puncu purwoasri ringinrejo" hidden>
           <div class="kk-head">
-            <h3 class="kk-name">Kediri</h3>
+            <h3 class="kk-name"><svg class="kk-pin" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg>Kediri</h3>
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
@@ -1705,9 +1732,9 @@ p{margin:0}
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li class="kk" data-kota="tulungagung" data-nama="Tulungagung" data-cari="ngunut kauman boyolangu campurdarat" hidden>
+        <li class="kk" data-kota="tulungagung" data-nama="Tulungagung" data-cari="ngunut kauman boyolangu campurdarat tulungagung kota kedungwaru ngantru rejotangan sumbergempol bandung gondang pagerwojo" hidden>
           <div class="kk-head">
-            <h3 class="kk-name">Tulungagung</h3>
+            <h3 class="kk-name"><svg class="kk-pin" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg>Tulungagung</h3>
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
@@ -1720,9 +1747,9 @@ p{margin:0}
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li class="kk" data-kota="nganjuk" data-nama="Nganjuk" data-cari="kertosono warujayeng berbek loceret" hidden>
+        <li class="kk" data-kota="nganjuk" data-nama="Nganjuk" data-cari="kertosono warujayeng berbek loceret nganjuk kota tanjunganom prambon rejoso sukomoro wilangan ngronggot" hidden>
           <div class="kk-head">
-            <h3 class="kk-name">Nganjuk</h3>
+            <h3 class="kk-name"><svg class="kk-pin" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg>Nganjuk</h3>
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
@@ -1735,9 +1762,9 @@ p{margin:0}
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li class="kk" data-kota="sampang" data-nama="Sampang" data-cari="madura camplong torjun omben" hidden>
+        <li class="kk" data-kota="sampang" data-nama="Sampang" data-cari="madura camplong torjun omben sampang kota kedungdung robatal jrengik sokobanah ketapang" hidden>
           <div class="kk-head">
-            <h3 class="kk-name">Sampang</h3>
+            <h3 class="kk-name"><svg class="kk-pin" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg>Sampang</h3>
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
@@ -1758,6 +1785,8 @@ p{margin:0}
 
       <p class="area-kosong" id="areaKosong" hidden><b id="areaKosongQ"></b> belum ada di daftar &mdash; tapi kami tetap kirim ke sana selama minimum order 1 truk (11,52 m&sup3;) terpenuhi.<br>
         <a data-cta="area-lainnya" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20ketersediaan%20dan%20ongkos%20kirim%20BRICON%20ke%20daerah%20saya." target="_blank" rel="noopener">Tanya ketersediaan &amp; ongkos kirim&nbsp;&rarr;</a></p>
+
+      <p class="area-kosong area-terbatas" id="areaTerbatas" hidden><span id="areaTerbatasPesan"></span></p>
 
       <p class="area-note reveal">Kabupaten lain di Jawa Timur tetap kami kirim &mdash; minimum order 1 truk (11,52 m&sup3;). <a data-cta="area-lainnya" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20ketersediaan%20dan%20ongkos%20kirim%20BRICON%20ke%20daerah%20saya." target="_blank" rel="noopener">Tanya ketersediaan &amp; ongkos kirim&nbsp;&rarr;</a></p>
     
@@ -1795,7 +1824,7 @@ p{margin:0}
       <div style="max-width:640px">
         <span class="eyebrow-mark"><span class="bar"></span>Ulasan</span>
         <h2 class="section-title" style="margin-top:14px">Kata pembeli kami</h2>
-        <p class="section-lead">Ulasan kontraktor, tukang, dan owner proyek yang sudah memakai bata ringan &amp; panel lantai BRICON.</p>
+        <p class="section-lead">Kata mereka yang sudah pakai BRICON.</p>
       </div>
       <div id="testiFeatureSlot"></div>
       <div class="testi-strip" id="daftarTestimoni"></div>
@@ -2000,9 +2029,50 @@ p{margin:0}
   window.addEventListener('load', fitHeroH1);
   if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fitHeroH1); }
   var fitResizeTimer = null;
+
+  /* ===================== HERO TRUST-LINE AUTO-FIT (selalu 1 baris, tidak pernah "...") ===================== */
+  var heroTrust = document.querySelector('.hero-trust');
+  function fitHeroTrust() {
+    if (!heroTrust) return;
+    var containerWidth = heroTrust.parentElement.getBoundingClientRect().width;
+    if (containerWidth <= 0) return;
+
+    var minFS = 5; /* lantai keamanan — supaya 1 baris & tak pernah "..." lebih diprioritaskan daripada ukuran nyaman di layar sangat sempit */
+    var maxFS = 16;
+
+    heroTrust.style.fontSize = maxFS + 'px';
+    var naturalWidth = heroTrust.scrollWidth;
+    if (naturalWidth <= 0) { heroTrust.style.fontSize = ''; return; }
+
+    var targetFS = Math.floor(maxFS * (containerWidth / naturalWidth));
+    targetFS = Math.max(minFS, Math.min(maxFS, targetFS));
+    heroTrust.style.fontSize = targetFS + 'px';
+
+    var guard = 0;
+    while (heroTrust.scrollWidth > containerWidth + 0.5 && targetFS > minFS && guard < 60) {
+      targetFS -= 1;
+      heroTrust.style.fontSize = targetFS + 'px';
+      guard++;
+    }
+    guard = 0;
+    while (targetFS < maxFS && guard < 60) {
+      var nextFS = targetFS + 1;
+      heroTrust.style.fontSize = nextFS + 'px';
+      if (heroTrust.scrollWidth > containerWidth + 0.5) {
+        heroTrust.style.fontSize = targetFS + 'px';
+        break;
+      }
+      targetFS = nextFS;
+      guard++;
+    }
+  }
+
+  fitHeroTrust();
+  window.addEventListener('load', fitHeroTrust);
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fitHeroTrust); }
   window.addEventListener('resize', function () {
     clearTimeout(fitResizeTimer);
-    fitResizeTimer = setTimeout(fitHeroH1, 100);
+    fitResizeTimer = setTimeout(function () { fitHeroH1(); fitHeroTrust(); }, 100);
   }, { passive: true });
 
   var nav    = document.getElementById('nav');
@@ -2280,47 +2350,126 @@ p{margin:0}
 
   /* "Beranda" (#top) selalu scroll mentok ke paling atas halaman */
   /* ============================================================
-     AREA LAYANAN — pencarian kabupaten
+     AREA LAYANAN — pencarian kabupaten (pintar)
      Kartu diurutkan dari yang paling sering dicari; sisanya disembunyikan
-     sampai tombol "Tampilkan ... wilayah lainnya" ditekan. Saat kotak
-     pencarian diisi, batas itu diabaikan supaya semua kandidat kelihatan.
+     sampai tombol "Tampilkan ... wilayah lainnya" ditekan (di layar lebar)
+     atau bisa digeser sebagai carousel (di layar sempit, lihat CSS
+     .area-grid @media max-width:560px). Saat kotak pencarian diisi, batas
+     itu diabaikan supaya semua kandidat kelihatan.
+
+     Pencarian mengenali bukan cuma nama kabupaten/kota, tapi juga
+     kecamatan — bahkan sebagian desa/kelurahan yang dikenal — lewat
+     atribut data-cari di tiap kartu <li>. Kalau yang cocok itu bukan nama
+     kabupatennya sendiri, ditampilkan keterangan singkat "termasuk
+     wilayah ...". Ada juga mekanisme AREA_TERBATAS untuk wilayah yang
+     perlu catatan khusus (lihat SERAH TERIMA di bawah).
      ============================================================ */
   (function () {
     var grid = document.getElementById('areaGrid');
     if (!grid) return;
 
-    var input   = document.getElementById('areaCari');
-    var kotak   = document.getElementById('areaSearch');
-    var hapus   = document.getElementById('areaClear');
-    var more    = document.getElementById('areaMore');
-    var moreBtn = document.getElementById('areaMoreBtn');
-    var kosong  = document.getElementById('areaKosong');
-    var kosongQ = document.getElementById('areaKosongQ');
-    var kartu   = [].slice.call(grid.querySelectorAll('.kk'));
-    var semua   = false;
+    var input     = document.getElementById('areaCari');
+    var kotak     = document.getElementById('areaSearch');
+    var hapus     = document.getElementById('areaClear');
+    var more      = document.getElementById('areaMore');
+    var moreBtn   = document.getElementById('areaMoreBtn');
+    var kosong    = document.getElementById('areaKosong');
+    var kosongQ   = document.getElementById('areaKosongQ');
+    var catatan   = document.getElementById('areaCatatan');
+    var terbatas  = document.getElementById('areaTerbatas');
+    var terbatasP = document.getElementById('areaTerbatasPesan');
+    var kartu     = [].slice.call(grid.querySelectorAll('.kk'));
+    var semua     = false;
+
+    /* ============================================================
+       SERAH TERIMA — wilayah terbatas / tidak dilayani (opsional)
+       Kosong secara default: fitur ini cuma "pipa"-nya, datanya sengaja
+       tidak diisi otomatis supaya tidak asal klaim ke pelanggan.
+
+       Cara isi: tambah objek { cari: 'kata kunci', pesan: 'catatan yang
+       tampil ke pengunjung' }. "cari" dicocokkan dengan cara yang sama
+       seperti pencarian kabupaten (huruf kecil, tanpa tanda baca).
+       Kalau ke depan datanya mau disatukan dengan Invoice Generator
+       (misalnya lewat tabel Supabase baru, contoh: service_area_notice),
+       ganti array statis ini jadi hasil fetch seperti pola di
+       segarkanHargaArea()/segarkanUlasan() pada blok skrip di atas —
+       strukturnya (cari/pesan) bisa dipakai langsung sebagai kolom tabel. */
+    var AREA_TERBATAS = [
+      // { cari: 'kepulauan kangean', pesan: 'Kepulauan Kangean & sekitarnya butuh pengecekan ongkos kirim manual — hubungi kami dulu via WhatsApp.' }
+    ];
 
     function bersih(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
+
+    function cekTerbatas(q) {
+      for (var i = 0; i < AREA_TERBATAS.length; i++) {
+        var kunci = bersih(AREA_TERBATAS[i].cari);
+        if (kunci && q.indexOf(kunci) !== -1) return AREA_TERBATAS[i];
+      }
+      return null;
+    }
+
+    /* Cari alias kecamatan/desa yang bikin sebuah kartu cocok, supaya
+       keterangannya presisi: "kata apa" yang bikin kartu itu muncul —
+       bukan cuma nama kabupatennya sendiri. */
+    function aliasCocok(el, q) {
+      var nama = bersih(el.getAttribute('data-nama'));
+      if (!nama || nama.indexOf(q) !== -1 || q.indexOf(nama) !== -1) return null;
+      var alias = bersih(el.getAttribute('data-cari') || '').split(' ');
+      for (var i = 0; i < alias.length; i++) {
+        var a = alias[i];
+        if (a && a.length >= 3 && (a.indexOf(q) !== -1 || q.indexOf(a) !== -1)) return a;
+      }
+      return null;
+    }
+
+    function isMobileCarousel() {
+      return window.matchMedia && window.matchMedia('(max-width:560px)').matches;
+    }
 
     function gambar() {
       var ketik = input ? input.value : '';
       var q = bersih(ketik);
       var ketemu = 0;
+      var keterangan = null;
 
       kartu.forEach(function (el) {
         var tampil;
         if (q) {
           tampil = bersih(el.getAttribute('data-nama') + ' ' + (el.getAttribute('data-cari') || '')).indexOf(q) !== -1;
+          if (tampil && !keterangan) {
+            var alias = aliasCocok(el, q);
+            if (alias) keterangan = { alias: alias, kota: el.getAttribute('data-nama') };
+          }
         } else {
-          tampil = semua || el.getAttribute('data-utama') === '1';
+          tampil = semua || isMobileCarousel() || el.getAttribute('data-utama') === '1';
         }
         el.hidden = !tampil;
         if (tampil) ketemu++;
       });
 
       if (kotak) kotak.classList.toggle('is-filled', !!q);
+      grid.classList.toggle('is-search', !!q);
       if (more) more.hidden = !!q || semua;
+
+      if (catatan) {
+        if (q && keterangan) {
+          catatan.hidden = false;
+          catatan.innerHTML = 'Termasuk wilayah <b id="areaCatatanKota"></b>.';
+          document.getElementById('areaCatatanKota').textContent = keterangan.kota;
+        } else {
+          catatan.hidden = true;
+          catatan.textContent = '';
+        }
+      }
+
+      var batasan = q ? cekTerbatas(q) : null;
+      if (terbatas) {
+        terbatas.hidden = !batasan;
+        if (terbatasP) terbatasP.textContent = batasan ? batasan.pesan : '';
+      }
+
       if (kosong) {
-        kosong.hidden = !(q && ketemu === 0);
+        kosong.hidden = !(q && ketemu === 0 && !batasan);
         if (kosongQ) kosongQ.textContent = ketik.trim();
       }
     }
@@ -2331,6 +2480,13 @@ p{margin:0}
     }
     if (hapus) hapus.addEventListener('click', function () { input.value = ''; input.focus(); gambar(); });
     if (moreBtn) moreBtn.addEventListener('click', function () { semua = true; gambar(); });
+
+    var breakpoint = window.matchMedia ? window.matchMedia('(max-width:560px)') : null;
+    if (breakpoint) {
+      var onBreakpoint = function () { gambar(); };
+      if (breakpoint.addEventListener) breakpoint.addEventListener('change', onBreakpoint);
+      else if (breakpoint.addListener) breakpoint.addListener(onBreakpoint);
+    }
 
     gambar();
   })();
@@ -2550,11 +2706,35 @@ p{margin:0}
   var GROUPS = [
     { t: 'Hero mobile — jarak gambar', hint: 'berlaku di lebar ≤1059px', items: [
       { k: 'hero-space-atas-m',  l: 'Atas',  min: 0, max: 160, st: 2, d: 0 },
-      { k: 'hero-space-bawah-m', l: 'Bawah', min: 0, max: 160, st: 2, d: 0 }
+      { k: 'hero-space-bawah-m', l: 'Bawah (divider)', min: -80, max: 160, st: 2, d: 0 }
     ]},
     { t: 'Desktop — jarak Bata ↔ Panel', hint: 'berlaku di lebar ≥861px', items: [
       { k: 'gap-materi-atas-d',  l: 'Atas garis',  min: 0, max: 220, st: 2, d: 0 },
       { k: 'gap-materi-bawah-d', l: 'Bawah garis', min: 0, max: 220, st: 2, d: 0 }
+    ]},
+    { t: 'Badge hero — Desktop', hint: 'berlaku di lebar >1074px', items: [
+      { k: 'badge-stok-x-d',  l: 'Stok X',  min: -20, max: 110, st: .5, d: 3,    unit: '%' },
+      { k: 'badge-stok-y-d',  l: 'Stok Y',  min: -20, max: 110, st: .5, d: 23,   unit: '%' },
+      { k: 'badge-kirim-x-d', l: 'Kirim X', min: -20, max: 110, st: .5, d: 4.5,  unit: '%' },
+      { k: 'badge-kirim-y-d', l: 'Kirim Y', min: -20, max: 110, st: .5, d: 82,   unit: '%' },
+      { k: 'badge-mutu-x-d',  l: 'Mutu X',  min: -20, max: 110, st: .5, d: 71.5, unit: '%' },
+      { k: 'badge-mutu-y-d',  l: 'Mutu Y',  min: -20, max: 110, st: .5, d: 49.5, unit: '%' }
+    ]},
+    { t: 'Badge hero — Tablet/mobile', hint: 'berlaku di lebar ≤1074px', items: [
+      { k: 'badge-stok-x-t',  l: 'Stok X',  min: -20, max: 110, st: .5, d: -5,   unit: '%' },
+      { k: 'badge-stok-y-t',  l: 'Stok Y',  min: -20, max: 110, st: .5, d: 23,   unit: '%' },
+      { k: 'badge-kirim-x-t', l: 'Kirim X', min: -20, max: 110, st: .5, d: 4.5,  unit: '%' },
+      { k: 'badge-kirim-y-t', l: 'Kirim Y', min: -20, max: 110, st: .5, d: 74,   unit: '%' },
+      { k: 'badge-mutu-x-t',  l: 'Mutu X',  min: -20, max: 110, st: .5, d: 71.5, unit: '%' },
+      { k: 'badge-mutu-y-t',  l: 'Mutu Y',  min: -20, max: 110, st: .5, d: 40,   unit: '%' }
+    ]},
+    { t: 'Badge hero — Layar kecil', hint: 'berlaku di lebar ≤364px', items: [
+      { k: 'badge-stok-x-s',  l: 'Stok X',  min: -20, max: 110, st: .5, d: -2,   unit: '%' },
+      { k: 'badge-stok-y-s',  l: 'Stok Y',  min: -20, max: 110, st: .5, d: 23,   unit: '%' },
+      { k: 'badge-kirim-x-s', l: 'Kirim X', min: -20, max: 110, st: .5, d: 4.5,  unit: '%' },
+      { k: 'badge-kirim-y-s', l: 'Kirim Y', min: -20, max: 110, st: .5, d: 74,   unit: '%' },
+      { k: 'badge-mutu-x-s',  l: 'Mutu X',  min: -20, max: 110, st: .5, d: 54,   unit: '%' },
+      { k: 'badge-mutu-y-s',  l: 'Mutu Y',  min: -20, max: 110, st: .5, d: 40,   unit: '%' }
     ]}
   ];
 
@@ -2562,12 +2742,17 @@ p{margin:0}
   try { nilai = JSON.parse(localStorage.getItem(STORE) || '{}') || {}; } catch (e) { nilai = {}; }
 
   function nama(it) { return '--' + it.k; }
+  function unit(it) { return it.unit || 'px'; }
   function ambilNilai(it) {
     var n = nama(it);
     return (n in nilai) ? Number(nilai[n]) : it.d;
   }
   function terapkan() {
-    Object.keys(nilai).forEach(function (n) { root.style.setProperty(n, nilai[n] + 'px'); });
+    Object.keys(nilai).forEach(function (n) {
+      var it = null;
+      GROUPS.forEach(function (g) { g.items.forEach(function (i) { if (nama(i) === n) it = i; }); });
+      root.style.setProperty(n, nilai[n] + (it ? unit(it) : 'px'));
+    });
   }
   function simpan() {
     try { localStorage.setItem(STORE, JSON.stringify(nilai)); } catch (e) {}
@@ -2587,7 +2772,8 @@ p{margin:0}
   var body = panel.querySelector('.tw-body');
 
   function gambar() {
-    var html = '<p class="tw-scope">Nilai di sini satuannya piksel. ' +
+    var html = '<p class="tw-scope">Nilai di sini satuannya piksel/persen (lihat tiap slider). ' +
+               'Panel ini bisa digeser — tarik dari judul di atas. ' +
                'Kalau sudah pas, tekan “Salin nilai” lalu kirim hasilnya untuk dikunci permanen.</p>';
     GROUPS.forEach(function (g, gi) {
       html += '<div class="tw-group"><h5>' + g.t + ' <span style="opacity:.55">(' + g.hint + ')</span></h5>';
@@ -2597,7 +2783,7 @@ p{margin:0}
                   '<label for="tw-' + gi + '-' + ii + '">' + it.l + '</label>' +
                   '<input id="tw-' + gi + '-' + ii + '" type="range" min="' + it.min + '" max="' + it.max +
                     '" step="' + it.st + '" value="' + v + '" data-g="' + gi + '" data-i="' + ii + '">' +
-                  '<output>' + v + 'px</output>' +
+                  '<output>' + v + unit(it) + '</output>' +
                 '</div>';
       });
       html += '</div>';
@@ -2611,16 +2797,83 @@ p{margin:0}
     var it = GROUPS[Number(el.getAttribute('data-g'))].items[Number(el.getAttribute('data-i'))];
     var n = nama(it);
     nilai[n] = Number(el.value);
-    root.style.setProperty(n, el.value + 'px');
+    root.style.setProperty(n, el.value + unit(it));
     var out = el.parentNode.querySelector('output');
-    if (out) out.textContent = el.value + 'px';
+    if (out) out.textContent = el.value + unit(it);
     simpan();
   });
 
-  panel.querySelector('.tw-head').addEventListener('click', function () {
-    panel.classList.toggle('collapsed');
-    panel.querySelector('.tw-x').innerHTML = panel.classList.contains('collapsed') ? '+' : '&minus;';
-  });
+  /* ===================== PANEL BISA DIGESER (drag) =====================
+     Tarik dari judul (.tw-head) supaya panel tidak menutupi bagian layar
+     yang sedang disetel. Posisi disimpan terpisah dari nilai jarak. */
+  (function () {
+    var POS_STORE = 'bricon-tweak-posisi-v1';
+    var head = panel.querySelector('.tw-head');
+    var dragging = false, moved = false, startX = 0, startY = 0, origLeft = 0, origTop = 0;
+
+    function clamp(x, y) {
+      var pw = panel.offsetWidth || 298;
+      var maxX = Math.max(4, window.innerWidth - pw - 4);
+      var maxY = Math.max(4, window.innerHeight - 44 - 4);
+      return { x: Math.min(Math.max(4, x), maxX), y: Math.min(Math.max(4, y), maxY) };
+    }
+    function letakkan(x, y) {
+      var p = clamp(x, y);
+      panel.style.left = p.x + 'px';
+      panel.style.top = p.y + 'px';
+      panel.style.right = 'auto';
+      panel.style.bottom = 'auto';
+    }
+    function simpanPosisi() {
+      var r = panel.getBoundingClientRect();
+      try { localStorage.setItem(POS_STORE, JSON.stringify({ x: r.left, y: r.top })); } catch (e) {}
+    }
+
+    try {
+      var pos = JSON.parse(localStorage.getItem(POS_STORE) || 'null');
+      if (pos && isFinite(pos.x) && isFinite(pos.y)) letakkan(pos.x, pos.y);
+    } catch (e) {}
+
+    head.style.cursor = 'grab';
+    head.style.touchAction = 'none';
+
+    head.addEventListener('pointerdown', function (e) {
+      if (e.button != null && e.button !== 0) return;
+      dragging = true; moved = false;
+      var r = panel.getBoundingClientRect();
+      startX = e.clientX; startY = e.clientY;
+      origLeft = r.left; origTop = r.top;
+      try { head.setPointerCapture(e.pointerId); } catch (er) {}
+    });
+    head.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var dx = e.clientX - startX, dy = e.clientY - startY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+        moved = true;
+        head.style.cursor = 'grabbing';
+        letakkan(origLeft + dx, origTop + dy);
+      }
+    });
+    function selesai(e) {
+      if (!dragging) return;
+      dragging = false;
+      head.style.cursor = 'grab';
+      if (moved) simpanPosisi();
+    }
+    head.addEventListener('pointerup', selesai);
+    head.addEventListener('pointercancel', selesai);
+
+    window.addEventListener('resize', function () {
+      var r = panel.getBoundingClientRect();
+      if (panel.style.left) letakkan(r.left, r.top);
+    });
+
+    head.addEventListener('click', function () {
+      if (moved) { moved = false; return; }
+      panel.classList.toggle('collapsed');
+      panel.querySelector('.tw-x').innerHTML = panel.classList.contains('collapsed') ? '+' : '&minus;';
+    });
+  })();
 
   panel.querySelector('.tw-foot').addEventListener('click', function (e) {
     var b = e.target.closest('button[data-act]');
@@ -2638,7 +2891,7 @@ p{margin:0}
     if (act === 'copy') {
       var baris = [];
       GROUPS.forEach(function (g) {
-        g.items.forEach(function (it) { baris.push('  ' + nama(it) + ':' + ambilNilai(it) + 'px;'); });
+        g.items.forEach(function (it) { baris.push('  ' + nama(it) + ':' + ambilNilai(it) + unit(it) + ';'); });
       });
       var teks = '/* === NILAI JARAK BRICON — tempel di dalam :root pada <style> === */\n' +
                  ':root{\n' + baris.join('\n') + '\n}';
