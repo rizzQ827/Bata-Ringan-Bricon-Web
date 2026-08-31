@@ -74,7 +74,7 @@
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
   "name": "BRICON",
-  "alternateName": "CV Bricon",
+  "alternateName": ["CV Bricon", "Kantor Bata Ringan Bricon"],
   "description": "Distributor resmi Bata Ringan & Panel Lantai BRICON berteknologi Microbubble di Jawa Timur. Stok lengkap, pengiriman cepat, kualitas SNI.",
   "url": "https://bata-ringan-bricon.com/",
   "image": "https://bata-ringan-bricon.com/assets/og-image.jpg",
@@ -88,6 +88,12 @@
     "addressCountry": "ID",
     "postalCode": ""
   },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -7.424804,
+    "longitude": 112.5843633
+  },
+  "hasMap": "https://maps.app.goo.gl/73j47gAytFDi74RR7",
   "areaServed": {
     "@type": "State",
     "name": "Jawa Timur"
@@ -644,7 +650,7 @@ p{margin:0}
 .area-cakupan{margin-top:10px;font-size:.84rem;line-height:1.5;color:var(--muted)}
 .area-cakupan b{color:var(--ink)}
 
-.area-grid{list-style:none;margin:clamp(20px,2.6vw,28px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,16px)}
+.area-grid{list-style:none;margin:clamp(20px,2.6vw,28px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,16px);align-items:stretch}
 .kk{
   display:flex;flex-direction:column;height:100%;padding:18px;
   background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);
@@ -665,7 +671,8 @@ p{margin:0}
 
 .kk-rows{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line-strong);display:flex;flex-direction:column;gap:9px}
 .kk-row{display:flex;align-items:baseline;gap:10px}
-.kk-k{font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);white-space:nowrap}
+.kk-k{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);white-space:nowrap}
+.kk-icon{width:13px;height:13px;flex:none;opacity:.55}
 .kk-v{margin-left:auto;font-family:var(--mono);font-size:.88rem;font-weight:700;letter-spacing:-.02em;color:var(--ink);white-space:nowrap}
 .kk-v u{text-decoration:none;font-size:.7em;color:var(--muted2);margin-left:1px}
 .kk-v.is-kosong{font-size:.56rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted2)}
@@ -719,7 +726,7 @@ p{margin:0}
      tidak perlu scroll panjang ke bawah sebelum sampai ke kotak cari. */
   .area-grid{
     grid-template-columns:none;
-    display:flex;flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;
+    display:flex;flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;align-items:stretch;
     gap:12px;padding:2px 2px 10px;-webkit-overflow-scrolling:touch;
   }
   .area-grid::-webkit-scrollbar{display:none}
@@ -795,6 +802,18 @@ p{margin:0}
 .loc-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(26px,3.5vw,44px);margin-top:clamp(30px,4vw,46px);align-items:stretch}
 .map-frame{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);box-shadow:var(--sh-md);min-height:340px;position:relative;background:#eee}
 .map-frame iframe{width:100%;height:100%;min-height:340px;border:0;display:block}
+.map-open{
+  position:absolute;left:12px;bottom:12px;z-index:2;
+  display:inline-flex;align-items:center;gap:7px;
+  padding:9px 13px;border-radius:var(--r-sm);
+  background:var(--surface);color:var(--ink);
+  font-size:.82rem;font-weight:700;
+  box-shadow:0 6px 18px rgba(28,28,30,.22);
+  border:1px solid var(--line);
+  transition:transform .18s var(--ease-out),color .18s var(--ease-out);
+}
+.map-open svg{width:15px;height:15px;flex:none;color:var(--red)}
+.map-open:hover{transform:translateY(-2px);color:var(--red)}
 
 .loc-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(24px,2.6vw,32px);display:flex;flex-direction:column}
 .loc-card h3{font-size:1.3rem;font-weight:700}
@@ -1146,21 +1165,25 @@ p{margin:0}
 /* Posisi badge hero — 4 titik ini SAMA PERSIS dengan titik ganti ukuran
    gambar hero (.hero-img-wrap max-width, lihat di bawah), supaya badge
    & gambar selalu ganti ukuran bareng — nggak ada rentang lebar yang
-   "nyasar" pakai nilai badge dari ukuran gambar yang beda. */
+   "nyasar" pakai nilai badge dari ukuran gambar yang beda.
+   Kirim Y sengaja dibiarkan lewat 100% (badge "Pengiriman Cepat" turun
+   sampai di bawah tepi gambar) — padding-bottom .img-anchor di bawah
+   ini menyediakan ruang ekstra sebesar itu supaya baris kepercayaan di
+   bawahnya tidak ketiban badge. Rasio 0.8417 = tinggi:lebar gambar asli. */
 @media (max-width: 1059px) {
-  .hbadge--stok{top:var(--badge-stok-y-1059,23%);left:var(--badge-stok-x-1059,-5%)}
-  .hbadge--kirim{top:var(--badge-kirim-y-1059,74%);left:var(--badge-kirim-x-1059,4.5%)}
-  .hbadge--mutu{top:var(--badge-mutu-y-1059,40%);left:var(--badge-mutu-x-1059,71.5%)}
+  .hbadge--stok{top:38.5%;left:7%}
+  .hbadge--kirim{top:var(--badge-kirim-y-1059,104.5%);left:4.5%}
+  .hbadge--mutu{top:62%;left:72.5%}
 }
 @media (max-width: 860px) {
-  .hbadge--stok{top:var(--badge-stok-y-860,23%);left:var(--badge-stok-x-860,-5%)}
-  .hbadge--kirim{top:var(--badge-kirim-y-860,74%);left:var(--badge-kirim-x-860,4.5%)}
-  .hbadge--mutu{top:var(--badge-mutu-y-860,40%);left:var(--badge-mutu-x-860,71.5%)}
+  .hbadge--stok{top:42%;left:4%}
+  .hbadge--kirim{top:var(--badge-kirim-y-860,107.5%);left:-0.5%}
+  .hbadge--mutu{top:65%;left:72%}
 }
 @media (max-width: 560px) {
-  .hbadge--stok{top:var(--badge-stok-y-560,23%);left:var(--badge-stok-x-560,-5%)}
-  .hbadge--kirim{top:var(--badge-kirim-y-560,74%);left:var(--badge-kirim-x-560,4.5%)}
-  .hbadge--mutu{top:var(--badge-mutu-y-560,40%);left:var(--badge-mutu-x-560,71.5%)}
+  .hbadge--stok{top:47.5%;left:-2.5%}
+  .hbadge--kirim{top:var(--badge-kirim-y-560,110%);left:-0.5%}
+  .hbadge--mutu{top:68.5%;left:69.5%}
 }
 
 @media (max-width: 639px) {
@@ -1187,9 +1210,9 @@ p{margin:0}
 
 @media (max-width: 364px) {
   /* layar 320px: badge kanan digeser masuk supaya tidak terpotong tepi layar */
-  .hbadge--stok{top:var(--badge-stok-y-364,23%);left:var(--badge-stok-x-364,-2%)}
-  .hbadge--kirim{top:var(--badge-kirim-y-364,74%);left:var(--badge-kirim-x-364,4.5%)}
-  .hbadge--mutu{top:var(--badge-mutu-y-364,40%);left:var(--badge-mutu-x-364,54%)}
+  .hbadge--stok{top:43%;left:-2.5%}
+  .hbadge--kirim{top:var(--badge-kirim-y-364,110%);left:-1.5%}
+  .hbadge--mutu{top:71.5%;left:70.5%}
   .hero-badge {
     font-size: 9px;
     padding: 4px 8px;
@@ -1332,6 +1355,23 @@ p{margin:0}
     padding-top:22px;
   }
 }
+
+/* Jarak aman antara gambar hero & baris "Melayani kontraktor..." (mobile) —
+   badge "Pengiriman Cepat" sengaja diposisikan lewat 100% (turun di bawah
+   tepi gambar). Nilai di bawah ini estimasi jarak aman, BUKAN hasil hitungan
+   presisi — margin -80px di atas ikut menggeser dasar hitungan persen badge,
+   jadi kepastian pas/nggaknya perlu dicek langsung di ?tweak=1. Kalau masih
+   ketiban atau malah kejauhan, kabari — tinggal disetel ulang. */
+@media (max-width:1059px){ .hero-trust{margin-top:56px} }
+@media (max-width:860px){  .hero-trust{margin-top:52px} }
+@media (max-width:560px){  .hero-trust{margin-top:46px} }
+@media (max-width:364px){  .hero-trust{margin-top:42px} }
+
+/* Dua instance hero-trust: satu di bawah CTA (kolom kiri, buat desktop),
+   satu di bawah gambar (buat mobile/tumpuk). Cuma satu yang tampil,
+   ditentukan lebar layar — bukan JS, jadi nggak ada delay/kedip. */
+@media (min-width:1060px){ .hero-trust--m{display:none} }
+@media (max-width:1059px){ .hero-trust--d{display:none} }
 </style>
 </head>
 <body>
@@ -1347,6 +1387,8 @@ p{margin:0}
   <symbol id="ico-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"></path></symbol>
   <symbol id="ico-arrow" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></g></symbol>
   <symbol id="ico-cari" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></g></symbol>
+  <symbol id="ico-bata" viewBox="0 0 400 400"><path fill="currentColor" d="M194,226L194,299C194,310.038 185.038,319 174,319L20,319C8.962,319 0,310.038 0,299L0,226C0,214.962 8.962,206 20,206L174,206C185.038,206 194,214.962 194,226Z"></path><path fill="currentColor" d="M400,226L400,299C400,310.038 391.038,319 380,319L226,319C214.962,319 206,310.038 206,299L206,226C206,214.962 214.962,206 226,206L380,206C391.038,206 400,214.962 400,226Z"></path><path fill="currentColor" d="M297,101L297,174C297,185.038 288.038,194 277,194L123,194C111.962,194 103,185.038 103,174L103,101C103,89.962 111.962,81 123,81L277,81C288.038,81 297,89.962 297,101Z"></path></symbol>
+  <symbol id="ico-panel" viewBox="0 0 400 400"><path fill="currentColor" d="M380,81C391.046,81 400,89.954 400,101L400,299C400,310.046 391.046,319 380,319L20,319C8.954,319 0,310.046 0,299L0,242.974C0,239.494 1.809,236.265 4.776,234.447L252.842,82.473C254.414,81.51 256.222,81 258.066,81L380,81Z"></path><path fill="currentColor" d="M230,101C230,89.954 238.954,81 250,81L380,81C391.046,81 400,89.954 400,101L400,133C400,144.046 391.046,153 380,153L341.685,153C341.601,152.965 341.518,152.927 341.434,152.893L230,107.056L230,101Z"></path><path fill="currentColor" d="M2.657,253.55C-3.113,244.132 -0.156,231.819 9.263,226.048L232.452,89.314C241.87,83.544 254.183,86.501 259.954,95.92L276.178,122.403C281.948,131.821 278.991,144.135 269.572,149.905L46.383,286.639C36.965,292.409 24.651,289.452 18.881,280.033L2.657,253.55Z"></path><path fill="currentColor" d="M69,281C60.716,281 54,274.284 54,266L54,91C54,82.716 60.716,76 69,76C77.284,76 84,82.716 84,91L84,266C84,274.284 77.284,281 69,281Z"></path><rect fill="currentColor" x="220" y="183" width="40" height="40"></rect><path fill="currentColor" d="M146,281C137.716,281 131,274.284 131,266L131,91C131,82.716 137.716,76 146,76C154.284,76 161,82.716 161,91L161,266C161,274.284 154.284,281 146,281Z"></path><path fill="currentColor" d="M14,136C14,127.716 20.716,121 29,121L286,121C294.284,121 301,127.716 301,136C301,144.284 294.284,151 286,151L29,151C20.716,151 14,144.284 14,136Z"></path></symbol>
 </svg>
 
 <!-- ===================== NAVBAR ===================== -->
@@ -1412,6 +1454,10 @@ p{margin:0}
             </a>
             <a class="btn btn-outline-on-dark" href="#produk">Lihat Produk</a>
           </div>
+          <p class="hero-trust hero-trust--d" data-anim="5">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>
+            <span class="hero-trust-text">Melayani kontraktor, tukang &amp; owner proyek se-Jawa Timur &middot; Min. order 1 truk (11,52 m&sup3;)</span>
+          </p>
         </div>
 
         <div class="hero-visual hero-img-wrap" data-anim="4">
@@ -1434,7 +1480,7 @@ p{margin:0}
             Kualitas SNI
           </span>
           </div><!-- /img-anchor -->
-          <p class="hero-trust" data-anim="5">
+          <p class="hero-trust hero-trust--m" data-anim="5">
             <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>
             <span class="hero-trust-text">Melayani kontraktor, tukang &amp; owner proyek se-Jawa Timur &middot; Min. order 1 truk (11,52 m&sup3;)</span>
           </p>
@@ -1616,13 +1662,13 @@ p{margin:0}
             <span class="kk-tag">Halaman kota</span>
           </div>
           <div class="kk-rows">
-            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
-            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-panel"></use></svg>Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
           </div>
           <span class="kk-space" aria-hidden="true"></span>
           <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-surabaya" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Surabaya." target="_blank" rel="noopener">
-            Tanya harga
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Tanya harga
           </a>
         </li>
         <li class="kk" data-kota="sidoarjo" data-nama="Sidoarjo" data-cari="sda krian taman waru porong tulangan candi sidoarjo kota gedangan sukodono buduran sepanjang wonoayu krembung tarik prambon balongbendo tanggulangin jabon" data-utama="1">
@@ -1631,13 +1677,13 @@ p{margin:0}
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
-            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
-            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-panel"></use></svg>Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
           </div>
           <span class="kk-space" aria-hidden="true"></span>
           <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-sidoarjo" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Sidoarjo." target="_blank" rel="noopener">
-            Tanya harga
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Tanya harga
           </a>
         </li>
         <li class="kk" data-kota="gresik" data-nama="Gresik" data-cari="kebomas manyar driyorejo menganti cerme gresik kota duduksampeyan bungah sidayu panceng ujungpangkah wringinanom kedamean" data-utama="1">
@@ -1646,13 +1692,13 @@ p{margin:0}
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
-            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
-            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-panel"></use></svg>Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
           </div>
           <span class="kk-space" aria-hidden="true"></span>
           <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-gresik" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Gresik." target="_blank" rel="noopener">
-            Tanya harga
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Tanya harga
           </a>
         </li>
         <li class="kk" data-kota="mojokerto" data-nama="Mojokerto" data-cari="mojosari sooko trowulan pungging ngoro kota mojokerto pacet trawas dlanggu bangsal jetis puri gondang kutorejo" data-halaman="/kota/mojokerto" data-utama="1">
@@ -1661,13 +1707,13 @@ p{margin:0}
             <span class="kk-tag">Halaman kota</span>
           </div>
           <div class="kk-rows">
-            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
-            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-panel"></use></svg>Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
           </div>
           <span class="kk-space" aria-hidden="true"></span>
           <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-mojokerto" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Mojokerto." target="_blank" rel="noopener">
-            Tanya harga
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Tanya harga
           </a>
         </li>
         <li class="kk" data-kota="malang" data-nama="Malang" data-cari="kota malang kabupaten malang kepanjen singosari batu lawang turen dau pakis tumpang dampit pujon wagir karangploso ngajum sumbermanjing" data-utama="1">
@@ -1676,13 +1722,13 @@ p{margin:0}
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
-            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
-            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-panel"></use></svg>Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
           </div>
           <span class="kk-space" aria-hidden="true"></span>
           <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-malang" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Malang." target="_blank" rel="noopener">
-            Tanya harga
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Tanya harga
           </a>
         </li>
         <li class="kk" data-kota="pasuruan" data-nama="Pasuruan" data-cari="bangil pandaan grati gempol rembang kota pasuruan purwosari beji sukorejo winongan nguling prigen puspo" data-utama="1">
@@ -1691,13 +1737,13 @@ p{margin:0}
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
-            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
-            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-panel"></use></svg>Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
           </div>
           <span class="kk-space" aria-hidden="true"></span>
           <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-pasuruan" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Pasuruan." target="_blank" rel="noopener">
-            Tanya harga
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Tanya harga
           </a>
         </li>
         <li class="kk" data-kota="jombang" data-nama="Jombang" data-cari="mojoagung ploso diwek tembelang jombang kota peterongan perak bandarkedungmulyo jogoroto mojowarno" hidden>
@@ -1706,13 +1752,13 @@ p{margin:0}
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
-            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
-            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-panel"></use></svg>Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
           </div>
           <span class="kk-space" aria-hidden="true"></span>
           <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-jombang" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Jombang." target="_blank" rel="noopener">
-            Tanya harga
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Tanya harga
           </a>
         </li>
         <li class="kk" data-kota="lamongan" data-nama="Lamongan" data-cari="babat paciran brondong sukodadi lamongan kota turi ngimbang deket karanggeneng sarirejo" hidden>
@@ -1721,13 +1767,13 @@ p{margin:0}
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
-            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
-            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-panel"></use></svg>Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
           </div>
           <span class="kk-space" aria-hidden="true"></span>
           <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-lamongan" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Lamongan." target="_blank" rel="noopener">
-            Tanya harga
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Tanya harga
           </a>
         </li>
         <li class="kk" data-kota="kediri" data-nama="Kediri" data-cari="pare kota kediri wates ngasem kabupaten kediri gampengrejo grogol kandat ngadiluwih papar plosoklaten puncu purwoasri ringinrejo" hidden>
@@ -1736,13 +1782,13 @@ p{margin:0}
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
-            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
-            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-panel"></use></svg>Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
           </div>
           <span class="kk-space" aria-hidden="true"></span>
           <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-kediri" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Kediri." target="_blank" rel="noopener">
-            Tanya harga
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Tanya harga
           </a>
         </li>
         <li class="kk" data-kota="tulungagung" data-nama="Tulungagung" data-cari="ngunut kauman boyolangu campurdarat tulungagung kota kedungwaru ngantru rejotangan sumbergempol bandung gondang pagerwojo" hidden>
@@ -1751,13 +1797,13 @@ p{margin:0}
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
-            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
-            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-panel"></use></svg>Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
           </div>
           <span class="kk-space" aria-hidden="true"></span>
           <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-tulungagung" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Tulungagung." target="_blank" rel="noopener">
-            Tanya harga
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Tanya harga
           </a>
         </li>
         <li class="kk" data-kota="nganjuk" data-nama="Nganjuk" data-cari="kertosono warujayeng berbek loceret nganjuk kota tanjunganom prambon rejoso sukomoro wilangan ngronggot" hidden>
@@ -1766,13 +1812,13 @@ p{margin:0}
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
-            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
-            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-panel"></use></svg>Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
           </div>
           <span class="kk-space" aria-hidden="true"></span>
           <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-nganjuk" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Nganjuk." target="_blank" rel="noopener">
-            Tanya harga
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Tanya harga
           </a>
         </li>
         <li class="kk" data-kota="sampang" data-nama="Sampang" data-cari="madura camplong torjun omben sampang kota kedungdung robatal jrengik sokobanah ketapang" hidden>
@@ -1781,13 +1827,13 @@ p{margin:0}
             <span class="kk-tag" hidden></span>
           </div>
           <div class="kk-rows">
-            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
-            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k"><svg class="kk-icon" aria-hidden="true"><use href="#ico-panel"></use></svg>Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
           </div>
           <span class="kk-space" aria-hidden="true"></span>
           <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-sampang" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Sampang." target="_blank" rel="noopener">
-            Tanya harga
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Tanya harga
           </a>
         </li>
       </ul>
@@ -1869,7 +1915,11 @@ p{margin:0}
 
       <div class="loc-grid">
         <div class="map-frame reveal">
-          <iframe title="Peta lokasi BRICON di Krian, Sidoarjo, Jawa Timur" src="https://www.google.com/maps?q=Perumahan%20Puri%20Bagus%20A7%2F23%2C%20Sadenganmijen%2C%20Krian%2C%20Sidoarjo%2C%20Jawa%20Timur&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen=""></iframe>
+          <iframe title="Peta lokasi Kantor Bata Ringan BRICON di Krian, Sidoarjo" src="https://www.google.com/maps?q=-7.424804,112.5843633&hl=id&z=17&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen=""></iframe>
+          <a class="map-open" href="https://maps.app.goo.gl/73j47gAytFDi74RR7" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-pin"></use></svg>
+            Buka di Google Maps
+          </a>
         </div>
 
         <div class="loc-card reveal">
@@ -2043,9 +2093,11 @@ p{margin:0}
   if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fitHeroH1); }
   var fitResizeTimer = null;
 
-  /* ===================== HERO TRUST-LINE AUTO-FIT (selalu 1 baris, tidak pernah "...") ===================== */
-  var heroTrust = document.querySelector('.hero-trust');
-  function fitHeroTrust() {
+  /* ===================== HERO TRUST-LINE AUTO-FIT (selalu 1 baris, tidak pernah "...") =====================
+     Ada 2 instance (desktop & mobile, lihat CSS .hero-trust--d/--m) — yang lagi
+     disembunyikan otomatis dilewati karena scrollWidth-nya 0. */
+  var heroTrustEls = document.querySelectorAll('.hero-trust');
+  function fitHeroTrustOne(heroTrust) {
     if (!heroTrust) return;
     var containerWidth = heroTrust.parentElement.getBoundingClientRect().width;
     if (containerWidth <= 0) return;
@@ -2078,6 +2130,9 @@ p{margin:0}
       targetFS = nextFS;
       guard++;
     }
+  }
+  function fitHeroTrust() {
+    heroTrustEls.forEach(fitHeroTrustOne);
   }
 
   fitHeroTrust();
@@ -2717,37 +2772,11 @@ p{margin:0}
   var STORE = 'bricon-tweak-jarak-v1';
 
   var GROUPS = [
-    { t: 'Badge hero — 861–1059px', hint: 'gambar hero mulai capped 440px', items: [
-      { k: 'badge-stok-x-1059',  l: 'Stok X',  min: -20, max: 110, st: .5, d: -5,   unit: '%' },
-      { k: 'badge-stok-y-1059',  l: 'Stok Y',  min: -20, max: 110, st: .5, d: 23,   unit: '%' },
-      { k: 'badge-kirim-x-1059', l: 'Kirim X', min: -20, max: 110, st: .5, d: 4.5,  unit: '%' },
-      { k: 'badge-kirim-y-1059', l: 'Kirim Y', min: -20, max: 110, st: .5, d: 74,   unit: '%' },
-      { k: 'badge-mutu-x-1059',  l: 'Mutu X',  min: -20, max: 110, st: .5, d: 71.5, unit: '%' },
-      { k: 'badge-mutu-y-1059',  l: 'Mutu Y',  min: -20, max: 110, st: .5, d: 40,   unit: '%' }
+    { t: 'Kirim Y — 365–560px', hint: 'badge "Pengiriman Cepat"; boleh lewat 100% (turun di bawah gambar)', items: [
+      { k: 'badge-kirim-y-560', l: 'Kirim Y', min: -20, max: 220, st: .5, d: 110, unit: '%' }
     ]},
-    { t: 'Badge hero — 561–860px', hint: 'gambar hero capped 380px', items: [
-      { k: 'badge-stok-x-860',  l: 'Stok X',  min: -20, max: 110, st: .5, d: -5,   unit: '%' },
-      { k: 'badge-stok-y-860',  l: 'Stok Y',  min: -20, max: 110, st: .5, d: 23,   unit: '%' },
-      { k: 'badge-kirim-x-860', l: 'Kirim X', min: -20, max: 110, st: .5, d: 4.5,  unit: '%' },
-      { k: 'badge-kirim-y-860', l: 'Kirim Y', min: -20, max: 110, st: .5, d: 74,   unit: '%' },
-      { k: 'badge-mutu-x-860',  l: 'Mutu X',  min: -20, max: 110, st: .5, d: 71.5, unit: '%' },
-      { k: 'badge-mutu-y-860',  l: 'Mutu Y',  min: -20, max: 110, st: .5, d: 40,   unit: '%' }
-    ]},
-    { t: 'Badge hero — 365–560px', hint: 'gambar hero capped 300px', items: [
-      { k: 'badge-stok-x-560',  l: 'Stok X',  min: -20, max: 110, st: .5, d: -5,   unit: '%' },
-      { k: 'badge-stok-y-560',  l: 'Stok Y',  min: -20, max: 110, st: .5, d: 23,   unit: '%' },
-      { k: 'badge-kirim-x-560', l: 'Kirim X', min: -20, max: 110, st: .5, d: 4.5,  unit: '%' },
-      { k: 'badge-kirim-y-560', l: 'Kirim Y', min: -20, max: 110, st: .5, d: 74,   unit: '%' },
-      { k: 'badge-mutu-x-560',  l: 'Mutu X',  min: -20, max: 110, st: .5, d: 71.5, unit: '%' },
-      { k: 'badge-mutu-y-560',  l: 'Mutu Y',  min: -20, max: 110, st: .5, d: 40,   unit: '%' }
-    ]},
-    { t: 'Badge hero — 320–364px', hint: 'layar HP paling kecil', items: [
-      { k: 'badge-stok-x-364',  l: 'Stok X',  min: -20, max: 110, st: .5, d: -2,   unit: '%' },
-      { k: 'badge-stok-y-364',  l: 'Stok Y',  min: -20, max: 110, st: .5, d: 23,   unit: '%' },
-      { k: 'badge-kirim-x-364', l: 'Kirim X', min: -20, max: 110, st: .5, d: 4.5,  unit: '%' },
-      { k: 'badge-kirim-y-364', l: 'Kirim Y', min: -20, max: 110, st: .5, d: 74,   unit: '%' },
-      { k: 'badge-mutu-x-364',  l: 'Mutu X',  min: -20, max: 110, st: .5, d: 54,   unit: '%' },
-      { k: 'badge-mutu-y-364',  l: 'Mutu Y',  min: -20, max: 110, st: .5, d: 40,   unit: '%' }
+    { t: 'Kirim Y — 320–364px', hint: 'badge "Pengiriman Cepat"; boleh lewat 100% (turun di bawah gambar)', items: [
+      { k: 'badge-kirim-y-364', l: 'Kirim Y', min: -20, max: 220, st: .5, d: 110, unit: '%' }
     ]}
   ];
 
