@@ -614,32 +614,100 @@ p{margin:0}
 }
 
 /* ============================================================
-   AREA LAYANAN — daftar wilayah (teks, bukan kartu)
+   AREA LAYANAN — pencarian kabupaten + kartu harga per wilayah
+   Urutan kartu mengikuti volume pencarian "bata ringan <kota>" di Jawa Timur,
+   bukan abjad — yang paling sering dicari duluan.
    ============================================================ */
 .area{background:var(--surface-warm);border-top:1px solid var(--line)}
-.area-list{list-style:none;margin:clamp(26px,3.4vw,38px) 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(28px,5vw,64px)}
-.area-list li{border-bottom:1px solid var(--line)}
-.area-list li:nth-child(-n+2){border-top:1px solid var(--line)}
-.area-list a{display:flex;align-items:center;gap:14px;padding:16px 6px 16px 2px;transition:padding-left .2s var(--ease-out)}
-.a-name{font-weight:700;font-size:1.04rem;color:var(--ink);letter-spacing:-.01em;transition:color .18s var(--ease-out)}
-.a-sub{font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);white-space:nowrap}
-.a-meta{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted2);white-space:nowrap;transition:color .18s var(--ease-out)}
-.a-meta svg{width:14px;height:14px;flex:none;transition:transform .2s var(--ease-out)}
-.area-list a.is-page .a-meta{color:var(--red)}
-.area-list a:hover .a-name{color:var(--red)}
-.area-list a:hover .a-meta{color:var(--red)}
-.area-list a:hover .a-meta svg{transform:translateX(4px)}
-.area-list a:hover{padding-left:8px}
+
+.area-search{position:relative;margin-top:clamp(24px,3vw,34px);max-width:460px}
+.area-search > svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--muted2);pointer-events:none}
+.area-search input{
+  width:100%;height:54px;padding:0 46px;
+  font-family:var(--font);font-size:1rem;font-weight:600;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--r-sm);
+  -webkit-appearance:none;appearance:none;
+  transition:border-color .18s var(--ease-out),box-shadow .18s var(--ease-out);
+}
+.area-search input::placeholder{color:var(--muted2);font-weight:500}
+.area-search input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(212,43,43,.14)}
+.area-search input::-webkit-search-cancel-button,
+.area-search input::-webkit-search-decoration{-webkit-appearance:none;display:none}
+.area-clear{
+  position:absolute;right:9px;top:50%;transform:translateY(-50%);
+  width:32px;height:32px;display:none;align-items:center;justify-content:center;
+  border:none;background:transparent;color:var(--muted);font-size:19px;line-height:1;cursor:pointer;border-radius:8px;
+}
+.area-clear:hover{background:var(--track);color:var(--ink)}
+.area-search.is-filled .area-clear{display:flex}
+
+.area-grid{list-style:none;margin:clamp(20px,2.6vw,28px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,16px)}
+.kk{
+  display:flex;flex-direction:column;height:100%;padding:18px;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);
+  transition:border-color .18s var(--ease-out),box-shadow .18s var(--ease-out),transform .18s var(--ease-out);
+}
+.kk:hover{border-color:var(--line-strong);box-shadow:var(--sh-md);transform:translateY(-2px)}
+.kk-head{display:flex;align-items:center;gap:9px}
+.kk-name{font-size:1.06rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);min-width:0}
+.kk-name a{transition:color .18s var(--ease-out)}
+.kk-name a:hover{color:var(--red)}
+.kk-tag{
+  margin-left:auto;flex:none;white-space:nowrap;
+  font-family:var(--mono);font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 7px;border-radius:5px;background:var(--track);color:var(--muted);
+}
+.kk-tag.is-live{background:#FDF3CE;color:#7A5C00}
+
+.kk-rows{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line-strong);display:flex;flex-direction:column;gap:9px}
+.kk-row{display:flex;align-items:baseline;gap:10px}
+.kk-k{font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);white-space:nowrap}
+.kk-v{margin-left:auto;font-family:var(--mono);font-size:.88rem;font-weight:700;letter-spacing:-.02em;color:var(--ink);white-space:nowrap}
+.kk-v u{text-decoration:none;font-size:.7em;color:var(--muted2);margin-left:1px}
+.kk-v.is-kosong{font-size:.56rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted2)}
+
+.kk-space{flex:1 1 auto;min-height:12px}
+.kk-act{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:42px;margin-top:14px;padding:9px 14px;border-radius:var(--r-sm);
+  font-size:.88rem;font-weight:700;letter-spacing:-.01em;
+  border:1.5px solid transparent;
+  transition:background .18s var(--ease-out),color .18s var(--ease-out),border-color .18s var(--ease-out);
+}
+.kk-act svg{width:16px;height:16px;flex:none;transition:transform .2s var(--ease-out)}
+.kk-act--lihat{background:var(--red);color:#fff}
+.kk-act--lihat:hover{background:var(--red-dark)}
+.kk-act--lihat:hover svg{transform:translateX(3px)}
+.kk-act--tanya{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+.kk-act--tanya:hover{border-color:var(--red);color:var(--red)}
+
+.area-more{margin-top:18px;display:flex;justify-content:center}
+.area-more button{
+  min-height:44px;padding:11px 22px;border-radius:var(--r-sm);cursor:pointer;
+  border:1.5px solid var(--line-strong);background:var(--surface);
+  font-family:var(--font);font-size:.9rem;font-weight:700;color:var(--ink);
+  transition:border-color .18s var(--ease-out),color .18s var(--ease-out);
+}
+.area-more button:hover{border-color:var(--red);color:var(--red)}
+
+.area-kosong{
+  margin-top:20px;padding:24px 22px;border:1px dashed var(--line-strong);border-radius:var(--r-md);
+  text-align:center;color:var(--muted);font-size:.95rem;line-height:1.6;
+}
+.area-kosong b{color:var(--ink)}
+.area-kosong a{display:inline-block;margin-top:6px;color:var(--red);font-weight:700;border-bottom:1.5px solid rgba(212,43,43,.32)}
+.area-kosong a:hover{border-bottom-color:var(--red)}
+
 .area-note{margin-top:24px;font-size:.95rem;color:var(--muted);max-width:60ch}
 .area-note a{color:var(--red);font-weight:700;border-bottom:1.5px solid rgba(212,43,43,.32)}
 .area-note a:hover{border-bottom-color:var(--red)}
 
-@media (max-width:700px){
-  .area-list{grid-template-columns:minmax(0,1fr)}
-  .area-list li:nth-child(-n+2){border-top:none}
-  .area-list li:first-child{border-top:1px solid var(--line)}
-  .a-name{font-size:.98rem}
-  .area-list a{padding:14px 4px 14px 2px}
+@media (max-width:900px){
+  .area-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:560px){
+  .area-grid{grid-template-columns:minmax(0,1fr)}
+  .area-search{max-width:none}
 }
 
 /* ============================================================
@@ -1117,8 +1185,8 @@ p{margin:0}
 
 .testi{background:var(--bg)}
 .testi-feature{
-  position:relative;display:flex;flex-direction:column;gap:14px;
-  padding:clamp(22px,3vw,28px);background:var(--ink);border-radius:18px;overflow:hidden;
+  position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:14px;
+  padding:clamp(24px,3.2vw,32px);background:var(--ink);border-radius:18px;overflow:hidden;
   margin-top:clamp(30px,4vw,46px);
 }
 .testi-feature::before{
@@ -1127,34 +1195,49 @@ p{margin:0}
   background-size:24px 24px;
 }
 .testi-feature > *{position:relative}
+.tq-mark{flex:none;width:30px;height:30px;color:var(--yellow);opacity:.85}
 .testi-feature blockquote{margin:0;font-size:clamp(1.02rem,2vw,1.18rem);line-height:1.55;font-weight:600;letter-spacing:-.01em;color:#fff;text-wrap:pretty}
-.testi-feature footer{display:flex;align-items:center;gap:11px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14)}
-.tf-avatar{flex:none;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;background:var(--yellow);color:var(--ink);font-family:var(--mono);font-size:13px;font-weight:700}
-.tf-name{margin:0;font-size:.95rem;font-weight:700;color:#fff}
-.tf-loc{display:inline-flex;align-items:center;gap:5px;margin-top:2px;font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.testi-feature footer{display:flex;align-items:center;gap:12px;width:100%;padding-top:16px;border-top:1px solid rgba(255,255,255,.14)}
+.tf-avatar{flex:none;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);color:var(--yellow)}
+.tf-avatar svg{width:19px;height:19px}
+.tf-id{min-width:0}
+.tf-name{margin:0;font-size:.95rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tf-loc{display:inline-flex;align-items:center;gap:5px;margin-top:2px;font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 .tf-loc svg{flex:none;width:10px;height:10px;color:var(--yellow)}
-.tf-prod{margin-left:auto;font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap}
+.tf-prod{margin-left:auto;flex:none;font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.68);white-space:nowrap;padding:5px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06)}
 
 .testi-strip{display:flex;gap:10px;margin-top:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
 .testi-strip::-webkit-scrollbar{display:none}
-.ts-card{flex:0 0 82%;scroll-snap-align:start;display:flex;gap:10px;padding:13px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md)}
-.ts-avatar{flex:none;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:var(--track);color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:700}
-.ts-body{min-width:0}
-.ts-head{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.ts-name{margin:0;font-size:.85rem;font-weight:700;color:var(--ink)}
-.ts-loc{display:inline-flex;align-items:center;gap:4px;margin-top:2px;font-family:var(--mono);font-size:.56rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ts-card{flex:0 0 82%;scroll-snap-align:start;display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md)}
+.ts-mark{flex:none;width:20px;height:20px;color:var(--red);opacity:.5}
+.ts-quote{margin:0;font-size:.83rem;line-height:1.6;color:var(--text)}
+.ts-foot{display:flex;align-items:center;gap:9px;width:100%;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
+.ts-avatar{flex:none;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:var(--track);color:var(--muted)}
+.ts-avatar svg{width:16px;height:16px}
+.ts-id{flex:1 1 auto;min-width:0}
+.ts-name{margin:0;font-size:.85rem;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ts-loc{display:flex;align-items:center;gap:4px;margin-top:2px;font-family:var(--mono);font-size:.54rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ts-loc svg{flex:none;width:9px;height:9px;color:var(--red)}
-.ts-quote{margin:6px 0 0;font-size:.8rem;line-height:1.55;color:var(--muted)}
+.ts-prod{margin-left:auto;flex:none;font-family:var(--mono);font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:var(--bg)}
 
 @media (min-width:720px){
-  .testi-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));overflow:visible;padding:0}
+  .testi-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));overflow:visible;padding:0}
   .ts-card{flex:auto}
+}
+/* Layar sempit: label produk turun jadi baris sendiri (bukan disembunyikan),
+   digeser sejajar kolom nama supaya tetap terbaca sebagai satu kesatuan. */
+@media (max-width:400px){
+  .testi-feature footer{flex-wrap:wrap}
+  .tf-prod{margin-left:50px;margin-top:10px}
+  .ts-foot{flex-wrap:wrap}
+  .ts-prod{margin-left:41px;margin-top:9px}
 }
 
 .bintang{display:inline-flex;gap:2px;flex:none}
 .bintang .b{position:relative;line-height:0;color:#E2E5EA}
 .bintang .b .isi{position:absolute;inset:0;overflow:hidden;color:var(--yellow);line-height:0}
 .bintang svg{width:11px;height:11px;display:block}
+.ts-card .bintang svg{width:13px;height:13px}
 .testi-feature .bintang svg{width:18px;height:18px}
 .testi-feature .bintang .b{color:rgba(255,255,255,.22)}
 
@@ -1224,6 +1307,7 @@ p{margin:0}
   <symbol id="ico-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5-5.5 10.2-7.4 11.8a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></g></symbol>
   <symbol id="ico-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"></path></symbol>
   <symbol id="ico-arrow" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></g></symbol>
+  <symbol id="ico-cari" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></g></symbol>
 </svg>
 
 <!-- ===================== NAVBAR ===================== -->
@@ -1425,8 +1509,8 @@ p{margin:0}
 
           <span class="pcard-spacer" aria-hidden="true"></span>
 
-          <a class="pcard-cta" data-cta="kartu-bata" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20minta%20penawaran%20Bata%20Ringan%20BRICON%20tebal%2010%20cm%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">
-            <svg aria-hidden="true"><use href="#ico-wa"></use></svg><span class="cta-label">Tanya Harganya Sekarang!</span>
+          <a class="pcard-cta" data-cta="kartu-bata" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20Bata%20Ringan%20BRICON%20tebal%2010%20cm%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg><span class="cta-label">Tanya Harga Sekarang!</span>
           </a>
         </div>
       </article>
@@ -1461,8 +1545,8 @@ p{margin:0}
 
           <span class="pcard-spacer" aria-hidden="true"></span>
 
-          <a class="pcard-cta" data-cta="kartu-panel" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20minta%20penawaran%20Panel%20Lantai%20BRICON%20bentang%202%2C50%20m%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">
-            <svg aria-hidden="true"><use href="#ico-wa"></use></svg><span class="cta-label">Tanya Harganya Sekarang!</span>
+          <a class="pcard-cta" data-cta="kartu-panel" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20Panel%20Lantai%20BRICON%20bentang%202%2C50%20m%20untuk%20proyek%20di%20Jawa%20Timur." target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg><span class="cta-label">Tanya Harga Sekarang!</span>
           </a>
         </div>
       </article>
@@ -1476,61 +1560,207 @@ p{margin:0}
       <div class="reveal" style="max-width:640px">
         <span class="eyebrow-mark"><span class="bar"></span>Area Layanan</span>
         <h2 class="section-title" style="margin-top:14px">Cek harga di kabupatenmu</h2>
-        <p class="section-lead">Harga bata ringan beda-beda tiap wilayah — yang membedakan ongkos kirim dan medan bongkar. Pilih kabupatenmu untuk lihat estimasi harga dan cakupan pengirimannya.</p>
+        <p class="section-lead">Harga bata ringan beda tiap wilayah &mdash; yang membedakan ongkos kirim dan medan bongkar. Cari kabupatenmu, harganya langsung kelihatan.</p>
       </div>
 
-      <ul class="area-list reveal">
-        <li>
-          <a class="is-page" href="/kota/surabaya">
-            <span class="a-name">Surabaya</span>
-            <span class="a-meta">Lihat harga
-              <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-arrow"></use></svg>
-            </span>
+      <div class="area-search reveal" id="areaSearch">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-cari"></use></svg>
+        <input id="areaCari" type="search" autocomplete="off" spellcheck="false" placeholder="Cari kabupaten / kota&hellip;" aria-label="Cari kabupaten atau kota">
+        <button class="area-clear" type="button" id="areaClear" aria-label="Hapus pencarian">&times;</button>
+      </div>
+
+      <ul class="area-grid reveal" id="areaGrid">
+        <li class="kk" data-kota="surabaya" data-nama="Surabaya" data-cari="sby kota surabaya rungkut wiyung lakarsantri" data-halaman="/kota/surabaya" data-utama="1">
+          <div class="kk-head">
+            <h3 class="kk-name"><a href="/kota/surabaya">Surabaya</a></h3>
+            <span class="kk-tag">Halaman kota</span>
+          </div>
+          <div class="kk-rows">
+            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+          </div>
+          <span class="kk-space" aria-hidden="true"></span>
+          <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-surabaya" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Surabaya." target="_blank" rel="noopener">
+            Tanya harga
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li>
-          <a class="is-page" href="/kota/mojokerto">
-            <span class="a-name">Mojokerto</span>
-            <span class="a-meta">Lihat harga
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-            </span>
+        <li class="kk" data-kota="sidoarjo" data-nama="Sidoarjo" data-cari="sda krian taman waru porong tulangan candi" data-utama="1">
+          <div class="kk-head">
+            <h3 class="kk-name">Sidoarjo</h3>
+            <span class="kk-tag" hidden></span>
+          </div>
+          <div class="kk-rows">
+            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+          </div>
+          <span class="kk-space" aria-hidden="true"></span>
+          <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-sidoarjo" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Sidoarjo." target="_blank" rel="noopener">
+            Tanya harga
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li>
-          <a data-cta="area-sidoarjo" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Sidoarjo." target="_blank" rel="noopener">
-            <span class="a-name">Sidoarjo</span>
-            <span class="a-meta">Tanya harga
-              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
-            </span>
+        <li class="kk" data-kota="gresik" data-nama="Gresik" data-cari="kebomas manyar driyorejo menganti cerme" data-utama="1">
+          <div class="kk-head">
+            <h3 class="kk-name">Gresik</h3>
+            <span class="kk-tag" hidden></span>
+          </div>
+          <div class="kk-rows">
+            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+          </div>
+          <span class="kk-space" aria-hidden="true"></span>
+          <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-gresik" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Gresik." target="_blank" rel="noopener">
+            Tanya harga
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li>
-          <a data-cta="area-jombang" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Jombang." target="_blank" rel="noopener">
-            <span class="a-name">Jombang</span>
-            <span class="a-meta">Tanya harga
-              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
-            </span>
+        <li class="kk" data-kota="mojokerto" data-nama="Mojokerto" data-cari="mojosari sooko trowulan pungging ngoro" data-halaman="/kota/mojokerto" data-utama="1">
+          <div class="kk-head">
+            <h3 class="kk-name"><a href="/kota/mojokerto">Mojokerto</a></h3>
+            <span class="kk-tag">Halaman kota</span>
+          </div>
+          <div class="kk-rows">
+            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+          </div>
+          <span class="kk-space" aria-hidden="true"></span>
+          <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-mojokerto" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Mojokerto." target="_blank" rel="noopener">
+            Tanya harga
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li>
-          <a data-cta="area-tulungagung" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Tulungagung." target="_blank" rel="noopener">
-            <span class="a-name">Tulungagung</span>
-            <span class="a-meta">Tanya harga
-              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
-            </span>
+        <li class="kk" data-kota="malang" data-nama="Malang" data-cari="kota malang kabupaten malang kepanjen singosari batu" data-utama="1">
+          <div class="kk-head">
+            <h3 class="kk-name">Malang</h3>
+            <span class="kk-tag" hidden></span>
+          </div>
+          <div class="kk-rows">
+            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+          </div>
+          <span class="kk-space" aria-hidden="true"></span>
+          <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-malang" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Malang." target="_blank" rel="noopener">
+            Tanya harga
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
-        <li>
-          <a data-cta="area-sampang" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Sampang." target="_blank" rel="noopener">
-            <span class="a-name">Sampang</span>
-            <span class="a-meta">Tanya harga
-              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
-            </span>
+        <li class="kk" data-kota="pasuruan" data-nama="Pasuruan" data-cari="bangil pandaan grati gempol rembang" data-utama="1">
+          <div class="kk-head">
+            <h3 class="kk-name">Pasuruan</h3>
+            <span class="kk-tag" hidden></span>
+          </div>
+          <div class="kk-rows">
+            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+          </div>
+          <span class="kk-space" aria-hidden="true"></span>
+          <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-pasuruan" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Pasuruan." target="_blank" rel="noopener">
+            Tanya harga
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+          </a>
+        </li>
+        <li class="kk" data-kota="jombang" data-nama="Jombang" data-cari="mojoagung ploso diwek tembelang" hidden>
+          <div class="kk-head">
+            <h3 class="kk-name">Jombang</h3>
+            <span class="kk-tag" hidden></span>
+          </div>
+          <div class="kk-rows">
+            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+          </div>
+          <span class="kk-space" aria-hidden="true"></span>
+          <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-jombang" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Jombang." target="_blank" rel="noopener">
+            Tanya harga
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+          </a>
+        </li>
+        <li class="kk" data-kota="lamongan" data-nama="Lamongan" data-cari="babat paciran brondong sukodadi" hidden>
+          <div class="kk-head">
+            <h3 class="kk-name">Lamongan</h3>
+            <span class="kk-tag" hidden></span>
+          </div>
+          <div class="kk-rows">
+            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+          </div>
+          <span class="kk-space" aria-hidden="true"></span>
+          <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-lamongan" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Lamongan." target="_blank" rel="noopener">
+            Tanya harga
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+          </a>
+        </li>
+        <li class="kk" data-kota="kediri" data-nama="Kediri" data-cari="pare kota kediri wates ngasem" hidden>
+          <div class="kk-head">
+            <h3 class="kk-name">Kediri</h3>
+            <span class="kk-tag" hidden></span>
+          </div>
+          <div class="kk-rows">
+            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+          </div>
+          <span class="kk-space" aria-hidden="true"></span>
+          <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-kediri" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Kediri." target="_blank" rel="noopener">
+            Tanya harga
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+          </a>
+        </li>
+        <li class="kk" data-kota="tulungagung" data-nama="Tulungagung" data-cari="ngunut kauman boyolangu campurdarat" hidden>
+          <div class="kk-head">
+            <h3 class="kk-name">Tulungagung</h3>
+            <span class="kk-tag" hidden></span>
+          </div>
+          <div class="kk-rows">
+            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+          </div>
+          <span class="kk-space" aria-hidden="true"></span>
+          <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-tulungagung" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Tulungagung." target="_blank" rel="noopener">
+            Tanya harga
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+          </a>
+        </li>
+        <li class="kk" data-kota="nganjuk" data-nama="Nganjuk" data-cari="kertosono warujayeng berbek loceret" hidden>
+          <div class="kk-head">
+            <h3 class="kk-name">Nganjuk</h3>
+            <span class="kk-tag" hidden></span>
+          </div>
+          <div class="kk-rows">
+            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+          </div>
+          <span class="kk-space" aria-hidden="true"></span>
+          <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-nganjuk" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Nganjuk." target="_blank" rel="noopener">
+            Tanya harga
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+          </a>
+        </li>
+        <li class="kk" data-kota="sampang" data-nama="Sampang" data-cari="madura camplong torjun omben" hidden>
+          <div class="kk-head">
+            <h3 class="kk-name">Sampang</h3>
+            <span class="kk-tag" hidden></span>
+          </div>
+          <div class="kk-rows">
+            <div class="kk-row"><span class="kk-k">Bata Ringan</span><span class="kk-v is-kosong" data-kk="bata">Belum tercantum</span></div>
+            <div class="kk-row"><span class="kk-k">Panel Lantai</span><span class="kk-v is-kosong" data-kk="panel">Belum tercantum</span></div>
+          </div>
+          <span class="kk-space" aria-hidden="true"></span>
+          <a class="kk-act kk-act--tanya" data-kk-act data-cta="area-tanya-sampang" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20harga%20bata%20ringan%20BRICON%20untuk%20area%20Sampang." target="_blank" rel="noopener">
+            Tanya harga
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
           </a>
         </li>
       </ul>
 
-      <p class="area-note reveal">Kabupaten lain di Jawa Timur tetap kami kirim — minimum order 1 truk (11,52 m&sup3;). <a data-cta="area-lainnya" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20ketersediaan%20dan%20ongkos%20kirim%20BRICON%20ke%20daerah%20saya." target="_blank" rel="noopener">Tanya ketersediaan &amp; ongkos kirim &rarr;</a></p>
+      <div class="area-more" id="areaMore">
+        <button type="button" id="areaMoreBtn">Tampilkan 6 wilayah lainnya</button>
+      </div>
+
+      <p class="area-kosong" id="areaKosong" hidden><b id="areaKosongQ"></b> belum ada di daftar &mdash; tapi kami tetap kirim ke sana selama minimum order 1 truk (11,52 m&sup3;) terpenuhi.<br>
+        <a data-cta="area-lainnya" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20ketersediaan%20dan%20ongkos%20kirim%20BRICON%20ke%20daerah%20saya." target="_blank" rel="noopener">Tanya ketersediaan &amp; ongkos kirim&nbsp;&rarr;</a></p>
+
+      <p class="area-note reveal">Kabupaten lain di Jawa Timur tetap kami kirim &mdash; minimum order 1 truk (11,52 m&sup3;). <a data-cta="area-lainnya" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20ketersediaan%20dan%20ongkos%20kirim%20BRICON%20ke%20daerah%20saya." target="_blank" rel="noopener">Tanya ketersediaan &amp; ongkos kirim&nbsp;&rarr;</a></p>
+    
     </div>
   </section>
 
@@ -2025,7 +2255,7 @@ p{margin:0}
       if (cta) {
         /* Pesan WhatsApp dibangun jadi satu kalimat wajar, tanpa kode atribusi.
            Atribusi tombolnya dikirim terpisah ke Analytics lewat data-cta. */
-        var pesan = 'Halo, saya mau minta penawaran ' + conf.nama + ' ' + aktif().wa + ' untuk proyek di Jawa Timur.';
+        var pesan = 'Halo, saya mau tanya harga ' + conf.nama + ' ' + aktif().wa + ' untuk proyek di Jawa Timur.';
         cta.setAttribute('href', 'https://wa.me/6285184028183?text=' + encodeURIComponent(pesan));
       }
     }
@@ -2049,6 +2279,62 @@ p{margin:0}
   });
 
   /* "Beranda" (#top) selalu scroll mentok ke paling atas halaman */
+  /* ============================================================
+     AREA LAYANAN — pencarian kabupaten
+     Kartu diurutkan dari yang paling sering dicari; sisanya disembunyikan
+     sampai tombol "Tampilkan ... wilayah lainnya" ditekan. Saat kotak
+     pencarian diisi, batas itu diabaikan supaya semua kandidat kelihatan.
+     ============================================================ */
+  (function () {
+    var grid = document.getElementById('areaGrid');
+    if (!grid) return;
+
+    var input   = document.getElementById('areaCari');
+    var kotak   = document.getElementById('areaSearch');
+    var hapus   = document.getElementById('areaClear');
+    var more    = document.getElementById('areaMore');
+    var moreBtn = document.getElementById('areaMoreBtn');
+    var kosong  = document.getElementById('areaKosong');
+    var kosongQ = document.getElementById('areaKosongQ');
+    var kartu   = [].slice.call(grid.querySelectorAll('.kk'));
+    var semua   = false;
+
+    function bersih(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
+
+    function gambar() {
+      var ketik = input ? input.value : '';
+      var q = bersih(ketik);
+      var ketemu = 0;
+
+      kartu.forEach(function (el) {
+        var tampil;
+        if (q) {
+          tampil = bersih(el.getAttribute('data-nama') + ' ' + (el.getAttribute('data-cari') || '')).indexOf(q) !== -1;
+        } else {
+          tampil = semua || el.getAttribute('data-utama') === '1';
+        }
+        el.hidden = !tampil;
+        if (tampil) ketemu++;
+      });
+
+      if (kotak) kotak.classList.toggle('is-filled', !!q);
+      if (more) more.hidden = !!q || semua;
+      if (kosong) {
+        kosong.hidden = !(q && ketemu === 0);
+        if (kosongQ) kosongQ.textContent = ketik.trim();
+      }
+    }
+
+    if (input) {
+      input.addEventListener('input', gambar);
+      input.addEventListener('keydown', function (e) { if (e.key === 'Enter') e.preventDefault(); });
+    }
+    if (hapus) hapus.addEventListener('click', function () { input.value = ''; input.focus(); gambar(); });
+    if (moreBtn) moreBtn.addEventListener('click', function () { semua = true; gambar(); });
+
+    gambar();
+  })();
+
   document.querySelectorAll('a[href="#top"]').forEach(function (a) {
     a.addEventListener('click', function (e) {
       e.preventDefault();
@@ -2117,22 +2403,32 @@ p{margin:0}
            v.toFixed(1).replace('.', ',') + ' dari 5">' + out + '</span>';
   }
 
-  function inisial(nama) {
-    var parts = String(nama || '').trim().split(/\s+/);
-    if (!parts.length || !parts[0]) return '?';
-    return (parts[0][0] + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase();
-  }
+  /* Ikon kutip (pembuka kartu) dan ikon orang (baris identitas). */
+  var SVG_KUTIP = '<svg class="__CLS__" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.01 14v4c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2h-2.85c.27-1.02 1.01-2.51 3.1-3.03l.76-.19V4h-1c-2.78 0-4.91.77-6.31 2.29-1.89 2.05-1.7 4.68-1.69 4.71v3Zm3.18-6.37c.48-.52 1.11-.91 1.87-1.19-1.56 1.42-2.04 3.4-2.04 4.56v1h5v6h-6v-7.08s-.12-1.9 1.18-3.29ZM1.01 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2H6.16c.27-1.02 1.01-2.51 3.1-3.03l.76-.19V4h-1c-2.78 0-4.91.77-6.31 2.29C.82 8.34 1.01 10.97 1.02 11v7Zm2-7.08s-.12-1.9 1.18-3.29c.48-.52 1.11-.91 1.87-1.19C4.5 7.86 4.02 9.84 4.02 11v1h5v6H3.01z"></path></svg>';
+  function kutip(cls) { return SVG_KUTIP.replace('__CLS__', cls); }
+
+  var SVG_ORANG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
 
   var PIN_KECIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>';
 
+  /* Kartu kecil ruangnya sempit, jadi labelnya dipendekkan supaya nama pembeli
+     tidak ikut terpotong. */
+  function labelProdukPendek(p) { return p === 'panel' ? 'Panel' : 'Bata'; }
+
+  /* Urutan isi kartu ulasan (dikunci 30 Agustus 2026):
+     ikon kutip -> bintang -> kutipan -> baris identitas.
+     Baris identitas: ikon orang + nama + lokasi pengiriman di kiri,
+     label produk (Bata Ringan / Panel Lantai) menempel di ujung kanan. */
   function kartuUlasanUtama(t) {
     return '<article class="testi-feature">' +
+      kutip('tq-mark') +
       bintang(t.rating) +
-      '<blockquote>&ldquo;' + esc(t.quote).replace(/\n/g, '<br>') + '&rdquo;</blockquote>' +
+      '<blockquote>' + esc(t.quote).replace(/\n/g, '<br>') + '</blockquote>' +
       '<footer>' +
-        '<span class="tf-avatar">' + esc(inisial(t.display_name)) + '</span>' +
-        '<div><p class="tf-name">' + esc(t.display_name) + '</p>' +
-        (t.kabupaten ? '<span class="tf-loc">' + PIN_KECIL + esc(t.kabupaten) + '</span>' : '') +
+        '<span class="tf-avatar" aria-hidden="true">' + SVG_ORANG + '</span>' +
+        '<div class="tf-id">' +
+          '<p class="tf-name">' + esc(t.display_name) + '</p>' +
+          (t.kabupaten ? '<span class="tf-loc">' + PIN_KECIL + 'Kirim ke ' + esc(t.kabupaten) + '</span>' : '') +
         '</div>' +
         (t.product ? '<span class="tf-prod">' + esc(labelProduk(t.product)) + '</span>' : '') +
       '</footer></article>';
@@ -2140,11 +2436,16 @@ p{margin:0}
 
   function kartuUlasanRingkas(t) {
     return '<article class="ts-card">' +
-      '<span class="ts-avatar">' + esc(inisial(t.display_name)) + '</span>' +
-      '<div class="ts-body">' +
-        '<div class="ts-head"><p class="ts-name">' + esc(t.display_name) + '</p>' + bintang(t.rating) + '</div>' +
-        (t.kabupaten ? '<span class="ts-loc">' + PIN_KECIL + esc(t.kabupaten) + '</span>' : '') +
-        '<p class="ts-quote">' + esc(t.quote) + '</p>' +
+      kutip('ts-mark') +
+      bintang(t.rating) +
+      '<p class="ts-quote">' + esc(t.quote) + '</p>' +
+      '<div class="ts-foot">' +
+        '<span class="ts-avatar" aria-hidden="true">' + SVG_ORANG + '</span>' +
+        '<div class="ts-id">' +
+          '<p class="ts-name">' + esc(t.display_name) + '</p>' +
+          (t.kabupaten ? '<span class="ts-loc">' + PIN_KECIL + 'Kirim ke ' + esc(t.kabupaten) + '</span>' : '') +
+        '</div>' +
+        (t.product ? '<span class="ts-prod">' + esc(labelProdukPendek(t.product)) + '</span>' : '') +
       '</div></article>';
   }
 
@@ -2164,6 +2465,67 @@ p{margin:0}
       });
   }
 
+  /* ============================================================
+     HARGA PER KABUPATEN untuk kartu Area Layanan.
+     Kartu produk di beranda tetap TIDAK menampilkan harga — yang diisi
+     di sini hanya ringkasan "± Rp ..." di daftar wilayah, supaya orang
+     bisa membandingkan sekilas sebelum masuk ke halaman kota.
+     ============================================================ */
+  function rupiah(n) { return 'Rp ' + Math.round(Number(n)).toLocaleString('id-ID'); }
+  function satuan(u) { return u === 'm3' ? 'm³' : u === 'm2' ? 'm²' : (u || ''); }
+
+  /* Pembulatan ke kelipatan 10.000 — harus sama dengan halaman kota dan
+     pratinjau di dashboard Invoice Generator. Kalau satu diubah, ubah semua. */
+  function nilaiHarga(row) {
+    var v = Number(row.price_min);
+    if (!isFinite(v) || v <= 0) return null;
+    return Math.round(v / 10000) * 10000;
+  }
+
+  var SVG_PANAH = '<svg aria-hidden="true"><use href="#ico-arrow"></use></svg>';
+
+  function segarkanHargaArea() {
+    var grid = document.getElementById('areaGrid');
+    if (!grid) return;
+    return ambil('city_pricing?select=slug,product,price_min,unit&is_published=eq.true')
+      .then(function (data) {
+        if (!data || !data.length) return;
+
+        data.forEach(function (r) {
+          var kartu = grid.querySelector('.kk[data-kota="' + r.slug + '"]');
+          if (!kartu) return;
+          var n = nilaiHarga(r);
+          if (n === null) return;
+          var sel = kartu.querySelector('[data-kk="' + r.product + '"]');
+          if (sel) {
+            sel.classList.remove('is-kosong');
+            sel.innerHTML = '± ' + rupiah(n) + '<u>/' + satuan(r.unit) + '</u>';
+          }
+          kartu.setAttribute('data-ada-harga', '1');
+        });
+
+        /* Kartu yang harganya sudah tayang: label berubah jadi "Harga tayang".
+           Kalau kabupaten itu punya halaman sendiri, tombolnya jadi
+           "Selengkapnya" yang meloncat langsung ke kartu produk berharga
+           di halaman kota tersebut (#produk). */
+        grid.querySelectorAll('.kk[data-ada-harga="1"]').forEach(function (kartu) {
+          var tag = kartu.querySelector('.kk-tag');
+          if (tag) { tag.textContent = 'Harga tayang'; tag.classList.add('is-live'); tag.hidden = false; }
+
+          var halaman = kartu.getAttribute('data-halaman');
+          var aksi = kartu.querySelector('[data-kk-act]');
+          if (!halaman || !aksi) return;
+          aksi.setAttribute('href', halaman + '#produk');
+          aksi.removeAttribute('target');
+          aksi.removeAttribute('rel');
+          aksi.setAttribute('data-cta', 'area-lihat-' + kartu.getAttribute('data-kota'));
+          aksi.className = 'kk-act kk-act--lihat';
+          aksi.innerHTML = 'Selengkapnya' + SVG_PANAH;
+        });
+      });
+  }
+
+  segarkanHargaArea();
   segarkanUlasan();
 })();
 </script>
