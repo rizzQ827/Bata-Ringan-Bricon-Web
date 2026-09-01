@@ -523,6 +523,24 @@ p{margin:0}
 .sv-dim--h::after{right:0;top:-5px;width:1px;height:11px}
 .sv-dim--h span{left:50%;bottom:0;transform:translate(-50%,50%)}
 
+/* --- Ukuran gambar spesifikasi, khusus tampilan vertikal (HP/tablet) ---
+   --sv-img-bata / --sv-img-panel = persen ukuran gambar (100 = normal),
+   disetel lewat panel ?tweak=1.
+
+   Yang mengikuti nilai masing-masing HANYA gambarnya. Bingkai blueprint,
+   garis ukur, angka ukuran, dan lingkaran kuning mengikuti --sv-img-max,
+   yaitu nilai TERBESAR di antara dua slider itu. Jadi ukuran elemen di
+   sekitar gambar berubah secara pasif dan selalu sama di kedua blok. */
+@media (max-width:860px){
+  .spec-visual{
+    --sv-img-max:max(var(--sv-img-bata,100),var(--sv-img-panel,100));
+    width:calc(1% * var(--sv-img-max));
+    margin-inline:auto;
+  }
+  .spec-visual[data-glow="bata"] img{transform:scale(calc(var(--sv-img-bata,100) / var(--sv-img-max)))}
+  .spec-visual[data-glow="panel"] img{transform:scale(calc(var(--sv-img-panel,100) / var(--sv-img-max)))}
+}
+
 @media (min-width:861px){
   .spec-visual{padding:47px 53px 62px 40px}
   .spec-visual::before{background-size:17px 17px}
@@ -562,6 +580,24 @@ p{margin:0}
   .materi-head .section-lead{font-size:.92rem;margin-top:10px}
 }
 
+/* Layar sempit: tiga chip dikunci jadi maksimal DUA baris — dua di atas,
+   satu di bawah — dengan grid dua kolom (chip ketiga membentang penuh).
+   Ukuran huruf dan ikon ikut menyusut mengikuti lebar layar supaya di
+   320px pun dua chip teratas tetap muat dalam satu baris. */
+@media (max-width:560px){
+  .materi-chips{
+    display:grid;grid-template-columns:repeat(2,minmax(0,max-content));
+    justify-content:center;justify-items:center;gap:5px;
+  }
+  .materi-chips li{
+    font-size:clamp(8.4px,2.5vw,.7rem);
+    padding:clamp(4px,1.2vw,5px) clamp(6px,2vw,9px);
+    gap:clamp(3px,1.1vw,5px);
+  }
+  .materi-chips li:nth-child(3){grid-column:1 / -1}
+  .materi-chips svg{width:clamp(10px,3.1vw,13px);height:clamp(10px,3.1vw,13px)}
+}
+
 /* ============================================================
    PRODUK — kartu spesifikasi
    ============================================================ */
@@ -569,8 +605,16 @@ p{margin:0}
 .pcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2vw,22px);margin-top:clamp(30px,4vw,46px);align-items:stretch}
 
 .pcard{display:flex;flex-direction:column;height:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-md)}
-.pcard-media{position:relative}
-.pcard-media > img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block}
+/* Bingkai foto tidak berubah sedikit pun — yang bergerak cuma isinya.
+   --pc-*-x / --pc-*-y menggeser gambar (persen dari lebar bingkai),
+   --pc-*-z memperbesar / memperkecil. Semua disetel lewat panel ?tweak=1. */
+.pcard-media{position:relative;overflow:hidden;background:var(--track)}
+.pcard-media > img{
+  width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;
+  transform:translate(calc(var(--pc-x,0) * 1%),calc(var(--pc-y,0) * 1%)) scale(calc(var(--pc-z,100) / 100));
+}
+.pcard[data-pcard="bata"] .pcard-media > img{--pc-x:var(--pc-bata-x,0);--pc-y:var(--pc-bata-y,0);--pc-z:var(--pc-bata-z,100)}
+.pcard[data-pcard="panel"] .pcard-media > img{--pc-x:var(--pc-panel-x,0);--pc-y:var(--pc-panel-y,0);--pc-z:var(--pc-panel-z,100)}
 
 .mbtag-wrap{position:absolute;left:12px;top:12px;z-index:4}
 .mbtag{
@@ -586,14 +630,14 @@ p{margin:0}
 
 .pp-glass{
   position:absolute;right:12px;bottom:12px;z-index:3;
-  display:flex;align-items:center;gap:9px;padding:9px 13px 9px 10px;border-radius:var(--r-md);
-  background:rgba(255,255,255,.5);backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%);
-  border:1px solid rgba(255,255,255,.65);box-shadow:0 8px 22px rgba(28,28,30,.22),inset 0 1px 0 rgba(255,255,255,.8);
+  display:flex;align-items:center;gap:6px;padding:6px 10px 6px 8px;border-radius:10px;
+  background:rgba(255,255,255,.3);backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);
+  border:1px solid rgba(255,255,255,.4);box-shadow:0 6px 18px rgba(28,28,30,.26),inset 0 1px 0 rgba(255,255,255,.5);
   max-width:calc(100% - 24px);
 }
-.pp-glass svg{flex:none;width:20px;height:20px;color:var(--red-dark)}
-.pp-glass .pp-glass-text{font-size:.76rem;line-height:1.3;font-weight:700;color:var(--ink)}
-.pp-glass .pp-glass-sub{display:block;margin-top:2px;font-size:.68rem;line-height:1.3;font-weight:500;color:var(--text)}
+.pp-glass svg{flex:none;width:17px;height:17px;color:var(--red-dark)}
+.pp-glass .pp-glass-text{font-size:.72rem;line-height:1.2;font-weight:700;color:var(--ink)}
+.pp-glass .pp-glass-sub{display:block;margin-top:1px;font-size:.63rem;line-height:1.2;font-weight:500;color:var(--text)}
 
 .pcard-body{display:flex;flex-direction:column;flex:1;padding:16px clamp(16px,1.8vw,20px) clamp(18px,2vw,20px)}
 .pcard-body h3{font-size:clamp(1.22rem,2.1vw,1.42rem);font-weight:800;letter-spacing:-.02em}
@@ -616,17 +660,21 @@ p{margin:0}
 .hero-dim .hd-var{color:var(--yellow)}
 .hero-dim u{text-decoration:none;font-size:.46em;font-weight:600;color:rgba(255,255,255,.48);margin-left:3px}
 
-.calc{margin-top:12px;padding:13px 14px 15px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg)}
+/* Kotak kalkulator dijadikan "container": ukuran huruf tab dihitung dari
+   lebar kotak ini, bukan dari lebar layar. Hasilnya tab selalu berjajar
+   satu baris di lebar berapa pun (termasuk 320px) — yang menyusut hanya
+   tulisannya, bukan jumlah barisnya. */
+.calc{margin-top:12px;padding:13px 14px 15px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg);container-type:inline-size}
 .pick-label{display:block;font-family:var(--mono);font-size:.56rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)}
-.pick{display:flex;gap:8px;margin-top:8px}
+.pick{display:flex;flex-wrap:nowrap;gap:clamp(4px,2.4cqi,8px);margin-top:8px}
 .pick button{
-  flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
-  height:54px;border-radius:9px;border:1px solid var(--line-strong);background:var(--surface);
-  font-family:var(--mono);cursor:pointer;
+  flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+  height:54px;padding:0 2px;border-radius:9px;border:1px solid var(--line-strong);background:var(--surface);
+  font-family:var(--mono);cursor:pointer;overflow:hidden;
   transition:background .18s var(--ease-out),border-color .18s var(--ease-out),color .18s var(--ease-out);
 }
-.pick button .pb{font-size:.9rem;font-weight:700;white-space:nowrap;color:var(--ink)}
-.pick button .ps{font-size:.58rem;letter-spacing:.08em;white-space:nowrap;color:var(--muted2)}
+.pick button .pb{font-size:clamp(9.6px,4.8cqi,.9rem);font-weight:700;white-space:nowrap;color:var(--ink)}
+.pick button .ps{font-size:clamp(7.4px,3.1cqi,.58rem);letter-spacing:.05em;white-space:nowrap;color:var(--muted2)}
 .pick button:hover{border-color:var(--ink);background:var(--track)}
 .pick button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink)}
 .pick button[aria-pressed="true"] .pb{color:#fff}
@@ -1029,16 +1077,6 @@ p{margin:0}
   .hero-trust--m{top:calc(100% + var(--hero-img-pull) + var(--trust-gap-364,-4px))}
 }
 
-/* Tabs "Pilih ketebalan/bentang" kepenuhan kalau dipaksa 1 baris di layar
-   sempit (4 opsi bentang panel lantai paling parah). Di bawah ini, wrap
-   jadi 2 kolom — tetap rapi utk 3 opsi (2+1) maupun 4 opsi (2+2). */
-@media (max-width:400px){
-  .pick{gap:6px;flex-wrap:wrap}
-  .pick button{flex:1 1 calc(50% - 3px);min-width:0;height:48px}
-  .pick button .pb{font-size:.82rem}
-  .pick button .ps{font-size:.52rem;letter-spacing:.05em}
-}
-
 /* ============================================================
    ULASAN — diisi dari database, tersembunyi selama belum ada data
    ============================================================ */
@@ -1065,11 +1103,12 @@ p{margin:0}
 .tf-name{margin:0;font-size:.95rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tf-loc{display:inline-flex;align-items:center;gap:5px;margin-top:2px;font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 .tf-loc svg{flex:none;width:10px;height:10px;color:var(--yellow)}
-.tf-prod{margin-left:auto;flex:none;font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.68);white-space:nowrap;padding:5px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06)}
+.testi-feature .tf-prod{position:absolute;top:14px;right:14px;z-index:2;display:inline-flex;align-items:center;gap:5px;flex:none;margin:0;font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.82);white-space:nowrap;padding:5px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08)}
+.testi-feature .tf-prod svg{width:12px;height:12px;flex:none;color:var(--yellow)}
 
 .testi-strip{display:flex;gap:10px;margin-top:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
 .testi-strip::-webkit-scrollbar{display:none}
-.ts-card{flex:0 0 82%;scroll-snap-align:start;display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md)}
+.ts-card{position:relative;flex:0 0 82%;scroll-snap-align:start;display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md)}
 .ts-mark{flex:none;width:20px;height:20px;color:var(--red);opacity:.5}
 .ts-quote{margin:0;font-size:.83rem;line-height:1.6;color:var(--text)}
 .ts-foot{display:flex;align-items:center;gap:9px;width:100%;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
@@ -1079,20 +1118,15 @@ p{margin:0}
 .ts-name{margin:0;font-size:.85rem;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ts-loc{display:flex;align-items:center;gap:4px;margin-top:2px;font-family:var(--mono);font-size:.54rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ts-loc svg{flex:none;width:9px;height:9px;color:var(--red)}
-.ts-prod{margin-left:auto;flex:none;font-family:var(--mono);font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:var(--bg)}
+.ts-card .ts-prod{position:absolute;top:11px;right:11px;z-index:2;display:inline-flex;align-items:center;gap:4px;flex:none;margin:0;font-family:var(--mono);font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:var(--bg)}
+.ts-card .ts-prod svg{width:11px;height:11px;flex:none;color:var(--red);opacity:.7}
 
 @media (min-width:720px){
   .testi-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));overflow:visible;padding:0}
   .ts-card{flex:auto}
 }
-/* Layar sempit: label produk turun jadi baris sendiri (bukan disembunyikan),
-   digeser sejajar kolom nama supaya tetap terbaca sebagai satu kesatuan. */
-@media (max-width:400px){
-  .testi-feature footer{flex-wrap:wrap}
-  .tf-prod{margin-left:50px;margin-top:10px}
-  .ts-foot{flex-wrap:wrap}
-  .ts-prod{margin-left:41px;margin-top:9px}
-}
+/* Badge produk sekarang melayang di pojok kanan atas kartu, jadi tidak lagi
+   ikut mengantre di baris identitas dan tidak butuh aturan khusus layar kecil. */
 
 .bintang{display:inline-flex;gap:2px;flex:none}
 .bintang .b{position:relative;line-height:0;color:#E2E5EA}
@@ -1147,17 +1181,33 @@ p{margin:0}
   padding:18px 4px;background:none;border:none;cursor:pointer;text-align:left;
 }
 .faq-trigger .faq-q{display:inline-flex;align-items:center;gap:7px;font-size:1.02rem;font-weight:700;line-height:1.35;letter-spacing:-.01em;color:var(--ink)}
-.faq-icon{width:16px;height:16px;flex:none;color:var(--red);opacity:.7}
-.faq-more{margin-top:24px;margin-bottom:10px;font-size:.95rem;font-weight:700;color:var(--ink)}
+.faq-more{margin-top:clamp(28px,4vw,40px);margin-bottom:14px;font-size:clamp(1.15rem,3.4vw,1.5rem);font-weight:800;letter-spacing:-.02em;line-height:1.3;color:var(--ink);text-wrap:balance}
 .faq-chevron{flex:none;width:20px;height:20px;color:var(--muted);transition:transform .22s var(--ease-out)}
 .faq-trigger[aria-expanded="true"] .faq-chevron{transform:rotate(180deg);color:var(--red)}
 .faq-trigger:hover .faq-q{color:var(--red)}
+/* Accordion buka-tutup halus. Baris grid 0fr -> 1fr bisa dianimasikan,
+   jadi tinggi panel melar sendiri sesuai isinya tanpa dihitung lewat JS.
+   Tanpa JS panel tetap memakai atribut hidden supaya tidak ada kedipan. */
 .faq-panel{overflow:hidden}
 .faq-panel[hidden]{display:none}
+.js .faq-panel{display:grid;grid-template-rows:minmax(0,0fr);transition:grid-template-rows .38s var(--ease-out)}
+.js .faq-panel.is-open{grid-template-rows:minmax(0,1fr)}
+.js .faq-panel > *{min-height:0}
+.js .faq-panel .faq-a{opacity:0;transform:translateY(-6px);transition:opacity .28s var(--ease-out) .05s,transform .28s var(--ease-out) .05s}
+.js .faq-panel.is-open .faq-a{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .js .faq-panel,.js .faq-panel .faq-a{transition:none}
+}
 .faq-a{padding:0 4px 18px;color:var(--muted);font-size:.95rem;line-height:1.65}
 .faq-harga b{font-family:var(--mono);letter-spacing:-.02em;color:var(--ink)}
 
 .faq-cta{margin-top:0}
+/* Di layar 561px ke atas tombol ini jadi tujuan akhir section FAQ,
+   jadi ukurannya sengaja dibuat lebih besar dari tombol biasa. */
+@media (min-width:561px){
+  .faq-cta{min-height:62px;padding:17px 36px;font-size:1.1rem;border-radius:var(--r-md)}
+  .faq-cta svg{width:24px;height:24px}
+}
 
 @media (max-width:900px){
   .faq-trigger{padding:16px 2px}
@@ -1195,7 +1245,7 @@ p{margin:0}
 .tw-group:first-of-type{margin-top:0;padding-top:0;border-top:none}
 .tw-group > h5{margin:0 0 8px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.62);font-weight:700}
 .tw-row{display:flex;align-items:center;gap:8px;margin-top:7px}
-.tw-row label{flex:none;width:64px;color:rgba(255,255,255,.7)}
+.tw-row label{flex:none;width:58px;color:rgba(255,255,255,.7)}
 .tw-row input[type=range]{flex:1;min-width:0;accent-color:#F5C200;height:18px}
 .tw-row output{flex:none;width:52px;text-align:right;color:#fff;font-weight:700}
 .tw-foot{flex:none;display:flex;gap:7px;padding:10px 12px;border-top:1px solid rgba(255,255,255,.12);background:#1E1E21}
@@ -1225,6 +1275,7 @@ p{margin:0}
   <symbol id="ico-box" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4 7.5 4.2"></path><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></g></symbol>
   <symbol id="ico-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5-5.5 10.2-7.4 11.8a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></g></symbol>
   <symbol id="ico-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"></path></symbol>
+  <symbol id="ico-headset" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"></path><path d="M21 16v2a4 4 0 0 1-4 4h-5"></path></g></symbol>
   <symbol id="ico-chevron" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"></path></symbol>
   <symbol id="ico-bata" viewBox="0 0 400 400"><path fill="currentColor" d="M194,226L194,299C194,310.038 185.038,319 174,319L20,319C8.962,319 0,310.038 0,299L0,226C0,214.962 8.962,206 20,206L174,206C185.038,206 194,214.962 194,226Z"></path><path fill="currentColor" d="M400,226L400,299C400,310.038 391.038,319 380,319L226,319C214.962,319 206,310.038 206,299L206,226C206,214.962 214.962,206 226,206L380,206C391.038,206 400,214.962 400,226Z"></path><path fill="currentColor" d="M297,101L297,174C297,185.038 288.038,194 277,194L123,194C111.962,194 103,185.038 103,174L103,101C103,89.962 111.962,81 123,81L277,81C288.038,81 297,89.962 297,101Z"></path></symbol>
   <symbol id="ico-panel" viewBox="0 0 400 400"><path fill="currentColor" d="M380,81C391.046,81 400,89.954 400,101L400,299C400,310.046 391.046,319 380,319L20,319C8.954,319 0,310.046 0,299L0,242.974C0,239.494 1.809,236.265 4.776,234.447L252.842,82.473C254.414,81.51 256.222,81 258.066,81L380,81Z"></path><path fill="currentColor" d="M230,101C230,89.954 238.954,81 250,81L380,81C391.046,81 400,89.954 400,101L400,133C400,144.046 391.046,153 380,153L341.685,153C341.601,152.965 341.518,152.927 341.434,152.893L230,107.056L230,101Z"></path><path fill="currentColor" d="M2.657,253.55C-3.113,244.132 -0.156,231.819 9.263,226.048L232.452,89.314C241.87,83.544 254.183,86.501 259.954,95.92L276.178,122.403C281.948,131.821 278.991,144.135 269.572,149.905L46.383,286.639C36.965,292.409 24.651,289.452 18.881,280.033L2.657,253.55Z"></path><path fill="currentColor" d="M69,281C60.716,281 54,274.284 54,266L54,91C54,82.716 60.716,76 69,76C77.284,76 84,82.716 84,91L84,266C84,274.284 77.284,281 69,281Z"></path><rect fill="currentColor" x="220" y="183" width="40" height="40"></rect><path fill="currentColor" d="M146,281C137.716,281 131,274.284 131,266L131,91C131,82.716 137.716,76 146,76C154.284,76 161,82.716 161,91L161,266C161,274.284 154.284,281 146,281Z"></path><path fill="currentColor" d="M14,136C14,127.716 20.716,121 29,121L286,121C294.284,121 301,127.716 301,136C301,144.284 294.284,151 286,151L29,151C20.716,151 14,144.284 14,136Z"></path></symbol>
@@ -1342,7 +1393,7 @@ p{margin:0}
         <p class="section-lead">Satu supplier untuk dua kebutuhan — kirim harian ke seluruh Surabaya.</p>
         <ul class="materi-chips">
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-box"></use></svg>Stok siap kirim</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>Konsultasi &amp; survey gratis</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-headset"></use></svg>Konsultasi &amp; survey gratis</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"></path></svg>Panel lantai + jasa pasang</li>
         </ul>
       </div>
@@ -1534,7 +1585,7 @@ p{margin:0}
       <div class="faq-accordion reveal" id="faqAccordion">
         <div class="faq-item">
           <h3 class="faq-q-h"><button type="button" class="faq-trigger" id="faqBtn1" aria-expanded="false" aria-controls="faqPanel1">
-            <span class="faq-q"><svg class="faq-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Berapa harga bata ringan per kubik di Surabaya?</span>
+            <span class="faq-q">Berapa harga bata ringan per kubik di Surabaya?</span>
             <svg class="faq-chevron" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-chevron"></use></svg>
           </button></h3>
           <div class="faq-panel" id="faqPanel1" role="region" aria-labelledby="faqBtn1" hidden>
@@ -1543,7 +1594,7 @@ p{margin:0}
         </div>
         <div class="faq-item">
           <h3 class="faq-q-h"><button type="button" class="faq-trigger" id="faqBtn2" aria-expanded="false" aria-controls="faqPanel2">
-            <span class="faq-q"><svg class="faq-icon" aria-hidden="true"><use href="#ico-bata"></use></svg><svg class="faq-icon" aria-hidden="true"><use href="#ico-panel"></use></svg>Apakah BRICON kirim bata ringan &amp; panel lantai ke seluruh Surabaya?</span>
+            <span class="faq-q">Apakah BRICON kirim bata ringan &amp; panel lantai ke seluruh Surabaya?</span>
             <svg class="faq-chevron" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-chevron"></use></svg>
           </button></h3>
           <div class="faq-panel" id="faqPanel2" role="region" aria-labelledby="faqBtn2" hidden>
@@ -1552,7 +1603,7 @@ p{margin:0}
         </div>
         <div class="faq-item">
           <h3 class="faq-q-h"><button type="button" class="faq-trigger" id="faqBtn3" aria-expanded="false" aria-controls="faqPanel3">
-            <span class="faq-q"><svg class="faq-icon" aria-hidden="true"><use href="#ico-bata"></use></svg>Apa beda bata ringan BRICON dengan bata ringan merek lain?</span>
+            <span class="faq-q">Apa beda bata ringan BRICON dengan bata ringan merek lain?</span>
             <svg class="faq-chevron" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-chevron"></use></svg>
           </button></h3>
           <div class="faq-panel" id="faqPanel3" role="region" aria-labelledby="faqBtn3" hidden>
@@ -1582,10 +1633,8 @@ p{margin:0}
       <p class="faq-more">Pertanyaanmu belum ada di sini?</p>
       <a class="btn btn-red faq-cta" data-cta="faq" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Surabaya." target="_blank" rel="noopener">
         <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
-        Tanya Langsung
+        Tanya Langsung!
       </a>
-
-      <p class="area-note reveal">Proyek Anda di luar Surabaya? <a href="/#area">Lihat kabupaten lain yang kami layani&nbsp;&rarr;</a></p>
 
     </div>
   </section>
@@ -2106,12 +2155,15 @@ p{margin:0}
   (function () {
     var acc = document.getElementById('faqAccordion');
     if (!acc) return;
+    /* Begitu JS aktif, atribut hidden dilepas dan buka-tutup diserahkan ke
+       CSS (kelas .is-open) supaya panelnya bisa beranimasi halus. */
+    acc.querySelectorAll('.faq-panel').forEach(function (p) { p.hidden = false; });
     acc.querySelectorAll('.faq-trigger').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var buka = btn.getAttribute('aria-expanded') === 'true';
         var panel = document.getElementById(btn.getAttribute('aria-controls'));
         btn.setAttribute('aria-expanded', buka ? 'false' : 'true');
-        if (panel) panel.hidden = buka;
+        if (panel) panel.classList.toggle('is-open', !buka);
       });
     });
   })();
@@ -2280,9 +2332,12 @@ p{margin:0}
 
   var PIN_KECIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>';
 
-  /* Kartu kecil ruangnya sempit, jadi labelnya dipendekkan supaya nama pembeli
-     tidak ikut terpotong. */
-  function labelProdukPendek(p) { return p === 'panel' ? 'Panel' : 'Bata'; }
+  /* Badge produk melayang di pojok kanan atas kartu, tidak lagi berebut ruang
+     dengan nama pembeli — jadi labelnya bisa ditulis lengkap di kedua ukuran
+     kartu, ditambah ikon bata / panel di sebelah kiri tulisannya. */
+  function ikonProduk(p) {
+    return '<svg aria-hidden="true"><use href="#ico-' + (p === 'panel' ? 'panel' : 'bata') + '"></use></svg>';
+  }
 
   /* Urutan isi kartu ulasan (dikunci 30 Agustus 2026):
      ikon kutip -> bintang -> kutipan -> baris identitas.
@@ -2290,6 +2345,7 @@ p{margin:0}
      label produk (Bata Ringan / Panel Lantai) menempel di ujung kanan. */
   function kartuUlasanUtama(t) {
     return '<article class="testi-feature">' +
+      (t.product ? '<span class="tf-prod">' + ikonProduk(t.product) + esc(labelProduk(t.product)) + '</span>' : '') +
       kutip('tq-mark') +
       bintang(t.rating) +
       '<blockquote>' + esc(t.quote).replace(/\n/g, '<br>') + '</blockquote>' +
@@ -2297,14 +2353,14 @@ p{margin:0}
         '<span class="tf-avatar" aria-hidden="true">' + SVG_ORANG + '</span>' +
         '<div class="tf-id">' +
           '<p class="tf-name">' + esc(t.display_name) + '</p>' +
-          (t.kabupaten ? '<span class="tf-loc">' + PIN_KECIL + 'Kirim ke ' + esc(t.kabupaten) + '</span>' : '') +
+          (t.kabupaten ? '<span class="tf-loc">' + PIN_KECIL + esc(t.kabupaten) + '</span>' : '') +
         '</div>' +
-        (t.product ? '<span class="tf-prod">' + esc(labelProduk(t.product)) + '</span>' : '') +
       '</footer></article>';
   }
 
   function kartuUlasanRingkas(t) {
     return '<article class="ts-card">' +
+      (t.product ? '<span class="ts-prod">' + ikonProduk(t.product) + esc(labelProduk(t.product)) + '</span>' : '') +
       kutip('ts-mark') +
       bintang(t.rating) +
       '<p class="ts-quote">' + esc(t.quote) + '</p>' +
@@ -2312,9 +2368,8 @@ p{margin:0}
         '<span class="ts-avatar" aria-hidden="true">' + SVG_ORANG + '</span>' +
         '<div class="ts-id">' +
           '<p class="ts-name">' + esc(t.display_name) + '</p>' +
-          (t.kabupaten ? '<span class="ts-loc">' + PIN_KECIL + 'Kirim ke ' + esc(t.kabupaten) + '</span>' : '') +
+          (t.kabupaten ? '<span class="ts-loc">' + PIN_KECIL + esc(t.kabupaten) + '</span>' : '') +
         '</div>' +
-        (t.product ? '<span class="ts-prod">' + esc(labelProdukPendek(t.product)) + '</span>' : '') +
       '</div></article>';
   }
 
@@ -2360,6 +2415,20 @@ p{margin:0}
      Semua jaraknya dihitung dari TEPI BAWAH GAMBAR HERO.
      Nilai MINUS = tarik ke atas, masuk ke area gambar. */
   var GROUPS = [
+    { t: 'Gambar produk - tampilan vertikal (HP/tablet)', items: [
+      { k: 'sv-img-bata',  l: 'Bata %',  min: 40, max: 140, st: 1, d: 100, unit: '' },
+      { k: 'sv-img-panel', l: 'Panel %', min: 40, max: 140, st: 1, d: 100, unit: '' }
+    ]},
+    { t: 'Foto kartu Bata Ringan (isi bingkai)', items: [
+      { k: 'pc-bata-x', l: 'Geser X', min: -150, max: 150, st: .5, d: 0,   unit: '' },
+      { k: 'pc-bata-y', l: 'Geser Y', min: -150, max: 150, st: .5, d: 0,   unit: '' },
+      { k: 'pc-bata-z', l: 'Zoom %',  min: 40,   max: 320, st: 1,  d: 100, unit: '' }
+    ]},
+    { t: 'Foto kartu Panel Lantai (isi bingkai)', items: [
+      { k: 'pc-panel-x', l: 'Geser X', min: -150, max: 150, st: .5, d: 0,   unit: '' },
+      { k: 'pc-panel-y', l: 'Geser Y', min: -150, max: 150, st: .5, d: 0,   unit: '' },
+      { k: 'pc-panel-z', l: 'Zoom %',  min: 40,   max: 320, st: 1,  d: 100, unit: '' }
+    ]},
     { t: 'Layar 861 - 1059px (tablet)', items: [
       { k: 'badge-kirim-y-1059',  l: 'Badge Y', min: -20,  max: 220, st: .5, d: 104.5, unit: '%' },
       { k: 'trust-gap-1059',      l: 'Teks',    min: -180, max: 200, st: 2,  d: -28 },
@@ -2381,17 +2450,21 @@ p{margin:0}
       { k: 'hero-stats-gap-364', l: 'Stats',   min: -24,  max: 240, st: 2,  d: 16 }
     ]}
   ];
-
   var nilai = {};
   try { nilai = JSON.parse(localStorage.getItem(STORE) || '{}') || {}; } catch (e) { nilai = {}; }
 
   function nama(it) { return '--' + it.k; }
+  function unit(it) { return (it.unit == null) ? 'px' : it.unit; }
   function ambilNilai(it) {
     var n = nama(it);
     return (n in nilai) ? Number(nilai[n]) : it.d;
   }
   function terapkan() {
-    Object.keys(nilai).forEach(function (n) { root.style.setProperty(n, nilai[n] + 'px'); });
+    Object.keys(nilai).forEach(function (n) {
+      var it = null;
+      GROUPS.forEach(function (g) { g.items.forEach(function (i) { if (nama(i) === n) it = i; }); });
+      root.style.setProperty(n, nilai[n] + (it ? unit(it) : 'px'));
+    });
   }
   function simpan() {
     try { localStorage.setItem(STORE, JSON.stringify(nilai)); } catch (e) {}
@@ -2400,7 +2473,7 @@ p{margin:0}
   var panel = document.createElement('div');
   panel.className = 'tw-panel';
   panel.innerHTML =
-    '<div class="tw-head"><b>Tweak jarak</b><span class="tw-ver">v2 MINUS</span><span class="tw-x">&minus;</span></div>' +
+    '<div class="tw-head"><b>Tweak jarak</b><span class="tw-ver">v3</span><span class="tw-x">&minus;</span></div>' +
     '<div class="tw-body"></div>' +
     '<div class="tw-foot">' +
       '<button type="button" data-act="reset">Reset</button>' +
@@ -2411,17 +2484,27 @@ p{margin:0}
   var body = panel.querySelector('.tw-body');
 
   function gambar() {
-    var html = '<p class="tw-scope">Semua nilai di sini satuannya piksel dan berlaku sama di semua kota. ' +
-               'Kalau sudah pas, tekan “Salin nilai” lalu kirim hasilnya untuk dikunci permanen.</p>';
+    var html = '<p class="tw-scope"><b>Gambar produk</b> ukuran gambar bata &amp; panel ' +
+               'di tampilan vertikal (%). Bingkai blueprint, garis ukur, angka ukuran, ' +
+               'dan lingkaran kuning ikut nilai yang <b>paling besar</b> di antara ' +
+               'keduanya — tidak disetel sendiri.<br>' +
+               '<b>Foto kartu</b> menggeser dan memperbesar isi foto; bingkainya tetap. ' +
+               'Zoom di bawah 100 bisa memunculkan celah di tepi bingkai.<br>' +
+               '<b>Badge Y</b> posisi badge “Pengiriman Cepat” (%). ' +
+               '<b>Teks</b> jarak baris “Melayani kontraktor...” dari tepi bawah gambar (px). ' +
+               '<b>Stats</b> jarak dari tepi bawah gambar ke Stats Bar merah (px). ' +
+               '<b>Nilai minus = naik ke atas.</b><br>' +
+               'Panel bisa digeser — tarik dari judul di atas. Kalau sudah pas, ' +
+               'tekan “Salin nilai” lalu kirim hasilnya untuk dikunci permanen.</p>';
     GROUPS.forEach(function (g, gi) {
-      html += '<div class="tw-group"><h5>' + g.t + ' <span style="opacity:.55">(' + g.hint + ')</span></h5>';
+      html += '<div class="tw-group"><h5>' + g.t + '</h5>';
       g.items.forEach(function (it, ii) {
         var v = ambilNilai(it);
         html += '<div class="tw-row">' +
                   '<label for="tw-' + gi + '-' + ii + '">' + it.l + '</label>' +
                   '<input id="tw-' + gi + '-' + ii + '" type="range" min="' + it.min + '" max="' + it.max +
                     '" step="' + it.st + '" value="' + v + '" data-g="' + gi + '" data-i="' + ii + '">' +
-                  '<output>' + v + 'px</output>' +
+                  '<output>' + v + unit(it) + '</output>' +
                 '</div>';
       });
       html += '</div>';
@@ -2435,16 +2518,83 @@ p{margin:0}
     var it = GROUPS[Number(el.getAttribute('data-g'))].items[Number(el.getAttribute('data-i'))];
     var n = nama(it);
     nilai[n] = Number(el.value);
-    root.style.setProperty(n, el.value + 'px');
+    root.style.setProperty(n, el.value + unit(it));
     var out = el.parentNode.querySelector('output');
-    if (out) out.textContent = el.value + 'px';
+    if (out) out.textContent = el.value + unit(it);
     simpan();
   });
 
-  panel.querySelector('.tw-head').addEventListener('click', function () {
-    panel.classList.toggle('collapsed');
-    panel.querySelector('.tw-x').innerHTML = panel.classList.contains('collapsed') ? '+' : '&minus;';
-  });
+  /* ===================== PANEL BISA DIGESER (drag) =====================
+     Tarik dari judul (.tw-head) supaya panel tidak menutupi bagian layar
+     yang sedang disetel. Posisi disimpan terpisah dari nilai jarak. */
+  (function () {
+    var POS_STORE = 'bricon-tweak-posisi-v1';
+    var head = panel.querySelector('.tw-head');
+    var dragging = false, moved = false, startX = 0, startY = 0, origLeft = 0, origTop = 0;
+
+    function clamp(x, y) {
+      var pw = panel.offsetWidth || 298;
+      var maxX = Math.max(4, window.innerWidth - pw - 4);
+      var maxY = Math.max(4, window.innerHeight - 44 - 4);
+      return { x: Math.min(Math.max(4, x), maxX), y: Math.min(Math.max(4, y), maxY) };
+    }
+    function letakkan(x, y) {
+      var p = clamp(x, y);
+      panel.style.left = p.x + 'px';
+      panel.style.top = p.y + 'px';
+      panel.style.right = 'auto';
+      panel.style.bottom = 'auto';
+    }
+    function simpanPosisi() {
+      var r = panel.getBoundingClientRect();
+      try { localStorage.setItem(POS_STORE, JSON.stringify({ x: r.left, y: r.top })); } catch (e) {}
+    }
+
+    try {
+      var pos = JSON.parse(localStorage.getItem(POS_STORE) || 'null');
+      if (pos && isFinite(pos.x) && isFinite(pos.y)) letakkan(pos.x, pos.y);
+    } catch (e) {}
+
+    head.style.cursor = 'grab';
+    head.style.touchAction = 'none';
+
+    head.addEventListener('pointerdown', function (e) {
+      if (e.button != null && e.button !== 0) return;
+      dragging = true; moved = false;
+      var r = panel.getBoundingClientRect();
+      startX = e.clientX; startY = e.clientY;
+      origLeft = r.left; origTop = r.top;
+      try { head.setPointerCapture(e.pointerId); } catch (er) {}
+    });
+    head.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var dx = e.clientX - startX, dy = e.clientY - startY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+        moved = true;
+        head.style.cursor = 'grabbing';
+        letakkan(origLeft + dx, origTop + dy);
+      }
+    });
+    function selesai(e) {
+      if (!dragging) return;
+      dragging = false;
+      head.style.cursor = 'grab';
+      if (moved) simpanPosisi();
+    }
+    head.addEventListener('pointerup', selesai);
+    head.addEventListener('pointercancel', selesai);
+
+    window.addEventListener('resize', function () {
+      var r = panel.getBoundingClientRect();
+      if (panel.style.left) letakkan(r.left, r.top);
+    });
+
+    head.addEventListener('click', function () {
+      if (moved) { moved = false; return; }
+      panel.classList.toggle('collapsed');
+      panel.querySelector('.tw-x').innerHTML = panel.classList.contains('collapsed') ? '+' : '&minus;';
+    });
+  })();
 
   panel.querySelector('.tw-foot').addEventListener('click', function (e) {
     var b = e.target.closest('button[data-act]');
@@ -2462,7 +2612,7 @@ p{margin:0}
     if (act === 'copy') {
       var baris = [];
       GROUPS.forEach(function (g) {
-        g.items.forEach(function (it) { baris.push('  ' + nama(it) + ':' + ambilNilai(it) + 'px;'); });
+        g.items.forEach(function (it) { baris.push('  ' + nama(it) + ':' + ambilNilai(it) + unit(it) + ';'); });
       });
       var teks = '/* === NILAI JARAK BRICON — tempel di dalam :root pada <style> === */\n' +
                  ':root{\n' + baris.join('\n') + '\n}';
