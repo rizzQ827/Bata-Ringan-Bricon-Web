@@ -204,10 +204,7 @@
   --red-dark:#B71F1F;
   --red-soft:#FCEDED;
   --yellow:#F5C200;
-  --wa:#25D366;
-  --wa-dark:#1FB855;
   --charcoal:#1C1C1E;
-  --charcoal-2:#26262A;
   --line:#E7E3DC;
   --line-strong:#D9D4CB;
   --track:#F2EFE9;
@@ -219,12 +216,9 @@
   --font:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 
-  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--s8:32px;
-  --s10:40px;--s12:48px;--s16:64px;--s20:80px;--s24:96px;
 
   --r-sm:8px;--r-md:12px;--r-lg:16px;--r-pill:999px;
 
-  --sh-sm:0 1px 2px rgba(28,28,30,.06),0 1px 1px rgba(28,28,30,.04);
   --sh-md:0 6px 18px rgba(28,28,30,.08),0 2px 6px rgba(28,28,30,.05);
   --sh-lg:0 18px 48px rgba(28,28,30,.14),0 6px 16px rgba(28,28,30,.08);
   --sh-red:0 8px 22px rgba(212,43,43,.28);
@@ -232,7 +226,12 @@
   --ease-out:cubic-bezier(.25,1,.5,1);
   --ease-reveal:cubic-bezier(.16,1,.3,1);
 
-  --z-base:1;--z-sticky:100;--z-float:200;--z-menu:300;
+  --z-sticky:100;--z-float:200;--z-menu:300;
+
+  /* Seberapa jauh gambar hero "ditarik" naik saat layar menyempit.
+     Bayangan & badge "Pengiriman Cepat" menggantung di bawah tepi gambar,
+     jadi tanpa tarikan ini ada ruang kosong yang tidak perlu. */
+  --hero-img-pull:80px;
 
   --nav-h:68px;
   --maxw:1180px;
@@ -292,8 +291,6 @@ p{margin:0}
 .btn-red{background:var(--red);color:#fff;box-shadow:var(--sh-red)}
 .btn-red:hover{background:var(--red-dark);transform:translateY(-2px);box-shadow:0 12px 28px rgba(212,43,43,.34)}
 
-.btn-ghost-red{background:transparent;border-color:var(--red);color:var(--ink)}
-.btn-ghost-red:hover{background:var(--red-soft);transform:translateY(-2px)}
 
 .btn-outline-on-dark{background:transparent;border-color:var(--red);color:#fff}
 .btn-outline-on-dark:hover{background:rgba(212,43,43,.18);border-color:#E8584F;transform:translateY(-2px)}
@@ -462,10 +459,6 @@ p{margin:0}
 .hbadge--kirim{top:82%;left:4.5%;bottom:auto;right:auto;transform:none}
 .hbadge--mutu{top:49.5%;left:71.5%;bottom:auto;right:auto;transform:none}
 
-.hbadge .hb-dot{width:7px;height:7px;border-radius:50%;flex:none}
-.hbadge--stok  .hb-dot{background:#4ADE80;box-shadow:0 0 0 3px rgba(74,222,128,.25)}
-.hbadge--kirim .hb-dot{background:var(--yellow);box-shadow:0 0 0 3px rgba(245,194,0,.25)}
-.hbadge--mutu  .hb-dot{background:#60A5FA;box-shadow:0 0 0 3px rgba(96,165,250,.25)}
 
 /* ============================================================
    STATS BAR — selalu horizontal, tidak boleh wrap
@@ -483,7 +476,6 @@ p{margin:0}
 .materi{background:var(--surface-warm);border-top:1px solid var(--line)}
 .materi .container{overflow:hidden}
 .materi-head{max-width:76ch;margin-inline:auto;text-align:center}
-.materi-head .eyebrow-mark{justify-content:center}
 .materi-head .section-title{max-width:22ch;margin-inline:auto}
 .materi-head .section-lead{margin-inline:auto;max-width:62ch}
 
@@ -549,7 +541,7 @@ p{margin:0}
 
 .materi-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,4vw,60px);align-items:center;margin-top:clamp(38px,4.5vw,60px)}
 .materi-grid.reverse .spec-visual{order:2}
-.materi-grid + .materi-grid{margin-top:clamp(48px,7vw,90px);padding-top:clamp(48px,7vw,90px);border-top:1px dashed var(--line-strong)}
+.materi-grid + .materi-grid{margin-top:0px;padding-top:0px;border-top:1px dashed var(--line-strong)}
 .materi-body h3{margin-top:16px;font-size:clamp(1.5rem,2.8vw,2rem);font-weight:800}
 .materi-body .materi-desc{margin-top:14px;color:var(--muted);font-size:1rem;line-height:1.6;max-width:50ch}
 
@@ -612,12 +604,6 @@ p{margin:0}
 .dimplate{margin-top:14px}
 .plate-label{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow)}
 .plate-label svg{width:12px;height:12px;flex:none}
-.dimrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:13px}
-.dimrow > div{min-width:0}
-.dimrow .dk{display:block;font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap}
-.dimrow .dv{display:block;margin-top:5px;font-family:var(--mono);font-size:clamp(.98rem,2.5vw,1.18rem);font-weight:700;color:#fff;white-space:nowrap;letter-spacing:-.02em}
-.dimrow .dv u{text-decoration:none;font-size:.62em;color:rgba(255,255,255,.5)}
-.dimrow .dv--range{font-size:clamp(.84rem,2.1vw,1rem)}
 /* Dimensi jadi satu angka hero — segmen yang berubah (tebal/bentang) disorot kuning,
    tanda "×" dilemahkan supaya ritme visualnya tidak riuh. Sama persis dengan beranda. */
 .hero-dim{margin-top:14px;font-family:var(--mono);font-weight:700;font-size:clamp(1.5rem,4.4vw,2.05rem);letter-spacing:-.01em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -664,7 +650,6 @@ p{margin:0}
   .pcards{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:400px){
-  .dimrow{gap:8px}
   .calc-out{gap:8px}
 }
 
@@ -756,7 +741,6 @@ p{margin:0}
    ============================================================ */
 .footer{background:var(--charcoal);color:var(--on-dark-soft)}
 .foot-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:36px;padding-block:clamp(46px,6vw,68px)}
-.foot-grid.cols-3{grid-template-columns:1.4fr 1fr 1fr}
 .foot-tagline{margin-top:16px;font-size:.92rem;color:var(--on-dark-mute);max-width:34ch;line-height:1.6}
 .foot-col h4{color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 16px}
 .foot-col a,.foot-col p{display:block;color:var(--on-dark-soft);font-size:.95rem;padding:6px 0;transition:color .16s var(--ease-out)}
@@ -789,19 +773,7 @@ p{margin:0}
 @media (prefers-reduced-motion:no-preference){
   .js .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease-reveal),transform .7s var(--ease-reveal)}
   .js .reveal.is-visible{opacity:1;transform:none}
-  .js .stagger > *{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease-reveal),transform .6s var(--ease-reveal)}
-  .js .stagger.is-visible > *{opacity:1;transform:none}
-  .js .stagger.is-visible > *:nth-child(2){transition-delay:.08s}
-  .js .stagger.is-visible > *:nth-child(3){transition-delay:.16s}
-
-  .hero [data-anim]{opacity:0;transform:translateY(22px);animation:heroIn .8s var(--ease-reveal) forwards}
-  .hero [data-anim="1"]{animation-delay:.05s}
-  .hero [data-anim="2"]{animation-delay:.15s}
-  .hero [data-anim="3"]{animation-delay:.25s}
-  .hero [data-anim="4"]{animation-delay:.35s}
-  .hero [data-anim="5"]{animation-delay:.45s}
 }
-@keyframes heroIn{to{opacity:1;transform:none}}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -936,54 +908,73 @@ p{margin:0}
    ============================================================ */
 @media (max-width:1024px){
   .foot-grid{grid-template-columns:1fr 1fr}
-  .foot-grid.cols-3{grid-template-columns:1fr 1fr}
   .foot-brand{grid-column:1/-1}
   .foot-area{grid-column:1/-1}
 }
 
-@media (max-width:1075px){
-  .hero-grid{flex-direction:column}
-  .hero-copy{order:1}
-  .hero-visual{order:2}
-  .hero-copy h1{line-height:1.12;margin-bottom:16px;max-width:100%}
-  .hero .lead{font-size:clamp(12px,2.2vw,16.5px);line-height:1.55;margin-bottom:20px}
-  .hero-img{width:100%;height:auto}
-  .hero-cta .btn{font-size:15px;padding:12px 24px}
-}
+/* ============================================================
+   RESPONSIVE
+   Satu titik-ganti = satu blok, urut dari layar lebar ke sempit.
+   Titik ganti: 1059 (hero jadi tumpuk) > 860 > 768 > 639 > 560 > 550 > 364
+   ============================================================ */
 
-@media (max-width:1074px){
-  .hbadge--stok{top:23%;left:-5%}
-  .hbadge--kirim{top:74%;left:4.5%}
-  .hbadge--mutu{top:40%;left:71.5%}
-}
-
+/* <=1059px — hero jadi tumpuk: teks di atas, gambar di bawah.
+   Tiga jarak di sini bisa disetel lewat panel ?tweak=1 dan SEMUANYA
+   dihitung dari tepi bawah gambar hero:
+     --badge-kirim-y-*   posisi badge "Pengiriman Cepat"
+     --trust-gap-*       jarak ke baris "Melayani kontraktor..."
+     --hero-stats-gap-*  jarak ke Stats Bar merah
+   Baris "Melayani kontraktor..." digeser pakai `top`, BUKAN `transform`:
+   skrip hero menulis transform:none langsung ke elemen, jadi geseran
+   lewat transform selalu dimentahkan. */
 @media (max-width:1059px){
-  .hero{min-height:auto;padding-block:48px 56px}
+  .hero{
+    min-height:auto;
+    padding-top:48px;
+    padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-1059,-4px));
+  }
   .hero-grid{grid-template-columns:minmax(0,1fr);gap:0}
-  .hero-copy{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;max-width:100%}
-  .hero .lead{max-width:36ch}
-  .hero-cta{justify-content:center;width:100%;max-width:100%}
-  .hero-trust{max-width:100%}
-  .hero-img-wrap{max-width:440px;width:100%}
 
+  .hero-copy{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;max-width:100%;margin-bottom:0}
   .hero-badge{margin-top:0;margin-bottom:16px}
-  .hero-copy h1{margin-top:0;margin-bottom:24px}
-  .hero .lead{margin-top:0;margin-bottom:32px}
-  .hero-cta{margin-top:0;margin-bottom:0}
-  .hero-trust{margin-top:14px;margin-bottom:0}
+  .hero-copy h1{line-height:1.12;margin-top:0;margin-bottom:24px;max-width:100%}
+  .hero .lead{font-size:clamp(12px,2.2vw,16.5px);max-width:36ch;margin-top:0;margin-bottom:32px}
+  .hero-cta{justify-content:center;width:100%;max-width:100%;margin-top:0;margin-bottom:0}
+  .hero-cta .btn{font-size:15px;padding:12px 24px}
+
+  .hero-img-wrap{max-width:440px;width:100%}
+  .hero-img{width:100%;height:auto;margin-bottom:calc(-1 * var(--hero-img-pull))}
+
+  .hbadge--stok{top:38.5%;left:7%}
+  .hbadge--kirim{top:var(--badge-kirim-y-1059,104.5%);left:4.5%}
+  .hbadge--mutu{top:62%;left:72.5%}
+
+  .hero-trust{max-width:100%;margin-top:14px;margin-bottom:0}
+  .hero-trust--d{display:none}
+  .hero-trust--m{
+    position:absolute;left:0;right:0;margin-top:0;
+    top:calc(100% + var(--hero-img-pull) + var(--trust-gap-1059,-28px));
+  }
 }
+@media (min-width:1060px){ .hero-trust--m{display:none} }
 
 @media (max-width:860px){
   :root{--nav-h:62px}
   .nav-links,.nav-right .btn{display:none}
   .nav-toggle{display:flex}
   .mobile-menu{display:block}
-  .hero-img-wrap{max-width:380px}
-  .loc-grid{grid-template-columns:minmax(0,1fr)}
-  .map-frame{min-height:300px}
-  .map-frame iframe{min-height:300px}
   .wa-float{display:inline-flex}
   .foot-floatspace{display:block;height:72px;margin-top:8px}
+
+  .loc-grid{grid-template-columns:minmax(0,1fr)}
+  .map-frame,.map-frame iframe{min-height:300px}
+
+  .hero{padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-860,-2px))}
+  .hero-img-wrap{max-width:380px}
+  .hbadge--stok{top:42%;left:4%}
+  .hbadge--kirim{top:var(--badge-kirim-y-860,108.5%);left:-0.5%}
+  .hbadge--mutu{top:65%;left:72%}
+  .hero-trust--m{top:calc(100% + var(--hero-img-pull) + var(--trust-gap-860,-24px))}
 }
 
 @media (max-width:768px){
@@ -997,30 +988,40 @@ p{margin:0}
 }
 
 @media (max-width:560px){
-  .foot-grid,.foot-grid.cols-3{grid-template-columns:1fr;gap:30px}
+  .foot-grid{grid-template-columns:1fr;gap:30px}
   .foot-col{border-top:1px solid var(--line-dark);padding-top:8px}
   .foot-brand{border-top:none}
+
+  .hero{padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-560,16px))}
   .hero-cta{max-width:360px;margin-inline:auto}
   .hero-cta .btn{flex:1 1 100%}
   .hero-img-wrap{max-width:300px}
+  .hbadge--stok{top:47.5%;left:-2.5%}
+  .hbadge--kirim{top:var(--badge-kirim-y-560,121.5%);left:-0.5%}
+  .hbadge--mutu{top:68.5%;left:69.5%}
+  .hero-trust--m{top:calc(100% + var(--hero-img-pull) + var(--trust-gap-560,-8px))}
 }
 
 @media (max-width:550px){
-  .hero h1,.hero-copy h1{line-height:1.16}
+  .hero-copy h1{line-height:1.16}
   .hero-trust{font-size:clamp(.62rem,3vw,.8rem);gap:clamp(5px,1.6vw,8px)}
   .hero-trust svg{width:clamp(13px,4vw,16px);height:clamp(13px,4vw,16px)}
 }
 
 @media (max-width:364px){
-  .hbadge--stok{left:-2%}
-  .hbadge--mutu{left:54%}
+  /* layar 320px: badge kanan digeser masuk supaya tidak terpotong tepi layar */
+  .hero{padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-364,16px))}
+  .hbadge--stok{top:43%;left:-2.5%}
+  .hbadge--kirim{top:var(--badge-kirim-y-364,125%);left:-1.5%}
+  .hbadge--mutu{top:71.5%;left:70.5%}
   .hero-badge{font-size:9px;padding:4px 8px;gap:6px;letter-spacing:0}
   .hero-badge .dot{width:6px;height:6px}
-  .hero h1,.hero-copy h1{line-height:1.18;margin-top:12px}
-  .hero .lead{font-size:12px;margin-top:12px}
+  .hero-copy h1{line-height:1.18}
+  .hero .lead{font-size:12px}
   .hero-trust{font-size:clamp(.58rem,3.2vw,.68rem)}
-  .hero-cta{gap:10px;margin-top:20px}
+  .hero-cta{gap:10px}
   .hero-cta .btn{font-size:13px;padding:10px 18px}
+  .hero-trust--m{top:calc(100% + var(--hero-img-pull) + var(--trust-gap-364,-4px))}
 }
 
 /* Tabs "Pilih ketebalan/bentang" kepenuhan kalau dipaksa 1 baris di layar
@@ -1180,6 +1181,7 @@ p{margin:0}
 }
 .tw-head{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#1E1E21;border-bottom:1px solid rgba(255,255,255,.12);cursor:pointer;flex:none}
 .tw-head b{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow)}
+.tw-head .tw-ver{font-size:9px;font-weight:700;letter-spacing:.06em;color:#141416;background:var(--yellow);border-radius:4px;padding:2px 5px}
 .tw-head .tw-x{margin-left:auto;font-size:14px;line-height:1;color:rgba(255,255,255,.55)}
 .tw-body{overflow-y:auto;padding:10px 12px 12px}
 .tw-panel.collapsed .tw-body,.tw-panel.collapsed .tw-foot{display:none}
@@ -1203,28 +1205,6 @@ p{margin:0}
   .tw-panel{width:calc(100vw - 28px);max-height:62vh}
 }
 
-/* ============================================================
-   JARAK YANG BISA DISETEL LEWAT PANEL TWEAK
-   Sengaja ditaruh paling bawah supaya menang atas aturan di atasnya.
-   ============================================================ */
-@media (max-width:1059px){
-  /* jarak DI ATAS gambar hero (turun dari blok teks) */
-  .hero-copy{margin-bottom:var(--hero-space-atas-m,0px)}
-  /* jarak DI BAWAH gambar hero, sebelum tepi bawah section */
-  .hero-img{margin-bottom:var(--hero-space-bawah-m,0px)}
-}
-@media (min-width:861px){
-  /* jarak antara blok Bata Ringan dan Panel Lantai */
-  .materi-grid + .materi-grid{
-    margin-top:var(--gap-materi-atas-d,0px);
-    padding-top:var(--gap-materi-bawah-d,0px);
-  }
-}
-
-/* Dua instance hero-trust: satu di bawah CTA (kolom kiri, desktop),
-   satu di bawah gambar (mobile/tumpuk). Toggle murni CSS, nggak pakai JS. */
-@media (min-width:1060px){ .hero-trust--m{display:none} }
-@media (max-width:1059px){ .hero-trust--d{display:none} }
 </style>
 </head>
 <body>
@@ -1295,25 +1275,25 @@ p{margin:0}
     <div class="container">
       <div class="hero-grid">
         <div class="hero-copy">
-          <span class="hero-badge" data-anim="1"><span class="dot"></span>Teknologi Microbubble &middot; Kualitas SNI &middot; Mojokerto</span>
-          <h1 data-anim="2" id="heroH1">
+          <span class="hero-badge"><span class="dot"></span>Teknologi Microbubble &middot; Kualitas SNI &middot; Mojokerto</span>
+          <h1 id="heroH1">
             <span class="h1-line">Bata Ringan Mojokerto</span><span class="h1-line">Kirim Cepat, <mark class="hl">Harga Bersaing</mark></span>
           </h1>
-          <p class="lead" data-anim="3">Jual Bata Ringan &amp; Panel Lantai BRICON berteknologi Microbubble di Mojokerto — kuat, ringan, presisi ukuran. Stok lengkap, siap kirim ke seluruh wilayah Mojokerto.</p>
-          <div class="hero-cta" data-anim="4">
+          <p class="lead">Jual Bata Ringan &amp; Panel Lantai BRICON berteknologi Microbubble di Mojokerto — kuat, ringan, presisi ukuran. Stok lengkap, siap kirim ke seluruh wilayah Mojokerto.</p>
+          <div class="hero-cta">
             <a class="btn btn-red" data-cta="hero" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20bata%20ringan%20BRICON%20untuk%20proyek%20di%20Mojokerto." target="_blank" rel="noopener">
               <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
               Tanya Harga Sekarang!
             </a>
             <a class="btn btn-outline-on-dark" href="#produk">Lihat Produk</a>
           </div>
-          <p class="hero-trust hero-trust--d" data-anim="5">
+          <p class="hero-trust hero-trust--d">
             <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>
             <span class="hero-trust-text">Melayani kontraktor, tukang &amp; owner proyek se-Mojokerto &middot; Min. order 1 truk (11,52 m&sup3;)</span>
           </p>
         </div>
 
-        <div class="hero-visual hero-img-wrap" data-anim="4">
+        <div class="hero-visual hero-img-wrap">
           <div class="img-anchor">
           <img src="../assets/images/hero-bata-ringan.webp" class="hero-img" alt="Produk bata ringan BRICON — bata beton ringan berteknologi Microbubble" id="heroImg" fetchpriority="high" decoding="async">
           <span class="hbadge hbadge--stok" aria-hidden="true">
@@ -1329,7 +1309,7 @@ p{margin:0}
             Kualitas SNI
           </span>
           </div>
-          <p class="hero-trust hero-trust--m" data-anim="5">
+          <p class="hero-trust hero-trust--m">
             <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>
             <span class="hero-trust-text">Melayani kontraktor, tukang &amp; owner proyek se-Mojokerto &middot; Min. order 1 truk (11,52 m&sup3;)</span>
           </p>
@@ -1740,13 +1720,6 @@ p{margin:0}
 
   var KOTA = window.BRICON_KOTA || 'Mojokerto';
 
-  document.querySelectorAll('[data-anim]').forEach(function (el) { el.classList.add('is-visible'); });
-  document.querySelectorAll('.hero [data-anim]').forEach(function (el) {
-    el.style.opacity = '1';
-    el.style.transform = 'none';
-    el.style.animation = 'none';
-  });
-
   /* ===== HERO H1 AUTO-FIT — selalu 2 baris di semua breakpoint ===== */
   var heroH1 = document.getElementById('heroH1');
   function fitHeroH1() {
@@ -1866,7 +1839,7 @@ p{margin:0}
   window.addEventListener('resize', function () { if (window.innerWidth > 860) setMenu(false); });
 
   /* Reveal on scroll */
-  var revealEls = document.querySelectorAll('.reveal, .stagger, [data-anim]');
+  var revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
@@ -2378,14 +2351,29 @@ p{margin:0}
   var root  = document.documentElement;
   var STORE = 'bricon-tweak-jarak-v1';
 
+  /* Satu grup = satu titik-ganti layar, isinya 3 slider.
+     Semua jaraknya dihitung dari TEPI BAWAH GAMBAR HERO.
+     Nilai MINUS = tarik ke atas, masuk ke area gambar. */
   var GROUPS = [
-    { t: 'Hero mobile — jarak gambar', hint: 'berlaku di lebar ≤1059px', items: [
-      { k: 'hero-space-atas-m',  l: 'Atas',  min: 0, max: 160, st: 2, d: 0 },
-      { k: 'hero-space-bawah-m', l: 'Bawah', min: 0, max: 160, st: 2, d: 0 }
+    { t: 'Layar 861 - 1059px (tablet)', items: [
+      { k: 'badge-kirim-y-1059',  l: 'Badge Y', min: -20,  max: 220, st: .5, d: 104.5, unit: '%' },
+      { k: 'trust-gap-1059',      l: 'Teks',    min: -180, max: 200, st: 2,  d: -28 },
+      { k: 'hero-stats-gap-1059', l: 'Stats',   min: -36,  max: 240, st: 2,  d: -4 }
     ]},
-    { t: 'Desktop — jarak Bata ↔ Panel', hint: 'berlaku di lebar ≥861px', items: [
-      { k: 'gap-materi-atas-d',  l: 'Atas garis',  min: 0, max: 220, st: 2, d: 0 },
-      { k: 'gap-materi-bawah-d', l: 'Bawah garis', min: 0, max: 220, st: 2, d: 0 }
+    { t: 'Layar 561 - 860px', items: [
+      { k: 'badge-kirim-y-860',  l: 'Badge Y', min: -20,  max: 220, st: .5, d: 108.5, unit: '%' },
+      { k: 'trust-gap-860',      l: 'Teks',    min: -180, max: 200, st: 2,  d: -24 },
+      { k: 'hero-stats-gap-860', l: 'Stats',   min: -30,  max: 240, st: 2,  d: -2 }
+    ]},
+    { t: 'Layar 365 - 560px (HP)', items: [
+      { k: 'badge-kirim-y-560',  l: 'Badge Y', min: -20,  max: 220, st: .5, d: 121.5, unit: '%' },
+      { k: 'trust-gap-560',      l: 'Teks',    min: -180, max: 200, st: 2,  d: -8 },
+      { k: 'hero-stats-gap-560', l: 'Stats',   min: -24,  max: 240, st: 2,  d: 16 }
+    ]},
+    { t: 'Layar 320 - 364px (HP kecil)', items: [
+      { k: 'badge-kirim-y-364',  l: 'Badge Y', min: -20,  max: 220, st: .5, d: 125, unit: '%' },
+      { k: 'trust-gap-364',      l: 'Teks',    min: -180, max: 200, st: 2,  d: -4 },
+      { k: 'hero-stats-gap-364', l: 'Stats',   min: -24,  max: 240, st: 2,  d: 16 }
     ]}
   ];
 
@@ -2407,7 +2395,7 @@ p{margin:0}
   var panel = document.createElement('div');
   panel.className = 'tw-panel';
   panel.innerHTML =
-    '<div class="tw-head"><b>Tweak jarak</b><span class="tw-x">&minus;</span></div>' +
+    '<div class="tw-head"><b>Tweak jarak</b><span class="tw-ver">v2 MINUS</span><span class="tw-x">&minus;</span></div>' +
     '<div class="tw-body"></div>' +
     '<div class="tw-foot">' +
       '<button type="button" data-act="reset">Reset</button>' +
