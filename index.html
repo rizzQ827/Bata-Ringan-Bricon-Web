@@ -465,6 +465,24 @@ p{margin:0}
 .sv-dim--h::after{right:0;top:-5px;width:1px;height:11px}
 .sv-dim--h span{left:50%;bottom:0;transform:translate(-50%,50%)}
 
+/* --- Ukuran gambar spesifikasi, khusus tampilan vertikal (HP/tablet) ---
+   --sv-img-bata / --sv-img-panel = persen ukuran gambar (100 = normal),
+   disetel lewat panel ?tweak=1.
+
+   Yang mengikuti nilai masing-masing HANYA gambarnya. Bingkai blueprint,
+   garis ukur, angka ukuran, dan lingkaran kuning mengikuti --sv-img-max,
+   yaitu nilai TERBESAR di antara dua slider itu. Jadi ukuran elemen di
+   sekitar gambar berubah secara pasif dan selalu sama di kedua blok. */
+@media (max-width:860px){
+  .spec-visual{
+    --sv-img-max:max(var(--sv-img-bata,100),var(--sv-img-panel,100));
+    width:calc(1% * var(--sv-img-max));
+    margin-inline:auto;
+  }
+  .spec-visual[data-glow="bata"] img{transform:scale(calc(var(--sv-img-bata,100) / var(--sv-img-max)))}
+  .spec-visual[data-glow="panel"] img{transform:scale(calc(var(--sv-img-panel,100) / var(--sv-img-max)))}
+}
+
 @media (min-width:861px){
   .spec-visual{padding:47px 53px 62px 40px}
   .spec-visual::before{background-size:17px 17px}
@@ -505,6 +523,24 @@ p{margin:0}
   .materi-head .section-lead{font-size:.92rem;margin-top:10px}
 }
 
+/* Layar sempit: tiga chip dikunci jadi maksimal DUA baris — dua di atas,
+   satu di bawah — dengan grid dua kolom (chip ketiga membentang penuh).
+   Ukuran huruf dan ikon ikut menyusut mengikuti lebar layar supaya di
+   320px pun dua chip teratas tetap muat dalam satu baris. */
+@media (max-width:560px){
+  .materi-chips{
+    display:grid;grid-template-columns:repeat(2,minmax(0,max-content));
+    justify-content:center;justify-items:center;gap:5px;
+  }
+  .materi-chips li{
+    font-size:clamp(8.4px,2.5vw,.7rem);
+    padding:clamp(4px,1.2vw,5px) clamp(6px,2vw,9px);
+    gap:clamp(3px,1.1vw,5px);
+  }
+  .materi-chips li:nth-child(3){grid-column:1 / -1}
+  .materi-chips svg{width:clamp(10px,3.1vw,13px);height:clamp(10px,3.1vw,13px)}
+}
+
 /* ============================================================
    PRODUK — kartu spesifikasi (beranda tidak menampilkan harga)
    Hierarki: [1] DIMENSI (plat gelap, angka hero) > [2] kalkulator ukuran (blok terang) > [3] CTA
@@ -513,8 +549,16 @@ p{margin:0}
 .pcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2vw,22px);margin-top:clamp(30px,4vw,46px);align-items:stretch}
 
 .pcard{display:flex;flex-direction:column;height:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-md)}
-.pcard-media{position:relative}
-.pcard-media > img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block}
+/* Bingkai foto tidak berubah sedikit pun — yang bergerak cuma isinya.
+   --pc-*-x / --pc-*-y menggeser gambar (persen dari lebar bingkai),
+   --pc-*-z memperbesar / memperkecil. Semua disetel lewat panel ?tweak=1. */
+.pcard-media{position:relative;overflow:hidden;background:var(--track)}
+.pcard-media > img{
+  width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;
+  transform:translate(calc(var(--pc-x,0) * 1%),calc(var(--pc-y,0) * 1%)) scale(calc(var(--pc-z,100) / 100));
+}
+.pcard[data-pcard="bata"] .pcard-media > img{--pc-x:var(--pc-bata-x,0);--pc-y:var(--pc-bata-y,0);--pc-z:var(--pc-bata-z,100)}
+.pcard[data-pcard="panel"] .pcard-media > img{--pc-x:var(--pc-panel-x,0);--pc-y:var(--pc-panel-y,0);--pc-z:var(--pc-panel-z,100)}
 
 /* badge Microbubble — pojok kiri atas foto, seluruh badge jadi tombol modal */
 .mbtag-wrap{position:absolute;left:12px;top:12px;z-index:4}
@@ -532,14 +576,14 @@ p{margin:0}
 /* glass promo badge — melayang di pojok kanan bawah foto */
 .pp-glass{
   position:absolute;right:12px;bottom:12px;z-index:3;
-  display:flex;align-items:center;gap:9px;padding:9px 13px 9px 10px;border-radius:var(--r-md);
-  background:rgba(255,255,255,.5);backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%);
-  border:1px solid rgba(255,255,255,.65);box-shadow:0 8px 22px rgba(28,28,30,.22),inset 0 1px 0 rgba(255,255,255,.8);
+  display:flex;align-items:center;gap:6px;padding:6px 10px 6px 8px;border-radius:10px;
+  background:rgba(255,255,255,.3);backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);
+  border:1px solid rgba(255,255,255,.4);box-shadow:0 6px 18px rgba(28,28,30,.26),inset 0 1px 0 rgba(255,255,255,.5);
   max-width:calc(100% - 24px);
 }
-.pp-glass svg{flex:none;width:20px;height:20px;color:var(--red-dark)}
-.pp-glass .pp-glass-text{font-size:.76rem;line-height:1.3;font-weight:700;color:var(--ink)}
-.pp-glass .pp-glass-sub{display:block;margin-top:2px;font-size:.68rem;line-height:1.3;font-weight:500;color:var(--text)}
+.pp-glass svg{flex:none;width:17px;height:17px;color:var(--red-dark)}
+.pp-glass .pp-glass-text{font-size:.72rem;line-height:1.2;font-weight:700;color:var(--ink)}
+.pp-glass .pp-glass-sub{display:block;margin-top:1px;font-size:.63rem;line-height:1.2;font-weight:500;color:var(--text)}
 
 .pcard-body{display:flex;flex-direction:column;flex:1;padding:16px clamp(16px,1.8vw,20px) clamp(18px,2vw,20px)}
 .pcard-body h3{font-size:clamp(1.22rem,2.1vw,1.42rem);font-weight:800;letter-spacing:-.02em}
@@ -565,17 +609,21 @@ p{margin:0}
 .hero-dim u{text-decoration:none;font-size:.46em;font-weight:600;color:rgba(255,255,255,.48);margin-left:3px}
 
 /* --- [2] kalkulator ukuran: sekunder, latar terang, segmented besar --- */
-.calc{margin-top:12px;padding:13px 14px 15px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg)}
+/* Kotak kalkulator dijadikan "container": ukuran huruf tab dihitung dari
+   lebar kotak ini, bukan dari lebar layar. Hasilnya tab selalu berjajar
+   satu baris di lebar berapa pun (termasuk 320px) — yang menyusut hanya
+   tulisannya, bukan jumlah barisnya. */
+.calc{margin-top:12px;padding:13px 14px 15px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg);container-type:inline-size}
 .pick-label{display:block;font-family:var(--mono);font-size:.56rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)}
-.pick{display:flex;gap:8px;margin-top:8px}
+.pick{display:flex;flex-wrap:nowrap;gap:clamp(4px,2.4cqi,8px);margin-top:8px}
 .pick button{
-  flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
-  height:54px;border-radius:9px;border:1px solid var(--line-strong);background:var(--surface);
-  font-family:var(--mono);cursor:pointer;
+  flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+  height:54px;padding:0 2px;border-radius:9px;border:1px solid var(--line-strong);background:var(--surface);
+  font-family:var(--mono);cursor:pointer;overflow:hidden;
   transition:background .18s var(--ease-out),border-color .18s var(--ease-out),color .18s var(--ease-out);
 }
-.pick button .pb{font-size:.9rem;font-weight:700;white-space:nowrap;color:var(--ink)}
-.pick button .ps{font-size:.58rem;letter-spacing:.08em;white-space:nowrap;color:var(--muted2)}
+.pick button .pb{font-size:clamp(9.6px,4.8cqi,.9rem);font-weight:700;white-space:nowrap;color:var(--ink)}
+.pick button .ps{font-size:clamp(7.4px,3.1cqi,.58rem);letter-spacing:.05em;white-space:nowrap;color:var(--muted2)}
 .pick button:hover{border-color:var(--ink);background:var(--track)}
 .pick button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink)}
 .pick button[aria-pressed="true"] .pb{color:#fff}
@@ -704,6 +752,23 @@ p{margin:0}
 .area-note{margin-top:24px;font-size:.95rem;color:var(--muted);max-width:60ch}
 .area-note a{color:var(--red);font-weight:700;border-bottom:1.5px solid rgba(212,43,43,.32)}
 .area-note a:hover{border-bottom-color:var(--red)}
+
+/* Hasil pencarian yang jatuh di kabupaten yang belum punya kartu harga:
+   ditampilkan sebagai pilihan supaya pengunjung sendiri yang menentukan
+   wilayah mana yang dia maksud saat namanya kembar. */
+.area-lain{margin-top:18px;padding:16px 18px;border:1px dashed var(--line-strong);border-radius:var(--r-md);background:var(--surface)}
+.area-lain-h{margin:0 0 11px;font-size:.9rem;line-height:1.55;color:var(--muted);max-width:62ch}
+.area-lain-h b{color:var(--ink)}
+.area-lain-chips{display:flex;flex-wrap:wrap;gap:8px}
+.area-lain-chips a{
+  display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:7px 13px;border-radius:var(--r-pill);
+  border:1.5px solid var(--line-strong);background:var(--bg);
+  font-size:.84rem;font-weight:700;letter-spacing:-.01em;color:var(--ink);
+  transition:border-color .18s var(--ease-out),color .18s var(--ease-out),background .18s var(--ease-out);
+}
+.area-lain-chips a:hover{border-color:var(--red);color:var(--red);background:var(--surface)}
+.area-lain-chips a svg{width:14px;height:14px;flex:none;color:#25D366}
+.area-lain-sisa{margin:10px 0 0;font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)}
 
 @media (max-width:900px){
   .area-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -1143,11 +1208,12 @@ p{margin:0}
 .tf-name{margin:0;font-size:.95rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tf-loc{display:inline-flex;align-items:center;gap:5px;margin-top:2px;font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 .tf-loc svg{flex:none;width:10px;height:10px;color:var(--yellow)}
-.tf-prod{margin-left:auto;flex:none;font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.68);white-space:nowrap;padding:5px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06)}
+.testi-feature .tf-prod{position:absolute;top:14px;right:14px;z-index:2;display:inline-flex;align-items:center;gap:5px;flex:none;margin:0;font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.82);white-space:nowrap;padding:5px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08)}
+.testi-feature .tf-prod svg{width:12px;height:12px;flex:none;color:var(--yellow)}
 
 .testi-strip{display:flex;gap:10px;margin-top:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
 .testi-strip::-webkit-scrollbar{display:none}
-.ts-card{flex:0 0 82%;scroll-snap-align:start;display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md)}
+.ts-card{position:relative;flex:0 0 82%;scroll-snap-align:start;display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md)}
 .ts-mark{flex:none;width:20px;height:20px;color:var(--red);opacity:.5}
 .ts-quote{margin:0;font-size:.83rem;line-height:1.6;color:var(--text)}
 .ts-foot{display:flex;align-items:center;gap:9px;width:100%;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
@@ -1157,20 +1223,15 @@ p{margin:0}
 .ts-name{margin:0;font-size:.85rem;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ts-loc{display:flex;align-items:center;gap:4px;margin-top:2px;font-family:var(--mono);font-size:.54rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ts-loc svg{flex:none;width:9px;height:9px;color:var(--red)}
-.ts-prod{margin-left:auto;flex:none;font-family:var(--mono);font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:var(--bg)}
+.ts-card .ts-prod{position:absolute;top:11px;right:11px;z-index:2;display:inline-flex;align-items:center;gap:4px;flex:none;margin:0;font-family:var(--mono);font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:var(--bg)}
+.ts-card .ts-prod svg{width:11px;height:11px;flex:none;color:var(--red);opacity:.7}
 
 @media (min-width:720px){
   .testi-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));overflow:visible;padding:0}
   .ts-card{flex:auto}
 }
-/* Layar sempit: label produk turun jadi baris sendiri (bukan disembunyikan),
-   digeser sejajar kolom nama supaya tetap terbaca sebagai satu kesatuan. */
-@media (max-width:400px){
-  .testi-feature footer{flex-wrap:wrap}
-  .tf-prod{margin-left:50px;margin-top:10px}
-  .ts-foot{flex-wrap:wrap}
-  .ts-prod{margin-left:41px;margin-top:9px}
-}
+/* Badge produk sekarang melayang di pojok kanan atas kartu, jadi tidak lagi
+   ikut mengantre di baris identitas dan tidak butuh aturan khusus layar kecil. */
 
 .bintang{display:inline-flex;gap:2px;flex:none}
 .bintang .b{position:relative;line-height:0;color:#E2E5EA}
@@ -1204,7 +1265,7 @@ p{margin:0}
 .tw-group:first-of-type{margin-top:0;padding-top:0;border-top:none}
 .tw-group > h5{margin:0 0 8px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.62);font-weight:700}
 .tw-row{display:flex;align-items:center;gap:8px;margin-top:7px}
-.tw-row label{flex:none;width:64px;color:rgba(255,255,255,.7)}
+.tw-row label{flex:none;width:58px;color:rgba(255,255,255,.7)}
 .tw-row input[type=range]{flex:1;min-width:0;accent-color:#F5C200;height:18px}
 .tw-row output{flex:none;width:52px;text-align:right;color:#fff;font-weight:700}
 .tw-foot{flex:none;display:flex;gap:7px;padding:10px 12px;border-top:1px solid rgba(255,255,255,.12);background:#1E1E21}
@@ -1232,6 +1293,7 @@ p{margin:0}
   <symbol id="ico-box" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4 7.5 4.2"></path><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></g></symbol>
   <symbol id="ico-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5-5.5 10.2-7.4 11.8a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></g></symbol>
   <symbol id="ico-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"></path></symbol>
+  <symbol id="ico-headset" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"></path><path d="M21 16v2a4 4 0 0 1-4 4h-5"></path></g></symbol>
   <symbol id="ico-arrow" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></g></symbol>
   <symbol id="ico-cari" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></g></symbol>
   <symbol id="ico-bata" viewBox="0 0 400 400"><path fill="currentColor" d="M194,226L194,299C194,310.038 185.038,319 174,319L20,319C8.962,319 0,310.038 0,299L0,226C0,214.962 8.962,206 20,206L174,206C185.038,206 194,214.962 194,226Z"></path><path fill="currentColor" d="M400,226L400,299C400,310.038 391.038,319 380,319L226,319C214.962,319 206,310.038 206,299L206,226C206,214.962 214.962,206 226,206L380,206C391.038,206 400,214.962 400,226Z"></path><path fill="currentColor" d="M297,101L297,174C297,185.038 288.038,194 277,194L123,194C111.962,194 103,185.038 103,174L103,101C103,89.962 111.962,81 123,81L277,81C288.038,81 297,89.962 297,101Z"></path></symbol>
@@ -1364,7 +1426,7 @@ p{margin:0}
         <p class="section-lead">Satu supplier untuk dua kebutuhan — jadwal kirim tidak perlu dikejar ke dua tempat.</p>
         <ul class="materi-chips">
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-box"></use></svg>Stok siap kirim</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-check"></use></svg>Konsultasi &amp; survey gratis</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-headset"></use></svg>Konsultasi &amp; survey gratis</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"></path></svg>Panel lantai + jasa pasang</li>
         </ul>
       </div>
@@ -1491,13 +1553,12 @@ p{margin:0}
     <div class="container">
       <div class="reveal" style="max-width:640px">
         <span class="eyebrow-mark"><span class="bar"></span>Area Layanan</span>
-        <h2 class="section-title" style="margin-top:14px">Cek harga di kabupatenmu</h2>
-        <p class="section-lead">Cari kabupatenmu, harganya langsung kelihatan.</p>
+        <h2 class="section-title" style="margin-top:14px">Cek harga di kota/kabupatenmu!</h2>
       </div>
 
       <div class="area-search reveal" id="areaSearch">
         <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-cari"></use></svg>
-        <input id="areaCari" type="search" autocomplete="off" spellcheck="false" placeholder="Cari kabupaten / kota&hellip;" aria-label="Cari kabupaten atau kota">
+        <input id="areaCari" type="search" autocomplete="off" spellcheck="false" placeholder="Ketik desa, kecamatan, atau kabupaten&hellip;" aria-label="Cari desa, kecamatan, kabupaten atau kota">
         <button class="area-clear" type="button" id="areaClear" aria-label="Hapus pencarian">&times;</button>
       </div>
       <p class="area-cakupan" id="areaCatatan" hidden></p>
@@ -1689,12 +1750,16 @@ p{margin:0}
         <button type="button" id="areaMoreBtn">Tampilkan 6 wilayah lainnya</button>
       </div>
 
+      <div class="area-lain" id="areaLain" hidden>
+        <p class="area-lain-h" id="areaLainH"></p>
+        <div class="area-lain-chips" id="areaLainChips"></div>
+        <p class="area-lain-sisa" id="areaLainSisa" hidden></p>
+      </div>
+
       <p class="area-kosong" id="areaKosong" hidden><b id="areaKosongQ"></b> belum ada di daftar &mdash; tapi kami tetap kirim ke sana selama minimum order 1 truk (11,52 m&sup3;) terpenuhi.<br>
         <a data-cta="area-lainnya" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20ketersediaan%20dan%20ongkos%20kirim%20BRICON%20ke%20daerah%20saya." target="_blank" rel="noopener">Tanya ketersediaan &amp; ongkos kirim&nbsp;&rarr;</a></p>
 
       <p class="area-kosong area-terbatas" id="areaTerbatas" hidden><span id="areaTerbatasPesan"></span></p>
-
-      <p class="area-note reveal">Kabupaten lain di Jawa Timur tetap kami kirim &mdash; minimum order 1 truk (11,52 m&sup3;). <a data-cta="area-lainnya" href="https://wa.me/6285184028183?text=Halo%2C%20saya%20mau%20tanya%20ketersediaan%20dan%20ongkos%20kirim%20BRICON%20ke%20daerah%20saya." target="_blank" rel="noopener">Tanya ketersediaan &amp; ongkos kirim&nbsp;&rarr;</a></p>
     
     </div>
   </section>
@@ -2284,6 +2349,10 @@ p{margin:0}
     var catatan   = document.getElementById('areaCatatan');
     var terbatas  = document.getElementById('areaTerbatas');
     var terbatasP = document.getElementById('areaTerbatasPesan');
+    var lainWrap  = document.getElementById('areaLain');
+    var lainH     = document.getElementById('areaLainH');
+    var lainChips = document.getElementById('areaLainChips');
+    var lainSisa  = document.getElementById('areaLainSisa');
     var kartu     = [].slice.call(grid.querySelectorAll('.kk'));
     var semua     = false;
 
@@ -2306,6 +2375,89 @@ p{margin:0}
 
     function bersih(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
 
+    /* ============================================================
+       INDEKS WILAYAH JAWA TIMUR — kecamatan + desa/kelurahan
+       Sumber: Kepmendagri No 300.2.2-2138 Tahun 2025.
+       38 kabupaten/kota, 665 kecamatan, 8.467 desa/kelurahan.
+
+       Disimpan padat supaya tidak membebani halaman: satu baris berisi
+       [berapa huruf awal yang sama dengan baris sebelumnya] + sisa nama +
+       ":" + kode kabupaten (satu huruf per kabupaten). Daftar baru
+       dibongkar saat pengunjung mulai mengetik, bukan saat halaman dibuka.
+       ============================================================ */
+    var JT_KODE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-';
+    var JT_PFX  = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var JT_KAB  = ["Pacitan","Ponorogo","Trenggalek","Tulungagung","Blitar","Kediri","Malang","Lumajang","Jember","Banyuwangi","Bondowoso","Situbondo","Probolinggo","Pasuruan","Sidoarjo","Mojokerto","Jombang","Nganjuk","Madiun","Magetan","Ngawi","Bojonegoro","Tuban","Lamongan","Gresik","Bangkalan","Sampang","Pamekasan","Sumenep","Kediri","Blitar","Malang","Probolinggo","Pasuruan","Mojokerto","Madiun","Surabaya","Batu"];
+    var JT_DATA = '0abar abir:Y~1dan adan:F~1eng baja kenek:2~Araja:2~5dake:2~5panas:2~5taber:Z~4anyar:2~4merah:2~4sareh:0~4tongtong:2~1gel:L~1irlangga:+~1jung:I~1kkor:1~1lang alang:Z~B caruban:Q~3s bayur:L~5kokon:Z~5malang:2~5rajah:Z~5sumur:K~4buluh:J~4gung:V~4kandang:M~5embang:Z~4malang:JL~4nyiur:M~4pandan:M~4rejo:J~4sapi:M~5umur kulon:M~9lor:M~4tengah:LM~5logo:N~5uwo:T~2iyan:J~2un alun:H~9 contong:+~1madanom:G~2bal ambil:N~4t:1~3ender:1~5g ambeng watangrejo:Y~3ulu:IKM~4nten:2~8 barat:2~9tengah:2~Aimur:2~2pel:I+~5an:K~5dento:G~5gading:EG~5sari:N~1ndongrejo:I~6sari:I~5osari:N~3ulang:2~4ngbiru:M~6sari:KM~2ggaswangi:O~4ersek:0~3katan:2~3on angon:2~3sanah:1~4okah:0~2om:Y~2tirogo:I~1pa an:0~1rdimulyo:G~4rejo:GLX~4saeng:K~2gosari:GH~5uko:G~4tirto:G~4yuwono:G~2iyojeding:D~2jasa:IL2~3osari:AGN5~4wilangun:G~6nangun:A5~2ok:Z~3sbaya:Z~2todung:1~1sem jaran:0~5rowo:+~4bagus:LM~6kor:M~4gede:Q~4kandang:N~4nonggal:0~4papak:Y~4raja:0~2morobangun:F~2rikaton:G~2tapah:0~1wang awang:P~3r awar:L~0babad:V~5an:BDEFGRU~7 lor:S~4kan:H~5bawo:Y~5sari:Y~4n:2~4t:X~5 jerawat:+~5agung:X~6n:Y+~5kumpul:X~3balan:2~2cem:ES~2dal:F~5 pandean:F~4ng:Q~4s:FQ~3durih:1~3ean:IJK~4gan:B~4r:SW~5an:LU~4s:H~3ung:1~4r:2~5ame:X~2gelenan:E~3i:S~3o:DHM~4n:I~4r:R~5 kulon:R~6wetan:R~5ejo:IJ~2ipajung:Z~2jang:BER1~6an:N~3eman:Z~3rasoka:0~3ulan:RS~5mati:J~4r:1~5an:K~2kalan:FGNPQV7~7krajan:5~7pule:X~7rayung:Q~7wringinpitu:O~5rejo:X~3eong:2~3ulan:V~4ng:EV~6an:J~6pringgodani:O~6temenggungan:O~4r:S~2lak:J~4s klumprik:+~3earjo:G~8sari:5~5sri:T~4dono:N~4gondo:T~4harjo:A~4n:V~5rejo:V~4rejo:DEST~4sari:G~5ono:D~4tbaru:I~5uri:R~3ikterus:Y~3ong:B~6anyar:N~7sem:R~6bendo:O~8suk:Q~6cabe:V~6dowo:OV~6gabus:O~8rut:O~7ebang:R~8mek:Q~6jeruk:F~6macekan:O~8sin:P~7ojo:PY~6pacul:R~8nggang:Y~6rejo:RV~6sari:PQ8+~6tani:O~8wun:X~6wangi:X~7ono:P~4werti:3~3uk:T~4n:X~5g:ILZ~6kidul:I~7ulon:I~6lor:I~6tunjung:Y~2mbang:GX~4e:Y~2nangkah:Z~4ran:BCDFRSVX3~7 kulon:R~8wetan:R~5esep barat:2~Atimur:2~4sare:2~3ban:1~5ru:2~3camara:2~5ng:Z~7an:B~5r:BW~6an:Z~4elok:0~5r:V~4ong:S~3dang dajah:Z~8laok:Z~5r:AT~6 kidul:3~7lor:3~6alim:B~7n:HN1~7sri:P~6kedungmulyo:Q~5soleh:Z~4ilan:K~4ulan:5~5ng:DPQRZ~7an:S1~7rejo:GVW~Bsari:5~7sari:X~8ekaran:Y~3gah:O~4elan:G~5ran:PY~5t:U~4gle:EFX~4il:N~6an:VW7~4kal:2~7an:Z~5es:1~5ingan:+~5ok:FX~4le:R~4oan:D~5rejo:J~4pendah:Z~4sah:0~6l:P3~7an:B~7sari:I~5elok:2~6reh:Z~7reh:1~5ongan:F~5ri:EOQRT~7ng:J~4un:CP~6asri:T~6jaya:D~6mulyo:D~6rejo:BUW~A kidul:U~Blor:U~6sari:ABJS~3jar:CJWZ0~6 barat:2~7sugihan:+~7talela:0~8imur:2~6agung:PQWY~7n:VY3~8sari:U~8yar:FRV~7rum:GW~7sri:O~6banggi:U~7endo:O~7illah:0~6dowo:QR~6ejo:BDFGRSTVX9~6gondang:X~6imbo:N~6jo:AW~6kejen:N~8mantren:O~9uning:O~6madu:X~7endalan:X~7lati:3~6panjang:T~Ai:O~6sari:ADEGIJMNOPQRSVY~A kulon:S~Bwetan:S~8wah:M~7engon:I~6tabulu:0~8nggul:P~6waru:H~8ti:X~7oro:W~7ungu:O~3maleng:2~3tal:L~5ran:M~4elan:2~5ngan:DS~7putih:X~5r:Y~5yan:Z~4ur:G~6ejo:G~3uaju barat:2~8timur:2~3yakan:F~4ior:Z~4oneng dajah:Z~Alaok:Z~4u bunih:Z~6urip:+~5ajuh:Z~6nyar:FJM0~A kidul:M~Blor:M~Btengah:M~6rang:Q~6tes:0~5bang:WX~6eseh:Z~6iru:U~6ulu:1~5dono:BT~5glugur:L~5kambang:S~7pah:0~5legi:P~5mas:0~5pelle:1~6utih:KL~A kidul:H~Blor:H~5sangka:Z~6okah:0~5tengah:Y~5urip:DUWXY~5wangi:JY~6ulu:K~2osan kidul:B~7lor:B~2pelle:0~3uhbandung:X~7ru:X~2rang:C~6gayam:X~4t:HT~5ajaya:+~6n:IK~3eng:BJQRV5~6krajan:O~3on:RTY~5gsawahan:Q~3uh:0~5arjo:C~4nggagah:0~4rambat kota:1~Btimur:1~5ejo:JX~2sanah:Z~3oka:2~2taal barat:2~7timur:2~5n:K~4h barat:Z~6timur:Z~4ng batang:2~D daya:2~Elaok:2~6an:Z~6saren:D~5krajan:P~3e:W~4mbat:R~4s:Z2~3ioh:0~3obella:Z~4k:S~5aban:Z~6n:DV~5erbuy:1~5orogan:Z~4naong:Z~4poro barat:0~9timur:0~4r:Z~3tal:L~3u:-~4 ampar:K~5bintang:1~5kalangan:1~5salang:K~4aji:F~5mpar:2~5n:2~4bellah barat:2~Btimur:2~4dinding:2~4karang:0~4marmar:1~4putih:2~9 daya:2~Akenek:2~Alaok:2~4r:M~5asang:0~5etno:GW~5ono:X~2ujeng:N~3reno:PV~2wang:3~6an:Q~2ye:F~4m:G~5an:LMN~5gede:V~5taman:T~5wetan:T~3u:J~1ebekan:O~2cirongengor:O~2dadung:I~4gung:T~4han:X~5lawak:Q~4li:FG~4nten:Y~4yu:H~6talang:H~3ewang:J~3ikulon:B~4lan:Y~4ngin:BX~4wetan:B~3oho:BS~3rug:B~3ug:F~4ri:B~2gadon:V~5ung:R~4ganlimo:P~4l:U~4n:X~3ed:V~4ndeng:R~2jagung:W~3i:DNVW-~4jong:P~2kare:B~3iring:B~3tiharjo:W~2lah:A~5anrejo:Y~7tengah:P~4ng:B~3ik:P~5anget:W~3luk ares:2~7kenek:2~7raja:2~3oh:P~4r:F~4tan:T~3un:V~5g:G~2nce:EH~4uluk:J~3delan:K~5t:Q~4iljati kulon:D~Bwetan:D~6wungu:D~4o:DEFTUV4~5agung:C~6rum:K~6sri:R~5gerit:4~5lo:R~5mungal:N~5nglateng:W~5rejo:CE~6oto:C~5sari:DEFG~6ewu:E~5tretek:O~5wulung:E~4ul merisi:+~5ng:P~7an:CDNQY~9jati:P~7rejo:R~3elan kidul:J~8lor:J~4r:S~5wojo:N~3gkak:J~5elolor:Y~3ing:P~3jeng:Y~4or:G~3owo:+~2ran:U~4tkulon:P~5wetan:P~3bek:OR~5luk:Z~3cak:K~6 asri:K~3ingin:+~3mi:M~3u:EX~2sah:V~3ole:D~4wo:FW~3uk:FHKM~5agung:M~5i:BCDEL~5kidul:M~4r:X~2tak:D~3ek:MQS~5 taman:M~4t:RV3~3iting:Y~3on:BY~4yoguci:Y~6kauman:Y~3ro:OP~3tet:1~1hinor:M~1ibis:T~3rik:S~2cabbi:2~4k:P~3orong:1~2langan:2~4porah:Z~3is bilis:2~3lapora barat:2~Arebba:2~Atimur:2~2mo:M~4rejo:J~2nade:B~4kal:K~4ngun:EW~3dang:1~3oh:Z~3toro:I~5yo:U~2ra barat:0~5tengah:0~6imur:0~3em:0~3owo:E~2ting:BI~1labak:F3~6an:S~5n:1~3do wetan:M~5kulon:M~3jo:X~3mbangan:J~3ndongan:7~3ran:T~6g:N~4u:F~3teran:Z~3we:F~4i:X~5rejo:X~3yu:G~2eber:F~6an:P~3ga:Z~5 oloh:Z~3mbem:B~3ndis:D~3tok:L~2igo:O~3mbing:DFKLMQSX5~8gede:V~8sari:JP~3ndungan:K~3tar:4~6an:R~2ongko:R~5song:V~3oto:8~3ro:L~2u uran:0~3kon:H~3luk:X~3mbang:X~5ungan:1~3ri:X~4ukidul:O~3to:2~1obang:F~3oh:Y~4l:V~2cek:G~2dag:ACS~4ng:H~3or:R~2gangin:V~3em:FT~5pinggir:O~3o:RV~4arum:T~4babadan:X~4harjo:A~4kidul:F~4ran:C~5ejo:TW~2har:O~2joasri:X~4negoro:V~2kor:G~2lo:SY~4rejo:D~4singo:A~2mo:AJ~2ncong:W~3dol:V~5woso:K~5yudo:H~4rang:B~3gkaran:+~5ot:Q~4sopotro:S~3o:D~4rejo:V~2rang:A~3ehbangle:W~4ng:H~3o:DEO~2teng:Y~3o:MW~4k:T~4linggo:K~4putih:CX~4ran:D~2yolangu:DJ~1rabe:M~4owan:V~3gang:Z~4ung:2~3hu:B~3ji:2~3kas:2~6 dajah:Z~3mbang:NQ~8 darussalam:K~3nang:N~4ggah:M~8an:F~5kal:PQVWY~5ol:U~5si:X~4i kulon:M~6wetan:M~4ta pesisir:1~7tinggi:1~3yublandong:P~5ng:P~2enggolo:FV~5kok:X~2ingen:Z~5in:BFGUW02~7an:B~7bendo:O~7nonggal:0~5kang:Y~5sang:2~2odot:Q~3ndong:X~4gkal:G~4jong:X~3to:B~5negaran:B~2ubuh:U~3du:Q~3mbun:SX~7g:F~8an kidul:M~Blor:M~1ubakan:A~3uk:J~4lan:V~4tan:+~2cor kulon:M~6wetan:M~2ddagan:1~5n:Z~4i:2~5h:1~3uan:L~4g:U~5sidorejo:Q~4ran:ORSZ~2gasur kedaleman:Q~3el:X~4man:L~3ih:1~3oharjo:X~3ul kidul:7~6lor:7~2jel:3~3ur barat:1~6tengah:1~7imur:1~2kabu:2~3ek:1~4r:0~3ir:7~3or:K~3ur:DFRS~2lak:BT+~5 banteng:+~5lo:V~5rejo:S~4ng:MO~6an:Y~8 barat:1~Aranta:1~9haji:1~9timur:1~6kulon:Y~4y:1~3matet:0~3u:BFMRSTV~4 kidul:B~5lor:B~4agung:CJ~4brangsi:X~4gledeg:T~5unung:T~4h:Z~5arjo:T~4jarankidul:M~9lor:M~5owo:W~4kagung:Z~6ndang:N~5erto:T-~4lanjang:Y~6wang:EG~4margi:X~5eduro:W~4ng:Z~4padak:M~6sar:F~5itu:G~4rejo:HJQWY~4s:D~5an:J~6ri:DFJN~5idokare:O~4tengger:X~5igo:X~2mbungan:2~3i anyar:Z~4aji:-~5yu:EV5~4harjo:J~4rejo:EGV~2najih:Z~3barat:2~3citan:O~3dah:0~4er:J1~6an:Y~3gah:Y~5tan:L~4baruh:1~4in bungin:2~4kal:B~5eng:Z~5uk:T~4u:B~5r:ADRV~6asih:O~3penang:2~3talan:V~5ran:D~4en barat:0~7timur:0~3ulrejo:5~4t:W~5 wetan:G~2rengan:3~3ing:5~3neh:Z~4o:H~2toh:V~3uh:F~4n:E~5gan:X~2wek:H~0cabbiya:2~3ean:S~2gakagung:Y~2kru:I~3ul:C~2luk:B~2mpaka:2~4long:0~4oan:L~5r:Z1~6 barat:2~7timur:2~4ur:R~6asri:U~6darat:D~6ejo:BVWY3~6sari:BT~2ncung:V~3di:ABO2~5 burung:1~5binangun:N~5harjo:P~5jati:I~5mulyo:QS~5negoro:O~5pari:O~6uro:H~5rejo:ERT~7nggo:G~5sari:X~5tunggal:X~5wates:N~8u:P~3gaan:VY~5kan:U~4gah:X~5u:FP~4kareman:Z~5ir:Y~5ramaan:2~6eng:2~6ing:AIKOWX~9an:R~9malang:N~9randu:Q~9sari:O~9turi:O~3tel:U~4uk:J~2pang:N~2rangrejo:BQ~6wulung:Q~4t:BN~3ikan:T~3uban:V~2takgayam:Q~1eguk:1~2kalang:W~3ok:B~2lep:O~2mandi:O~4ra:L~3bor:P~3eng:A~6bakalan:O~6kalang:O~3orokandang:5~2ndagah:Z~4ono:FNV~5ro:PW~3gkir:V~5ok:FR~6ng:W~5rong:N~4ungklung:V~3lecen:1~3tini:X~4ong:P~2poko:BMRTU~6limo:P~6mulyo:G~6rejo:W~2rme:FRXY~5 kidul:Y~6lor:Y~5e:K~5n:Y~4o:S~2weng:Q~1ileng:T~3uk:B~2nandang:P~3dogo:K~3gklung:W~2ptomulyo:5~2trodiwangsan:H~1laket:P~3rak:M~2ebung:V~2umprit:G~3ring:JX~1obanblimbing:N~5joyo:N~2do:G~2krokembang:A~5menggalan:B~5wati:W~2mpreng:W~2ndong:M~4ro:H~2per:B~2wek:N~1rabak:B~3ken:C~1ukir:Q~3urgondang:N~6uling:N~2medak:I~2ngkup:X~2pak:Q~2rah cottok:L~6jeru:L~6kalak:L~6tatal:L~5dami:K~6ringu:M~6ukuh:N~5grinting:6~5kalong:I~5lele:I~5malang:IQ~6ojo:P~5nongko:I~5petung:H~6oh:K~5rejo:N~5sawo:M~6uri:L~5takir:I~6emu:M~6ulis:M~3ungrejo:G~0daandung:2~2basah:K~3uan:1~4ng:Z~2dapan:ABGHJKRUX~5kuning:Y~5langu:E~5rejo:-~3i:T~4tunggal:Q~2gan:X~5gan:SW~2hanrejo:Y~3or:W~2kiring:Z~2legan:Y~4man:Z0~3isodo:G~4wangun:X~3penang:0~2marsi:O~5wulan:F~3paan:Y~4it:GU~2ndang:M~7an:3~7gendis:N~4er:V~4ong:E~3guk:U~2penda:2~4t:Y~3urkejambon:Q~2ramista:2~3mo:+~5rejo:S~3sono:I~3ungan:EFHI~4rejo:Q~2sin:W~3ok:1~3ri:J~3uk:2~5 barat:2~6laok:2~6timur:2~2teng:X~6an:F~3inawong:X~2u:G~3n:Y~2warblandong:P~3u:U~4an:L~4han:CEFGKLRS~7 kidul:F~8lor:H~8wetan:H~7mangli:I~7sengon:N~4ng:FUW~2yakan:B~3u:EF~4kidul:V~4rejo:N~1ekatagung:Y~3et:X~5agung:X~5kulon:X~5wetan:X~2liksumber:Y~4ng:V~2mangan:BRZ9~3it:W~3pel:U~6an:S~4o barat:1~6timur:1~3uk:D~4ng:L~2nanyar:Q~3gkol:G~4ok:V~3ok:H~2pok:C~2rmawuharjo:W~4o:NY3~5jayan:E~5lemahbang:X~5sari:C~3o:U~3sono:A~3u:V~2yeng:F~1harma camplong:0~7tanjung:0~2ompo:N~1ibee:X~2kir:W~2lem:GP~2mong:S~2nden:U~3gil:W~3oyo:PX5~2ponggo:Y~2sanah:0~2totrunan:H~2wek:Q~1lambah dajah:Z~8laok:Z~3nggu:PX~2emer:Z~2ururejo:R~1oho:S~4agung:Y~2ko:EF~2lokgede:V~4po:S~2mas:PY~5an:D~3pyong:C~2nan:V~3ganti:F~4ko:C~3o:D~4mulyo:G~4rojo:A~4warih:G~2oro:Y~2roampel:D~4gowok:H~4mukti:W~2udo:Y~2yomulyo:X~1r soetomo:+~2adahblumbang:X~3jat:VX~3ncang:Y~2enges:RV~2ingu:M~3yorejo:TY~2okilo:V~2uju:G~5gurit:X~1uduklor:X~5sampeyan:Y~2ko:2~4 tambin:Z~6imur:1~4hkidul:V~5lor:V~3uh:CDFT~5 kembar:Y~7upang:+~6menanggal:+~6pakis:+~6setro:+~7utorejo:+~5agung:X~6rum:Q~5dempok:I~6imoro:Q~5klopo:Q~5mencek:I~6ojo:Q~5ngarjo:P~5sari:NO~5tengah:O~6unggal:X~4n:Y~5anyar:Y~2lang:0~2majah:Z~3piagung:X~4lengan:U~2ngkek:2~4miri:U~4un:M~5s:FY~2pak:+~3ok:Z~2rbuk:1~3en:CEHMRS~5an:CST~5sewu:N~3i:B~4kedungjero:X~5ulon:X~4n barat:Z~6timur:Z~4wetan:X~3jan:Z~3ungbanjar:O~7edug:O~2wek buter:Z~4l:V~4t:DFGLT~5 krajan:G~3uhan:M~2yung:PT~6an:V~0ellak daya:2~6laok:2~1mbong kaliasin:+~1ntalsewu:O~1rrabu:2~1ssang:2~0gabel:B~3ru:F~3usbanaran:Q~2dang:5~3ding:2~3ing:CGMNOPSV+~6 kasri:5~6an:L~6kembar:G~7ulon:GM~6mangu:Q~6rejo:I7~6sari:K~6watu:Y~7etan:M~3on:W~4r:C~3u barat:2~5timur:2~4ng:Y~6an:EF~6sari:G~2gah:1~4ngkepuhsari:O~2jah:BQV~5bendo:N~5rejo:GN~3i:W~2lak:B~3engdowo:Q~3ih:N~4s:Z12~5 dajah:Z~2mbangan:K~4iran:DIJNQ~6kuning:N~6ono:I~4or:J~4uhan:X~4yok:F~3ongan:V~3pang:O~7sejati:X~4eng:FR~7rejo:F~4ing:CDO~7an:G~7rowo:O~2ndekan:E~4ing:2~4ong:DU~4ri:U~4u:BR~5kepuh:B~5l:S~5sari:CE~3ggang:Y~8panjang:O~8tingan:X~4seyan:Z~3jaran:G~3ting:O~7 kulon:M~8wetan:M~3ung kidul:R~2pluk:V~3rang:E~3ura:2~6 barat:2~7tengah:2~8imur:2~6na:2~5o sukolilo:Y~2rahan:I~3on:ST~3u:R~4m:E~4ng:X~2sang:A~2wang:A~3erejo:X~2yam:CFKNPUV23~5 lor:K~5an:P~3uhan:A~4ngan:+~1ebang:DIKOZ~6 putih:+~6an:LM~8gkrik:X~6bunder:Q~6kerep:R~6malang:P~6sari:P~3yog:T~2dang:O~6 gedang:2~6an:ABDGOPQXY~6kulud:Y~6mas:H~6rowo:O~6sewu:DF~3eg:P~3og:4~4k kulon:G~6wetan:G~4mpol:A~4ngan:8~7rum:V~6ombo:QW~3ugan:2~4ngan:2~6boyountung:X~2ger:DSVXZ~5an:AB~2jagan:R~3ugan:M~5jati:N~2lam:OY~5an:2~4ng:IO~6 lor:B~6kulon:B~4p:X~3ugur:2~4ng:LU~4ran:O~2maharjo:AC~4rang:SU~3bleb:C~4ol:U~5ng:AX~7an:EP~4uk:A~3ekan:P~4nggeng:R~3ito:M~3peng:N~4ol:NRU~6an:DF~6kerep:P~7lutuk:O~7urung:Y~6legundi:Q~6manis:X~6pading:X~7endowo:X~6sari:O~6tukmloko:X~3ulung:W~4rung:O~2naharjo:W~3dang barat:2~8timur:2~5ran:A~4ing:MY~7an:DU~4oh:J~5l:U~5ngkulon:X~4ro:N~3elap:Z~4ng:UV~6an:EGT~8jasem:Q~6waru:N~3ilangit:T~3jeng:R~4or:V~3teng:JZ+~7 kulon:J~8wetan:J~4ing kalianak:+~4ong:KU7~3ukwatu:Q~2plak:T~2rbo:N~3ih:U~3man:X~3ongan:MN~3sempal:0~4ik putih:2~2sang:H~3ikan:DW~5harjo:W~4ng:W~2tas:R~5anyar:T~1igir:Z~2lang:DO2~3i anyar:Z~5barat:Z~5ketapang:M~5timur:Z~4ginting:2~2ngging:2~3tangan:J~4ungan:X~3uk:T~2ri:JY~4harjo:U~4k:X~5erto:U~4moyo:G~5ulyo:GU~4ng:2~4purno:T-~4rejo:R~2sikcemandi:O~2tik:J~1ladag:J~5k anyar:1~3gah:JMX~6agung:J~7n:QV~7rum:O~6sari:NW~6wangi:V~7ero:I~4ga:Z~3nggang:GNY~3tik:Y~2edug:E~3nmore:J~2indah:Y~4ggang:B~9an:A~5seran:K~3sgis:Z~2odog:W~3ndonggede:W~4ggong:S~2undengan:I~1odean:R~3og:X~4ng:Q~2godeso:E~4rante:F~2lan:BS~3okan:Y~2mbang:BD~4engsari:J~4olirang:J~2ndang:ACDEFPRTV~7 wetan:NR~7gunung:D~7kulon:R~7legi:GR~B kulon:G~Cwetan:G~8or:X~7manis:Q~7rejo:N~7wetan:N~4ek:Q~4oruso:H~5sari:A~6uli:DM~5wangi:G~6ido:B~3ggang:T~4seng:Q~3tor:B~2ranggareng:T~2sari:Y~1rabagan:OW~5han:T~3jagan:J~3ti:HN~5tunon:N~2ebegan:V~3dek:Y~3jeg:Y~3nden:I~3sik:Y~2inting:O~2obogan:HQS~3gol:BFJNOQ~3jogan:R~3wok:V~2udo:U~3jugan:K12~8 kidul:K~9lor:K~1ubeng:+~3rih:K~3ugklakah:G~2ci:X~4alit:H~2dang:L~3o:Q~2gul:1~4t:I~2lbung:0~3omantung:Y~3uk guluk:2~6manjung:2~4n:T~2mantuk:X~3elar:I~4ng:PY~5o:Y~3iningrejo:X~4rih:J~3uk:J~5mas:I~5sari:I~4lan:Q~2ndih:+~5k:B~3ggung:2~8an kidul:M~Blor:M~3osari:K~3ting:N~3ung anyar:K+~C tambak:+~7kembar:2~9san:0~7maddah:0~9lang:L~7putri:L~7rancak:0~7sari:+~8ekar:0~9reng:Z~6an:PT~8yar:W~6bekel:M~6eleh:0~6gangsir:N~7edangan:8~9e:E~8ni:M~6jati:G~6malang:I~6rejo:AGX~7onggo:G~6sari:AGIKNPSUV-~6teguh:Y~7ugel:M~2polo:B~2rah:F~4nganyar:Y~6ploso:Y~2wa guwa:2~3oterus:W~2yangan:MRV~3ung:U~0hadiluwih:A~4warno:A~2rgomulyo:UV~5retno:W~5sari:U~3jokuncaran:G~5mulyo:I~1endrosari:Y~1ulaan:Y~0iker iker geger:Y~1ndro:Y~5delik:Y~0jaah:Z~2balsari:D~4ng:F~4ran:O~3on:DFOPQ~5tegal:P~3ung:BEGTX~6 wetan:M~6candi:M~6sisir:M~2ddih:Z~4ung:Z2~3i:W~3ung:2~2galan:38~3ir:U+~3ran:X~3ul:F~4ng:F~2jag:J~4r:CEFT~5 tunggal:+~2len:B~3mak:1~2mbangan:FGMOTU+~4ean:F~7om:K~6rjo:G~7um:HI~5kumbu:H~5pawon:E~5rejo:V~5sari:GIJK~9 darus sholah:K~5wangi:EJ~6ungu:K~4i:R~4on:B~4ringin:1~4u:CF2~5h:Z~5ir:2~5wer:G~6ok:P~3intoro:I~3pes:R~5t:V~4irogo:P~5t:K~4rong:W~3saren:3~2nggan:T~4kang:M~6r:LZ~5ong:2~5ungsomo:X~4ur:M~3jangwulung:N~3teh:Z~4i:BFOQ~5ganggong:Q~4ok:F~2pan:BP~5an:PQ~2rak:BFQ~5an:D~5kulon:Q~4ngan:N~3i:V~4n:1~4t:H~3orejo:W~2sem:P~2te:2~4n:EU~3i:CEFOW6~4adi:M~5lun alun:O~5n:I~5rjo:N~4banjar:Q~7teng:L~5limbing:V~4dowo:D~5rojog:X~5ukuh:P~6wur:Q~4gede:V~7ong:Q~6mbol:U~5ono:H~5reges:R~5unting:N~7ung:A~6wi:G~4jejer:P~4kalang:O~7en:R~5erto:G~5labang:W~4langkung:P~5engger:E~4malang:A~5lerek:Q~5ulyo:DHIUVW5~4nom:E~4pandak:X~6sar:P~6yak:X~5elem:Q~5rahu:C~5unggur:R~6ro:U~4rejo:FHNPQRSUX~8yoso:G~6mbe:Y~6nggo:X~5ogo:W~6to:HI~6wo:P~4sari:GHIKLMNSW~4tamban:K~5engah:EV~4urip:M~4wates:Q~3ra timur:0~2wik:V~1ebeng:B~3log:E~6an:U~3ung kidul:K~7lor:K~2ding:E~3ong:G~6cangkring:O~2greg:RX~3u:E~4lo:W~2jel:X~2kek:R~2ladri:N~4kcatur:X~5ombo:Q~3budan:2~5k:I~3gung:0~3i:D~3u:V~4n:J~2mberkidul:I~6lor:I~4ul:P~3ekan:F~3irahan:O~3undo:O~4r wonosari:+~2nangan:BU~6ger:2~3ggawah:I~5lungharjo:D~5olo:GW~6t:O~5rik:U~6ong:H~3isgelaran:Q~3u:W~2para:+~3un:D~2ru:G~4k:AHNT+~5 porot:0~7urut:N~5gamping:O~6ulung:FS~5legi:O~5seger:P~6oksok:K~5wangi:F~2tak:AMVW~3is:BKLPRSX~5 lor:A~5kidul:A~1iken:O~2mbaran:N~8kulon:O~8wetan:O~4e:BE~2ngglong:BE~3tel:R~2po:V~4rapah:Q~2rek mas:K~2wan:S~3ut:E~2yu:P~1lodro:W~2ubang:A~3mbang:F~1odipan:5~2godalu:Y~6yuh:S~4loyo:Q~4merto:R~5ulyan:G~4repuh:N~5ogo:U~6to:Q~4sari:N~6tru:O~4trunan:H~4yudan:H~2ho:CDFRS~4winong:Q~2karto:H~3etro:T~2lotundo:P~2mbang:IQ~7delik:Y~5tan:Q~4lang:T~4ok:CGQW~2ngbiru:F~4gol:B~5rang:T~3o:VY~2resan:B~3ongan:M~2sari:B~3enan:9~2tangan:P~3osanur:X~1rakah:B~3mbe:P~3nguan:0~2ebeng:MY~7 kidul:6~9ulon:6~8lor:6~8wetan:6~3ngik:0~1ubelkidul:X~5lor:X~3ung:I~2glangan:L~3o:EFX~4sari:H~2kong:Z~6 jukong:2~2luk:2~2meneng:P~4rto:I~3ok:V~3pong:K~4ut:V~6rejo:O~2nganyar:Z~4cangcang:1~4karang:0~6t:2~5e:T~3jung:D~3ok:0~3rejo:-~3wangi:O~2rang sapi:K~6jero:M~3uan daya:2~7laok:2~4g:B~4rejo:U~2wet:FR~5kenongo:O~3ono:R~0kabalan:V~4t:J~3lukan:W~3uaran:HK~4h:Q~4nan:V~2cangan:DRVX~3ok:1~4ngan:2~2demangan:EGKQ6~3ipaten:BV~3uara barat:1~8timur:2~4ngrejo:V~8mbug:X~4r:1~2ibon:S~2jang:S~4r:K~5harjo:J~5tengguli:O~3eksan:O~3jan:Z~3uanak:Z~2katpenjalin:X~2lak:A~4ng:TU~6an:DV~8 prao:0~8yar:OX~6bret:D~6keti:T~6semanding:Q~3ebengan:2~4n:PX~3i gedang:K~4abu:S~5nan:M~6car:M~6get:L2~9 barat:2~Atimur:2~6yar:KNRV~5sri:G~4bagor:L~6ru:J~8kulon:J~8manis:J~8wetan:J~6tur:D~5elo:F~6ndo:H~5oto:EF~8 kidul:H~9lor:H~5untu:M~4cilik:V~4dandan:M~6we:D~7ir:DO~5ilem:H~4gambir:E~5ede:W~6ntong:D~6rman:X~5lagah:I~5ondo:J~6ro:P~5renjeng:E~5ung:J~7ting:S~4jaten:O~5udan:+~4kajar kulon:M~Awetan:M~6tak:2~7ir:P~5ejambon:Q~5uning:A~4malang:B~6nis:E~6s:L~6ti:O~5ook:2~4nganyar:2~4ombo:V3~4padang:Y~6it:J~6ng:EFNX~6re:G~5ecabean:O~6lus:A~6nggung:H~6pe:H~5loso:J~5ucang:N~7ung:E~6ro:JP~4rejo:GJLMNVY~5ong:F~5ungkut:+~4salam:M~6mpurno:O~6ngka:2~6ri:LV+~6t:BIKN~5emut:H~5ongo:G~5umber:V~4tapen:K~5engah:EOX~5idu:V~4uling:H~5ntu:W~4wates:IX~5ining:I~5ungu:DHQ~3oran:R~4wang:2~2mal:IZ~5kuning:M~3beng:B~4ingan:FGY~9 barat:2~Atimur:2~9rejo:N~3ondung:0~3pak:CZ~5o:Z~4ung dalem:3~7anyar:J~7baru:FQR~7dalem:D~7mandar:J~8elayu:J~3ulan:CE~4ning:0~2ndang:L~7 jati wetan:M~7an:EFHJNOUVY+~7jati kulon:M~7rejo:X~7sapi:7~8emangkon:X~7tepus:H~5t:F~4ung:N~3egarah:Z~3gayan:2~4enan:1~3igaran:6~5oro:EFGN9~3jar:0~3or:V~5ejo:W~3ten:V~3ugrahan:X~4ng:S~3yoran:F~2otan:J~2pas:FRV~5an:N+~6ri:+~5madya baru:+~3edi:2~3i:F~3onan:B~5g:1~6an:L~4r:Z~3u:W~4ran:BK~2ra:0~4h:+~4ng:WX~6 anyar:KZ1~8sem:Z~7campaka:2~7dalam:0~8uwak:Z~7entang:Z~7gayam:Z~7jatianyar:N~7kedawung:I~7leman:Z~7melok:K~7nangka:2~Dh:Z~7panasan:Z~9o:Z~8ilang:+~8oh:Y+~7semanding:I~9ngon:K~7tengah:R2~8uri:Y~6agung:WX~7n:BCQV~8dong:Y~8kidul:Y~8om:CDHX~8yar:ACFGHIKMNU027~7sem:NPW~8ri:U~6banyu:U~8yat:I~7endo:EHJ~8suki:5~7inangun:X~7ong:MO~7udi:2~6cangkring:XY~6dagangan:Q~8yu:V~7inoyo:V~8yeng:P~7oro:J~8wo:V~7uak:2~8ren:GI~6gandu:C~8yam:E0~7ebang:B~8de:A~8ger:M~8neng:UX~7ondang:E~7upito:U~6harjo:IJ~6jati:NU~7eruk:P~7oho:B~6kates:G~7edawang:P~8mbang:X~8tug:7~7iring:Y~7liwon:N~7uten:P~6langit:X~7o:HNQW~8 kidul:B~9lor:B~6malang:U~8ngu:V~7enggah:N~7ojo:BQT~7ulyo:AJ~6nangger:0~Aka:2~7ongko:AG~6pacar:V~8iton:I~8kis:FQ~8ndan:GN~8tihan:B~7enang:0~C oloh:0~Enjur:0~7loso:G~7ranti:M~8ing:I~7uri:O~6rejo:ACDEFGHIJMNSTUWXY~8n:M~6sambigalih:X~8ri:DGHJW4~7emanding:Y~9i:R~8ntul:N~7oko:C~8no:DEINRTUV~7uko:G~6talun:DF~8njung:O~8war:X~7engah:CFNUW4~C prandon:U~7inggil:X~9oto:W~7uri:CX~6waluh:B~8ru:D~7edoro:X~7idoro:G~8nongan:Q~7ungu:X~Blor:X~4s:T~3duluk:2~3e:S~4ng kidul:M~7lor:6~4tan:J~3obelah:Q~3pote:Z~3toharjo:RTU9~2sembon:G~4ngan:2~3ihan:A~4man:VW~4n:5~4yan:I~7 timur:I~3reman:DFU~4i:G~2temas:QX~4rban:RW~5ungan:O~4s:D~3ikan:U~4moho:Y~4pugal:A~3ol barat:Z~6timur:Z~3ur:V~2ulon:E~3man:BDENPQRTUVY458~4rejo:G~2wangrejo:I~3edanan:T~5usan:EF~4ngan:V~4ron:E~3is anyar:Y~5rejo:N~5tolegi:X~7windu:Y~3u:U~2yangan:Q~3en:ACQW~5 kidul:F~6lor:F~3oman:N~3u putih:L~4kebek:N~4lemah:V~4mas:L~4nan:F~4trejo:U~1ebakalan:O~4landono:X~7kulon:X~7pelang:X~5enan:J~4man:J~4ron:O~3en:MX~4t:X~3oan:Q~6anom:O~6sikep:O~4bang:G~4guyang:O~4haran:O~4ireng:D~4mas:Y~5lati:W~4n:U~5agung:AEGHIMOPQRSTVWXY7~6n:H~5candi:N~5dalem:AJPQ~6uren:E~5harjo:W~5rejo:FJN~5sari:AEHIOSWX57+~9 kulon:6~Awetan:6~5telukdalam:Y~7mu:Q~6unggul:P~5waris:N~4tohan:N~3raon:+~3un:Z~5 sareh:0~5agung:2~6n:2~5dadap barat:2~Btimur:2~5gson:Y~2cer:2~3ik:M~3ubung:R~2dak:F~4leman:J~5i:X~4mean:Y~4sih:M~4ton:V~4wang:N~5ong:Q~5ung:EFHM~8kulon:N~8wetan:N~4yang:Y~5unan:J~3emungan:N~4nsari:O~4wan:V~3inding:O~4ren:TX~3ok:G~4ndong:ORS~4pok:6~4yo:D~3ukbembem:X~4ndung:8~5g asem:6~7baruk:+~7cowek:+~7pengaron:N~6adem:V~7nyar:Y~7sri:JX~6bako:N~8njar:X~9teng:BEGNOS~7endo:A~8tik:Q~7ocok:O~8go:Q~8ndo:V~8to:NO~7under:E~6caluk:M~8ngkring:DO~6dadi:X~8lem:M~7oro:+~8wo:LQRV~7ung:0~6galar:U~9eng:6~7ebang:J~8de:P~8mpol:P~7lugu:R~7udel:U~8wo:T~6harjo:UW~6jajang:H~8mbangan:W~Ae:W~8ti:QS~6kandang:5~7embar:O~8ndo:O~7umpul:X~6lengkong:P~8rep:X~7o:L~8sari:Q~7umpang:Q~8rah:C~6makam:W~8lang:F~9ing:P~8ron:S~7egarih:X~8ntawar:X~7laten:R~Ai:Q~7oro:H~7ulyo:W~8ngal:P~6ombo:R~7tok:Q~6padang:R~8ndan:O~9ji:T~8par:Q~8ri:Q~7edaringan:G~8luk:O~8ngaron:X~7rahu:U~8impen:V~9ng:XY~7utri:U~6rawan:O~7ejo:GHJMNOQRSVWX~Aso:M~7ingin:JN~7ojo:W~7ukem:Y~6salam:G~8ri:FMPV~7ekar:Y~7igit:C~7oko:DRWX~8lo:O~7ugo:O~8kodani:O~8mber:VY~9ur:MO~8pit:M~6turi:OQ~6udi:P~7neng:P~6wangi:X~8ras:X~9u:D~7ilut:D~7onokerto:O~7ungu:EJ~4rus:+~4wung:N~4yung:X~2jagan:P~4panan:N~4wan:K~7 putih tambak:+~4yan:KN~3uron:9~2lbung:Z~3es:2~4yan:Z~3ing:F~4r:J~3orarum:X~3un:9~4tan:CR~2maduh:R~4mang:V~4ngi:Y~6sen:O~5tren:GOPX~9rejo:N~4san:O3~7tani:P~4yoran:Z+~3bang:AK~7 jeruk:0~7an:CKTXY~8rum:E~7bahu:X~8elor:P~8ilo:W~7ringgit:P~7sari:L~8ri:P~4iritan:J~3iren:J~5i:BFGIJNOPV~6an:K~6gede:E~6sewu:N~3lagi:P~7gede:X~7lor:X~5ten:W~4oko:E~7legi:R~3oning:Z~3pleng:F~3udi:Y~4lan:G~4ning:ABO~8 sari lor:I~8an:K~8lor:I~8sarikidul:I~4teran:Y~2nanten:P~6i:W~4yan:D~3cong:FI~3daban:Z~5l:ADUX~6bulur:D~6kemlagi:X~6payak:G~7ecabean:O~6rejo:CEJRW~6sari:Q~7ewu:O~5ngdukuh:N~7sari:+~4it:L~4ung:UV~5ruan:NW~3ep:NRV~3iten:BFU~3jeran:+~4o:J~3ongo:GHO~7mulyo:T~7rejo:SU~7sari:W~3tangan:T~4ong:X~2padangan:O~4njen:GIQR~8kidul:4~8lor:4~6in:2~4tihan:BDGIJOQVY~3el:RS7~4r:O~4t:S~3laksari:Q~3oh:V~5agung:W~5baru:V~5kidul:V~4lorejo:T~3udibener:X~4h:DFNR~5anyar:P~6rjo:GH~7um:P~5doko:Q~5kajang:Q~6embeng:Q~8iri:O~6iriman:O~6lagen:Y~5legundi:Y~5pandak:P~5rejo:DFQT~6ubuh:B~5teluk:Y~4lungan:N~4ndungan:J~5g:F~5ten:O~4tih:+~5ran:+~2rang:KT~4s:Q~5kulon:U~5wetan:U~3ek:UW~4p:F~5kidul:R~4t:O~3ik:T~3jen:E~4o:C~3kep:F~3pangan:M~3sikan:NU~4oharjo:U~3ta barat:2~6timur:2~5gena dajah:1~Alaok:1~Atengah:1~5jaya:+~5sada:2~4obanyon:S~5negoro:IM~5rejo:Q~5sari:BHIJLNPS~6ono:CMRY~6uko:M~5wono:H~2samben:EGQW~8 wetan:Y~8kulon:Y~6i:DOX~7rampak:L~4trian:5~3ek:Z~4mek:K~6n:P~3ilir:IJ~4man:P~7tengah:P~3ongo:V~3ugihan:B~2tabang:+~4h:L~4jen:O~4mbul:W~5i:3~4ndan:RS~5en:Y~5ggi:U~7ung:AU~6irejo:N~5ireng:N~5on:D~4pang:JO06~8 barat:0~9daya:0~9laok:0~9timur:0~8kuning:Q~8lor:Y~8telu:X~7rame:P~4wang:FGRS~8 daleman:2~9karay:2~9laok:2~Brangan:2~9parebaan:2~8gede:5~3egan:NO~4leng:Z~4masdungus:P~4pung:A~4tang:Z~3ileng:V~4mang:O~4ndan:G~5g:IX~5tang:+~3odan:W~4mpen:M~4nggo:B~4wan:L~3ro:AB~5 harjo:A~3upat:2~2yongan:X~1idal:G~4ngbang:G~3uldalem:N5~2lensari:L~2nandang:T~3cang wetan:S~3gking:W~3telan:P~2ping:D~2ringan:T~2sik:Y~2yonten:U~1labang:K~7 agung:K~4etan:Z~3di:K~3gen:RT~6 gambiran:T~6serut:S~7rampat:X~3kah:HN~4eh:W~3mpar:1~5is:Z~7 barat:Z~8ngasem:+~8timur:Z~7an:FU~7rejo:N~6tan:F~5ok:GMVY4~7an:KLM~8rum:H~3nderan:F~4gon:SV~7an:Y~5rong:N~4ting:H~8sari:O~3payan:Z~3seman:M~3tak:J~6an:IL~2eco:T~5rejo:S~3dokan:T~4ung:A~3gen:9~3kehan:K~3mpun:V~4unan:E~3nangkidul:M~7lor:M~3pek:FV~4u:ABG~3sem:A~3tek:O~6an:U~2ino:V~4ter:N~7ejo:P~3teh:V~4ih:Q~5k:SU~2obur:0~3dan:R~3jen:5~3mpang barat:1~9timur:1~8an:I~3posawit:H~6epuluh:O~3rogan:S~3tok:WY~2udan:O~3mpanggubug:Y~5it:SW~4utan:S~3ncing:J~4gkung:I~3rahan:RT~5k:O~3tuk:W~3wih:A~4ut:GN~1odak:0~3ik:1~2kop:Z~2lla:Z~3o kolo:2~4mayan:E~4ng:V~4r:2~3pajung:1~4o:2~3ursari:N~2mbang:2~7an:Z~3is:0~3pol:Z~2nang:XZ1~3cer darul aman:K~7kidul:K~2ri:B~4pan:B~2ta:3~4 sumenep:2~4anyar:M~4h:0~4kan:L~5ulon:K~6suma:Y~4lama:5~3es:E~2wang:W~3el:1~1radenan:BJW~8rejo:X~4inan:DS~3gan:O~3i:H~3jan:ST~3ksaan:M~8 wetan:M~3mat:RXYZ01~6 sukoharjo:I~6agung:M~6inggil:Y~6jegu:O~6temenggung:O~4ian:2~4pilan:M~5on:0~5yangan:7~3ndang:F~5egan:CSU~5ing:F~4ggan:BFGS8~8 barat:Z~9timur:Z~5kong:V~4ji:X~6ngan:I~3pyakrejo:7~3s:F~4ak:H~3ton:FHINOTZ~2ebet:BGS~6 senggrong:G~3cek:F~3genan:M~3jengan:M~3mbangan:OQ+~A selatan:+~Butara:+~5ung:O~3nceng:EF~4gih:N~3sek:S~4ikan:D~3tek:K~5ranggon:X~2ian:O~3kilan:Y~3sik:BE~2obungan:M~3keh:S~3man:Y~5san:D~4engan:G~4ong:Q~4pol:U~3ndonan:V~4to:N~3pak:M~4oh:2~3sok:D~3we:T~2ucil:M~1ucur:G~2dikan:X~3u:QR~4banjar:Q~4s:H~2jung:W~2kusan:L~2luran:X~2malasa:Y~3bangsari:L~3endung:J~3itir:P~3pulrejo:VW~2ncen:SV9~4i:V~5r:R~3ingan:E~4r:EH~5 kidul:H~6lor:H~5an:UV~3jang:F~4orowesi:P~3ti:B~2pang:KOP~6 krajan:+~3uk:B~2reksari:O~3ipan:MX~7sari:P~3o:X~3ung:N~6rejo:R~2tisari:+~3oanyar:D~4girang:P~4porong:P~4rejo:NPRW~6non:H~3u kulon:B~5wetan:B~2wik:F~4ran:S~3olu:G~4n:T~5harjo:T~3u:S~4rejo:X~1wadungan:FU~9 lor:U~3gean:R~3jon:B~3ngsan:O~6en:S~4yar:Z~7 barat:Z~3ron:FQ~3tu:P~2eden:R~6kembar:P~0laban:Y~5asem:J~5g:Z0~3ruk kidul:H~7lor:H~3uhan:XZ0~2den:1~2jing:Z~3o kidul:W~5lor:W~3uk:NO~2kardowo:P~5santri:+~2ladan:X~4ngon:2~2mbangan:O~7kuning:MR~3ong:F~6an:LX~6rejo:X~3pah:Y~4eji:I~2nas:K~3car:1~3dak:Z~5ngan:L~4ungsari:G~3g lang:G~4enharjo:F~4kap:ILZ~4on:E~4panggang:Z~4sar:2~3juk:2~3tek barat:Z~7timor:Z~2ok jang jang:2~2pa daya:2~5laok:2~5taman:2~2r lar:0~3angan:O1~8 badung:1~Brma:2~9dalam:1~9glintong:Z~9kerta:2~9luar:1~9perreng:2~9slampar:1~Aorjan:Z~9timur:Z~Aokol:1~3en:X~2sem:Y~2tek:NX~4ng:J~3sari:QW~3ukan:X~2wak:X~4ng:G~6an daya:1~8agung:X~3eyan:M~1ebak:NY~5adi:X~6yu:S~5harjo:G~5jabung:P~5rejo:N~5sari:NV~6ono:P~4nisuko:Y~6waras:Y~3bek:1~3eng barat:2~7timur:2~3o:O~2cari:N~3es:M~2dok kulon:V~6wetan:V~5ombo:IM~5tempuro:H~3ug:N~2go wetan:U~4k:N~5ulon:U~3undi:MU~5g barat:2~7timur:2~2kok:N~2mah kembar:M~5bang:NT~9dewo:J~9kulon:J~5putro:O~3bah:BS~4engan:I~5yan:T~8 kulon:T~9wetan:T~4or:X~4ung:1~7 barat:2~8gunong:Z~8paseser:Z~8timur:2~3inggir:P~3peni:H~5r:1~3ujut:O~2ngkong:BIPRVY~8 lor:R~3teng:12~7 barat:2~8timur:2~2pelle:0~3rak:K~2ran:VWY~5 kulon:W~6wetan:W~3gunong:Z~3pak:Z~2sanpuro:5~3ong daja:1~7laok:1~3tari:R~1icin:J~2dah kulon:+~6wetan:+~2nggo:N~2prak kidul:M~8ulon:M~7wetan:M~2rboyo:3~1obuk:2~2care:K~3eret:R~2deresan:D~2gowok:N~2hgung:X~2jajar:K~3ejer:I~2lawang:P~2maer:Z~3bang:2~7 dajah:Z~8laok:Z~4ok kulon:K~7wetan:K~2ngkek:Z~4os:2~3tar:+~2pang:X~2rejo:E~3okan:N~2sari:AGQR~2wayu:Y~3okwaru:5~1ubawang:L~2krejo:X~2majang:H~3bang:MN~7rejo:N~7sari:G~3pangkuwik:R~4ur:Y~3utan:K~2ndo:Y~2wihaji:V~3oro:S~3uk:N~0mabung:R~2cajah:Z~4n putih:J~5an:RU~5bang:D~2de:QX+~3igondo:T~4opuro:Q~4redo:G~4un:S~6 lor:9~3ulang:0~5egi:X~4mulyorejo:Y~4pat:0~4ran:X~5ejo:H~6so:P~6tno:F~4sari:B~3yopuro:5~2esan:FK~2gersari:OW8~4tan:T~3uan:GR~4wan:B~2ibit:W~3ndu:WX~2jan:D~5gan:0~6tengah:G~4sem:U~3enang:X~3ungan:1~2kam agung:Z~2lang:T~6sari:R~7uko:G~4san:C~7kulon:M~3esanwetan:M~3ingmati:V~4ran:E~3o:V~2mbulu barat:0~2naruwi:N~3car:Q~4ilan:Q~4on:R~3dala:2~5ranrejo:7~4er:W~5san:E~4ing:D2~7 daya:2~8laok:2~8timur:2~5rejo:W~6o:K~4ung:Z~5ro:Q~7 manggunggajah:P~3eron:Z~3gar:1~6an:IL~4gaan:Z~5e:T~5is:CF~7an:I~5uan:N~4ir:J~4kon:Z~5ujajar:X~8yan:BT~4li:IK~6 wetan:K~6awan:G~4uharjo:9~5nan:EQ~6dikaran:R~6harjo:AU6~6rejo:FGT~6sari:DH~7uman:B~3ikrejo:N~4sharjo:U~5rejo:T9~7nggo:3~3jung:TW~3onggal:Z~3tajun:2~4ing:P~7an:U~4ren:AT~4up:X~3uk:B~5an:V~7 kulon:+~8wetan:+~4nggal:Q~3yar:XY~6 sabrangan:+~8idomukti:Y~Brukun:Y~6an:F~6ejo:Y~2or:X~3spati:T~2pper:1~2rengan daya:2~9laok:2~3gantoko:0~4oagung:V~6nyar:X~5mulyo:CEJUVW~5patut:R~5rejo:W+~5suko:W~5urip:F~3moyo:Q~3on:BEFMT~5 kidul:M~7ulon:M~6wetan:M~3paran:0~3tajasah:Z~4opuro:N~2sakambing:2~4lembu:2~5ima:2~4ngan:NY~8kulon:O~8wetan:O~4ran:CZ02~3kuning kulon:K~Awetan:K~2tanair:2~3egal:T~4kan:M~2yang:I~6an:IQ67~6geneng:V~6kawis:V~6rejo:V~3ong:X~1edaeng:O~4lem:OWX~5i:P~4ng:X~3delan:2~3iyunan:V~3okan ayu:+~8semampir:+~4wo:F~3uri:V~2gale:V~5uh:Q~2jayan:S~3ono:F~4yo:P~6losari:Q~3uwet:V~2kanderejo:X~3ikis:F~2lirang:Y~4s:C~3untur:X~4wur:X~2nadi:A~4mpu:I~4ng:BF~6gal:P+~3dak:S~5lan:N~8wangi:G~4iro:U~4ogo:X~5lo kidul:A~8lor:A~3ganti:XY~7o:Q~4en:K~4gare:B~5er:U~4ok:K~3ilo:W~4njo:H~3ongo:X~3taos:Q~5raman:G~7s:Y~4ikan:8~4or:M~6o:AQW~5so:W~4urus:Q~3unggal:Y~4r pumpungan:+~3yarik:N~4ono:M~4unyur:W~2rakan:H~5urak:W~3gayu:D~4oasri:W~5bener:O~5sari:OW~6ono:5~3i:8~3josari:5~5yo:F~3kawang:W~3tani:X~2tatu:Y~3eng:0~4sih:S~1iagan:Q~2ji:8~2langasri:T~2mbaan:L~2ndugading:O~3ggir:N~7an:F~7sari:E~3ohorejo:W~2rigambar:D~3u:X~2yono:V~1lajah:Z~3kah:0~3ncu:F~4dangan:R~5ingan:L~A kulon:L~Bwetan:L~4gi:W~3rak:B~5s:Q~3ten:NPV~4i:AFX~3wang:H~2ideg:V~3lir:RS~3njeng:V~5on:C~3rip:P~6rowo:O~3wang:W~2okorejo:I~3rah:R~1oangan:2~3rah:Z~2dangan:E~3o:X~4ng:O~6an:P~4puro:P~3ung:Z~2jo:FHUV+~4agung:DQRW~5nyar:P~5rum:D~5sem:XY~5yu:F~4dadi:PX~6nu:Q~5elik:V~6so:V~5owo:P~5ungkol:L~6wur:QR~4gebang:P~6de:Y~6mi:I~6neng:P~4jajar:P~5ejer:Q~4kambang:Q~7pung:V~6rang:P~5embang:P~6ndil:R~6rep:F~5rapak:Q~5umpul:P~6sumo:P~4langu:5~5ebak:P~6gi:M~4malang:W~6nis:U~6ti:B~5ulyo:I~4ngapit:Q~4panggung:J~6ron:N~5etung:Y~5ilang:P~6tu:B~5urno:ST~7ogede:Y~8wetan:Y~4rangagung:O~7u:PV~6yung:S~5ejo:BEPSTVX9-~6mbun:R~5oto:3~5untut:O~4sari:DFGHILPVX~8 rejo:Y~8rejo:P~5eto:R~5ulur:P~4tamping:P~5engah:NQY~5risno:Q~4wangi:Q~6rno:Q~6tesrejo:P~5iryo:P~5ono:P~5uku:Y~2ktesareh:0~2ncek barat:2~7tengah:2~8imur:2~3do:F~5kan:W~5luku:Y~3tok:1~5ng:W~7sekar:W~5r:0~6na:2~2rang:S~3batoh:0~3i:V~3kepek:Z~3o:X~4bakung:Y~4calan:X~4krembangan:+~4mbuh:Z~4nyamplung:X~4pelang:X~4rejo:N~4sari:B~5unggingan:Q~4wudi:Y~2yoketen:D~1ragel:X~3hu:T~3ndung:Z~4ggen:FT~5onlawang:M~3wan:IK~3yan:B~2ecah:Z~2ican:B3~3yunan:Y~2onjo:E~2utuk:W~3wak:S~1udung:V~2jing:A~2kuh:F~2lung:Y~3yoagung:GVW~6rjo:G~6sri:G~5dadi:O~5rejo:GINVW5+~5sari:D~2mbulsari:I~2ncar:J~3der:H~4urejo:I~5sewu:Q~3eng:BFMS~6 kidul:M~3ggu:B~6gebang:Y~7ianti:Y~6ng:B~6t:SU~4kung:R~4li:X~3jungan:C~3ung:R~6kerep:Q~6rejo:X~2rtajih:1~3ukan:Q~2sir kidul:R~6lor:R~0nagasareh:0~2ilan:B~2mbaan:F~5k:B~6an:F~6or:2~5ngan kidul:9~Alor:9~7rejo:B~3pan:B~4u:S~2nggungan:AF~4kaan:K~2pis:V~3o daya:0~5laok:0~2wangan:A~1egororejo:M~2pa:0~2roh:Z~1gabab:G~5n:O~5r:BNP~4etan:Y~4lak:FV~3das:GM~4i:F~5boyo:R~5langkung:G~6uhur:V~7wih:FV~5mulyo:CN~5piro:R~6uro:EW~5rejan:A~8o:CGMNRSTW34~7nggo:CE~7so:G~6ojo:AB~5sanan:B~7ri:M~6uko:C~5wono:N~4ri:E~3gel:+~6 rejo:+~4lik:ETV-~3jum:G~3le:SU~3mbeg:X~5on:V~4pal:V~5el:BFQSVY3~7rejo:IW~7sari:O~5ungan:Q~3ncar:FTU~4dong:W~4gkatan:R~4juk:R~4tang:G~5i:V~5ru:CDGV~5ungan:N~3res:C~6kidul:P~6rejo:O~4gosari:Y~4iboyo:T~5ngan:E~4jo:P~4um:WX~3sem:FGRV~6lemahbang:X~4in:Y~6an:BV~4temi:P~3wen:Y~4i:U~4onggo:G~4un:W~3yung:X~2ebel:B~4ong:D~4rak:F~5uk:G~3gong:9~3lang:T~4o:V~5m:O~3mbal:GN~6t:P~5e:N~6h:P~6l:C~5oh:Y~5ul:E~6ng:Y~4pit:N~5lak:V~8rejo:7~3ndut:B~4ep:G~4gor:S~4i:E~4tep:T~5rong:CD~3peh:CDRS~5r:V~4oh:DM~5n:W~4ung:MRY~3rdani:C~4ong:N~3tal:C~4os:R~4rep:FS~2ijo:G~3le:A~4iran:T~4o ilo:B~3mbang:WX~8an:P~3nden jangkungan:+~7g:B~4gas:O~7rembyong:P~5it:G~4o:FW~3pik:Y~2laban:R~4jang:V~4mbangan:S~5es:S~5pin:V~7r:D~4nduk:S~7ng:S~4ran:A~7gan:BV~4wak:R~4yang:B~3ebak:Q~5eng:C~5o:C~5ur:X~4gok:E~4le:Q~4tih:F3~4wan:B~3iman:R~4nggis:C~7o:R~3ongsor:C~5ing:B~4pang:T~3umbang:F~6er:V~5pang:B~4ndo:R~4rup:BD~4tung:D~4yu:R~2ogri:Q~3mpro:U~3ran:E~4o:PQ~5gunung:V~2radin:V~4ho:V~4ket:B~4mbe:U~6ingan:C~5e:P~5i:R~4ncang:V~6e:D~5du:BCV~7lor:Q~5get:S~6gonanyar:V~5ti:D~4seh:V~4wan:R~4yudan:U~6n:B~7g:CW~3eco:AEF~4jeng:VW~5o:DE~4ncak:C~5deng:DEU~5gket:R~3imbi:Q~4ngin:R~8rejo:V~3ogung:B~4jo:W~4mbot:R~5o:A~4nggo:3~8t:R~4to:G~4wo:PV~3ukem:B~4pit:B~2ubalan:D~3dikan:R~5rejo:Q~3jang:D~4o:V~4ung:RTV~7rejo:X~5ran:W~3ken:V~3lahan:W~5nan:V~6kulon:C~6wetan:C~4ing:N~4uhan:W~5ngkulon:C~7wetan:C~3mbul:A~4pakdalem:V~5ul:BQRT~3nggahan:D~4toronadi:T~4ut:ABDTV~3ri:T~4uan:W~3sikan:Q~3ter:H~3wok:X~1itikan:T~1ogojatisari:X~4saren:M~7i:AHIKNP~2logaten:B~2nggunong:2~4kodono:B~2reh:0~2torejo:D~1yabakan barat:2~9timur:2~3labu daya:1~8laok:1~3mplong:2~6ungan:+~3par:2~3wangan:DF~2eloh:0~2or manes:Z~0olak alen:E~2ean:L~3hsari:J~2or:0~1mben:0~3ul:Z0~1po opo:M~1ro oro dowo:5~8ombo:HR9-~Ckulon:N~Cwetan:N~8pule:N~3bulu:N~0p mandangin:0~1abean:MO2~6 cantian:+~4rasan:2~4yan:W~3ian:2~2calan:T~4ngan:Z~6ga an:0~4rkeling:N+~7mbang:+~5peluk:Q~3e:IR~4kulon:R~4ntan:Z~4t:P~4wetan:R~3inan:S~5g:PUVW~4ran:X~4tan:A~3uh:Y~4l:V~2dang:HJV~6 bandung:Y~6an:DFV~7sri:P~6dangan:2~6mentoyo:V~4s:BSU~5an:KW~3eg:Y~4legan:1~4mawu:1~8 barat:1~9timur:1~5onegoro:O~4nganploso:X~3i:AP~4ke:2~3omasan:I~3urungan:Z~4san:P~2eng:Z~2gagan:1~4k:GN~4nden:Y~4r batu:2~3edangan:G~4laran:G~4ndingan:1~5tan:G~4r:BN~5ejo:A~5gunung:E~5jo:P~5kidul:A~5lor:A~6uyung:P~5ngumbuk:O~5sari:DG~5tanjung:Q~5ukir:B~6ngan besar:2~Bkecil:2~5wesi:V~6ojo:DEOQ~4sangan:+~3otan:S~4wan:H~3u:F~4an:K~4ng:F~4tan:A~2it:G~4on:M~2jagalan:2~4nangger:2~5gan:X~4rakan:HM~6n:GNS~3eng:V~4ruan:0~3i:X~3u:B~4rangan:M~2kah:U~4l:+~5ongan:0~4mban daya:2~9laok:2~4ndangan barat:2~Csangra:2~Ctengah:2~3el:CDHJMQW~5an:3~4m:K~4s:Z~3ijangan:N~4s:CFGIJPW+~5 baru:A~5aji:DEG~6n:K~5jajar:G~5kembar:G~5rejo:DE~5taji:J6~3ondang:2~5g:Z1~3ukerto:N~4ncen:R~5den:B34~5iran:KM~4sari:I~4wesi:K~2laan:G~4lang:1~8an:K~4ng:W~6an:LX~6besi:M~6sari:N~4sa:2~3ebon:Y~4mbon:V~4ngaan:1~9 dajah:1~Alaok:1~6gian:0~4ran:I~4sanggar:1~3iat:2~3oh:X~4ngan:2~3rejo:Q~3ur:S~2maroh:1~4tan:M~3ekasan:1~3olokan:2~4ngan:F~4rah:Z~5oh:1~4tan:GOX~2naan:1~4gan:2~5uan:1~4mbangan:K~4nggungan:2~4ongan:2~4rukan:L~3cakarya:I~4eng:Y~4or:02~6an:K~4ur:NV~3daan:N~5k:BK~5n:V01~6 lanjang:Z~6agung:W~7jeng:G~7n:YZ~7ras:M~8um:EHP~6blole:Q~6krajan:P~6landung:G~6mulyo:G~6pancur:X~6rejo:GN-~6sari:DFGHMU~A lor:G~6toyo:FRV~6wangi:HQW5~4ean:CMNRSU9~5man:2~5rejo:J~5sari:G~5yan:T~4ian:2~5tan:N~5yangan:0~4u:Y~5man:I~3ekan:T~4mon:V~5pan:1~3garangan:2~6engan:0~4batok:1~4ean:X~5len:0~7yan:Z~5ran gadungan:Z~8an:Z~6eman:01~4gang:X~5ih:P~5reh:O~5ul:C~6ng:T0~8asri:E~8duwet:E~8kalak:D~8rejo:DEG7~8sari:C~8uni:D~4kahkulon:Y~7wetan:Y~6l:B~6trejo:X~5emiri:O~5ur:U~4legur:1~6mah:1~5ungan:Q~4olangan:Z~5ngangan:9~7sean:0~5rayan:1~4pajung:Z~5ong:Z~4tonggal:1~3jalinan:Z~5ng:V~7 jiwo:+~4eng:B~5r:F~6ejo:D~4i:L~5 kidul:L~6lor:L~4unan:OVY~3tenan:Y~4i:I~3unggalan:V~3yaksagan:Z~4irangan:0~4uran:W~2opale daya:0~8laok:0~3ran:Z~3wan:L~2par:F~3ringan:HV~3ungan:EU~2rakan:C~4ng:FT~6argo:G~6batu:W~6harjo:J~4s:MU~5rejo:N~3e:F~4lor:F~4ngan:PWX~4rejo:N~3ijatah kulon:J~Awetan:J~4ngan:B~3on:FRU~3sanga:2~4eh:Z~3teker:1~2sanggar:1~4rejo:K~6nan:0~5legi:X~3ean:1~4ban:I~4mbon:M~4raman:2~4seh:Z~4yan:W0~3i:X~4nan:NV~7lemahputih:Y~4r putih:L~5aman:E~5harjo:E~5ian:H~3ongsongan:2~3pan:J~3repan:N~4ujambe:H~2taan:X~4lan:MU~4pan:0~4rongan:0~5selamat:Y~3ean:2~4bon:N~4galan:L~5uhan:N~4mon:IKLMZ1~5puran:I~4ngteng:Z~4reman:Z~5ongan:Z~3ianrowo:R~4han:RTWX9~7 kidul:B~8wetan:B~4k:B~3oan daja:1~4kan:LM~5picis:G~4man:J~3rang:I~6rejo:R~3uguran:N~2yaman:FRVX~3udan daleman:2~9undang:2~8karangsokon:2~8nangger:2~4ngrejo:P~1ecalongan:K~5ukan:N~3oro:I~3uk:DR~2dagangan:MY~2galangan kidul:M~4ntenan:1~3irian:+~3undan:Y~2hkulon:F~3serut:R~3wetan:F~2jagan:KZ~4mbon:V~4ngganan:Y~6kungan:NO~4rakan kulon:M~4ten:K~3ok:V~2kadan:Z~4langan:K~5ongan:Y~4ngkungan:N~4rungan:O~4uman:KOY~3elingan:Y~3oren:N~3ukuhan:P~4ncen:7~4won:PVW~2lalangan:K~4ng:X~6 kidul:U~7lor:U~6wot:X~4s:F~3em:ABDFRTUV~5watu:Y~4yan:L~3tong:1~2nambangan:MOW~4ng:K~6gal:H~7ungan:KP5~4rukan:G~4taan:N~6ban:J~6ran:E~7sewu:O~4wungan:H~3col:T~3dabah:Z~5rungan:J~4em:T-~4il:M~4owokumpul:X~7limo:X~3eleh:+~3galangan:Y~5mpon:Q~5ngsalan:X~6juran:J~6ten:V~7igan:J~5rang:K~5tigan:J~4garon:Q~5ung:A~4kol:BUV~4ulu:Y~5mbulanadi:X~3idon:W~4wen:G~3jaringansari:+~4or:D~3ompo:P~3unggul:N~3yepen:0~2pe:O~4legi:O~2rak:Q~5 barat:+~4nte:L~3bon:W~3manu:G~4isan:O~3najuh:Z~4ing:PR~3omaan:Y~3reng:Z~3tapanmaduretno:O~2sanggaran:J~7rahan:LPQXZ-~5tren:Q3~4wahan:MO~3en:V~3ing:F~4sir:LM~3u:T~4cen:J~4dukuh:R~2tahunan:H7~4k:PRV~4manan:7~4onan:Z~4pan:Z~3emon:+~7 kulon:M~4rongan:PQ~3iken:Y~4sbenem:Y~4yin tunggal:Y~3ok:F~3rah:Z~3tong:Z~3ung:CIKNY~6asri:N~6rejo:T~7oto:F~6sewu:G~7inarang:A~5jungan:M~1icisan:D~2jeran:B~2katan:EM~2lang:OV6~6bango:9~6gede:V~6kenceng:S~6rejo:S~6sari:V~2nggir:RY~7papas:2~7sari:BD~4kuk:T~3tu:B~2sang:R~6candi:5~2ton:A~3u:U~2yak:V~1labuhan:Q~8rejo:X~3jan:W~3karan:Z0~4pak:1~3langan:BIL~3mpang:M~8rejo:J~3ncungan:B~4daan:DQ~5i:GQ~6rejo:EW~4ggaran barat:0~Btimur:0~6iran:Z~5krongan:T~3osan:FGMOTX~3sah:0~2emahan:FQ~3rean:I~5t:N~3set:U~4ungan:V~2inggisan:N~4tahan:N~3wetan:W~2oso:AEFOQRU+~5 kidul:F~6lor:F~5arang:E~5buden:X~5geneng:Q~8uk:Q~5harjo:R~5jenar:B~5kandang:D~6erep:Q4~6laten:F~5lor:U~5rejo:EF~5sari:NP~6etro:X~5wahyu:X~2umbangan:E~5on:O~7 gambang:Q~5ungan:AO~4pang:WX~5ung:T~8rejo:ES~3nturan:B~1ocanan:3~5gan:I~3ol:U~4ng:Z~2dokkelor:M~5oyo:N~4rejo:D~5oto:Q~2galan:C~4r:N~2hbogo:V~3gading:N~5jih:E~4edang:N~3ijo:B~3jejer:P~5ntrek:N7~3kecik:P~4onyal:U~3sangit kidul:6~Aleres:M~Bor:M~Angisor:M~Atengah:M~3wates:V~2ja:2~3ok:DEFGTUV3~5kulon:Q~5rejo:Q~5sari:T~2kaan:L~3o:AB~2lagan:01~3ehan:5~3ongan:Z~4rejo:B~4wijen:5~2mahan:BV~7janggan:X~2ncogati:K~5kusumo:G~5l:T~3dok:B~6 wuluh:M~6agung:G~6dalem:I~6joyo:I~6nongko:J~6rejo:I~3gangan:Y~4gok:AEF~4pongan:W~3janan barat:1~9timur:1~3okawan:O~4rogo:B~3tang:I~4eh:1~2poh:EO~2rdapor:2~3eh:02~3odeso:X~4ng:O~2ter:Z~5an:2~3oan laok:1~1radah kalikendal:+~3gaan:2~7 daya:2~8laok:2~5k:T~4elan:V~3jegan:B~5kan:K~8 kidul:K~9lor:K~4jan:0~4uritkulon:8~3mbanan:2~7gan:Y~6tan:V~5on:CORS~7tergayang:W~7wetan:W~4pelan:T~3ncak:Z2~4ggang:F~5i:V~4ti:OY~3si:M~4ung:O~3yungan:BRV~2ekbun:1~3nduan:2~2igen:N~4i:CV~3jekngablak:X~3mpen:X~3ngapus:C~5goboyo:X~7dani:G~7ndani:I~7wirawan:I~5kuku:A~5u:G~3yoso:X~2odo:N~3nojiwo:H~3ppo:1~2unggahan kulon:W~Bwetan:W~3puh:Y~1ucakwangi:X~4ng:O~6 sewu:+~6an:DUW~8ak:C~8om:KOS~7rum:V~6laban:D~6ombo:A~6rejo:S~7o:QX~6sari:N~7ewu:A~7imo:Q~7ongo:G~6telu:X~3uk:PX~4ng:Y~6 kidul:D~7lor:D~2dak:B~5 kulon:B~6wetan:B~5itbarat:Y~7timur:Y~2ger:I~5an:P~5kulon:I~5wetan:I~3oh:W~2hjajar:F~5rak:F~3kerep:R~3rubuh:F~3sarang:F~3ti:U~2jer:K~5 baru:K~3iharjo:G~3on:G~5 kidul:G~6lor:G~2kul:N~2le:CFRSX~4rejo:DES~3o:H~4gedang:Q~7e:W~4kerto:N~4lor:Q~4niti:P~4pancikan:Y~4rejo:PQ8~4sari:BDQ~4tondo:D~4wetan:R~3ung:B~6 merdiko:B~6an:O~6dowo:G~2ncu:F~3dong:Q~4ungsari:H~5ttrate:Y~3gging:NP~5ul:OP~7rejo:W~6r:V~4pungan:V~3jul:DF~5ng:A~3ten:-~4ukdoro:T~3ung:A~2pus:BT~2rbosuman:B~3i:P~4semanding:Q~3nama:K~3orejo:H~3u:C~4t:M~5rejo:7~3wantoro:5~4oagung:J~6sri:AFGIJV~5dadi:FGJNTY5~5harjo:GJ~5jati:P~5kerto:EFX~5rejo:ABDEFGHPSTVW7~5sari:BNSTUV~6ekar:G~6ono:H~5tengah:F8~2span:M~4o:N~3ungmalang:N~2tat:OS~5 gede:+~6jaya:+~6kidul:G~6lor:G~5bangah:X~5kumpul:X~5lor:Y~3er:X~3ih:F~3on:Q~3ren:R~3ukrejo:GR~2yung:C~0rabasan:0~3iyan:0~2cek:M~3i:N~4 kulon:Y~5tengah:Y~4wetan:Y~2gang:1~3ung:0~2hayu:W~2jekwesi:L~3un:2~2mban kulon:K~7wetan:K~4igundam:I~5puji:I~3palcelaket:5~2ncangkencono:X~3degan:OP~8sari:Y~4u cangkring:K~5agung:GHIY~6las:S~6ti:N~5bango:P~6ener:X~6oto:Y~5gading:G~6ede:T~7nengan:P~6ong:N~5harjo:P~5jalak:M~5merak:M~5padangan:Y~6itu:MN~6utih:M~5sari:7~6ongo:U~5tatah:M~5watang:Q~3ggeh:N~4kah:+~7kidul:O~6ng:M~4perang daja:1~Blaok:1~3on:M~3uagung:M~4bedali:H~4gedang:M~4klindungan:N~4logong:H~4pakis:H~6ni:H~4wurung:HM~4yoso:H~2pa daya:0~5laok:0~2wan:M~4san:W~2yung:W~6gumuk:X~1ebalas:N~3ono:N~2jeni:O~3ing:M~3o agung:K~4agung:DIJQ~4mulyo:FTU39~4salam:N~6ri:DEGJNPSTX~5lamet:Q~5o:ENR~6 kidul:N~6lor:N~6pinggir:Q~4tangan:D~5engah:X~4winangun:CE~4yoso:G~3uno:U~2k kerrek:1~2mbang:FN4~7kepuh:F~4un:G~3en:W~2ndeng:V~3gel:W~3teng:M~2sapombo:E~3ongo:M~1inginagung:T~7nom:ERU3~8yar:E~6kembar:G~6pitu:DF~7utih:B~6rejo:EF~6sari:FG~6telu:J~7unggal:V~1obatal:0~2gojampi:J~4trunan:H~2hayu:0~2jopolo:H~2mbasan:2~4en barat:2~7guna:2~7rana:2~4iya barat:2~8timur:2~4uh:1~3okalisari:+~2ndokuning:M~3gdalam:0~5urin:Z~4gomulyo:W~4tengah:0~3osentanan:B~4wijayan:BT~2omo:Y~2sep:Z~3ong:2~2to:M~2wogempol:N~4harjo:R~4indah:I~4kangkung:H~4marto:R~4sari:I~4tamtu:I~5engah:I~1ubaru:2~2mpuk:X~2ngkut:+~7 kidul:+~8menanggal:+~8tengah:+~0sabiyan:Z~3rang:I~3unten:2~2dah:Z~4ng:OW~4rtengah:P~3engrejo:N~3ulang:2~2hang:B~2jen:P~2kala:2~2lak:H~5kembang:D~4m:E~5rejo:CE~6ojo:R~5wates:C~3en:P~2maan:5~4r:D~5an:0~4tan:1~3bakati:2~5ngan:X~7rejo:X~4eng:VX~5ran:V~4i:F~5bulu:O~5doplang:D~5gede:EG~5jajar:D~5kerep:R+~5lawang:BP~5mulyo:J~5pondok:Y~5rampak kidul:M~Clor:M~6ejo:CFJNQRSU~7mbe:T~7sik:F~6obyong:DFT~7to:PRUV~5sirah:N~5t:B~6an:D~5yan:Z~4ogunung:Y~5ng:AV~7dukuh:Q~7gede:W~7rejo:VW~5pinggir:X~4ungrejo:OX~3ir:D~5an:1~5plapan:Y~3pang:0~7agung:P~4ung:BT~2na daja:1~5laok:1~5tengah:1~4n:DR~5kerto:G~6ulon:E~5rejo:G~5wetan:4~3dingrowo:W~3enrejo:I~3ganom:N~4en:S~4gra agung:Z~7han:ADR~4kapura:Y~2obi:2~2peken:2~3ih:M~4kerep:M~3lasah:Z~3torenggo:G~3ulante:N~2radan:S~4ngan:TV~3eng:S~3ikemuning:H~4mulyo:IJ~4ngembat:W~4rejo:PVX~5ogo:O~4wani:M~3oka:2~4ngan:J~6gi:2~2seel:2~2tak:F~3reyan:EM~2ur saebus:2~2wah sumur:2~6tengah:0~5an:ACGPRSW+~5mulya:Y~4ran kulon:H~8lor:H~3entar:E~3iji:Q~4r:W~3o:DPUY~4cangkring:O~4han:O~4jajar:T5~4o:B~4tratap:O~3uh:B~4nggaling:+~2yutan:T~1ebalong:N~6r:D~4ndung:N~5en:I~5i:NOQ7~4ung:M~4yi:S~3et:F~3oro:M~2daeng:N~4garan:Y~4h:B~5kidul:V~4pur klagen:Y~4rat:B~5um:N~4ti:OP~6agung:O~6gede:O~4yu:AG~6gunung:D~6lawas:X~3dur:1~3eng:AV~6anmijen:O~3uri:OP~2garan:FGM~4we:D~3obang:J~4dobancang:O~6rejo:Q~4romadu:Y~6puro:N~6tambak:O~3ulung:S~4nung:P~2jati:0~2kapuk:Y~4r:AV~5alas:U~6n:BFRVWX~5bagus:X~7nyu:G~5dadi:W~7ngan:O~5gadung:PY7~5jati:U~6oho:N~5kare:M~6urung:Y~5mojo:N~5puro:G~7tih:KNRUY~3eti:FOQ~3idang:X~3oto:F~2letreng:L~3obanteng:L~4dakon:I~5ono:F~4gabus:W~5udig kulon:M~Awetan:M~4k awar awar:H~5ajang:E~6nyar:H~5besuki:H~5gondang:H~4lembu:K~5iman:P~4mukti:L~4panggung:FT~5uro:EU~4rejo:DEGQRTVX~4sari:FT~4tambak:N~6pak:P~5inatah:T~4wogo:L~3ur:B~2maan:2~4mbung:FLOV~5pir:MOY3+~8ejo:X~4nding:BFVW~5ten:A~4re:NR~5um:C~4wot:V~3bayat:Y~4ilangan:Z~4on:D~5ro:I~5wo:A~4ulung:J~5ng:DQUVWXY~7an kidul:Y~9yar:Y~7in:W~7lor:V~7rejo:W~3edusari:N~4mi:+~5u:H~4n:EFTU~5kidul:V~5pinggir:V~3iring:L~3laran:V~3olowaru:+~3palwadak:G~4ol:GKT~6an:I~4u:ABFJ~5sari:I~3ut:N~2n asen:Z~3dang:ABDFW2~7 dajah:Z~8laok:Z~7agung:TVX~7bumen:R~7duwur:X~7haji:W~9rjo:VWX~7rejo:SVWX~4en:CFQ~4ir:2~4uro:H~3eng:M~4po:B~6rejo:J~3ganten:V~4gowar:R~5reng:G~5uruh:G~4kut:R~4on:CQV~6agung:N~3jayan:R~3ori:W~3tanan:8~4ol:1~6 daya:2~7laok:2~5ng:M~6orejo:P~4ul:HMNOQ4~6an:M~2pande:O~5jang:GJO2~5yul:Q~4rah:Z~4tan:D~4won:F~3uhgembol:M~4lu:Z~4tih:I~2ra barat:2~5tengah:2~6imur:2~4bi barat:Z~7timur:Z~4g:B~4h:Y~4ng:E~6an:B~3gang:2~3ut:DI~2tail:J~3ono:BU~6gedong:3~6pande:3~6rejo:F~3ren:RTV~4o:Y~5hadi:Y~2wor:X~3ulan:S~1ibon:N~2dayu:Y~3em:D~4pan:N~3ing:W~3o kumpul:Y~4arjo:O~5sri:G~4bandung:V~7gun:X~5inangun:X~5ogem:X~4dadi:EGIJMOSVW+~5owo:X~4gedungbatu:Y~6mbul:X~5iri:N~4harjo:ABPRWX~6sri:W~4jangkung:Y~4kare:OR~6ton:Q~5elar:X~6pung:O~6rto:OQTU~5lumpuk:O~5umpul:OWXY~4laju:U~5uhur:G~4makmur:U~5ekar:I~5langean:X~5ojo:O~6ro:Y~5ukti:IMTVWXY~6lyo:ACDEFGHIMOPQSTUVWXY-~4nganti:W~4pekso:M~4raharjo:Y~8yu:G~5ejo:BDEFGHIJMOPRSTUVWXY~6nggo:G~5ukun:Y~4sermo:+~4tentrem:W~5opo:+~8 wetan:+~4wangi:J~6rek:FQ~6yah:NT~5ungu:Y~2ki:C~2lir:F~5agung:J~3o:I~2man:BFX~3baringin:P~5tan:TVX~3o:BDSUW~4angin angin:O~4girang:O~4jayan:G~4kerto:+~6tawang:O~4lawang:+~4mulyo:+~9 baru:+~4ngagrok:P~4rejo:VW~3pang:O~2ndetanyar:M~6lami:M~4urejo:G~3e:U~3ggahan:BSW~5it:D~4kalan:O~9yar:R~5il:B~4ogalih:O~5juruh:J~5latren:J~5negaran:J3~5padu:O~5saren:B~8i:GY~5trunan:J~5wangi:P~2raman:E~4pan:S~3igan:U~3noboyo:AY~2ser:X~3ir:-~2tiaji:V~5rjo:G~4merto:F~4rejo:G~3ubondo:L~2walan:BRVY~7kerto:+~7panji:O~7rejo:X~3uran:X~2yar:N~3otobagus:D~1ladi:N~3harwotan:X~4ung:B~3mbrit:N~5ur:S~4et:G~4parejo:G~3teng:I~3we:C~4u:I~2emanan:E~4pit:Y~2iwung:L~2openg:2~3rok:EG~2umbung:EF~1obih:Z~3o:ACJ~4ntoro:DTVW~3rah:S~2cah:Z~3o:TU~4rejo:W~2ddara:2~3o:D~2gaan:M~4ten:9~3ian:02~3o:SX~2karami paseser:2~7me timur:2~3et dajah:Z~6laok:Z~3o:DVWX~4banah:0~9 daya:0~Alaok:0~Atengah:0~4grenjeng:W~5unung:W~4lelah:1~4sari:W~2lokuro:X~4r:K~2malang:1~3ber:02~4o:HT~4ron:R~3or koneng:Z~5oto:B~4sari:X~4winangun:X~2nggokerto:-~6n:J~4owareng:X~3o ageng:R~4adi:X~4bekel:R~4k:2~5wijenan:+~4patik:R~4rejo:FV~4wangi:G~2oka:A~4o:BPY~2pet:L~2rpa:Z~2so:E~2tabar:1~4ng:W~1rabah:C~3gi:BEJ~3mbah:1~3nak:V~4dil:B~3ten:BJ~4urejo:V~2engat:E~3seh:0~2igading:GP~4onco:G~3katon:DF~3mulyo:G~3rande:X~3ti:B~3wedari:U~2ono:J~3wo:Y~3yo:V~2uni:HIO~3wi:N~1ubo:I~4h:L~2ci:IY~4harjo:W~3o:I~4lor:K~4pangepok:I~2dah:V~4ngan:X~3imoro:AGOQ~8harjo:R~5ulyo:N~3u:V~2geng:P~4r lor:K~5kidul:I~3ihan:CWX~6rjo:W~5rejo:TX~5waras:AFOQRSTVWX~4o:X~2kabumi:6~4jeruk:2~4lela:Y~4makmur:I~4oneng:Y~4pura:M~3o:MO~4 kerto:K~4anyar:DEFGPXY~4bendu:X~4dadi:GMQX~5ermo:N~5ono:ADGHKOY~4gidri:I~4harjo:ADFRVW56~4iber:Q~4jati:J~5ember:I~4kerto:IM~5idul:C~4lelo:N~5ilo:GSWX+~8 barat:Z~Cu:+~9timur:Z~4maju:J~6lo:X~6nunggal:+~5oro:FRT~5ulyo:GMQXY~4natar:J~5olo:G~4pinggir:Q~5uro:G~4raharjo:G~6mbi:I~7e:CENXY3~5ejo:ABCDEFGHIJKMNOQRSVWXY4~8 kulon:D~9wetan:D~6no:IN~4sari:BCGHIKPQSX9~8 kidul:K~9lor:K~5ewu:EV~5ongo:X~4wati:VY~5etan:C~5idi:T~7odo:D~6langun:G~6nangun:T~6ryo:IK~6yono:DU~5ono:IK~3un:5~2lek:K~3ing kulon:K~7wetan:K~3uk:S~2mari:Y~3bang:V~7timun:V~4er:CEMUW~6 anom:K~9yar:K~7banteng:N~7canting:K~8enteng:M~7gading:K~7kemuning:K~7pakem:K~9ndan:K~8inang:L~7rejo:K+~7salak:K~Bm:K~8uko:K~7taman:6~8engah:K~7waru:K1~8etan:6~6agung:DEFGIJMNPQRTVWX~7ji:QX~7me:Y~7n:MW~8get:I~8om:M~8yar:HJLMN~7rgo:L~8um:EJVW~7sih:M~8ri:EJ~6banjar:X~8ru:IJ~7endo:DFMSVX~9ing:CGSU~8ras:J~7oto:E~7rantas:-~7ulu:JM~As:I~6cangkring:F~9ting:K~6dadap:D~9i:CDEX~8nti:I~8we:M~Asari:N~7em:G~7iren:E~7odol:T~7ukun:T~8mpyong:K~8ren:FM~6ejo:ABCFGHILMOSTUVWY-~9 kulon:D~Awetan:D~6gandu:S~8yam:C~7edang:N~9e:VY~9ong:C~8mpol:D~7irang:P~7lagah:N~7ondang:Q~Ao:J-~6harjo:AV~6ingin:CEQ~B kidul:D~Dulon:D~6jambe:I~8ti:EHIP~8ya:G~7eruk:IK~7o:EFQRVWX~8kidul:V~6kalong:IK~8rang:P~9e:M~8timoho:M~7edawung:M~8jayan:I~8mbar:EMP~8ncono:J~8puh:R~8rang:M~9ep:X~9to:G~8tempa:I~7ledung:M~7okap:K~8lak:L~7radenan:G~9mat:M~6lele:M~8sung:I~6malang:KL~8njing kulon:G~Ewetan:G~7iri:R~7ujur:H~8lyo:JQ~6nangka:2~7gepoh:G~7ongko:Q~6oto:GV~6pakem:I~8sir:G~7etung:GH~7inang:I~8tu:N~7oh:M~8rong:G~7ucung:G~8tih:G~6rejo:JMNV~6salak:I~8ri:EHIJKQSUX5~8wit:T~7ecang:M~8kar:G~8wu:J~7ih:E~7ono:PR~7uko:GHMN~6tanggul:P~Akil:G~7ebu:P~8guh:Q~8mpur:G~8ngah:L~7laseh:V~6urip:EHR~6wangi:V~8ru:ILY~7indu:R~7ono:P~7ringin:HIK~7udi:X~8luh:HP~3edangan:1~4ndi:M~5gko:PRUVXY~3obito:Q~4dikaran:V~4kali:O~5embangsri:O~4lawang:P~4rame:O~3put:OY~3uragung:V~5ber:Y~5cinde:W~5dalam:M~5gayam:X~6eneng:W~8uk:X~6ung:W~5jalak:W~5mati:M~5songo:T~5up:C~5welut:+~2ndul:T~3gairujing:Y~6teluk:Y~4egeneng:X~5lebak:X~4ikulon:N~5wetan:N~4onlegowo:Y~2penuh:X~3iturang:H~2rabayan:X~4t:F~5majan:T~3en:BI~5lor:C~3odakan:C~5ikraman:B~6nawan:8~4witi:Y~3u:BEPR~4h:COU~5an kidul:D~8lor:D~5wadang:E~2suhbango:F~4kanrejo:N~2tojayan:EG~2waan:Z~4lan:W~5oh:V~5uh:DO~4ri:Y~5u:DG~4yuwo:N~0taal:K~2ddan:0~2gangser daja:1~Alaok:1~3ungguh:Z~2hulu:W~4nan:A~7 baru:A~2ji:GTX~4nan:G~3ug:B~4ngan:Z~2keran:T~7klating:X~5harjo:X~2laga:2~4ng:DRU2~6agung:G~6kembar:W~6o:2~7h:1~6suko:G~3es:F~3kandang:LM~3ok:GPV~3un:BERVW~5 kulon:D~5blandong:P~5kidul:Q~5rejo:X~2man:KLMO09~5 krocok:K~6sare:2~Ah:0~5agung:J~6n:CDKT3~6rum:BT~6sri:AG~6yu:H~5baru:J~5harjo:G~5kuncaran:G~7rsi:L~5prijeg:X~5sari:GIJKLMN~7triyan:G~6uruh:J~3baagung ares:2~Bbarat:2~Btengah:2~Cimur:2~5hrejo:HV~5k:Y0~6 oso wilangun:+~7pocok:Z~7sarioso:+~7ukir:L~7wedi:+~6agung:P~7n:EN~7sri:G~6bayan:B~7eras:Y~7oyo:UW~6cemandi:O~6kalisogo:O~7emerakan:O~6lekok:N~6mas:ST~7enjangan:X~8rak:V~6oso:O~6ploso:X~6rejo:ADEFGJMNOPQTVWY+~7igadung:X~7omo:UV~6sari:N2+~8wah:O~7umur:O~6ukir:M~5n:D~6g:B~5r:Q~4egan:Z~5lang:M~9an:0~5ru:1~7 barat:0~8daya:0~8laok:0~8timur:0~4ibendo:F~5n:Z~4ong:J~4ran:T~4uko:2~5ng:1~3iajeng:P~4dung:2~3pingmojo:Q~4o:J~5jung guwa:1~Apregih:1~Atengah:1~Egina:1~4ung:N~7rejo:P~2nagura barat:Z~9timur:Z~4h kali kedinding:+~6merah:Z02~B dajah:Z~Claok:Z~5landean:Y~5wulan:K~4merah:2~3des:+~4onsentul:M~3en:D~3ggalrejo:Q~6ran:C~5ir:VW~5ul:IO~7angin:KNOW~7kulon:I~9ndung:D~7rejo:Y~7turus:D~7welahan:D~9tan:I~6mong:0~6ng:DGH4~8an:QVX~8gunung:D~8kramat:Q~8prigel:X~4kil:CE~7sari:G~4sil kulon:K~8wetan:K~4unan:P~3jangawan:Y~7rono:P~4ekwagir:O~4ung:DFMRTVXY12~7 bumi:Z~8glugur:L~8jati:Z~8kamal:L~9iaok:2~8pecinan:L~Arak:+~8widoro:Y~7an:PY~9om:R~8rum:N~7gunung:BQ~7harjo:V~7kalang:R~8enongo:P~7lor:A~7ori:Y~7puro:A~7rejo:BIMRSW5~7sari:ABDIMOTU4+~8epreh:T~7tani:R~7wadung:Q~3on:F~2pak:T~5rejo:E~4n:D~5rejo:J~3elan:SV~4n:KQT~2raban:1~3ebung:2~3ik:O~3ogan:2~4kan:FM~3um:K~2sik madu:5~5harjo:W~5madu:CW~2ttangoh:1~3ung:B~2wang:F~6agung:G~7nom:T~7rgo:G~6rejeni:G~9o:ENPSTUX9~6sari:DEGOP~4r:P~5an:W~3ing:CD~3un:U~1ebalo:Y~6an:Y~4nah:0~4s:N~3el:OQ~3luru:X~3on:TV~3ul:Z~5 barat:1~6timur:1~4wung:Y~2gal mijin:K~5agung:W~6mpel:K~6n:F~6rum:JT~6sri:E~5bang:W~9sri:H~6esar:I~5ciut:H~5dlimo:J~5gede:I~6ondo:G~5harjo:J~5jati:K~5kodo:V~5mojo:M~5ombo:AB~5pasir:K~5randu:H~6ejo:BDEGHIJMW~5sari:BGIJW+~6iwalan:M~6ono:M~5wangi:I~7ru:I~7tu:M~6eru:G~4r priyah:Z~5en:C~5on:R~3owangi:F~3uhan:SU~2ja barat:1~5timur:1~3o:QV~4asri:X~4wangi:N~2kenglagahan:R~3ung:H~2laga biru:Z~4ng:Z~3empong:L~5ung:J~4ng:V~3lok:Z~3ukjatidawang:Y~2maji:W~4ndang:W~4s:-~4yang:VW~3balang:E~5rak:R~5yangan:2~4elang:Q~6ing:V~4ok dukuh:+~6rejo:IJ7~5ro:T~3enggungan:EJMT~3on:ABP~4ran:0~3peh:H~6 kidul:H~7lor:H~7tengah:H~5l:O~6 wetan:R~4uran:BMNPRU~6ejo:FHI3~6sari:GHS~3u:OV~4asri:J~4guruh:J~4ireng:P~4rejo:J~4wulan:Q~2naru:Y~3garan:Q~4edan:2~4garang:K~7ejo:D~5er:V~7 kidul:F~8lor:F~7ejo:X~7kulon:W~7wetan:W~5ilis mejoyo:+~9rejo:N~6r:L~7ing:X~5ong:D~6r:Y~5ulun:X~9an:OY~6n dajah:Z~6r:D~4ket:Z~3onan:2~3tenan barat:1~9timur:1~2pas:EU~3os:L~2rbis:C~3gambang:W~3ik:O~3nyang:G~3osan:0~3rak:1~3tek:DF~3ung:T~6kulon:O~6wetan:O~4san:P~1idu:N~2gasan kulon:M~8wetan:M~2kung:X~4san:V~2leng:S~2mahan:C~3ur jang jang:2~2nalan:3~4p:T~4tar:A~4wun:V~3gal:E~4gar:Q~7buntut:P~4kis:W~3umpuk:V~2rak:U~3em:Y~5 enggal:Y~3ipan:R~4s:M~3on:FS~3tobinangun:R~5marto:G~6oyo:G~5yudo:G~3u kidul:F~5lor:F~2snogambar:I~5negaran:6~2tik:FX~2udan:D~2wet:X~1ladan:T~3gah:Z01~3mbah:0~3nak:X~6an:1~4goh:Z~3sih:O~3tah:V~2ekung:-~3mang:X~3sah:1~2ogo:E~5 patut:Y~7ojok:Y~5agung:VWX~6nyar:X~6rgo:M~5bendung:Y~5haji:V~5mas:5~5rejo:GVX~7tno:X~5sadang:X~7ri:GKLMN~5waru:W5~3koh:Z~3mar:Z~3nto ares:1~7raja:1~2umpu:4~3we:W~1obaddung:Z~4i barat:0~6tengah:0~7imur:0~3o:W~3ungan:1~2gogan:E~3ubang:Z~2kawi:A~3elan:L~4t:1~2lang:0~3buk:Z~2mpokersan:H~2natan:B~3domulo:V~5wulan:Q~4uk:2~3gas:M~6 kulon:M~7wetan:M~2rbang:2~3jek:2~4un:0~6an:0~3onan:1~5grejo:-~2sanan:B~4ren:3~5i:N~2tokan:B~4san:2~2yaning:N~3omarto:G~4resmi:F~1racal:X~3gah:Z~4ih:0~3jeng:7~3ktakan:K~3mok:Z~3njang:B~4tang:W~3pang:0~3sak:1~3te:VY~3was:P~6an:Q~3yang:R~2ebungan:KL~3mas:A~4bes:V~3nceng:D~4ggalek:C~6ulunan:V~3pan:X~3wung:N~2igonco:L~3sono:B~3tik:R~4unggal:X~3wung kidul:6~8lor:6~7an:M~2ogan:Z~3jalu:V~3mpoasri:O~3podo:O~3sobo:O~5no:TX~3tosari:K~3wulan:P~2ucuk:V~3neng:BT~4i:X~3tup:W~1uban:W~2gu:BCDFX~4rejo:BEF~4sari:I~5umberjo:Q~2kangkayu:J~3kerto:X~3ul:M~4m:H~2lakan:AU~4ngan:O~3iskriyo:E~3ung:BSTY~6agung:DV~6rejo:DEFGJSV-~4parari:M~4sbesar:G~5rejo:5~2mapel:PY~3brasanom:V~3enggungan:X~3pak pelem:B~6kepuh:E~6oyot:E~6rejo:G~5ng:EG~4eng:HK~4uk:ABC~6renteng:G~2nah:W~3dosoro:N~3ge:F~4gak ceme:M~6lpager:P~6ngri:D~5orono:Q~5ul:X~7rejo:W~7sari:D~7wulung:N5~6njagir:X~6r:T~4kulrejo:U~4lur:F~3jung:EHZ~7mekar:X~7rejo:H~7sekar:5~7tirto:G~2ren:G~3i:BTVX4~4gede:V~4pinggir:Q~4rejo:GY~3us:F~2tul:I~4r:N~2wiri kulon:W~7wetan:W~0udanawu:E~1jung:+~5 piring:Z~5pangkah:Y~1mbul:H~5an:N~5damar:E~5rejo:IU~5sari:I~1ndaan:G~1rangagung:O~5gantung:H~2ek urek:G~1teran:S~0wadak kidul:Y~6lor:Y~4ng:V~3eng:Y~3uk:T~4ng:GW~6asih:O~8ri:O~2ge:O~3ir:G~5 kidul:B~6lor:B~2has:Y~2jak:G~5 kidul:D~6lor:D~3ik:X~2kah:U~2leran:W~3idono:K~4kukun:U~2nar:X~3danpuro:G~3engpaten:F~3gen:X~4i:W~4kal:MO~7 wetan:N~7kepuh:Q~4lukulon:W~6wetan:W~4un:W~6rejo:X~3isodo:K~2reng:A~3u:O1~4 barat:1~5gunung:+~5timur:1~4beron:O~4gunung:P~4jayeng:R~5inggo:M~4k:X~5kalong:U~5tengah:U~5ulon:X~4lor:X~4ngdowo:N~6ring:X~4rejo:S~4wetan:X~2tangpanjang:X~3es:BDEFNRT8~5 kulon:H~6wetan:H~5ari:O~5kroyo:D~5negoro:P~5projo:P~5tani:N~8jung:Y~5umpak:P~5winangun:X~3uagung:CNY~5lang:U~4bonang:B~4dakon:Q~6ndang:R~4galuh:Q~5ede:FG~5olong:O~4karung:A~5ebo:J~6nongo:P~5osek:N~4limo:C~5umbung:N~4panjang:M~6tok:A~5rapat:N~4rejo:G~4tulis:O~4wungkuk:M~2ung:DOR~2yang:B~3ut:S~1edani:Y~3en:W~3i:OV~3oro:NOVX~6klurak:O~3uni:X~4san:M~2lulang:N~2ngkal:R~2ru:X~4ngotok:R~1idang:W~3odaren:U~4ro:ACM~6kandang:T~6payung:L~2langan:BR~4yut:O~2ndu:X~5rejo:P~3ong:BCDNS~6an:N~8 kidul:N~9lor:N~6o:9~2robiting:O~5orang:6~4gunan:7~4legi:I~4taman:G~4wongso:I~2yoro:A~3u:P~4ng:+~4rejo:G~1lingi:E~1olutengah:W~2ngsorejo:J~3oagung:G~5nti:AC~5sih:6~6ri:AFIMS~5yu:GHOS~4boyo:K~4catur:F~5epokoayu:H~5olo:OV+~6yo:C~4dadi:BEP~8 kulon:A~9wetan:A~4gondo:A~6ro:M~5riyo:H~4jati:IN~5oyo:F~4kalang:O~6rang:O~7to:A~6sian:O~5erso:GM~7to:CFGHKMNQUY~6tro:B~5itri:N~5oyo:LN5~5romo:DX+~5upang:O~6sumo:KP+~4merto:MQ~5lati:O~5ulyo:G~4plintahan:O~6oso:P~4rejo:CDEFGHILMNPSUXY+~8 trisulo:F~4salam:Q~6ri:FGHIKNPUW~5idi:A~5obo:AJ~5uko:K~6nyo:N~4tengah:F~5irto:E~5oro:M~2rawari:A~3o:V~4marto:F~2tan:BVY~5masjedong:P~5ngare:V~5sari:Y~3galih:HN~3sogo:W~1rati:N~2ingin:K~7 anom:L~7agung:IJ~8nom:BGLMY~7pitu:JQ~8utih:J~7rejo:JP~7songo:G~7telu:I~1udi:X~2kirharjo:W~2luh:Q~5an:I~2ngu:S~3ut:OP~0yosomulyo:J~4rati:I~4wilangun:HY~C kidul:H~Dlor:H~1ungyang:X';
+
+    /* Kabupaten/kota yang sudah punya kartu di daftar atas. Nomornya
+       mengikuti urutan JT_KAB; nomor 29 ke atas berarti "Kota". */
+    var JT_KARTU = {
+      3: 'tulungagung', 5: 'kediri', 6: 'malang', 13: 'pasuruan', 14: 'sidoarjo',
+      15: 'mojokerto', 16: 'jombang', 17: 'nganjuk', 23: 'lamongan', 24: 'gresik',
+      26: 'sampang', 29: 'kediri', 31: 'malang', 33: 'pasuruan', 34: 'mojokerto',
+      36: 'surabaya'
+    };
+
+    /* Kalau yang diketik persis nama kabupaten/kota yang sudah punya kartu,
+       pencocokan awalan dimatikan — supaya "surabaya" tidak ikut menarik
+       desa "Surabayan" di Lamongan. */
+    var NAMA_KARTU = null;
+    function namaKartu() {
+      if (!NAMA_KARTU) {
+        NAMA_KARTU = {};
+        kartu.forEach(function (el) { NAMA_KARTU[bersih(el.getAttribute('data-nama'))] = true; });
+      }
+      return NAMA_KARTU;
+    }
+
+    var jtNama = null, jtKab = null;
+    function jtSiap() {
+      if (jtNama) return;
+      jtNama = []; jtKab = [];
+      var rec = JT_DATA.split('~'), prev = '';
+      for (var i = 0; i < rec.length; i++) {
+        var r = rec[i];
+        var p = JT_PFX.indexOf(r.charAt(0));
+        var s = r.indexOf(':');
+        var nm = prev.slice(0, p) + r.slice(1, s);
+        prev = nm;
+        var kd = r.slice(s + 1), a = [];
+        for (var j = 0; j < kd.length; j++) a.push(JT_KODE.indexOf(kd.charAt(j)));
+        jtNama.push(nm); jtKab.push(a);
+      }
+    }
+    function jtLabel(i) { return (i >= 29 ? 'Kota ' : 'Kab. ') + JT_KAB[i]; }
+    function jtJudul(s) { return s.replace(/(^|\s)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); }); }
+
+    /* Nama yang cocok persis sebagai satu kata utuh dimenangkan duluan.
+       Kalau tidak ada yang persis, baru pakai pencocokan awalan kata —
+       supaya pengunjung yang baru mengetik separuh nama tetap terbantu. */
+    function jtCari(q) {
+      if (!q || q.length < 3) return null;
+      jtSiap();
+      var persis = [], awalan = [];
+      for (var i = 0; i < jtNama.length; i++) {
+        var n = jtNama[i];
+        if ((' ' + n + ' ').indexOf(' ' + q + ' ') !== -1) persis.push(i);
+        else if (n.indexOf(q) === 0 || n.indexOf(' ' + q) !== -1) awalan.push(i);
+      }
+      var pakai = persis.length ? persis : (namaKartu()[q] ? [] : awalan);
+      if (!pakai.length) return null;
+
+      var slug = {}, lain = [], sudah = {}, adaSlug = false;
+      for (var k = 0; k < pakai.length; k++) {
+        var kabs = jtKab[pakai[k]];
+        for (var m = 0; m < kabs.length; m++) {
+          var ki = kabs[m];
+          if (JT_KARTU[ki]) { slug[JT_KARTU[ki]] = true; adaSlug = true; }
+          else if (!sudah[ki]) { sudah[ki] = true; lain.push({ kab: ki, nama: jtNama[pakai[k]] }); }
+        }
+      }
+      lain.sort(function (a, b) { return a.kab - b.kab; });
+      return { slug: slug, lain: lain, adaSlug: adaSlug };
+    }
+
     function cekTerbatas(q) {
       for (var i = 0; i < AREA_TERBATAS.length; i++) {
         var kunci = bersih(AREA_TERBATAS[i].cari);
@@ -2314,18 +2466,11 @@ p{margin:0}
       return null;
     }
 
-    /* Cari alias kecamatan/desa yang bikin sebuah kartu cocok, supaya
-       keterangannya presisi: "kata apa" yang bikin kartu itu muncul —
-       bukan cuma nama kabupatennya sendiri. */
-    function aliasCocok(el, q) {
+    /* Kartu ini muncul karena nama kabupatennya sendiri, atau karena nama
+       kecamatan/desa di dalamnya? Yang kedua perlu diberi keterangan. */
+    function bukanNamaSendiri(el, q) {
       var nama = bersih(el.getAttribute('data-nama'));
-      if (!nama || nama.indexOf(q) !== -1 || q.indexOf(nama) !== -1) return null;
-      var alias = bersih(el.getAttribute('data-cari') || '').split(' ');
-      for (var i = 0; i < alias.length; i++) {
-        var a = alias[i];
-        if (a && a.length >= 3 && (a.indexOf(q) !== -1 || q.indexOf(a) !== -1)) return a;
-      }
-      return null;
+      return !!nama && nama.indexOf(q) === -1 && q.indexOf(nama) === -1;
     }
 
     function isMobileCarousel() {
@@ -2335,17 +2480,17 @@ p{margin:0}
     function gambar() {
       var ketik = input ? input.value : '';
       var q = bersih(ketik);
+      var hasil = q ? jtCari(q) : null;
       var ketemu = 0;
-      var keterangan = null;
+      var kotaCocok = [];
 
       kartu.forEach(function (el) {
         var tampil;
         if (q) {
-          tampil = bersih(el.getAttribute('data-nama') + ' ' + (el.getAttribute('data-cari') || '')).indexOf(q) !== -1;
-          if (tampil && !keterangan) {
-            var alias = aliasCocok(el, q);
-            if (alias) keterangan = { alias: alias, kota: el.getAttribute('data-nama') };
-          }
+          var lokal = bersih(el.getAttribute('data-nama') + ' ' + (el.getAttribute('data-cari') || '')).indexOf(q) !== -1;
+          var indeks = !!(hasil && hasil.slug[el.getAttribute('data-kota')]);
+          tampil = lokal || indeks;
+          if (tampil && bukanNamaSendiri(el, q)) kotaCocok.push(el.getAttribute('data-nama'));
         } else {
           tampil = semua || isMobileCarousel() || el.getAttribute('data-utama') === '1';
         }
@@ -2358,13 +2503,49 @@ p{margin:0}
       if (more) more.hidden = !!q || semua;
 
       if (catatan) {
-        if (q && keterangan) {
+        if (q && kotaCocok.length) {
           catatan.hidden = false;
-          catatan.innerHTML = 'Termasuk wilayah <b id="areaCatatanKota"></b>.';
-          document.getElementById('areaCatatanKota').textContent = keterangan.kota;
+          catatan.textContent = 'Termasuk wilayah ';
+          var b = document.createElement('b');
+          b.textContent = kotaCocok.join(', ');
+          catatan.appendChild(b);
+          catatan.appendChild(document.createTextNode('.'));
         } else {
           catatan.hidden = true;
           catatan.textContent = '';
+        }
+      }
+
+      /* Wilayah yang namanya cocok tapi belum punya kartu harga sendiri
+         ditampilkan sebagai pilihan. Nama desa di Jawa Timur banyak yang
+         kembar, jadi biar pengunjung sendiri yang menunjuk daerahnya. */
+      var lain = (q && hasil) ? hasil.lain : [];
+      if (lainWrap) {
+        if (lain.length) {
+          lainWrap.hidden = false;
+          if (lainH) {
+            lainH.textContent = ketemu
+              ? 'Nama itu juga ada di wilayah berikut. Belum ada halaman harganya, tapi tetap kami kirim ke sana (min. order 1 truk):'
+              : '\u201C' + ketik.trim() + '\u201D ada di wilayah berikut. Belum ada halaman harganya, tapi tetap kami kirim ke sana (min. order 1 truk):';
+          }
+          var batas = Math.min(lain.length, 10), html = '';
+          for (var i = 0; i < batas; i++) {
+            var label = jtLabel(lain[i].kab);
+            var pesan = 'Halo, saya mau tanya ketersediaan dan ongkos kirim BRICON ke ' +
+                        jtJudul(lain[i].nama) + ', ' + label + '.';
+            html += '<a data-cta="area-lain" target="_blank" rel="noopener" href="https://wa.me/6285184028183?text=' +
+                    encodeURIComponent(pesan) + '">' +
+                    '<svg aria-hidden="true"><use href="#ico-wa"></use></svg>' + label + '</a>';
+          }
+          if (lainChips) lainChips.innerHTML = html;
+          if (lainSisa) {
+            lainSisa.hidden = lain.length <= batas;
+            lainSisa.textContent = lain.length > batas ? '+' + (lain.length - batas) + ' wilayah lain' : '';
+          }
+        } else {
+          lainWrap.hidden = true;
+          if (lainChips) lainChips.innerHTML = '';
+          if (lainSisa) { lainSisa.hidden = true; lainSisa.textContent = ''; }
         }
       }
 
@@ -2375,7 +2556,7 @@ p{margin:0}
       }
 
       if (kosong) {
-        kosong.hidden = !(q && ketemu === 0 && !batasan);
+        kosong.hidden = !(q && ketemu === 0 && !batasan && !lain.length);
         if (kosongQ) kosongQ.textContent = ketik.trim();
       }
     }
@@ -2474,9 +2655,12 @@ p{margin:0}
 
   var PIN_KECIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>';
 
-  /* Kartu kecil ruangnya sempit, jadi labelnya dipendekkan supaya nama pembeli
-     tidak ikut terpotong. */
-  function labelProdukPendek(p) { return p === 'panel' ? 'Panel' : 'Bata'; }
+  /* Badge produk melayang di pojok kanan atas kartu, tidak lagi berebut ruang
+     dengan nama pembeli — jadi labelnya bisa ditulis lengkap di kedua ukuran
+     kartu, ditambah ikon bata / panel di sebelah kiri tulisannya. */
+  function ikonProduk(p) {
+    return '<svg aria-hidden="true"><use href="#ico-' + (p === 'panel' ? 'panel' : 'bata') + '"></use></svg>';
+  }
 
   /* Urutan isi kartu ulasan (dikunci 30 Agustus 2026):
      ikon kutip -> bintang -> kutipan -> baris identitas.
@@ -2484,6 +2668,7 @@ p{margin:0}
      label produk (Bata Ringan / Panel Lantai) menempel di ujung kanan. */
   function kartuUlasanUtama(t) {
     return '<article class="testi-feature">' +
+      (t.product ? '<span class="tf-prod">' + ikonProduk(t.product) + esc(labelProduk(t.product)) + '</span>' : '') +
       kutip('tq-mark') +
       bintang(t.rating) +
       '<blockquote>' + esc(t.quote).replace(/\n/g, '<br>') + '</blockquote>' +
@@ -2491,14 +2676,14 @@ p{margin:0}
         '<span class="tf-avatar" aria-hidden="true">' + SVG_ORANG + '</span>' +
         '<div class="tf-id">' +
           '<p class="tf-name">' + esc(t.display_name) + '</p>' +
-          (t.kabupaten ? '<span class="tf-loc">' + PIN_KECIL + 'Kirim ke ' + esc(t.kabupaten) + '</span>' : '') +
+          (t.kabupaten ? '<span class="tf-loc">' + PIN_KECIL + esc(t.kabupaten) + '</span>' : '') +
         '</div>' +
-        (t.product ? '<span class="tf-prod">' + esc(labelProduk(t.product)) + '</span>' : '') +
       '</footer></article>';
   }
 
   function kartuUlasanRingkas(t) {
     return '<article class="ts-card">' +
+      (t.product ? '<span class="ts-prod">' + ikonProduk(t.product) + esc(labelProduk(t.product)) + '</span>' : '') +
       kutip('ts-mark') +
       bintang(t.rating) +
       '<p class="ts-quote">' + esc(t.quote) + '</p>' +
@@ -2506,9 +2691,8 @@ p{margin:0}
         '<span class="ts-avatar" aria-hidden="true">' + SVG_ORANG + '</span>' +
         '<div class="ts-id">' +
           '<p class="ts-name">' + esc(t.display_name) + '</p>' +
-          (t.kabupaten ? '<span class="ts-loc">' + PIN_KECIL + 'Kirim ke ' + esc(t.kabupaten) + '</span>' : '') +
+          (t.kabupaten ? '<span class="ts-loc">' + PIN_KECIL + esc(t.kabupaten) + '</span>' : '') +
         '</div>' +
-        (t.product ? '<span class="ts-prod">' + esc(labelProdukPendek(t.product)) + '</span>' : '') +
       '</div></article>';
   }
 
@@ -2614,6 +2798,20 @@ p{margin:0}
      Semua jaraknya dihitung dari TEPI BAWAH GAMBAR HERO.
      Nilai MINUS = tarik ke atas, masuk ke area gambar. */
   var GROUPS = [
+    { t: 'Gambar produk - tampilan vertikal (HP/tablet)', items: [
+      { k: 'sv-img-bata',  l: 'Bata %',  min: 40, max: 140, st: 1, d: 100, unit: '' },
+      { k: 'sv-img-panel', l: 'Panel %', min: 40, max: 140, st: 1, d: 100, unit: '' }
+    ]},
+    { t: 'Foto kartu Bata Ringan (isi bingkai)', items: [
+      { k: 'pc-bata-x', l: 'Geser X', min: -150, max: 150, st: .5, d: 0,   unit: '' },
+      { k: 'pc-bata-y', l: 'Geser Y', min: -150, max: 150, st: .5, d: 0,   unit: '' },
+      { k: 'pc-bata-z', l: 'Zoom %',  min: 40,   max: 320, st: 1,  d: 100, unit: '' }
+    ]},
+    { t: 'Foto kartu Panel Lantai (isi bingkai)', items: [
+      { k: 'pc-panel-x', l: 'Geser X', min: -150, max: 150, st: .5, d: 0,   unit: '' },
+      { k: 'pc-panel-y', l: 'Geser Y', min: -150, max: 150, st: .5, d: 0,   unit: '' },
+      { k: 'pc-panel-z', l: 'Zoom %',  min: 40,   max: 320, st: 1,  d: 100, unit: '' }
+    ]},
     { t: 'Layar 861 - 1059px (tablet)', items: [
       { k: 'badge-kirim-y-1059',  l: 'Badge Y', min: -20,  max: 220, st: .5, d: 104.5, unit: '%' },
       { k: 'trust-gap-1059',      l: 'Teks',    min: -180, max: 200, st: 2,  d: -28 },
@@ -2639,7 +2837,7 @@ p{margin:0}
   try { nilai = JSON.parse(localStorage.getItem(STORE) || '{}') || {}; } catch (e) { nilai = {}; }
 
   function nama(it) { return '--' + it.k; }
-  function unit(it) { return it.unit || 'px'; }
+  function unit(it) { return (it.unit == null) ? 'px' : it.unit; }
   function ambilNilai(it) {
     var n = nama(it);
     return (n in nilai) ? Number(nilai[n]) : it.d;
@@ -2658,7 +2856,7 @@ p{margin:0}
   var panel = document.createElement('div');
   panel.className = 'tw-panel';
   panel.innerHTML =
-    '<div class="tw-head"><b>Tweak jarak</b><span class="tw-ver">v2 MINUS</span><span class="tw-x">&minus;</span></div>' +
+    '<div class="tw-head"><b>Tweak jarak</b><span class="tw-ver">v3</span><span class="tw-x">&minus;</span></div>' +
     '<div class="tw-body"></div>' +
     '<div class="tw-foot">' +
       '<button type="button" data-act="reset">Reset</button>' +
@@ -2669,12 +2867,16 @@ p{margin:0}
   var body = panel.querySelector('.tw-body');
 
   function gambar() {
-    var html = '<p class="tw-scope"><b>Badge Y</b> posisi badge “Pengiriman Cepat” (%). ' +
+    var html = '<p class="tw-scope"><b>Gambar produk</b> ukuran gambar bata &amp; panel ' +
+               'di tampilan vertikal (%). Bingkai blueprint, garis ukur, angka ukuran, ' +
+               'dan lingkaran kuning ikut nilai yang <b>paling besar</b> di antara ' +
+               'keduanya — tidak disetel sendiri.<br>' +
+               '<b>Foto kartu</b> menggeser dan memperbesar isi foto; bingkainya tetap. ' +
+               'Zoom di bawah 100 bisa memunculkan celah di tepi bingkai.<br>' +
+               '<b>Badge Y</b> posisi badge “Pengiriman Cepat” (%). ' +
                '<b>Teks</b> jarak baris “Melayani kontraktor...” dari tepi bawah gambar (px). ' +
-               '<b>Stats</b> jarak dari tepi bawah gambar ke Stats Bar merah (px).<br>' +
-               '<b>Nilai minus = naik ke atas.</b> Bagian bawah gambar ada ruang ' +
-               'kosong \u00b110%, jadi Stats aman ditarik sampai ujung kiri slider; ' +
-               'lewat itu tepi bawah gambar mulai kepotong.<br>' +
+               '<b>Stats</b> jarak dari tepi bawah gambar ke Stats Bar merah (px). ' +
+               '<b>Nilai minus = naik ke atas.</b><br>' +
                'Panel bisa digeser — tarik dari judul di atas. Kalau sudah pas, ' +
                'tekan “Salin nilai” lalu kirim hasilnya untuk dikunci permanen.</p>';
     GROUPS.forEach(function (g, gi) {
