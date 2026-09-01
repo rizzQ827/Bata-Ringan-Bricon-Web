@@ -1195,6 +1195,7 @@ p{margin:0}
 }
 .tw-head{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#1E1E21;border-bottom:1px solid rgba(255,255,255,.12);cursor:pointer;flex:none}
 .tw-head b{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow)}
+.tw-head .tw-ver{font-size:9px;font-weight:700;letter-spacing:.06em;color:#141416;background:var(--yellow);border-radius:4px;padding:2px 5px}
 .tw-head .tw-x{margin-left:auto;font-size:14px;line-height:1;color:rgba(255,255,255,.55)}
 .tw-body{overflow-y:auto;padding:10px 12px 12px}
 .tw-panel.collapsed .tw-body,.tw-panel.collapsed .tw-foot{display:none}
@@ -2657,7 +2658,7 @@ p{margin:0}
   var panel = document.createElement('div');
   panel.className = 'tw-panel';
   panel.innerHTML =
-    '<div class="tw-head"><b>Tweak jarak</b><span class="tw-x">&minus;</span></div>' +
+    '<div class="tw-head"><b>Tweak jarak</b><span class="tw-ver">v2 MINUS</span><span class="tw-x">&minus;</span></div>' +
     '<div class="tw-body"></div>' +
     '<div class="tw-foot">' +
       '<button type="button" data-act="reset">Reset</button>' +
