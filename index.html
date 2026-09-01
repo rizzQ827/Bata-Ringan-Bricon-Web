@@ -1024,7 +1024,7 @@ p{margin:0}
   .hero{
     min-height:auto;
     padding-top:48px;
-    padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-1059,22px));
+    padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-1059,-4px));
   }
   .hero-grid{grid-template-columns:minmax(0,1fr);gap:0}
 
@@ -1046,7 +1046,7 @@ p{margin:0}
   .hero-trust--d{display:none}
   .hero-trust--m{
     position:absolute;left:0;right:0;margin-top:0;
-    top:calc(100% + var(--hero-img-pull) + var(--trust-gap-1059,0px));
+    top:calc(100% + var(--hero-img-pull) + var(--trust-gap-1059,-28px));
   }
 }
 @media (min-width:1060px){ .hero-trust--m{display:none} }
@@ -1062,12 +1062,12 @@ p{margin:0}
   .loc-grid{grid-template-columns:minmax(0,1fr)}
   .map-frame,.map-frame iframe{min-height:300px}
 
-  .hero{padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-860,26px))}
+  .hero{padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-860,-2px))}
   .hero-img-wrap{max-width:380px}
   .hbadge--stok{top:42%;left:4%}
   .hbadge--kirim{top:var(--badge-kirim-y-860,108.5%);left:-0.5%}
   .hbadge--mutu{top:65%;left:72%}
-  .hero-trust--m{top:calc(100% + var(--hero-img-pull) + var(--trust-gap-860,0px))}
+  .hero-trust--m{top:calc(100% + var(--hero-img-pull) + var(--trust-gap-860,-24px))}
 }
 
 @media (max-width:768px){
@@ -1085,14 +1085,14 @@ p{margin:0}
   .foot-col{border-top:1px solid var(--line-dark);padding-top:8px}
   .foot-brand{border-top:none}
 
-  .hero{padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-560,30px))}
+  .hero{padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-560,16px))}
   .hero-cta{max-width:360px;margin-inline:auto}
   .hero-cta .btn{flex:1 1 100%}
   .hero-img-wrap{max-width:300px}
   .hbadge--stok{top:47.5%;left:-2.5%}
   .hbadge--kirim{top:var(--badge-kirim-y-560,121.5%);left:-0.5%}
   .hbadge--mutu{top:68.5%;left:69.5%}
-  .hero-trust--m{top:calc(100% + var(--hero-img-pull) + var(--trust-gap-560,0px))}
+  .hero-trust--m{top:calc(100% + var(--hero-img-pull) + var(--trust-gap-560,-8px))}
 }
 
 @media (max-width:550px){
@@ -1103,7 +1103,7 @@ p{margin:0}
 
 @media (max-width:364px){
   /* layar 320px: badge kanan digeser masuk supaya tidak terpotong tepi layar */
-  .hero{padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-364,26px))}
+  .hero{padding-bottom:calc(var(--hero-img-pull) + var(--hero-stats-gap-364,16px))}
   .hbadge--stok{top:43%;left:-2.5%}
   .hbadge--kirim{top:var(--badge-kirim-y-364,125%);left:-1.5%}
   .hbadge--mutu{top:71.5%;left:70.5%}
@@ -1114,7 +1114,7 @@ p{margin:0}
   .hero-trust{font-size:clamp(.58rem,3.2vw,.68rem)}
   .hero-cta{gap:10px}
   .hero-cta .btn{font-size:13px;padding:10px 18px}
-  .hero-trust--m{top:calc(100% + var(--hero-img-pull) + var(--trust-gap-364,0px))}
+  .hero-trust--m{top:calc(100% + var(--hero-img-pull) + var(--trust-gap-364,-4px))}
 }
 
 /* ============================================================
@@ -2616,23 +2616,23 @@ p{margin:0}
   var GROUPS = [
     { t: 'Layar 861 - 1059px (tablet)', items: [
       { k: 'badge-kirim-y-1059',  l: 'Badge Y', min: -20,  max: 220, st: .5, d: 104.5, unit: '%' },
-      { k: 'trust-gap-1059',      l: 'Teks',    min: -180, max: 200, st: 2,  d: 0 },
-      { k: 'hero-stats-gap-1059', l: 'Stats',   min: -36,  max: 240, st: 2,  d: 22 }
+      { k: 'trust-gap-1059',      l: 'Teks',    min: -180, max: 200, st: 2,  d: -28 },
+      { k: 'hero-stats-gap-1059', l: 'Stats',   min: -36,  max: 240, st: 2,  d: -4 }
     ]},
     { t: 'Layar 561 - 860px', items: [
       { k: 'badge-kirim-y-860',  l: 'Badge Y', min: -20,  max: 220, st: .5, d: 108.5, unit: '%' },
-      { k: 'trust-gap-860',      l: 'Teks',    min: -180, max: 200, st: 2,  d: 0 },
-      { k: 'hero-stats-gap-860', l: 'Stats',   min: -30,  max: 240, st: 2,  d: 26 }
+      { k: 'trust-gap-860',      l: 'Teks',    min: -180, max: 200, st: 2,  d: -24 },
+      { k: 'hero-stats-gap-860', l: 'Stats',   min: -30,  max: 240, st: 2,  d: -2 }
     ]},
     { t: 'Layar 365 - 560px (HP)', items: [
       { k: 'badge-kirim-y-560',  l: 'Badge Y', min: -20,  max: 220, st: .5, d: 121.5, unit: '%' },
-      { k: 'trust-gap-560',      l: 'Teks',    min: -180, max: 200, st: 2,  d: 0 },
-      { k: 'hero-stats-gap-560', l: 'Stats',   min: -24,  max: 240, st: 2,  d: 30 }
+      { k: 'trust-gap-560',      l: 'Teks',    min: -180, max: 200, st: 2,  d: -8 },
+      { k: 'hero-stats-gap-560', l: 'Stats',   min: -24,  max: 240, st: 2,  d: 16 }
     ]},
     { t: 'Layar 320 - 364px (HP kecil)', items: [
       { k: 'badge-kirim-y-364',  l: 'Badge Y', min: -20,  max: 220, st: .5, d: 125, unit: '%' },
-      { k: 'trust-gap-364',      l: 'Teks',    min: -180, max: 200, st: 2,  d: 0 },
-      { k: 'hero-stats-gap-364', l: 'Stats',   min: -24,  max: 240, st: 2,  d: 26 }
+      { k: 'trust-gap-364',      l: 'Teks',    min: -180, max: 200, st: 2,  d: -4 },
+      { k: 'hero-stats-gap-364', l: 'Stats',   min: -24,  max: 240, st: 2,  d: 16 }
     ]}
   ];
   var nilai = {};
