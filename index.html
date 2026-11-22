@@ -3018,5 +3018,401 @@ p{margin:0}
   gambar();
 })();
 </script>
+<!-- ============================================================================
+     FORM SEBELUM WHATSAPP
+     Setiap tombol WhatsApp di halaman ini tidak langsung membuka WA, tapi
+     membuka form singkat dulu: produk, jumlah, kirim ke mana, kapan butuh.
+     Jawaban dirangkai jadi pesan pembuka WA, jadi admin tidak perlu tanya
+     "kirim ke mana?" lagi dan langsung tahu mana pembeli serius.
+     Konversi Google Ads sekarang dihitung saat form dikirim (bukan saat
+     tombol diklik), supaya angkanya = calon pembeli sungguhan.
+     Semua mandiri di blok ini: hapus blok ini = tombol WA kembali seperti dulu.
+     ============================================================================ -->
+<style>
+.wf-ov{position:fixed;inset:0;z-index:450;background:rgba(28,28,30,.62);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .24s var(--ease-out,ease)}
+.wf-ov.open{opacity:1;pointer-events:auto}
+.wf{position:relative;width:100%;max-width:520px;max-height:94vh;max-height:94dvh;overflow:auto;overscroll-behavior:contain;background:var(--surface,#fff);color:var(--text,#2A2A2E);font-family:var(--font,system-ui,sans-serif);border-radius:20px 20px 0 0;box-shadow:0 -10px 40px rgba(28,28,30,.22);transform:translateY(36px);transition:transform .34s var(--ease-reveal,ease)}
+.wf-ov.open .wf{transform:none}
+@media (min-width:640px){.wf-ov{align-items:center;padding:24px}.wf{border-radius:18px;box-shadow:var(--sh-lg,0 18px 48px rgba(28,28,30,.2));transform:translateY(16px) scale(.985)}}
+.wf-grip{display:block;width:40px;height:4px;border-radius:4px;background:var(--line-strong,#D9D4CB);margin:10px auto 0}
+@media (min-width:640px){.wf-grip{display:none}}
+.wf-top{position:relative;padding:18px 22px 16px;border-bottom:1px dashed var(--line-strong,#D9D4CB)}
+.wf-step{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono,ui-monospace,monospace);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted,#5C5C63)}
+.wf-step i{display:block;width:18px;height:3px;border-radius:2px;background:var(--red,#D42B2B)}
+.wf-step i+i{background:var(--line-strong,#D9D4CB);margin-left:-4px}
+.wf-top h2{margin:8px 0 4px;font-size:1.26rem;line-height:1.25;font-weight:800;letter-spacing:-.01em;color:var(--ink,#1C1C1E);padding-right:34px}
+.wf-top p{margin:0;font-size:.86rem;line-height:1.5;color:var(--muted,#5C5C63)}
+.wf-x{position:absolute;top:14px;right:14px;width:36px;height:36px;border:0;border-radius:50%;background:var(--track,#F2EFE9);color:var(--ink,#1C1C1E);font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center}
+.wf-x:hover{background:var(--line,#E7E3DC)}
+.wf-body{padding:16px 22px 6px;display:grid;gap:16px}
+.wf-f{display:grid;gap:7px;min-width:0;border:0;margin:0;padding:0}
+.wf-l{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:.82rem;font-weight:700;color:var(--ink,#1C1C1E);padding:0}
+.wf-l small{font-family:var(--mono,ui-monospace,monospace);font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2,#8A8A92)}
+.wf-chips{display:flex;flex-wrap:wrap;gap:7px}
+.wf-chip{appearance:none;border:1.5px solid var(--line-strong,#D9D4CB);background:var(--surface,#fff);color:var(--text,#2A2A2E);font:inherit;font-size:.84rem;font-weight:600;padding:8px 13px;border-radius:999px;cursor:pointer;transition:border-color .15s,background .15s,color .15s}
+.wf-chip:hover{border-color:var(--ink,#1C1C1E)}
+.wf-chip[aria-pressed="true"]{background:var(--ink,#1C1C1E);border-color:var(--ink,#1C1C1E);color:#fff}
+.wf-chips--sm .wf-chip{font-size:.78rem;padding:6px 11px}
+.wf-row{display:flex;gap:8px;min-width:0}
+.wf-in{width:100%;min-width:0;font:inherit;font-size:16px;color:var(--ink,#1C1C1E);background:var(--bg,#FAF9F6);border:1.5px solid var(--line-strong,#D9D4CB);border-radius:10px;padding:11px 12px;outline:none;transition:border-color .15s,background .15s}
+.wf-in:focus{border-color:var(--ink,#1C1C1E);background:#fff}
+.wf-in::placeholder{color:var(--muted2,#8A8A92)}
+.wf-in--qty{flex:0 0 96px;font-family:var(--mono,ui-monospace,monospace);font-weight:700}
+.wf-unit{display:flex;flex:1 1 auto;min-width:0;border:1.5px solid var(--line-strong,#D9D4CB);border-radius:10px;overflow:hidden;background:var(--bg,#FAF9F6)}
+.wf-unit button{flex:1 1 0;min-width:0;border:0;background:transparent;font:inherit;font-size:.78rem;font-weight:700;color:var(--muted,#5C5C63);padding:0 4px;cursor:pointer;white-space:nowrap}
+.wf-unit button+button{border-left:1px solid var(--line,#E7E3DC)}
+.wf-unit button[aria-pressed="true"]{background:var(--red,#D42B2B);color:#fff}
+.wf-hint{margin:0;font-size:.74rem;line-height:1.45;color:var(--muted,#5C5C63)}
+.wf-hint b{font-family:var(--mono,ui-monospace,monospace);color:var(--ink,#1C1C1E)}
+.wf-qblock{display:grid;gap:7px;padding:12px;border-radius:12px;background:var(--track,#F2EFE9)}
+.wf-qblock[hidden]{display:none}
+.wf-qhead{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.78rem;font-weight:700;color:var(--ink,#1C1C1E)}
+.wf-qblock .wf-in{background:#fff}
+.wf-qblock .wf-unit{background:#fff}
+.wf-two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:480px){.wf-row{flex-wrap:wrap}.wf-in--qty{flex:1 1 100%}.wf-unit{flex:1 1 100%;height:42px}}
+@media (max-width:360px){.wf-two{grid-template-columns:1fr}}
+.wf-err{display:none;margin:0;font-size:.74rem;font-weight:600;color:var(--red-dark,#B71F1F)}
+.wf-f.bad .wf-err{display:block}
+.wf-f.bad .wf-in,.wf-f.bad .wf-unit{border-color:var(--red,#D42B2B)}
+.wf-f.bad .wf-chips .wf-chip{border-color:var(--red,#D42B2B)}
+.wf-more summary{cursor:pointer;font-size:.8rem;font-weight:700;color:var(--muted,#5C5C63);list-style:none;display:inline-flex;align-items:center;gap:6px}
+.wf-more summary::-webkit-details-marker{display:none}
+.wf-more summary::before{content:"+";display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--track,#F2EFE9);color:var(--ink,#1C1C1E);font-size:13px}
+.wf-more[open] summary::before{content:"\2212"}
+.wf-more .wf-two{margin-top:10px}
+.wf-foot{position:sticky;bottom:0;padding:14px 22px calc(16px + env(safe-area-inset-bottom));background:linear-gradient(to top,var(--surface,#fff) 78%,rgba(255,255,255,0));display:grid;gap:10px}
+.wf-go{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:0;border-radius:12px;background:var(--red,#D42B2B);color:#fff;font:inherit;font-size:1rem;font-weight:800;padding:15px 18px;cursor:pointer;box-shadow:var(--sh-red,0 8px 22px rgba(212,43,43,.28));transition:background .15s,transform .15s}
+.wf-go:hover{background:var(--red-dark,#B71F1F)}
+.wf-go:active{transform:translateY(1px)}
+.wf-go svg{width:20px;height:20px;flex:none}
+.wf-skip{justify-self:center;border:0;background:none;font:inherit;font-size:.78rem;color:var(--muted,#5C5C63);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px}
+.wf-skip:hover{color:var(--ink,#1C1C1E)}
+html.wf-lock,html.wf-lock body{overflow:hidden}
+@media (prefers-reduced-motion:reduce){.wf-ov,.wf{transition:none}}
+</style>
+
+<div class="wf-ov" id="wfOv" aria-hidden="true">
+  <form class="wf" id="wf" role="dialog" aria-modal="true" aria-labelledby="wfJudul" novalidate>
+    <span class="wf-grip" aria-hidden="true"></span>
+    <div class="wf-top">
+      <span class="wf-step"><i></i><i></i>Sebelum lanjut ke WhatsApp</span>
+      <h2 id="wfJudul">Butuh berapa, kirim ke mana?</h2>
+      <p>Isi 30 detik. Admin langsung balas dengan harga sampai lokasi, tanpa tanya ulang.</p>
+      <button class="wf-x" type="button" data-wf-tutup aria-label="Tutup">&times;</button>
+    </div>
+
+    <div class="wf-body">
+      <fieldset class="wf-f" data-wf-f="produk">
+        <legend class="wf-l">Produk</legend>
+        <div class="wf-chips" data-wf-pilih="produk">
+          <button class="wf-chip" type="button" data-v="bata" aria-pressed="false">Bata Ringan</button>
+          <button class="wf-chip" type="button" data-v="panel" aria-pressed="false">Panel Lantai</button>
+          <button class="wf-chip" type="button" data-v="dua" aria-pressed="false">Keduanya</button>
+        </div>
+        <p class="wf-err">Pilih produknya dulu.</p>
+      </fieldset>
+
+      <div class="wf-f" data-wf-f="jumlah">
+        <span class="wf-l">Perkiraan jumlah <small>angka kira-kira boleh</small></span>
+
+        <div class="wf-qblock" data-wf-q="bata" hidden>
+          <div class="wf-qhead">Bata Ringan
+            <div class="wf-chips wf-chips--sm" data-wf-pilih="tebal">
+              <button class="wf-chip" type="button" data-v="7,5 cm" aria-pressed="false">7,5</button>
+              <button class="wf-chip" type="button" data-v="10 cm" aria-pressed="false">10</button>
+              <button class="wf-chip" type="button" data-v="12,5 cm" aria-pressed="false">12,5 cm</button>
+            </div>
+          </div>
+          <div class="wf-row">
+            <input class="wf-in wf-in--qty" type="text" inputmode="decimal" autocomplete="off" placeholder="0" data-wf-qty="bata" aria-label="Jumlah bata ringan">
+            <div class="wf-unit" data-wf-pilih="ubata">
+              <button type="button" data-v="truk" aria-pressed="true">truk</button>
+              <button type="button" data-v="m³" aria-pressed="false">m³</button>
+              <button type="button" data-v="pcs" aria-pressed="false">pcs</button>
+              <button type="button" data-v="m² dinding" aria-pressed="false">m² dinding</button>
+            </div>
+          </div>
+          <p class="wf-hint" data-wf-hint="bata"></p>
+        </div>
+
+        <div class="wf-qblock" data-wf-q="panel" hidden>
+          <div class="wf-qhead">Panel Lantai
+            <div class="wf-chips wf-chips--sm" data-wf-pilih="bentang">
+              <button class="wf-chip" type="button" data-v="1,47 m" aria-pressed="false">1,47</button>
+              <button class="wf-chip" type="button" data-v="2,00 m" aria-pressed="false">2,00</button>
+              <button class="wf-chip" type="button" data-v="2,50 m" aria-pressed="false">2,50</button>
+              <button class="wf-chip" type="button" data-v="3,22 m" aria-pressed="false">3,22 m</button>
+            </div>
+          </div>
+          <div class="wf-row">
+            <input class="wf-in wf-in--qty" type="text" inputmode="decimal" autocomplete="off" placeholder="0" data-wf-qty="panel" aria-label="Jumlah panel lantai">
+            <div class="wf-unit" data-wf-pilih="upanel">
+              <button type="button" data-v="lembar" aria-pressed="true">lembar</button>
+              <button type="button" data-v="m² lantai" aria-pressed="false">m² lantai</button>
+            </div>
+          </div>
+          <p class="wf-hint">Belum tahu jumlahnya? Pilih <b>m² lantai</b>, tulis luas lantai yang mau dicor.</p>
+        </div>
+
+        <p class="wf-hint" data-wf-q="kosong">Pilih produk di atas dulu.</p>
+        <p class="wf-err">Tulis perkiraan jumlahnya (angka saja).</p>
+      </div>
+
+      <div class="wf-f" data-wf-f="lokasi">
+        <span class="wf-l">Kirim ke mana?</span>
+        <div class="wf-two">
+          <input class="wf-in" type="text" autocomplete="address-level2" list="wfKabList" placeholder="Kota / kabupaten" data-wf-in="kab" aria-label="Kota atau kabupaten">
+          <input class="wf-in" type="text" autocomplete="address-level3" placeholder="Kecamatan / desa" data-wf-in="kec" aria-label="Kecamatan atau desa">
+        </div>
+        <datalist id="wfKabList"></datalist>
+        <p class="wf-err">Isi kota dan kecamatannya, biar ongkir bisa langsung dihitung.</p>
+      </div>
+
+      <fieldset class="wf-f" data-wf-f="kapan">
+        <legend class="wf-l">Kapan barang dibutuhkan?</legend>
+        <div class="wf-chips" data-wf-pilih="kapan">
+          <button class="wf-chip" type="button" data-v="Secepatnya" aria-pressed="false">Secepatnya</button>
+          <button class="wf-chip" type="button" data-v="1–2 minggu lagi" aria-pressed="false">1–2 minggu</button>
+          <button class="wf-chip" type="button" data-v="Bulan ini" aria-pressed="false">Bulan ini</button>
+          <button class="wf-chip" type="button" data-v="Masih cek harga dulu" aria-pressed="false">Masih cek harga</button>
+        </div>
+        <p class="wf-err">Pilih salah satu.</p>
+      </fieldset>
+
+      <details class="wf-more">
+        <summary>Nama &amp; catatan (opsional)</summary>
+        <div class="wf-two">
+          <input class="wf-in" type="text" autocomplete="name" placeholder="Nama Anda" data-wf-in="nama" aria-label="Nama">
+          <input class="wf-in" type="text" autocomplete="off" placeholder="Catatan, cth. jalan sempit" data-wf-in="catatan" aria-label="Catatan">
+        </div>
+      </details>
+    </div>
+
+    <div class="wf-foot">
+      <button class="wf-go" type="submit">
+        <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+        Lanjut ke WhatsApp
+      </button>
+      <button class="wf-skip" type="button" data-wf-lewati>Cuma mau tanya-tanya dulu? Chat tanpa isi form</button>
+    </div>
+  </form>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var WA = '6285184028183';
+  var SIMPAN = 'bricon_waform_v1';
+  var ov = document.getElementById('wfOv');
+  var form = document.getElementById('wf');
+  if (!ov || !form) return;
+
+  var KAB = ['Surabaya','Sidoarjo','Gresik','Mojokerto','Malang','Pasuruan','Jombang','Lamongan','Kediri','Tulungagung','Nganjuk','Sampang','Bangkalan','Batu','Blitar','Bojonegoro','Bondowoso','Banyuwangi','Jember','Lumajang','Madiun','Magetan','Ngawi','Pacitan','Pamekasan','Ponorogo','Probolinggo','Situbondo','Sumenep','Trenggalek','Tuban'];
+  var dl = document.getElementById('wfKabList');
+  if (dl) dl.innerHTML = KAB.map(function (k) { return '<option value="' + k + '">'; }).join('');
+
+  /* 1 truk = 11,52 m³ (angka resmi di halaman). Isi per m³ dihitung dari ukuran bata 60×20×tebal cm. */
+  var TRUK = 11.52;
+  function isiPerKubik(tebal) {
+    var t = parseFloat(String(tebal || '10').replace(',', '.')) / 100;
+    return Math.round(1 / (0.6 * 0.2 * t));
+  }
+
+  var st = {};
+  var asal = 'lain';
+  var terakhirFokus = null;
+
+  function $(sel) { return form.querySelector(sel); }
+  function pilih(nama, nilai) {
+    st[nama] = nilai;
+    var grup = form.querySelector('[data-wf-pilih="' + nama + '"]');
+    if (grup) grup.querySelectorAll('button').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-v') === nilai ? 'true' : 'false');
+    });
+    if (nama === 'produk') tampilJumlah();
+    hint();
+  }
+  function tampilJumlah() {
+    var p = st.produk;
+    $('[data-wf-q="bata"]').hidden = !(p === 'bata' || p === 'dua');
+    $('[data-wf-q="panel"]').hidden = !(p === 'panel' || p === 'dua');
+    $('[data-wf-q="kosong"]').hidden = !!p;
+  }
+  function hint() {
+    var el = $('[data-wf-hint="bata"]');
+    if (!el) return;
+    var tebal = st.tebal || '10 cm';
+    var isi = isiPerKubik(tebal);
+    el.innerHTML = '1 truk = <b>11,52 m³</b> &asymp; <b>' + Math.round(TRUK * isi).toLocaleString('id-ID') +
+      ' pcs</b> (tebal ' + tebal + '). Belum tahu? Pilih <b>m² dinding</b>, tulis luas dindingnya.';
+  }
+
+  form.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-wf-pilih] button');
+    if (b) {
+      var nama = b.closest('[data-wf-pilih]').getAttribute('data-wf-pilih');
+      var aktif = b.getAttribute('aria-pressed') === 'true';
+      /* chip tebal/bentang boleh dibatalkan (belum tahu); lainnya tidak */
+      pilih(nama, aktif && (nama === 'tebal' || nama === 'bentang') ? '' : b.getAttribute('data-v'));
+      var f = b.closest('.wf-f'); if (f) f.classList.remove('bad');
+      return;
+    }
+    if (e.target.closest('[data-wf-tutup]')) tutup();
+    if (e.target.closest('[data-wf-lewati]')) lewati();
+  });
+  form.addEventListener('input', function (e) {
+    var f = e.target.closest('.wf-f'); if (f) f.classList.remove('bad');
+  });
+  ov.addEventListener('click', function (e) { if (e.target === ov) tutup(); });
+  document.addEventListener('keydown', function (e) {
+    if (!ov.classList.contains('open')) return;
+    if (e.key === 'Escape') { tutup(); return; }
+    if (e.key === 'Tab') {
+      var fokus = Array.prototype.filter.call(form.querySelectorAll('button,input,summary'), function (el) { return el.offsetParent !== null; });
+      if (!fokus.length) return;
+      var awal = fokus[0], akhir = fokus[fokus.length - 1];
+      if (e.shiftKey && document.activeElement === awal) { e.preventDefault(); akhir.focus(); }
+      else if (!e.shiftKey && document.activeElement === akhir) { e.preventDefault(); awal.focus(); }
+    }
+  });
+
+  /* Baca konteks dari pesan bawaan tombol: produk, ukuran, wilayah */
+  function konteks(href) {
+    var teks = '';
+    try { teks = new URL(href, location.href).searchParams.get('text') || ''; } catch (err) {}
+    var k = {};
+    if (/panel lantai/i.test(teks)) k.produk = 'panel';
+    else if (/bata ringan|promo/i.test(teks)) k.produk = 'bata';
+    var m = teks.match(/tebal ([\d,]+ cm)/i); if (m) k.tebal = m[1];
+    m = teks.match(/bentang ([\d,]+ m)/i); if (m) k.bentang = m[1];
+    if (/promo|1 truk/i.test(teks)) { k.qtyBata = '1'; k.ubata = 'truk'; }
+    m = teks.match(/untuk area ([^.]+)\./i) || teks.match(/proyek di ([^.]+)\./i);
+    if (m && !/jawa timur/i.test(m[1])) k.kab = m[1].trim();
+    m = teks.match(/ongkos kirim BRICON ke ([^,]+), ([^.]+)\./i);
+    if (m) { k.kec = m[1].trim(); k.kab = m[2].replace(/^(Kab\.|Kabupaten|Kota)\s*/i, '').trim(); }
+    if (!k.kab && window.BRICON_KOTA && window.BRICON_KOTA !== 'Beranda') k.kab = window.BRICON_KOTA;
+    return k;
+  }
+
+  function muat() { try { return JSON.parse(localStorage.getItem(SIMPAN) || '{}') || {}; } catch (err) { return {}; } }
+  function simpan(d) { try { localStorage.setItem(SIMPAN, JSON.stringify(d)); } catch (err) {} }
+
+  function isi(sel, v) { var el = $(sel); if (el && v != null) el.value = v; }
+
+  function buka(a) {
+    asal = a.getAttribute('data-cta') || 'lain';
+    var lama = muat(), k = konteks(a.getAttribute('href'));
+    form.querySelectorAll('.wf-f.bad').forEach(function (f) { f.classList.remove('bad'); });
+    pilih('produk', k.produk || lama.produk || '');
+    pilih('tebal', k.tebal || lama.tebal || '');
+    pilih('bentang', k.bentang || lama.bentang || '');
+    pilih('ubata', k.ubata || lama.ubata || 'truk');
+    pilih('upanel', lama.upanel || 'lembar');
+    pilih('kapan', lama.kapan || '');
+    isi('[data-wf-qty="bata"]', k.qtyBata || lama.qtyBata || '');
+    isi('[data-wf-qty="panel"]', lama.qtyPanel || '');
+    isi('[data-wf-in="kab"]', k.kab || lama.kab || '');
+    isi('[data-wf-in="kec"]', k.kec || (k.kab && k.kab !== lama.kab ? '' : lama.kec) || '');
+    isi('[data-wf-in="nama"]', lama.nama || '');
+    isi('[data-wf-in="catatan"]', '');
+
+    terakhirFokus = document.activeElement;
+    ov.classList.add('open');
+    ov.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add('wf-lock');
+    form.scrollTop = 0;
+    setTimeout(function () {
+      var x = form.querySelector('.wf-x'); if (x) x.focus({ preventScroll: true });
+    }, 60);
+    if (typeof gtag === 'function') gtag('event', 'wa_form_buka', { cta_lokasi: asal, kota: window.BRICON_KOTA });
+  }
+  function tutup() {
+    ov.classList.remove('open');
+    ov.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('wf-lock');
+    if (terakhirFokus && terakhirFokus.focus) terakhirFokus.focus({ preventScroll: true });
+  }
+
+  function bukaWA(pesan) {
+    var url = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(pesan);
+    var w = window.open(url, '_blank', 'noopener');
+    if (!w) location.href = url;
+  }
+  function catat(titik) {
+    if (typeof trackWhatsAppConversion === 'function') trackWhatsAppConversion(titik);
+  }
+
+  function nilai(sel) { var el = $(sel); return el ? el.value.trim() : ''; }
+  function angkaOk(v) { return /\d/.test(v); }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var d = {
+      produk: st.produk, tebal: st.tebal, bentang: st.bentang, ubata: st.ubata, upanel: st.upanel, kapan: st.kapan,
+      qtyBata: nilai('[data-wf-qty="bata"]'), qtyPanel: nilai('[data-wf-qty="panel"]'),
+      kab: nilai('[data-wf-in="kab"]'), kec: nilai('[data-wf-in="kec"]'),
+      nama: nilai('[data-wf-in="nama"]'), catatan: nilai('[data-wf-in="catatan"]')
+    };
+    var pakaiBata = d.produk === 'bata' || d.produk === 'dua';
+    var pakaiPanel = d.produk === 'panel' || d.produk === 'dua';
+    var salah = [];
+    if (!d.produk) salah.push('produk');
+    else if ((pakaiBata && !angkaOk(d.qtyBata)) || (pakaiPanel && !angkaOk(d.qtyPanel))) salah.push('jumlah');
+    if (!d.kab || !d.kec) salah.push('lokasi');
+    if (!d.kapan) salah.push('kapan');
+    form.querySelectorAll('.wf-f').forEach(function (f) {
+      f.classList.toggle('bad', salah.indexOf(f.getAttribute('data-wf-f')) > -1);
+    });
+    if (salah.length) {
+      var pertama = form.querySelector('.wf-f.bad');
+      if (pertama) {
+        pertama.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        var inp = pertama.querySelector('input:not([value]),input');
+        if (inp && !inp.value && inp.offsetParent) inp.focus({ preventScroll: true });
+      }
+      return;
+    }
+
+    var baris = [];
+    baris.push('Halo Bricon Partner' + (d.nama ? ', saya ' + d.nama : '') + '. Saya mau pesan:');
+    if (pakaiBata) baris.push('• Bata Ringan' + (d.tebal ? ' tebal ' + d.tebal : '') + ': ' + d.qtyBata + ' ' + d.ubata);
+    if (pakaiPanel) baris.push('• Panel Lantai' + (d.bentang ? ' bentang ' + d.bentang : '') + ': ' + d.qtyPanel + ' ' + d.upanel);
+    baris.push('Kirim ke: ' + d.kec + ', ' + d.kab);
+    baris.push('Dibutuhkan: ' + d.kapan);
+    if (d.catatan) baris.push('Catatan: ' + d.catatan);
+    baris.push('');
+    baris.push('Mohon info harga sampai lokasi & jadwal kirimnya. Terima kasih.');
+
+    var ingat = {}; for (var key in d) if (key !== 'catatan') ingat[key] = d[key];
+    simpan(ingat);
+    catat(asal);
+    if (typeof gtag === 'function') gtag('event', 'wa_form_kirim', { cta_lokasi: asal, produk: d.produk, dibutuhkan: d.kapan, kota_kirim: d.kab });
+    bukaWA(baris.join('\n'));
+    tutup();
+  });
+
+  function lewati() {
+    var kab = nilai('[data-wf-in="kab"]');
+    catat(asal + '-tanpa-form');
+    bukaWA('Halo Bricon Partner, saya mau tanya-tanya dulu soal bata ringan / panel lantai BRICON' + (kab ? ' untuk daerah ' + kab : '') + '.');
+    tutup();
+  }
+
+  /* Cegat semua tombol WhatsApp di halaman (termasuk yang dibuat belakangan oleh skrip lain).
+     Capture di window supaya jalan sebelum pencatat klik lama: konversi baru dicatat saat form dikirim. */
+  window.addEventListener('click', function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var a = e.target.closest && e.target.closest('a[href*="wa.me/"]');
+    if (!a || form.contains(a)) return;
+    e.preventDefault();
+    e.stopPropagation();
+    var menu = document.getElementById('mobileMenu');
+    var toggle = document.getElementById('navToggle');
+    if (menu && toggle && menu.contains(a) && menu.classList.contains('open')) toggle.click();
+    buka(a);
+  }, true);
+})();
+</script>
 </body>
 </html>
