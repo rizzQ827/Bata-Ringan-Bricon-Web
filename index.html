@@ -2360,21 +2360,16 @@ p{margin:0}
     var semua     = false;
 
     /* ============================================================
-       SERAH TERIMA — wilayah terbatas / tidak dilayani (opsional)
-       Kosong secara default: fitur ini cuma "pipa"-nya, datanya sengaja
-       tidak diisi otomatis supaya tidak asal klaim ke pelanggan.
-
-       Cara isi: tambah objek { cari: 'kata kunci', pesan: 'catatan yang
-       tampil ke pengunjung' }. "cari" dicocokkan dengan cara yang sama
-       seperti pencarian kabupaten (huruf kecil, tanpa tanda baca).
-       Kalau ke depan datanya mau disatukan dengan Invoice Generator
-       (misalnya lewat tabel Supabase baru, contoh: service_area_notice),
-       ganti array statis ini jadi hasil fetch seperti pola di
-       segarkanHargaArea()/segarkanUlasan() pada blok skrip di atas —
-       strukturnya (cari/pesan) bisa dipakai langsung sebagai kolom tabel. */
-    var AREA_TERBATAS = [
-      // { cari: 'kepulauan kangean', pesan: 'Kepulauan Kangean & sekitarnya butuh pengecekan ongkos kirim manual — hubungi kami dulu via WhatsApp.' }
-    ];
+       CAKUPAN WILAYAH & BATAS KIRIM — dibaca dari tabel coverage_areas
+       (diatur di Invoice Generator → tab Cost → Cakupan). Tiga status:
+         layan → nama kecamatan/desa jadi kata kunci tambahan kartu kabupatennya
+         batas → kartunya tetap muncul + kotak kuning berisi catatan
+         tolak → wilayah dinyatakan tidak dilayani, pakai catatan sebagai alasan
+       Kalimat yang tampil: "<Nama wilayah> <catatan>", contoh
+       "Sangkapura ada di Pulau Bawean, belum kami layani."
+       Isi array ini datang dari database setelah halaman terbuka; kalau
+       database tidak terjangkau, array tetap kosong dan pencarian jalan normal. */
+    var AREA_TERBATAS = [];
 
     function bersih(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
 
@@ -2461,10 +2456,14 @@ p{margin:0}
       return { slug: slug, lain: lain, adaSlug: adaSlug };
     }
 
+    /* Cocok kalau ketikan memuat nama wilayahnya utuh, atau (minimal 4 huruf)
+       ketikan adalah awal nama wilayah itu — "sangka" sudah ketemu "Sangkapura". */
     function cekTerbatas(q) {
       for (var i = 0; i < AREA_TERBATAS.length; i++) {
         var kunci = bersih(AREA_TERBATAS[i].cari);
-        if (kunci && q.indexOf(kunci) !== -1) return AREA_TERBATAS[i];
+        if (!kunci) continue;
+        if ((' ' + q + ' ').indexOf(' ' + kunci + ' ') !== -1) return AREA_TERBATAS[i];
+        if (q.length >= 4 && kunci.indexOf(q) === 0) return AREA_TERBATAS[i];
       }
       return null;
     }
@@ -2555,8 +2554,18 @@ p{margin:0}
       var batasan = q ? cekTerbatas(q) : null;
       if (terbatas) {
         terbatas.hidden = !batasan;
-        if (terbatasP) terbatasP.textContent = batasan ? batasan.pesan : '';
+        if (terbatasP) {
+          terbatasP.textContent = '';
+          if (batasan) {
+            var bn = document.createElement('b');
+            bn.textContent = batasan.nama;
+            terbatasP.appendChild(bn);
+            terbatasP.appendChild(document.createTextNode(' ' + batasan.catatan));
+          }
+        }
       }
+      /* Wilayah yang ditolak: jangan sekaligus menawarkan chip "tetap kami kirim". */
+      if (batasan && batasan.status === 'tolak' && lainWrap) lainWrap.hidden = true;
 
       if (kosong) {
         kosong.hidden = !(q && ketemu === 0 && !batasan && !lain.length);
@@ -2570,6 +2579,34 @@ p{margin:0}
     }
     if (hapus) hapus.addEventListener('click', function () { input.value = ''; input.focus(); gambar(); });
     if (moreBtn) moreBtn.addEventListener('click', function () { semua = true; gambar(); });
+
+    /* Tarik data Cakupan Wilayah dari database (lihat penjelasan AREA_TERBATAS). */
+    if (typeof fetch === 'function') {
+      fetch('https://stfvhqexiftkwszihaxf.supabase.co/rest/v1/coverage_areas' +
+            '?select=slug,nama,status,catatan&is_aktif=eq.true', {
+        cache: 'no-store',
+        headers: {
+          apikey: 'sb_publishable_GDUpC76cdnPP4h3QMwbuvw_gsnaCXbr',
+          Authorization: 'Bearer sb_publishable_GDUpC76cdnPP4h3QMwbuvw_gsnaCXbr'
+        }
+      }).then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          if (!data || !data.length) return;
+          data.forEach(function (r) {
+            if (!r || !r.nama) return;
+            /* layan & batas: nama wilayah ikut jadi kata kunci kartu kabupatennya */
+            if (r.status !== 'tolak' && r.slug) {
+              var el = grid.querySelector('.kk[data-kota="' + r.slug + '"]');
+              if (el) el.setAttribute('data-cari', (el.getAttribute('data-cari') || '') + ' ' + bersih(r.nama));
+            }
+            if ((r.status === 'batas' || r.status === 'tolak') && r.catatan) {
+              AREA_TERBATAS.push({ cari: r.nama, nama: r.nama, catatan: String(r.catatan).trim(), status: r.status });
+            }
+          });
+          if (input && input.value) gambar();
+        })
+        .catch(function () {});
+    }
 
     var breakpoint = window.matchMedia ? window.matchMedia('(max-width:560px)') : null;
     if (breakpoint) {
@@ -2703,8 +2740,16 @@ p{margin:0}
     var slot = document.getElementById('testiFeatureSlot');
     var wrap = document.getElementById('daftarTestimoni');
     if (!wrap) return;
-    return ambil('testimonials?select=display_name,kabupaten,rating,quote,product' +
-                 '&is_published=eq.true&consent_name=eq.true&order=created_at.desc')
+    /* Daftar ulasan diambil lewat fungsi database ulasan_publik(): aturan
+       tampil (minimal bintang, jumlah maksimal, urutan, ulasan yang disematkan)
+       diatur dari Invoice Generator → tab Cost → Testimoni, bukan di file ini.
+       Kalau fungsi itu belum ada, jatuh ke cara lama (baca tabel langsung). */
+    return ambil('rpc/ulasan_publik')
+      .then(function (data) {
+        if (data) return data;
+        return ambil('testimonials?select=display_name,kabupaten,rating,quote,product' +
+                     '&is_published=eq.true&consent_name=eq.true&order=created_at.desc');
+      })
       .then(function (data) {
         if (!data || !data.length) return;   /* belum ada ulasan: section tetap tersembunyi */
         if (slot) slot.innerHTML = kartuUlasanUtama(data[0]);

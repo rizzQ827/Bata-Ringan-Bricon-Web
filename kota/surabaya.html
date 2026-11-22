@@ -2380,8 +2380,16 @@ p{margin:0}
     var slot = document.getElementById('testiFeatureSlot');
     var wrap = document.getElementById('daftarTestimoni');
     if (!wrap) return;
-    return ambil('testimonials?select=display_name,kabupaten,rating,quote,product' +
-                 '&is_published=eq.true&consent_name=eq.true&order=created_at.desc')
+    /* Daftar ulasan diambil lewat fungsi database ulasan_publik(): aturan
+       tampil (minimal bintang, jumlah maksimal, urutan, ulasan yang disematkan)
+       diatur dari Invoice Generator → tab Cost → Testimoni, bukan di file ini.
+       Kalau fungsi itu belum ada, jatuh ke cara lama (baca tabel langsung). */
+    return ambil('rpc/ulasan_publik')
+      .then(function (data) {
+        if (data) return data;
+        return ambil('testimonials?select=display_name,kabupaten,rating,quote,product' +
+                     '&is_published=eq.true&consent_name=eq.true&order=created_at.desc');
+      })
       .then(function (data) {
         if (!data || !data.length) return;
         if (slot) slot.innerHTML = kartuUlasanUtama(data[0]);

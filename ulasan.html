@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Halaman pribadi untuk pelanggan yang dikirimi link ulasan. Jangan diindeks Google. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#FAF9F6">
+<meta name="color-scheme" content="light">
+<title>Beri Ulasan — Bricon Partner</title>
+<meta name="description" content="Bagikan pengalamanmu memakai Bata Ringan & Panel Lantai BRICON dari Bricon Partner.">
+<meta property="og:title" content="Bagaimana pengalamanmu dengan Bricon Partner?">
+<meta property="og:description" content="Cukup 1 menit — beri bintang dan tulis pengalamanmu.">
+<meta property="og:image" content="https://bricon-partner.com/assets/og-image.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* ============================================================
+   ULASAN PELANGGAN — bricon-partner.com/ulasan?t=KODE
+   Link-nya dibuat di Invoice Generator (tab Cost → Testimoni → Buat Link
+   Ulasan). Satu link = satu ulasan. Ulasan yang masuk TIDAK langsung tayang
+   kecuali aturan "tayang otomatis" dinyalakan di Invoice Generator.
+   Warna mengikuti website: #FAF9F6 / #1C1C1E / #D42B2B (+ #F5C200)
+   ============================================================ */
+:root{
+  --bg:#FAF9F6; --surface:#FFFFFF; --ink:#1C1C1E; --text:#2A2A2E;
+  --muted:#5C5C63; --muted2:#8A8A92; --red:#D42B2B; --red-dark:#B71F1F;
+  --red-soft:#FCEDED; --yellow:#F5C200; --line:#E7E3DC; --line-strong:#D9D4CB;
+  --track:#F2EFE9;
+  --font:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sh-md:0 6px 18px rgba(28,28,30,.08),0 2px 6px rgba(28,28,30,.05);
+  --sh-red:0 8px 22px rgba(212,43,43,.28);
+  --ease:cubic-bezier(.25,1,.5,1);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--font);background:var(--bg);color:var(--text);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  min-height:100vh;min-height:100dvh;
+}
+a,button,label{-webkit-tap-highlight-color:transparent}
+.wrap{max-width:520px;margin:0 auto;padding:20px 16px 48px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+.top img{height:34px;width:auto;display:block}
+.top a.home{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none}
+
+/* Kepala gelap: sapaan + produk yang dibeli */
+.head{
+  background:var(--ink);color:#fff;border-radius:16px;padding:22px 20px 20px;
+  position:relative;overflow:hidden;
+}
+.head::after{
+  content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;
+  background:var(--yellow);opacity:.14;
+}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--yellow);display:flex;align-items:center;gap:8px;
+}
+.eyebrow .bar{width:18px;height:2px;background:var(--yellow);border-radius:2px}
+.head h1{font-size:clamp(1.35rem,5.4vw,1.7rem);line-height:1.25;margin:10px 0 6px;letter-spacing:-.02em;font-weight:800}
+.head p{margin:0;color:rgba(255,255,255,.72);font-size:14.5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.chip{
+  display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);
+  color:#fff;padding:5px 10px;border-radius:999px;
+}
+.chip svg{width:13px;height:13px}
+
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:16px;
+  padding:20px;margin-top:14px;box-shadow:var(--sh-md);
+}
+.step{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2)}
+.q{font-size:1.05rem;font-weight:700;color:var(--ink);margin:4px 0 12px;letter-spacing:-.01em}
+
+/* Bintang besar, mudah diketuk jempol */
+.stars{display:flex;gap:6px;justify-content:space-between;max-width:330px}
+.star{
+  flex:1;aspect-ratio:1;max-width:58px;border:none;background:none;padding:0;cursor:pointer;
+  color:var(--line-strong);transition:transform .18s var(--ease),color .15s;
+}
+.star svg{width:100%;height:100%;display:block}
+.star.on{color:var(--yellow)}
+.star:active{transform:scale(.9)}
+.star:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:8px}
+.star-word{margin-top:8px;min-height:24px;font-weight:700;color:var(--ink);font-size:15px}
+.star-word .n{font-family:var(--mono);color:var(--red);margin-right:6px}
+
+/* Pilihan cepat — mengisi kolom ulasan supaya pelanggan tidak bingung mulai dari mana */
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+.tag{
+  border:1px solid var(--line-strong);background:var(--surface);color:var(--text);
+  border-radius:999px;padding:7px 12px;font:600 13px/1.2 var(--font);cursor:pointer;
+  transition:all .15s;
+}
+.tag.on{border-color:var(--red);background:var(--red-soft);color:var(--red-dark)}
+textarea,input[type=text]{
+  width:100%;font:500 15px/1.55 var(--font);color:var(--ink);background:var(--bg);
+  border:1px solid var(--line-strong);border-radius:12px;padding:12px 14px;outline:none;
+  transition:border-color .15s,box-shadow .15s;
+}
+textarea{min-height:120px;resize:vertical}
+textarea:focus,input[type=text]:focus{border-color:var(--ink);box-shadow:0 0 0 3px rgba(28,28,30,.08)}
+.count{font-family:var(--mono);font-size:11px;color:var(--muted2);text-align:right;margin-top:5px}
+.count.warn{color:#B45309}
+.lbl{display:block;font-size:13px;font-weight:700;color:var(--ink);margin:16px 0 6px}
+.hint{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.5}
+
+.consent{display:flex;gap:10px;align-items:flex-start;margin-top:16px;cursor:pointer}
+.consent input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--red);flex-shrink:0}
+.consent span{font-size:13.5px;color:var(--text);line-height:1.5}
+.consent small{display:block;color:var(--muted2);font-size:12px;margin-top:2px}
+
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  border:none;border-radius:12px;padding:15px 20px;font:700 16px/1.2 var(--font);cursor:pointer;
+  text-decoration:none;transition:transform .15s var(--ease),background .15s,opacity .15s;
+}
+.btn-red{background:var(--red);color:#fff;box-shadow:var(--sh-red)}
+.btn-red:hover{background:var(--red-dark)}
+.btn-red:active{transform:scale(.98)}
+.btn-red[disabled]{opacity:.55;cursor:not-allowed;box-shadow:none}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong);margin-top:10px}
+.send{margin-top:18px}
+.err{
+  display:none;margin-top:12px;font-size:13.5px;color:#B91C1C;background:#FEF2F2;
+  border:1px solid #FECACA;border-radius:10px;padding:10px 12px;
+}
+.err.show{display:block}
+.fine{font-size:12px;color:var(--muted2);text-align:center;margin-top:14px;line-height:1.5}
+
+/* Layar status: memuat / selesai / link tidak berlaku */
+.state{text-align:center;padding:34px 22px}
+.state .ic{
+  width:64px;height:64px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;
+}
+.state .ic svg{width:30px;height:30px}
+.state .ic.ok{background:#DCFCE7;color:#0A7A38}
+.state .ic.no{background:var(--track);color:var(--muted)}
+.state h2{font-size:1.3rem;margin:0 0 8px;color:var(--ink);letter-spacing:-.01em}
+.state p{margin:0 auto;color:var(--muted);font-size:14.5px;max-width:360px}
+.state .btn{margin-top:20px}
+.spin{
+  width:30px;height:30px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--red);
+  margin:10px auto;animation:sp .8s linear infinite;
+}
+@keyframes sp{to{transform:rotate(360deg)}}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a href="/" aria-label="Bricon Partner — beranda"><img src="assets/images/bricon-partner-logo.svg" alt="BRICON Partner" width="924" height="243"></a>
+    <a class="home" href="/">bricon-partner.com</a>
+  </div>
+
+  <!-- Memuat -->
+  <div class="card state" id="vLoad">
+    <div class="spin" aria-hidden="true"></div>
+    <p>Menyiapkan halaman ulasan…</p>
+  </div>
+
+  <!-- Link tidak berlaku -->
+  <div class="card state" id="vNo" hidden>
+    <div class="ic no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></div>
+    <h2 id="noTitle">Link tidak ditemukan</h2>
+    <p id="noText">Coba buka lagi link yang kami kirim lewat WhatsApp, atau hubungi kami.</p>
+    <a class="btn btn-red" id="noWa" href="https://wa.me/6285184028183" target="_blank" rel="noopener">Hubungi via WhatsApp</a>
+    <a class="btn btn-ghost" href="/">Lihat website</a>
+  </div>
+
+  <!-- Formulir -->
+  <form id="vForm" hidden novalidate>
+    <div class="head">
+      <div class="eyebrow"><span class="bar"></span>Ulasan pelanggan</div>
+      <h1 id="hello">Terima kasih sudah order!</h1>
+      <p>Bagaimana pengalamanmu? Cukup 1 menit — ulasanmu membantu kami melayani lebih baik.</p>
+      <div class="chips" id="chips"></div>
+    </div>
+
+    <div class="card">
+      <div class="step">Langkah 1 dari 2</div>
+      <div class="q">Beri bintang untuk kami</div>
+      <div class="stars" id="stars" role="radiogroup" aria-label="Jumlah bintang"></div>
+      <div class="star-word" id="starWord" aria-live="polite"></div>
+    </div>
+
+    <div class="card">
+      <div class="step">Langkah 2 dari 2</div>
+      <div class="q">Ceritakan pengalamanmu</div>
+      <div class="tags" id="tags"></div>
+      <textarea id="quote" maxlength="600" placeholder="Contoh: Barang datang tepat waktu, bata rapi dan tidak banyak yang pecah. Adminnya juga responsif."></textarea>
+      <div class="count" id="count">0/600</div>
+
+      <label class="lbl" for="nama">Nama yang boleh ditampilkan</label>
+      <input type="text" id="nama" maxlength="60" autocomplete="name" placeholder="Contoh: Pak Hendra">
+      <div class="hint">Boleh nama panggilan atau inisial saja, misalnya "Pak H." atau "Bu Rina".</div>
+
+      <label class="consent">
+        <input type="checkbox" id="izin" checked>
+        <span>Ulasan ini boleh ditampilkan di website Bricon Partner
+          <small>Kalau tidak dicentang, ulasanmu tetap kami baca, tapi tidak ditampilkan ke publik.</small>
+        </span>
+      </label>
+
+      <button type="submit" class="btn btn-red send" id="send" disabled>Kirim Ulasan</button>
+      <div class="err" id="err" role="alert"></div>
+    </div>
+    <p class="fine">Nomor telepon dan alamatmu tidak pernah ditampilkan.</p>
+  </form>
+
+  <!-- Selesai -->
+  <div class="card state" id="vDone" hidden>
+    <div class="ic ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></div>
+    <h2>Terima kasih!</h2>
+    <p id="doneText">Ulasanmu sudah kami terima.</p>
+    <a class="btn btn-red" href="/">Lihat website Bricon Partner</a>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var SB_REST = 'https://stfvhqexiftkwszihaxf.supabase.co/rest/v1';
+  var SB_KEY  = 'sb_publishable_GDUpC76cdnPP4h3QMwbuvw_gsnaCXbr';
+  var WA      = '6285184028183';
+
+  function rpc(nama, isi) {
+    return fetch(SB_REST + '/rpc/' + nama, {
+      method: 'POST',
+      cache: 'no-store',
+      headers: {
+        apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(isi || {})
+    }).then(function (r) { return r.ok ? r.json() : null; });
+  }
+
+  function $(id) { return document.getElementById(id); }
+  function tampil(id) {
+    ['vLoad', 'vNo', 'vForm', 'vDone'].forEach(function (v) { $(v).hidden = (v !== id); });
+    window.scrollTo(0, 0);
+  }
+
+  var params = new URLSearchParams(location.search);
+  var token = (params.get('t') || '').trim();
+
+  function linkMati(judul, teks, nama) {
+    $('noTitle').textContent = judul;
+    $('noText').textContent = teks;
+    var pesan = 'Halo, saya' + (nama ? ' ' + nama : '') + ' mau memberi ulasan untuk Bricon Partner, tapi link-nya tidak bisa dibuka.';
+    $('noWa').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(pesan);
+    tampil('vNo');
+  }
+
+  var SVG_BINTANG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.4l2.94 5.96 6.58.96-4.76 4.64 1.12 6.55L12 17.42l-5.88 3.09 1.12-6.55L2.48 9.32l6.58-.96z"/></svg>';
+  var KATA = ['', 'Sangat kurang', 'Kurang', 'Cukup', 'Bagus', 'Luar biasa!'];
+  var rating = 0;
+
+  function gambarBintang() {
+    var tombol = $('stars').querySelectorAll('.star');
+    for (var i = 0; i < tombol.length; i++) {
+      tombol[i].classList.toggle('on', i < rating);
+      tombol[i].setAttribute('aria-checked', i + 1 === rating ? 'true' : 'false');
+    }
+    $('starWord').innerHTML = rating ? '<span class="n">' + rating + '/5</span>' + KATA[rating] : '';
+    cekSiap();
+  }
+
+  function buatBintang() {
+    var html = '';
+    for (var i = 1; i <= 5; i++) {
+      html += '<button type="button" class="star" role="radio" aria-checked="false" aria-label="' + i + ' bintang" data-n="' + i + '">' + SVG_BINTANG + '</button>';
+    }
+    $('stars').innerHTML = html;
+    $('stars').addEventListener('click', function (e) {
+      var b = e.target.closest('.star');
+      if (!b) return;
+      rating = Number(b.getAttribute('data-n'));
+      gambarBintang();
+    });
+  }
+
+  /* Pilihan cepat: ketuk untuk menambah kalimat ke kolom ulasan */
+  var TAG = [
+    'Pengiriman tepat waktu',
+    'Bata rapi & presisi',
+    'Sedikit yang pecah',
+    'Admin responsif',
+    'Harga bersaing',
+    'Sopir ramah'
+  ];
+  function buatTag() {
+    $('tags').innerHTML = TAG.map(function (t) {
+      return '<button type="button" class="tag" data-t="' + t + '">' + t + '</button>';
+    }).join('');
+    $('tags').addEventListener('click', function (e) {
+      var b = e.target.closest('.tag');
+      if (!b) return;
+      var t = b.getAttribute('data-t');
+      var q = $('quote');
+      if (b.classList.contains('on')) {
+        b.classList.remove('on');
+        q.value = q.value.replace(new RegExp('\\s*' + t.replace(/[.*+?^${}()|[\]\\&]/g, '\\$&') + '\\.?', ''), '').trim();
+      } else {
+        b.classList.add('on');
+        var v = q.value.trim();
+        q.value = v ? v.replace(/[.!]?$/, '.') + ' ' + t + '.' : t + '.';
+      }
+      hitung();
+    });
+  }
+
+  function hitung() {
+    var n = $('quote').value.trim().length;
+    var c = $('count');
+    c.textContent = n + '/600';
+    c.classList.toggle('warn', n > 0 && n < 10);
+    cekSiap();
+  }
+
+  function cekSiap() {
+    $('send').disabled = !(rating > 0 && $('quote').value.trim().length >= 10);
+  }
+
+  function salah(pesan) {
+    var e = $('err');
+    e.textContent = pesan;
+    e.classList.add('show');
+  }
+
+  function isiForm(info) {
+    var nama = info.nama || '';
+    $('hello').textContent = nama ? 'Halo, ' + nama + '!' : 'Terima kasih sudah order!';
+    $('nama').value = nama;
+    var chips = '';
+    if (info.produk) {
+      chips += '<span class="chip">' + (info.produk === 'panel' ? 'Panel Lantai BRICON' : 'Bata Ringan BRICON') + '</span>';
+    }
+    if (info.kabupaten) {
+      var div = document.createElement('div');
+      div.textContent = info.kabupaten;
+      chips += '<span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>' + div.innerHTML + '</span>';
+    }
+    $('chips').innerHTML = chips;
+    buatBintang();
+    buatTag();
+    $('quote').addEventListener('input', hitung);
+    tampil('vForm');
+  }
+
+  $('vForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    $('err').classList.remove('show');
+    var quote = $('quote').value.trim();
+    if (!rating) { salah('Pilih jumlah bintang dulu.'); return; }
+    if (quote.length < 10) { salah('Ulasannya terlalu pendek, minimal 10 huruf.'); return; }
+    var btn = $('send');
+    btn.disabled = true;
+    btn.textContent = 'Mengirim…';
+    rpc('ulasan_kirim', {
+      p_token: token, p_rating: rating, p_quote: quote,
+      p_nama: $('nama').value.trim(), p_izin: $('izin').checked
+    }).then(function (res) {
+      if (res && res.status === 'ok') {
+        $('doneText').textContent = res.tayang
+          ? 'Ulasanmu sudah kami terima dan akan tampil di website dalam beberapa saat.'
+          : (rating <= 3
+              ? 'Ulasanmu sudah kami terima. Masukanmu kami baca langsung dan jadi bahan perbaikan.'
+              : 'Ulasanmu sudah kami terima. Terima kasih sudah memilih Bricon Partner!');
+        tampil('vDone');
+        return;
+      }
+      btn.disabled = false;
+      btn.textContent = 'Kirim Ulasan';
+      if (res && res.status === 'used') linkMati('Ulasan sudah terkirim', 'Link ini sudah dipakai untuk mengirim ulasan. Terima kasih!');
+      else if (res && res.status === 'expired') linkMati('Link sudah kedaluwarsa', 'Minta link baru ke admin kami lewat WhatsApp, ya.');
+      else if (res && res.status === 'error') salah(res.pesan || 'Ada yang belum lengkap.');
+      else salah('Gagal mengirim. Cek koneksi internet lalu coba lagi.');
+    }).catch(function () {
+      btn.disabled = false;
+      btn.textContent = 'Kirim Ulasan';
+      salah('Gagal mengirim. Cek koneksi internet lalu coba lagi.');
+    });
+  });
+
+  if (!token) { linkMati('Link tidak lengkap', 'Buka halaman ini dari link yang kami kirim lewat WhatsApp, ya.'); return; }
+
+  rpc('ulasan_link_info', { p_token: token })
+    .then(function (info) {
+      if (!info) { linkMati('Halaman belum bisa dibuka', 'Cek koneksi internet lalu muat ulang halaman ini.'); return; }
+      if (info.status === 'ok') { isiForm(info); return; }
+      if (info.status === 'used') linkMati('Ulasan sudah terkirim', 'Terima kasih' + (info.nama ? ', ' + info.nama : '') + '! Ulasanmu sudah kami terima sebelumnya.', info.nama);
+      else if (info.status === 'expired') linkMati('Link sudah kedaluwarsa', 'Minta link baru ke admin kami lewat WhatsApp, ya.', info.nama);
+      else linkMati('Link tidak ditemukan', 'Coba buka lagi link yang kami kirim lewat WhatsApp, atau hubungi kami.');
+    })
+    .catch(function () { linkMati('Halaman belum bisa dibuka', 'Cek koneksi internet lalu muat ulang halaman ini.'); });
+})();
+</script>
+</body>
+</html>
