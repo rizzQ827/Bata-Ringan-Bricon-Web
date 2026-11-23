@@ -1287,14 +1287,14 @@ p{margin:0}
 
 </style>
 <style id="bpl-style">
-/* ── PRELOADER: ikon bata ⇄ panel, transisi slime (loop 10 detik) ── */
-#bpl{position:fixed;inset:0;z-index:2147483000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#FAF9F6;transition:opacity .5s ease,visibility 0s linear .5s}
-#bpl svg{width:min(46vw,190px);height:auto;display:block;overflow:visible;transition:transform .5s cubic-bezier(.5,0,.75,0)}
+/* ── PRELOADER: logo Bricon → bata → panel, transisi morph bentuk (loop 10 detik) ── */
+#bpl{position:fixed;inset:0;z-index:2147483000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:#FAF9F6;transition:opacity .45s ease,visibility 0s linear .45s}
+#bpl svg{width:min(52vw,210px);height:auto;display:block;overflow:visible;transition:transform .45s cubic-bezier(.5,0,.75,0)}
 #bpl .bpl-cap{position:relative;height:16px;width:180px;font:600 11px/16px ui-monospace,"JetBrains Mono",SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.22em;color:#5C5C63;text-transform:uppercase;text-align:center}
-#bpl .bpl-cap span{position:absolute;inset:0;transition:opacity .35s ease,filter .35s ease,transform .35s ease}
-#bpl .bpl-cap span.off{opacity:0;filter:blur(4px);transform:translateY(4px)}
+#bpl .bpl-cap span{position:absolute;inset:0;transition:opacity .3s ease,transform .3s ease}
+#bpl .bpl-cap span.off{opacity:0;transform:translateY(5px)}
 #bpl.bpl-out{opacity:0;visibility:hidden}
-#bpl.bpl-out svg{transform:scale(.6)}
+#bpl.bpl-out svg{transform:scale(.88)}
 html.bpl-lock,html.bpl-lock body{overflow:hidden}
 </style>
 <noscript><style>#bpl{display:none!important}</style></noscript>
@@ -1304,30 +1304,22 @@ html.bpl-lock,html.bpl-lock body{overflow:hidden}
 <div id="bpl" role="status" aria-live="polite" aria-label="Memuat halaman">
   <svg viewBox="0 0 400 400" aria-hidden="true" focusable="false">
     <defs>
-      <linearGradient id="bplFill" gradientUnits="userSpaceOnUse" x1="0" y1="60" x2="0" y2="340">
-        <stop offset="0" stop-color="#EC4B4B"/>
-        <stop offset="1" stop-color="#B71F1F"/>
-      </linearGradient>
-      <filter id="bplGoo" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="b"/>
-        <feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -11" result="goo"/>
-        <feGaussianBlur in="goo" stdDeviation="7" result="soft"/>
-        <feSpecularLighting in="soft" surfaceScale="5" specularConstant=".85" specularExponent="24" lighting-color="#fff" result="spec">
-          <fePointLight x="120" y="20" z="260"/>
-        </feSpecularLighting>
-        <feComposite in="spec" in2="goo" operator="in" result="shine"/>
-        <feComposite in="goo" in2="shine" operator="arithmetic" k1="0" k2="1" k3=".55" k4="0"/>
-      </filter>
+      <clipPath id="bplChipClip"><rect class="bpl-chip-r" x="118" y="220" width="0" height="56"/></clipPath>
+      <clipPath id="bplWordClip"><rect x="-10" y="280" width="490" height="120"/></clipPath>
     </defs>
-    <ellipse class="bpl-shadow" cx="200" cy="350" rx="150" ry="10" fill="#1C1C1E" opacity=".08"/>
-    <g filter="url(#bplGoo)" fill="url(#bplFill)"><g class="bpl-body"></g></g>
+    <g class="bpl-body" fill="#E31E1C"></g>
+    <g transform="translate(13.2 44.7) scale(.8)">
+      <g clip-path="url(#bplChipClip)"><path fill="#FFFFFF" fill-rule="evenodd" d="M133.6 224.3H324.5V259.2L311.4 272.3H120.5V237.4Z"/><path fill="#E31E1C" fill-rule="evenodd" d="M137.7 231.3H317.5V255.1L307.3 265.3H127.5V241.5Z"/><path fill="#FFFFFF" fill-rule="evenodd" d="M161.27 241.3L172.29 241.3A2.66 2.66 0 0 1 174.95 243.96L174.95 247.23A2.66 2.66 0 0 1 172.29 249.89L164.07 249.89L164.07 255.3L161.27 255.3ZM164.07 246.47A0.62 0.62 0 0 0 164.69 247.09L171.54 247.09A0.62 0.62 0 0 0 172.15 246.47L172.15 244.72A0.62 0.62 0 0 0 171.54 244.1L164.69 244.1A0.62 0.62 0 0 0 164.07 244.72ZM182.6 255.3L179.45 255.3L185.2 241.3L188.67 241.3L194.41 255.3L191.26 255.3L190.23 252.78L183.64 252.78ZM189.08 249.98L186.93 244.74L184.78 249.98ZM198.91 241.3L209.93 241.3A2.66 2.66 0 0 1 212.59 243.96L212.59 247.76A2.13 2.13 0 0 1 210.46 249.89L209.24 249.89L212.59 255.3L208.95 255.3L205.6 249.89L201.71 249.89L201.71 255.3L198.91 255.3ZM201.71 246.47A0.62 0.62 0 0 0 202.33 247.09L209.17 247.09A0.62 0.62 0 0 0 209.79 246.47L209.79 244.72A0.62 0.62 0 0 0 209.17 244.1L202.33 244.1A0.62 0.62 0 0 0 201.71 244.72ZM217.09 241.3L230.45 241.3L230.45 244.1L225.17 244.1L225.17 255.3L222.37 255.3L222.37 244.1L217.09 244.1ZM234.95 241.3L238.59 241.3L246.15 250.75L246.15 241.3L248.95 241.3L248.95 255.3L246.15 255.3L237.75 244.8L237.75 255.3L234.95 255.3ZM253.45 241.3L265.55 241.3L265.55 244.1L256.25 244.1L256.25 246.9L264.59 246.9L264.59 249.7L256.25 249.7L256.25 252.5L265.55 252.5L265.55 255.3L253.45 255.3ZM270.05 241.3L281.07 241.3A2.66 2.66 0 0 1 283.73 243.96L283.73 247.76A2.13 2.13 0 0 1 281.6 249.89L280.37 249.89L283.73 255.3L280.09 255.3L276.73 249.89L272.85 249.89L272.85 255.3L270.05 255.3ZM272.85 246.47A0.62 0.62 0 0 0 273.46 247.09L280.31 247.09A0.62 0.62 0 0 0 280.93 246.47L280.93 244.72A0.62 0.62 0 0 0 280.31 244.1L273.46 244.1A0.62 0.62 0 0 0 272.85 244.72Z"/></g>
+      <g clip-path="url(#bplWordClip)"><g class="bpl-word"><path fill="#141414" fill-rule="evenodd" d="M0 287.3L73 287.3A10 10 0 0 1 83 297.3L83 312.8A7 7 0 0 1 76 319.8L76 319.8L76 319.8A7 7 0 0 1 83 326.8L83 342.3A10 10 0 0 1 73 352.3L0 352.3ZM15 309.3A3 3 0 0 0 18 312.3L65 312.3A3 3 0 0 0 68 309.3L68 305.3A3 3 0 0 0 65 302.3L18 302.3A3 3 0 0 0 15 305.3ZM15 334.3A3 3 0 0 0 18 337.3L65 337.3A3 3 0 0 0 68 334.3L68 330.3A3 3 0 0 0 65 327.3L18 327.3A3 3 0 0 0 15 330.3ZM89 287.3L163 287.3A10 10 0 0 1 173 297.3L173 324.3A6 6 0 0 1 167 330.3L148.76 330.3L166 352.3L146 352.3L117 315.3L155 315.3A3 3 0 0 0 158 312.3L158 305.3A3 3 0 0 0 155 302.3L107 302.3A3 3 0 0 0 104 305.3L104 352.3L89 352.3ZM181 287.3L196 287.3L196 352.3L181 352.3ZM204 297.3A10 10 0 0 1 214 287.3L277 287.3L277 302.3L222 302.3A3 3 0 0 0 219 305.3L219 334.3A3 3 0 0 0 222 337.3L277 337.3L277 352.3L214 352.3A10 10 0 0 1 204 342.3ZM284 297.3A10 10 0 0 1 294 287.3L357 287.3A10 10 0 0 1 367 297.3L367 342.3A10 10 0 0 1 357 352.3L294 352.3A10 10 0 0 1 284 342.3ZM299 334.3A3 3 0 0 0 302 337.3L349 337.3A3 3 0 0 0 352 334.3L352 305.3A3 3 0 0 0 349 302.3L302 302.3A3 3 0 0 0 299 305.3ZM374 287.3L392 287.3L430 331.41L430 287.3L445 287.3L445 352.3L430 352.3L389 304.71L389 352.3L374 352.3ZM449.5 292.3A7.5 7.5 0 1 1 464.5 292.3A7.5 7.5 0 1 1 449.5 292.3ZM450.77 292.3A6.22 6.22 0 1 0 463.23 292.3A6.22 6.22 0 1 0 450.77 292.3ZM453.63 288.85L459.1 288.85A1.27 1.27 0 0 1 460.37 290.12L460.37 292.05A1.02 1.02 0 0 1 459.35 293.06L458.71 293.06L460.37 295.75L458.63 295.75L456.97 293.06L454.97 293.06L454.97 295.75L453.63 295.75ZM454.97 291.43A0.29 0.29 0 0 0 455.26 291.72L458.74 291.72A0.29 0.29 0 0 0 459.03 291.43L459.03 290.48A0.29 0.29 0 0 0 458.74 290.19L455.26 290.19A0.29 0.29 0 0 0 454.97 290.48ZM0 366.3L18.39 366.3A3.61 3.61 0 0 1 22 369.91L22 375.4A1.9 1.9 0 0 1 20.1 377.3L20.1 377.3L20.1 377.3A1.9 1.9 0 0 1 22 379.2L22 384.69A3.61 3.61 0 0 1 18.39 388.3L0 388.3ZM3.8 374.56A0.84 0.84 0 0 0 4.64 375.4L17.36 375.4A0.84 0.84 0 0 0 18.2 374.56L18.2 370.94A0.84 0.84 0 0 0 17.36 370.1L4.64 370.1A0.84 0.84 0 0 0 3.8 370.94ZM3.8 383.66A0.84 0.84 0 0 0 4.64 384.5L17.36 384.5A0.84 0.84 0 0 0 18.2 383.66L18.2 380.04A0.84 0.84 0 0 0 17.36 379.2L4.64 379.2A0.84 0.84 0 0 0 3.8 380.04ZM33.43 388.3L29.14 388.3L38.53 366.3L43.24 366.3L52.64 388.3L48.34 388.3L46.39 383.74L35.38 383.74ZM44.77 379.94L40.89 370.85L37 379.94ZM59.77 366.3L80.78 366.3L80.78 370.1L72.17 370.1L72.17 388.3L68.38 388.3L68.38 370.1L59.77 370.1ZM92.21 388.3L87.91 388.3L97.31 366.3L102.02 366.3L111.41 388.3L107.12 388.3L105.17 383.74L94.16 383.74ZM103.55 379.94L99.66 370.85L95.78 379.94ZM134.69 366.3L153.08 366.3A3.61 3.61 0 0 1 156.69 369.91L156.69 375.4A1.9 1.9 0 0 1 154.79 377.3L154.79 377.3L154.79 377.3A1.9 1.9 0 0 1 156.69 379.2L156.69 384.69A3.61 3.61 0 0 1 153.08 388.3L134.69 388.3ZM138.49 374.56A0.84 0.84 0 0 0 139.32 375.4L152.05 375.4A0.84 0.84 0 0 0 152.89 374.56L152.89 370.94A0.84 0.84 0 0 0 152.05 370.1L139.32 370.1A0.84 0.84 0 0 0 138.49 370.94ZM138.49 383.66A0.84 0.84 0 0 0 139.32 384.5L152.05 384.5A0.84 0.84 0 0 0 152.89 383.66L152.89 380.04A0.84 0.84 0 0 0 152.05 379.2L139.32 379.2A0.84 0.84 0 0 0 138.49 380.04ZM163.82 366.3L182.82 366.3L182.82 370.1L167.62 370.1L167.62 375.4L181.32 375.4L181.32 379.2L167.62 379.2L167.62 384.5L182.82 384.5L182.82 388.3L163.82 388.3ZM189.96 366.3L210.96 366.3L210.96 370.1L202.36 370.1L202.36 388.3L198.56 388.3L198.56 370.1L189.96 370.1ZM218.1 370.81A4.51 4.51 0 0 1 222.61 366.3L236.59 366.3A4.51 4.51 0 0 1 241.1 370.81L241.1 383.79A4.51 4.51 0 0 1 236.59 388.3L222.61 388.3A4.51 4.51 0 0 1 218.1 383.79ZM221.9 383.25A1.25 1.25 0 0 0 223.15 384.5L236.05 384.5A1.25 1.25 0 0 0 237.3 383.25L237.3 371.35A1.25 1.25 0 0 0 236.05 370.1L223.15 370.1A1.25 1.25 0 0 0 221.9 371.35ZM248.24 366.3L253.18 366.3L266.44 382.33L266.44 366.3L270.24 366.3L270.24 388.3L266.44 388.3L252.04 370.89L252.04 388.3L248.24 388.3ZM293.51 366.3L311.4 366.3A3.61 3.61 0 0 1 315.01 369.91L315.01 376.61A2.89 2.89 0 0 1 312.12 379.5L309.56 379.5L315.01 388.3L310.07 388.3L304.62 379.5L297.31 379.5L297.31 388.3L293.51 388.3ZM297.31 374.86A0.84 0.84 0 0 0 298.15 375.7L310.38 375.7A0.84 0.84 0 0 0 311.21 374.86L311.21 370.94A0.84 0.84 0 0 0 310.38 370.1L298.15 370.1A0.84 0.84 0 0 0 297.31 370.94ZM322.15 366.3L325.95 366.3L325.95 388.3L322.15 388.3ZM333.09 366.3L338.03 366.3L351.29 382.33L351.29 366.3L355.09 366.3L355.09 388.3L351.29 388.3L336.89 370.89L336.89 388.3L333.09 388.3ZM362.22 370.81A4.51 4.51 0 0 1 366.74 366.3L385.22 366.3L385.22 370.1L367.28 370.1A1.25 1.25 0 0 0 366.02 371.35L366.02 383.25A1.25 1.25 0 0 0 367.28 384.5L380.17 384.5A1.25 1.25 0 0 0 381.42 383.25L381.42 380L374.87 380L374.87 376.2L385.22 376.2L385.22 383.79A4.51 4.51 0 0 1 380.71 388.3L366.74 388.3A4.51 4.51 0 0 1 362.22 383.79ZM396.66 388.3L392.36 388.3L401.76 366.3L406.47 366.3L415.86 388.3L411.57 388.3L409.62 383.74L398.61 383.74ZM408 379.94L404.11 370.85L400.23 379.94ZM423 366.3L427.94 366.3L441.2 382.33L441.2 366.3L445 366.3L445 388.3L441.2 388.3L426.8 370.89L426.8 388.3L423 388.3Z"/></g></g>
+    </g>
   </svg>
-  <div class="bpl-cap"><span>Bata Ringan</span><span class="off">Panel Lantai</span></div>
+  <div class="bpl-cap"><span class="off">Bata Ringan</span><span class="off">Panel Lantai</span></div>
 </div>
 <script>
-/* Preloader Bricon — ikon diambil dari Invoice Generator (tab Bata Ringan & Panel Lantai).
-   Loop 10 detik: bata → panel → bata → panel, tiap ganti ikon meleleh jadi slime.
-   Tutup otomatis begitu window "load" (semua gambar, font, CSS, script selesai). */
+/* Preloader Bricon. Loop 10 detik: logo Bricon (square) → ikon Bata Ringan → ikon
+   Panel Lantai → kembali ke logo. Antar ikon berganti lewat morph bentuk (flat, tanpa
+   bayangan). Ikon bata & panel diambil dari Invoice Generator.
+   Preloader tertutup otomatis begitu window "load" (semua gambar, font, CSS, script). */
 (function () {
   var root = document.getElementById('bpl');
   if (!root) return;
@@ -1335,137 +1327,154 @@ html.bpl-lock,html.bpl-lock body{overflow:hidden}
   var doc = document.documentElement;
   doc.classList.add('bpl-lock');
 
-  var ICONS = [
-    [ // Bata Ringan
-      ['M194 226v73c0 11-9 20-20 20H20C9 319 0 310 0 299v-73c0-11 9-20 20-20h154c11 0 20 9 20 20z', 97, 263],
-      ['M400 226v73c0 11-9 20-20 20H226c-11 0-20-9-20-20v-73c0-11 9-20 20-20h154c11 0 20 9 20 20z', 303, 263],
-      ['M297 101v73c0 11-9 20-20 20H123c-11 0-20-9-20-20v-73c0-11 9-20 20-20h154c11 0 20 9 20 20z', 200, 138]
-    ],
-    [ // Panel Lantai
-      ['M380 81c11 0 20 9 20 20v198c0 11-9 20-20 20H20c-11 0-20-9-20-20v-56c0-3.5 1.8-6.7 4.8-8.5L252.8 82.5c1.6-1 3.4-1.5 5.3-1.5H380z', 200, 200],
-      ['M230 101c0-11 9-20 20-20h130c11 0 20 9 20 20v32c0 11-9 20-20 20h-38.3l-.3-.1L230 107.1V101z', 315, 117],
-      ['M2.7 253.6c-5.8-9.4-2.8-21.7 6.6-27.5L232.5 89.3c9.4-5.8 21.7-2.8 27.5 6.6l16.2 26.5c5.8 9.4 2.8 21.7-6.6 27.5L46.4 286.6c-9.4 5.8-21.7 2.8-27.5-6.6L2.7 253.6z', 139, 188],
-      ['M69 281c-8.3 0-15-6.7-15-15V91c0-8.3 6.7-15 15-15s15 6.7 15 15v175c0 8.3-6.7 15-15 15z', 69, 179],
-      ['M220 183h40v40h-40z', 240, 203],
-      ['M146 281c-8.3 0-15-6.7-15-15V91c0-8.3 6.7-15 15-15s15 6.7 15 15v175c0 8.3-6.7 15-15 15z', 146, 179],
-      ['M14 136c0-8.3 6.7-15 15-15h257c8.3 0 15 6.7 15 15s-6.7 15-15 15H29c-8.3 0-15-6.7-15-15z', 158, 136]
-    ]
+  var BATA = [
+    'M194 226v73c0 11-9 20-20 20H20C9 319 0 310 0 299v-73c0-11 9-20 20-20h154c11 0 20 9 20 20z',
+    'M400 226v73c0 11-9 20-20 20H226c-11 0-20-9-20-20v-73c0-11 9-20 20-20h154c11 0 20 9 20 20z',
+    'M297 101v73c0 11-9 20-20 20H123c-11 0-20-9-20-20v-73c0-11 9-20 20-20h154c11 0 20 9 20 20z'
   ];
+  var PANEL = [
+    'M380 81c11 0 20 9 20 20v198c0 11-9 20-20 20H20c-11 0-20-9-20-20v-56c0-3.5 1.8-6.7 4.8-8.5L252.8 82.5c1.6-1 3.4-1.5 5.3-1.5H380z',
+    'M230 101c0-11 9-20 20-20h130c11 0 20 9 20 20v32c0 11-9 20-20 20h-38.3l-.3-.1L230 107.1V101z',
+    'M2.7 253.6c-5.8-9.4-2.8-21.7 6.6-27.5L232.5 89.3c9.4-5.8 21.7-2.8 27.5 6.6l16.2 26.5c5.8 9.4 2.8 21.7-6.6 27.5L46.4 286.6c-9.4 5.8-21.7 2.8-27.5-6.6L2.7 253.6z',
+    'M69 281c-8.3 0-15-6.7-15-15V91c0-8.3 6.7-15 15-15s15 6.7 15 15v175c0 8.3-6.7 15-15 15z',
+    'M220 183h40v40h-40z',
+    'M146 281c-8.3 0-15-6.7-15-15V91c0-8.3 6.7-15 15-15s15 6.7 15 15v175c0 8.3-6.7 15-15 15z',
+    'M14 136c0-8.3 6.7-15 15-15h257c8.3 0 15 6.7 15 15s-6.7 15-15 15H29c-8.3 0-15-6.7-15-15z'
+  ];
+  var MARK = [ // logo Bricon Partner (square), bagian simbol "3" + "C"
+      'M160.18 0L98.61 27.71L274.03 54.02L274.03 249.08L70.54 218.56A3.18 3.18 0 0 1 67.82 215.41L67.82 168.19A1.27 1.27 0 0 1 68.79 166.96L113.21 155.85L82.95 169.47L222.28 190.37L222.28 157.72L70.54 134.96A3.18 3.18 0 0 1 67.82 131.81L67.82 106.09A1.27 1.27 0 0 1 68.79 104.85L113.21 93.75L82.95 107.36L222.28 128.26L222.28 96.42L70.54 73.66A3.18 3.18 0 0 1 67.82 70.51L67.82 24.08A1.27 1.27 0 0 1 68.79 22.85Z',
+      'M290.75 54.14L344.89 18.93L295.53 4.78L365.99 4.78A3.18 3.18 0 0 1 369.18 7.96L369.18 48.35A1.99 1.99 0 0 1 368.35 49.96L328.17 79.08L328.17 128.98L367.19 128.98A1.99 1.99 0 0 1 369.18 130.97L369.18 175.64A3.18 3.18 0 0 1 368.16 177.97L290.75 250Z',
+      'M328.17 132.17L354.45 140.13L328.17 162.48Z'
+  ];
+  // Tiap ikon dipecah jadi 7 kepingan yang sama, supaya bisa berubah bentuk satu sama lain.
+  // Angka = nomor bagian sumber di ikon itu (bagian yang sama dipakai >1 kali = kepingan menumpuk).
+  var PIECES = [
+    { src: MARK,  map: [0, 1, 0, 0, 2, 1, 0], s: 0.8, tx: 13.2, ty: 44.7 },  // 0 logo
+    { src: BATA,  map: [0, 1, 0, 0, 1, 2, 2], s: 1, tx: 0, ty: 0 },          // 1 bata
+    { src: PANEL, map: [0, 1, 2, 3, 4, 5, 6], s: 1, tx: 0, ty: 0 }           // 2 panel
+  ];
+  var N = 96, K = 7;
 
+  var svg = root.querySelector('svg');
   var body = root.querySelector('.bpl-body');
-  var blur = root.querySelector('feGaussianBlur');
-  var light = root.querySelector('fePointLight');
-  var shadow = root.querySelector('.bpl-shadow');
+  var chipR = root.querySelector('.bpl-chip-r');
+  var word = root.querySelector('.bpl-word');
   var caps = root.querySelectorAll('.bpl-cap span');
-  function el(tag, attrs, parent) {
-    var e = document.createElementNS(NS, tag);
-    for (var k in attrs) e.setAttribute(k, attrs[k]);
-    parent.appendChild(e);
-    return e;
-  }
 
-  var groups = ICONS.map(function (parts) {
-    var g = el('g', {}, body);
-    return parts.map(function (p) {
-      var pg = el('g', {}, g);
-      el('path', { d: p[0] }, pg);
-      return { g: pg, cx: p[1], cy: p[2] };
+  function sample(d, s, tx, ty) {
+    var p = document.createElementNS(NS, 'path');
+    p.setAttribute('d', d);
+    svg.appendChild(p);
+    var L = p.getTotalLength(), pts = [], i, area = 0;
+    for (i = 0; i < N; i++) {
+      var q = p.getPointAtLength(L * i / N);
+      pts.push([tx + q.x * s, ty + q.y * s]);
+    }
+    svg.removeChild(p);
+    for (i = 0; i < N; i++) { var a = pts[i], b = pts[(i + 1) % N]; area += a[0] * b[1] - b[0] * a[1]; }
+    if (area < 0) pts.reverse();
+    return pts;
+  }
+  function centroid(pts) {
+    var x = 0, y = 0;
+    for (var i = 0; i < pts.length; i++) { x += pts[i][0]; y += pts[i][1]; }
+    return [x / pts.length, y / pts.length];
+  }
+  // Bentuk tiap kepingan di tiap ikon
+  var SHAPES = PIECES.map(function (ic) {
+    var cache = {};
+    return ic.map.map(function (m) {
+      if (!cache[m]) { var pts = sample(ic.src[m], ic.s, ic.tx, ic.ty); cache[m] = { pts: pts, c: centroid(pts) }; }
+      return cache[m];
     });
   });
-  var blob = el('ellipse', { cx: 200, cy: 205, rx: 0, ry: 0 }, body);
-  var drops = [];
-  for (var j = 0; j < 6; j++) drops.push(el('circle', { cx: 200, cy: 205, r: 0 }, body));
-
-  var C = 200, CY = 205, SLOT = 2.5, HOLD = 1.1, MORPH = SLOT - HOLD;
-  function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
-  function easeIn(p) { return p * p * p; }
-  function elastic(p) {
-    if (p <= 0) return 0;
-    if (p >= 1) return 1;
-    return Math.pow(2, -7 * p) * Math.sin((p * 7 - 0.75) * (2 * Math.PI / 3)) + 1;
-  }
-  function place(part, dx, dy, sc) {
-    if (sc <= 0.001) { part.g.setAttribute('transform', 'scale(0)'); return; }
-    part.g.setAttribute('transform',
-      'translate(' + (part.cx + dx).toFixed(2) + ' ' + (part.cy + dy).toFixed(2) + ') scale(' + sc.toFixed(4) +
-      ') translate(' + (-part.cx) + ' ' + (-part.cy) + ')');
-  }
-  function stagger(i, n, span) { return n > 1 ? (i / (n - 1)) * span : 0; }
-
-  var capShown = -1;
-  function setCap(i) {
-    if (i === capShown) return;
-    capShown = i;
-    caps[0].className = i === 0 ? '' : 'off';
-    caps[1].className = i === 1 ? '' : 'off';
-  }
-
-  function frame(t) {
-    var T = t % 10, k = Math.floor(T / SLOT), s = T - k * SLOT;
-    var cur = k % 2, nxt = 1 - cur;
-    var sd = 4, blobR = 0, u = 0;
-
-    if (s < HOLD) {
-      // Diam sebentar: slime "bernafas" — sedikit mengembang-mengempis.
-      var w = Math.sin(Math.PI * s / HOLD) * Math.sin(2 * Math.PI * s * 1.8);
-      groups[cur].forEach(function (p, i) {
-        var bob = Math.sin(Math.PI * s / HOLD) * Math.sin(2 * Math.PI * (s * 1.4) + i * 1.3);
-        place(p, 0, -5 * bob, 1 + 0.035 * w);
-      });
-      groups[nxt].forEach(function (p) { place(p, 0, 0, 0); });
-      setCap(cur);
-    } else {
-      // Meleleh: ikon lama tersedot jadi gumpalan, ikon baru memantul keluar.
-      u = (s - HOLD) / MORPH;
-      var o = groups[cur], n = groups[nxt];
-      o.forEach(function (p, i) {
-        var e = easeIn(clamp((u - stagger(i, o.length, 0.12)) / 0.45));
-        place(p, (C - p.cx) * e, (CY - p.cy) * e, e >= 1 ? 0 : 1 - 0.9 * e);
-      });
-      n.forEach(function (p, i) {
-        // potongan kecil keluar duluan, badan utama paling akhir
-        var e = elastic(clamp((u - 0.38 - stagger(n.length - 1 - i, n.length, 0.07)) / 0.55));
-        var sc = e < 1 ? e : 1 + (e - 1) * 0.6;
-        place(p, (C - p.cx) * (1 - e), (CY - p.cy) * (1 - e), Math.max(0, sc));
-      });
-      sd = 4 + 12 * Math.sin(Math.PI * u);
-      setCap(u < 0.5 ? cur : nxt);
+  // Pasangkan titik antar-bentuk supaya morph tidak "terpelintir"
+  function bestOffset(A, B) {
+    var best = 0, bestD = Infinity;
+    for (var k = 0; k < N; k += 2) {
+      var dsum = 0;
+      for (var i = 0; i < N; i += 3) {
+        var a = A.pts[i], b = B.pts[(i + k) % N];
+        var dx = (a[0] - A.c[0]) - (b[0] - B.c[0]), dy = (a[1] - A.c[1]) - (b[1] - B.c[1]);
+        dsum += dx * dx + dy * dy;
+      }
+      if (dsum < bestD) { bestD = dsum; best = k; }
     }
+    return best;
+  }
+  var OFF = {};
+  [[0, 1], [1, 2], [2, 0]].forEach(function (pr) {
+    OFF[pr[0] + '' + pr[1]] = SHAPES[pr[0]].map(function (A, i) { return bestOffset(A, SHAPES[pr[1]][i]); });
+  });
 
-    // Gumpalan tengah + percikan tetes yang lepas lalu ditarik balik.
-    var bump = Math.pow(Math.sin(Math.PI * clamp((u - 0.08) / 0.82)), 0.7);
-    blobR = 105 * bump;
-    var wob = 0.22 * Math.sin(u * 4 * Math.PI);
-    blob.setAttribute('rx', (blobR * (1 + wob)).toFixed(2));
-    blob.setAttribute('ry', (blobR * (1 - wob)).toFixed(2));
-    blob.setAttribute('transform', 'rotate(' + (k * 45) + ' ' + C + ' ' + CY + ')');
-    var d = Math.sin(Math.PI * clamp((u - 0.12) / 0.72));
-    drops.forEach(function (c, j) {
-      var a = (j * 60 + k * 27 + 15) * Math.PI / 180;
-      var reach = (0.75 + ((j * 37 + k * 11) % 7) / 14) * 215 * Math.pow(d, 0.85);
-      c.setAttribute('cx', (C + Math.cos(a) * reach).toFixed(2));
-      c.setAttribute('cy', (CY + Math.sin(a) * reach).toFixed(2));
-      c.setAttribute('r', (19 * d * (0.7 + (j % 3) * 0.2)).toFixed(2));
-    });
+  var paths = [];
+  for (var i = 0; i < K; i++) { var p = document.createElementNS(NS, 'path'); body.appendChild(p); paths.push(p); }
 
-    blur.setAttribute('stdDeviation', sd.toFixed(2));
-    light.setAttribute('x', (200 + 170 * Math.sin(t * 0.9)).toFixed(1));
-    var sq = 1 - 0.35 * Math.sin(Math.PI * u);
-    shadow.setAttribute('rx', (150 * sq).toFixed(1));
-    shadow.setAttribute('opacity', (0.08 * sq).toFixed(3));
+  function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function inOut(p) { return p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; }
+  function outBack(p) { var c = 1.6; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); }
+
+  function draw(i, A, B, off, e, rot, grow, gc) {
+    var cx = A.c[0] + (B.c[0] - A.c[0]) * e, cy = A.c[1] + (B.c[1] - A.c[1]) * e;
+    var cs = Math.cos(rot), sn = Math.sin(rot), d = '';
+    for (var j = 0; j < N; j++) {
+      var a = A.pts[j], b = B.pts[(j + off) % N];
+      var x = a[0] + (b[0] - a[0]) * e - cx, y = a[1] + (b[1] - a[1]) * e - cy;
+      var X = cx + x * cs - y * sn, Y = cy + x * sn + y * cs;
+      if (grow !== 1) { X = gc[0] + (X - gc[0]) * grow; Y = gc[1] + (Y - gc[1]) * grow; }
+      d += (j ? 'L' : 'M') + X.toFixed(1) + ' ' + Y.toFixed(1);
+    }
+    paths[i].setAttribute('d', d + 'Z');
   }
 
-  // Mulai sedikit sebelum transisi pertama, supaya efek slime langsung kelihatan.
-  var START = 0.95, MIN_MS = 1600, MAX_MS = 12000;
+  // Urutan 10 detik: [diam, morph] untuk logo → bata → panel → logo
+  var SEQ = [[0, 2.8, 0.9], [1, 2.2, 0.9], [2, 2.2, 1.0]];
+  var LOGO_C = [200, 145];
+  var capShown = -1;
+  function setCap(s) {
+    if (s === capShown) return;
+    capShown = s;
+    caps[0].className = s === 1 ? '' : 'off';
+    caps[1].className = s === 2 ? '' : 'off';
+  }
+
+  function frame(t, intro) {
+    var T = t % 10, acc = 0, cur = 0, u = -1;
+    for (var k = 0; k < SEQ.length; k++) {
+      var h = SEQ[k][1], m = SEQ[k][2];
+      if (T < acc + h) { cur = SEQ[k][0]; break; }
+      if (T < acc + h + m) { cur = SEQ[k][0]; u = (T - acc - h) / m; break; }
+      acc += h + m;
+    }
+    var nxt = (cur + 1) % 3, A = SHAPES[cur], B = SHAPES[nxt], off = OFF[cur + '' + nxt];
+    var grow = intro < 0.55 ? outBack(clamp(intro / 0.55)) : 1;
+    for (var i = 0; i < K; i++) {
+      if (u < 0) { draw(i, A[i], A[i], 0, 0, 0, grow, LOGO_C); continue; }
+      var p = inOut(clamp((u - i * 0.04) / 0.76));
+      var rot = Math.sin(Math.PI * p) * (i % 2 ? -1 : 1) * 0.12;
+      draw(i, A[i], B[i], off[i], p, rot, 1, LOGO_C);
+    }
+    setCap(u < 0 ? cur : (u < 0.5 ? cur : nxt));
+
+    // Chip "PARTNER" (wipe kiri→kanan) & tulisan BRICON (naik dari bawah)
+    var chip = T >= 9.55 ? (T - 9.55) / 0.4 : T < 2.4 ? 1 : 1 - (T - 2.4) / 0.3;
+    var wd = T >= 9.7 ? (T - 9.7) / 0.45 : T < 0.15 ? (T + 0.3) / 0.45 : T < 2.35 ? 1 : 1 - (T - 2.35) / 0.3;
+    if (intro < 2) { chip = Math.min(chip, (intro - 0.35) / 0.45); wd = Math.min(wd, (intro - 0.5) / 0.5); }
+    chipR.setAttribute('width', (210 * inOut(clamp(chip))).toFixed(1));
+    word.setAttribute('transform', 'translate(0 ' + (130 * (1 - inOut(clamp(wd)))).toFixed(1) + ')');
+  }
+
+  var MIN_MS = 1800, MAX_MS = 12000;
   var t0 = performance.now(), raf = 0, done = false;
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   function loop(now) {
-    var t = (now - t0) / 1000;
-    frame(reduce ? (Math.floor((t + START) / SLOT) * SLOT) : t + START);
+    var e = (now - t0) / 1000;
+    if (reduce) frame(e < 3.7 ? 0 : e < 6.8 ? 3.7 : 6.8, 9);
+    else frame(e, e);
     raf = requestAnimationFrame(loop);
   }
+  frame(0, 0);
   raf = requestAnimationFrame(loop);
-  frame(START);
 
   function finish() {
     if (done) return;
@@ -1475,7 +1484,7 @@ html.bpl-lock,html.bpl-lock body{overflow:hidden}
     setTimeout(function () {
       cancelAnimationFrame(raf);
       if (root.parentNode) root.parentNode.removeChild(root);
-    }, 600);
+    }, 550);
   }
   function ready() { setTimeout(finish, Math.max(0, MIN_MS - (performance.now() - t0))); }
   if (window.BPL_PREVIEW) return;                 // halaman preview: loop terus
