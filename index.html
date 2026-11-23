@@ -1286,8 +1286,204 @@ p{margin:0}
 }
 
 </style>
+<style id="bpl-style">
+/* ── PRELOADER: ikon bata ⇄ panel, transisi slime (loop 10 detik) ── */
+#bpl{position:fixed;inset:0;z-index:2147483000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#FAF9F6;transition:opacity .5s ease,visibility 0s linear .5s}
+#bpl svg{width:min(46vw,190px);height:auto;display:block;overflow:visible;transition:transform .5s cubic-bezier(.5,0,.75,0)}
+#bpl .bpl-cap{position:relative;height:16px;width:180px;font:600 11px/16px ui-monospace,"JetBrains Mono",SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.22em;color:#5C5C63;text-transform:uppercase;text-align:center}
+#bpl .bpl-cap span{position:absolute;inset:0;transition:opacity .35s ease,filter .35s ease,transform .35s ease}
+#bpl .bpl-cap span.off{opacity:0;filter:blur(4px);transform:translateY(4px)}
+#bpl.bpl-out{opacity:0;visibility:hidden}
+#bpl.bpl-out svg{transform:scale(.6)}
+html.bpl-lock,html.bpl-lock body{overflow:hidden}
+</style>
+<noscript><style>#bpl{display:none!important}</style></noscript>
 </head>
 <body>
+<!-- ═══ PRELOADER — tampil sampai semua elemen & aset selesai dimuat ═══ -->
+<div id="bpl" role="status" aria-live="polite" aria-label="Memuat halaman">
+  <svg viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="bplFill" gradientUnits="userSpaceOnUse" x1="0" y1="60" x2="0" y2="340">
+        <stop offset="0" stop-color="#EC4B4B"/>
+        <stop offset="1" stop-color="#B71F1F"/>
+      </linearGradient>
+      <filter id="bplGoo" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="b"/>
+        <feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -11" result="goo"/>
+        <feGaussianBlur in="goo" stdDeviation="7" result="soft"/>
+        <feSpecularLighting in="soft" surfaceScale="5" specularConstant=".85" specularExponent="24" lighting-color="#fff" result="spec">
+          <fePointLight x="120" y="20" z="260"/>
+        </feSpecularLighting>
+        <feComposite in="spec" in2="goo" operator="in" result="shine"/>
+        <feComposite in="goo" in2="shine" operator="arithmetic" k1="0" k2="1" k3=".55" k4="0"/>
+      </filter>
+    </defs>
+    <ellipse class="bpl-shadow" cx="200" cy="350" rx="150" ry="10" fill="#1C1C1E" opacity=".08"/>
+    <g filter="url(#bplGoo)" fill="url(#bplFill)"><g class="bpl-body"></g></g>
+  </svg>
+  <div class="bpl-cap"><span>Bata Ringan</span><span class="off">Panel Lantai</span></div>
+</div>
+<script>
+/* Preloader Bricon — ikon diambil dari Invoice Generator (tab Bata Ringan & Panel Lantai).
+   Loop 10 detik: bata → panel → bata → panel, tiap ganti ikon meleleh jadi slime.
+   Tutup otomatis begitu window "load" (semua gambar, font, CSS, script selesai). */
+(function () {
+  var root = document.getElementById('bpl');
+  if (!root) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  var doc = document.documentElement;
+  doc.classList.add('bpl-lock');
+
+  var ICONS = [
+    [ // Bata Ringan
+      ['M194 226v73c0 11-9 20-20 20H20C9 319 0 310 0 299v-73c0-11 9-20 20-20h154c11 0 20 9 20 20z', 97, 263],
+      ['M400 226v73c0 11-9 20-20 20H226c-11 0-20-9-20-20v-73c0-11 9-20 20-20h154c11 0 20 9 20 20z', 303, 263],
+      ['M297 101v73c0 11-9 20-20 20H123c-11 0-20-9-20-20v-73c0-11 9-20 20-20h154c11 0 20 9 20 20z', 200, 138]
+    ],
+    [ // Panel Lantai
+      ['M380 81c11 0 20 9 20 20v198c0 11-9 20-20 20H20c-11 0-20-9-20-20v-56c0-3.5 1.8-6.7 4.8-8.5L252.8 82.5c1.6-1 3.4-1.5 5.3-1.5H380z', 200, 200],
+      ['M230 101c0-11 9-20 20-20h130c11 0 20 9 20 20v32c0 11-9 20-20 20h-38.3l-.3-.1L230 107.1V101z', 315, 117],
+      ['M2.7 253.6c-5.8-9.4-2.8-21.7 6.6-27.5L232.5 89.3c9.4-5.8 21.7-2.8 27.5 6.6l16.2 26.5c5.8 9.4 2.8 21.7-6.6 27.5L46.4 286.6c-9.4 5.8-21.7 2.8-27.5-6.6L2.7 253.6z', 139, 188],
+      ['M69 281c-8.3 0-15-6.7-15-15V91c0-8.3 6.7-15 15-15s15 6.7 15 15v175c0 8.3-6.7 15-15 15z', 69, 179],
+      ['M220 183h40v40h-40z', 240, 203],
+      ['M146 281c-8.3 0-15-6.7-15-15V91c0-8.3 6.7-15 15-15s15 6.7 15 15v175c0 8.3-6.7 15-15 15z', 146, 179],
+      ['M14 136c0-8.3 6.7-15 15-15h257c8.3 0 15 6.7 15 15s-6.7 15-15 15H29c-8.3 0-15-6.7-15-15z', 158, 136]
+    ]
+  ];
+
+  var body = root.querySelector('.bpl-body');
+  var blur = root.querySelector('feGaussianBlur');
+  var light = root.querySelector('fePointLight');
+  var shadow = root.querySelector('.bpl-shadow');
+  var caps = root.querySelectorAll('.bpl-cap span');
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    parent.appendChild(e);
+    return e;
+  }
+
+  var groups = ICONS.map(function (parts) {
+    var g = el('g', {}, body);
+    return parts.map(function (p) {
+      var pg = el('g', {}, g);
+      el('path', { d: p[0] }, pg);
+      return { g: pg, cx: p[1], cy: p[2] };
+    });
+  });
+  var blob = el('ellipse', { cx: 200, cy: 205, rx: 0, ry: 0 }, body);
+  var drops = [];
+  for (var j = 0; j < 6; j++) drops.push(el('circle', { cx: 200, cy: 205, r: 0 }, body));
+
+  var C = 200, CY = 205, SLOT = 2.5, HOLD = 1.1, MORPH = SLOT - HOLD;
+  function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function easeIn(p) { return p * p * p; }
+  function elastic(p) {
+    if (p <= 0) return 0;
+    if (p >= 1) return 1;
+    return Math.pow(2, -7 * p) * Math.sin((p * 7 - 0.75) * (2 * Math.PI / 3)) + 1;
+  }
+  function place(part, dx, dy, sc) {
+    if (sc <= 0.001) { part.g.setAttribute('transform', 'scale(0)'); return; }
+    part.g.setAttribute('transform',
+      'translate(' + (part.cx + dx).toFixed(2) + ' ' + (part.cy + dy).toFixed(2) + ') scale(' + sc.toFixed(4) +
+      ') translate(' + (-part.cx) + ' ' + (-part.cy) + ')');
+  }
+  function stagger(i, n, span) { return n > 1 ? (i / (n - 1)) * span : 0; }
+
+  var capShown = -1;
+  function setCap(i) {
+    if (i === capShown) return;
+    capShown = i;
+    caps[0].className = i === 0 ? '' : 'off';
+    caps[1].className = i === 1 ? '' : 'off';
+  }
+
+  function frame(t) {
+    var T = t % 10, k = Math.floor(T / SLOT), s = T - k * SLOT;
+    var cur = k % 2, nxt = 1 - cur;
+    var sd = 4, blobR = 0, u = 0;
+
+    if (s < HOLD) {
+      // Diam sebentar: slime "bernafas" — sedikit mengembang-mengempis.
+      var w = Math.sin(Math.PI * s / HOLD) * Math.sin(2 * Math.PI * s * 1.8);
+      groups[cur].forEach(function (p, i) {
+        var bob = Math.sin(Math.PI * s / HOLD) * Math.sin(2 * Math.PI * (s * 1.4) + i * 1.3);
+        place(p, 0, -5 * bob, 1 + 0.035 * w);
+      });
+      groups[nxt].forEach(function (p) { place(p, 0, 0, 0); });
+      setCap(cur);
+    } else {
+      // Meleleh: ikon lama tersedot jadi gumpalan, ikon baru memantul keluar.
+      u = (s - HOLD) / MORPH;
+      var o = groups[cur], n = groups[nxt];
+      o.forEach(function (p, i) {
+        var e = easeIn(clamp((u - stagger(i, o.length, 0.12)) / 0.45));
+        place(p, (C - p.cx) * e, (CY - p.cy) * e, e >= 1 ? 0 : 1 - 0.9 * e);
+      });
+      n.forEach(function (p, i) {
+        // potongan kecil keluar duluan, badan utama paling akhir
+        var e = elastic(clamp((u - 0.38 - stagger(n.length - 1 - i, n.length, 0.07)) / 0.55));
+        var sc = e < 1 ? e : 1 + (e - 1) * 0.6;
+        place(p, (C - p.cx) * (1 - e), (CY - p.cy) * (1 - e), Math.max(0, sc));
+      });
+      sd = 4 + 12 * Math.sin(Math.PI * u);
+      setCap(u < 0.5 ? cur : nxt);
+    }
+
+    // Gumpalan tengah + percikan tetes yang lepas lalu ditarik balik.
+    var bump = Math.pow(Math.sin(Math.PI * clamp((u - 0.08) / 0.82)), 0.7);
+    blobR = 105 * bump;
+    var wob = 0.22 * Math.sin(u * 4 * Math.PI);
+    blob.setAttribute('rx', (blobR * (1 + wob)).toFixed(2));
+    blob.setAttribute('ry', (blobR * (1 - wob)).toFixed(2));
+    blob.setAttribute('transform', 'rotate(' + (k * 45) + ' ' + C + ' ' + CY + ')');
+    var d = Math.sin(Math.PI * clamp((u - 0.12) / 0.72));
+    drops.forEach(function (c, j) {
+      var a = (j * 60 + k * 27 + 15) * Math.PI / 180;
+      var reach = (0.75 + ((j * 37 + k * 11) % 7) / 14) * 215 * Math.pow(d, 0.85);
+      c.setAttribute('cx', (C + Math.cos(a) * reach).toFixed(2));
+      c.setAttribute('cy', (CY + Math.sin(a) * reach).toFixed(2));
+      c.setAttribute('r', (19 * d * (0.7 + (j % 3) * 0.2)).toFixed(2));
+    });
+
+    blur.setAttribute('stdDeviation', sd.toFixed(2));
+    light.setAttribute('x', (200 + 170 * Math.sin(t * 0.9)).toFixed(1));
+    var sq = 1 - 0.35 * Math.sin(Math.PI * u);
+    shadow.setAttribute('rx', (150 * sq).toFixed(1));
+    shadow.setAttribute('opacity', (0.08 * sq).toFixed(3));
+  }
+
+  // Mulai sedikit sebelum transisi pertama, supaya efek slime langsung kelihatan.
+  var START = 0.95, MIN_MS = 1600, MAX_MS = 12000;
+  var t0 = performance.now(), raf = 0, done = false;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function loop(now) {
+    var t = (now - t0) / 1000;
+    frame(reduce ? (Math.floor((t + START) / SLOT) * SLOT) : t + START);
+    raf = requestAnimationFrame(loop);
+  }
+  raf = requestAnimationFrame(loop);
+  frame(START);
+
+  function finish() {
+    if (done) return;
+    done = true;
+    root.classList.add('bpl-out');
+    doc.classList.remove('bpl-lock');
+    setTimeout(function () {
+      cancelAnimationFrame(raf);
+      if (root.parentNode) root.parentNode.removeChild(root);
+    }, 600);
+  }
+  function ready() { setTimeout(finish, Math.max(0, MIN_MS - (performance.now() - t0))); }
+  if (window.BPL_PREVIEW) return;                 // halaman preview: loop terus
+  if (document.readyState === 'complete') ready();
+  else window.addEventListener('load', ready);
+  setTimeout(finish, MAX_MS);                     // pengaman kalau ada aset yang macet
+})();
+</script>
 <a class="skip" href="#materi">Lewati ke konten utama</a>
 
 <!-- Ikon dipakai berulang lewat sprite <use> — file tetap ringan walau ikonnya banyak. -->
