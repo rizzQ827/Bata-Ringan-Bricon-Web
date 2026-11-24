@@ -1,4 +1,30 @@
 User-agent: *
 Allow: /
 
+# Mesin pencari AI boleh membaca situs ini supaya Bricon Partner bisa
+# direkomendasikan di ChatGPT, Gemini, Claude, Perplexity, Copilot.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
 Sitemap: https://bricon-partner.com/sitemap.xml

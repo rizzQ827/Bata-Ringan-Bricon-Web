@@ -1,0 +1,12 @@
+# Aturan header untuk Cloudflare Pages.
+# Gambar, ikon & skrip disimpan di browser pengunjung 30 hari, jadi kunjungan
+# kedua jauh lebih cepat. Ganti nama file / ?v= kalau gambar diganti.
+/assets/*
+  Cache-Control: public, max-age=2592000
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
