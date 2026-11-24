@@ -1035,11 +1035,14 @@ p{margin:0}
   padding:12px 20px;border-radius:var(--r-sm);
   background:var(--red);color:#fff;font-weight:700;font-size:.95rem;letter-spacing:-.01em;white-space:nowrap;
   box-shadow:var(--sh-red);
-  transition:transform .18s var(--ease-out),background .18s var(--ease-out),box-shadow .18s var(--ease-out);
+  transition:opacity .2s var(--ease-out),transform .18s var(--ease-out),background .18s var(--ease-out),box-shadow .18s var(--ease-out);
 }
 .wa-float svg{width:20px;height:20px;flex:none}
 .wa-float:hover{background:var(--red-dark);transform:translateY(-2px);box-shadow:0 12px 28px rgba(212,43,43,.34)}
 .wa-float:active{transform:translateY(1px)}
+/* Disembunyikan selama hero masih terlihat — hero sudah punya tombol
+   "Pesan Sekarang" sendiri, jadi tidak dobel di layar pertama. */
+.wa-float.is-tucked{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(16px);transition:opacity .2s var(--ease-out),transform .2s var(--ease-out),visibility 0s .2s}
 
 /* ============================================================
    REVEAL ON SCROLL (progressive — visible by default, JS enhances)
@@ -1312,6 +1315,39 @@ p{margin:0}
   .hero-cta{gap:10px}
   .hero-cta .btn{font-size:13px;padding:10px 18px}
   .hero-trust--m{top:calc(100% + var(--hero-img-pull) + var(--trust-gap-364,-4px))}
+}
+
+/* <=640px (HP tegak) — hero "rata kiri, tenang".
+   Desktop & tablet tidak tersentuh. Teks rata kiri seperti desktop,
+   1 tombol utama + link "Lihat Produk", gambar besar menembus tepi kanan,
+   badge melayang tinggal 1, baris trust boleh 2 baris supaya terbaca.
+   !important di font-size trust: skrip auto-fit menulis font-size inline. */
+@media (max-width:640px){
+  .hero{padding-top:36px;padding-bottom:44px}
+  .hero-copy{align-items:flex-start;text-align:left}
+  .hero-badge{background:none;border:0;padding:0;font-size:11px;letter-spacing:.02em;color:rgba(255,255,255,.6);margin-bottom:14px}
+  .hero-badge .dot{width:7px;height:7px}
+  .hero-copy h1{margin-bottom:16px}
+  .hero .lead{font-size:14.5px;max-width:30ch;margin-bottom:26px;text-wrap:pretty}
+  .hero-cta{justify-content:flex-start;flex-wrap:nowrap;align-items:center;gap:22px;max-width:none;margin-inline:0}
+  .hero-cta .btn{flex:0 0 auto}
+  .hero-cta .btn-red{padding:14px 22px;font-size:15px}
+  .hero-cta .btn-outline-on-dark{border:0;background:none;box-shadow:none;padding:6px 0;font-size:15px;color:#fff}
+  .hero-cta .btn-outline-on-dark::after{content:"\2192";margin-left:6px;color:var(--yellow)}
+  .hero-trust--m{display:none}
+  .hero-trust--d{display:flex;align-items:flex-start;max-width:34ch;margin-top:18px;white-space:normal;font-size:12px!important;line-height:1.45;color:rgba(255,255,255,.62)}
+  .hero-trust--d svg{width:14px;height:14px;margin-top:2px}
+  .hero-trust--d .hero-trust-text{white-space:normal;text-wrap:balance}
+  .hero-img-wrap{max-width:none;width:min(112%,430px);margin:6px -22% 0 auto}
+  .hero-img{margin-bottom:0}
+  .hbadge--stok,.hbadge--kirim{display:none}
+  .hbadge--mutu{top:58%;left:4%}
+}
+@media (max-width:364px){
+  .hero-cta{gap:14px}
+  .hero-cta .btn-red{padding:12px 16px;font-size:14px}
+  .hero-cta .btn-outline-on-dark{font-size:14px}
+  .hero-cta .btn-outline-on-dark::after{margin-left:4px}
 }
 
 /* ============================================================
@@ -2497,6 +2533,17 @@ html.bpl-lock,html.bpl-lock body{overflow:hidden}
   window.addEventListener('load', fitHeroH1);
   if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fitHeroH1); }
   var fitResizeTimer = null;
+
+  /* ===================== WA MELAYANG: sembunyi selama hero terlihat ===================== */
+  (function () {
+    var waf = document.querySelector('.wa-float');
+    var heroEl = document.getElementById('hero');
+    if (!waf || !heroEl || !('IntersectionObserver' in window)) return;
+    waf.classList.add('is-tucked');
+    new IntersectionObserver(function (en) {
+      waf.classList.toggle('is-tucked', en[0].isIntersecting);
+    }, { threshold: 0.25 }).observe(heroEl);
+  })();
 
   /* ===================== HERO TRUST-LINE AUTO-FIT (selalu 1 baris, tidak pernah "...") =====================
      Ada 2 instance (desktop & mobile, lihat CSS .hero-trust--d/--m) — yang lagi
