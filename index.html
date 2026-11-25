@@ -1405,6 +1405,18 @@ p{margin:0}
 .ts-card .ts-prod{position:absolute;top:11px;right:11px;z-index:2;display:inline-flex;align-items:center;gap:4px;flex:none;margin:0;font-family:var(--mono);font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:var(--bg)}
 .ts-card .ts-prod svg{width:11px;height:11px;flex:none;color:var(--red);opacity:.7}
 
+/* Strip "Pembeli BRICON ada di" — data asli dari invoice, bukan angka karangan */
+.kota-kirim{margin-top:18px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg)}
+.kk-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px}
+.kk-label{font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)}
+.kk-jml{font-size:.95rem;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.kk-jml b{color:var(--red)}
+.kk-list{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0;padding:0;list-style:none}
+.kk-list li{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:var(--r-pill);background:var(--track);font-size:.78rem;font-weight:700;color:var(--ink)}
+.kk-list li svg{width:11px;height:11px;flex:none;color:var(--red)}
+.kk-list li small{font-family:var(--mono);font-size:.5rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2)}
+.kk-note{margin:10px 0 0;font-size:.72rem;color:var(--muted2);line-height:1.5}
+
 @media (min-width:720px){
   .testi-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));overflow:visible;padding:0}
   .ts-card{flex:auto}
@@ -2236,6 +2248,9 @@ html.bpl-lock,html.bpl-lock body{overflow:hidden}
       </div>
       <div id="testiFeatureSlot"></div>
       <div class="testi-strip" id="daftarTestimoni"></div>
+      <!-- Kota pembeli: diambil dari invoice BRICON, diatur tampil/tidaknya
+           dari Invoice Generator → Cost → Testimoni → Kota pembeli. -->
+      <div class="kota-kirim" id="kotaPembeli" hidden></div>
     </div>
   </section>
 
@@ -3316,6 +3331,29 @@ html.bpl-lock,html.bpl-lock body{overflow:hidden}
       });
   }
 
+  /* Kota pembeli — fungsi database kota_terkirim_publik() hanya mengirim
+     NAMA kabupaten (yang dicentang di Invoice Generator) + produknya.
+     Tidak ada nama atau nomor pembeli. Kalau fungsi belum ada: diam saja. */
+  function segarkanKotaPembeli() {
+    var box = document.getElementById('kotaPembeli');
+    if (!box) return;
+    return ambil('rpc/kota_terkirim_publik').then(function (data) {
+      if (!data || !data.length) return;
+      var li = '';
+      data.forEach(function (k) {
+        var p = (k.produk || []).map(function (x) { return x === 'panel' ? 'Panel' : 'Bata'; }).join(' & ');
+        li += '<li>' + PIN_KECIL + esc(k.kabupaten) + (p ? ' <small>' + esc(p) + '</small>' : '') + '</li>';
+      });
+      box.innerHTML =
+        '<div class="kk-head"><span class="kk-label">Pembeli BRICON ada di</span>' +
+        '<span class="kk-jml"><b>' + data.length + '</b> kabupaten/kota di Jawa Timur</span></div>' +
+        '<ul class="kk-list">' + li + '</ul>' +
+        '<p class="kk-note">Diambil dari invoice pesanan BRICON yang sudah masuk.</p>';
+      box.hidden = false;
+      bukaSection('ulasan');
+    });
+  }
+
   /* ============================================================
      HARGA PER KABUPATEN untuk kartu Area Layanan.
      Kartu produk di beranda tetap TIDAK menampilkan harga — yang diisi
@@ -3378,6 +3416,7 @@ html.bpl-lock,html.bpl-lock body{overflow:hidden}
 
   segarkanHargaArea();
   segarkanUlasan();
+  segarkanKotaPembeli();
 })();
 </script>
 
