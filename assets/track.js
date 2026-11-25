@@ -19,7 +19,7 @@
 (function () {
   'use strict';
 
-  var CLARITY_ID = '';
+  var CLARITY_ID = 'ziww63a1qg';
 
   function kirim(nama, data) {
     if (typeof window.gtag !== 'function') return;
