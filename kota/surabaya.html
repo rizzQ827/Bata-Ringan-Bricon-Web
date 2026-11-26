@@ -54,7 +54,7 @@
 <meta property="og:title" content="Bata Ringan Surabaya — Bricon Partner">
 <meta property="og:description" content="Jual bata ringan &amp; panel lantai Surabaya berteknologi Microbubble. Harga bersaing, stok lengkap, kirim cepat. Konsultasi gratis via WhatsApp.">
 <meta property="og:locale" content="id_ID">
-<meta property="og:image" content="https://bricon-partner.com/assets/og-image.jpg?v=r12">
+<meta property="og:image" content="https://bricon-partner.com/assets/og-image.jpg?v=r13">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Bricon Partner — Bata Ringan &amp; Panel Lantai Surabaya">
@@ -63,7 +63,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Bata Ringan Surabaya — Bricon Partner">
 <meta name="twitter:description" content="Jual bata ringan &amp; panel lantai Surabaya berteknologi Microbubble. Harga bersaing, stok lengkap, kirim cepat.">
-<meta name="twitter:image" content="https://bricon-partner.com/assets/og-image.jpg?v=r12">
+<meta name="twitter:image" content="https://bricon-partner.com/assets/og-image.jpg?v=r13">
 
 <!-- Canonical -->
 <link rel="canonical" href="https://bricon-partner.com/kota/surabaya">
@@ -81,7 +81,7 @@
   "alternateName": ["Bata Ringan Bricon Partner"],
   "description": "Jual Bata Ringan & Panel Lantai BRICON berteknologi Microbubble di Surabaya. Stok lengkap, pengiriman cepat, kualitas SNI.",
   "url": "https://bricon-partner.com/kota/surabaya",
-  "image": "https://bricon-partner.com/assets/og-image.jpg?v=r12",
+  "image": "https://bricon-partner.com/assets/og-image.jpg?v=r13",
   "logo": "https://bricon-partner.com/assets/images/bricon-partner-logo-square.png?v=20261123",
   "telephone": "+6285184028183",
   "priceRange": "$$",
@@ -314,11 +314,7 @@ button{font-family:inherit}
 .hA .hero-grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:24px;padding:84px 0 30px}
 .hA .eyebrow{background:rgba(255,255,255,.08);color:#E6E6EA}
 .hA .h1{font-size:clamp(36px,4.3vw,60px)}.hA .h1{height:2.12em;line-height:1.06}.hA .h1 em{font-style:normal;color:var(--yellow)}
-.hA .h1 u{text-decoration:none;position:relative;z-index:0;display:inline-block;white-space:nowrap}
-.hA .h1 u::before{content:"";position:absolute;left:-2px;right:-4px;bottom:.08em;height:.42em;background:#FF9416;border-radius:2px;transform:skewX(-14deg) scaleX(0);transform-origin:0 50%;z-index:-1;transition:transform .6s var(--out) .45s}
-.hA .h1 u+u::before,.hA .h1 br~u::before{transition-delay:.7s}
-body.ready .hA .h1 u::before{transform:skewX(-14deg) scaleX(1)}
-@media (prefers-reduced-motion:reduce){.hA .h1 u::before{transition:none;transform:skewX(-14deg)}}
+.hA .h1 u{text-decoration:none;color:#FF9416}
 .hA .lead .stb{white-space:nowrap;color:var(--soft);font-weight:600;background:linear-gradient(transparent 8%,var(--yellow) 8%,var(--yellow) 94%,transparent 94%) no-repeat 0 0/0% 100%;padding:.04em .3em;margin:0 -.1em;border-radius:.3em;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size .8s var(--out) .6s,color .3s .8s}
 body.ready .hA .lead .stb{background-size:100% 100%;color:var(--ink)}
 @media (prefers-reduced-motion:reduce){.hA .lead .stb{transition:none;background-size:100% 100%;color:var(--ink)}}
@@ -1129,7 +1125,7 @@ $$('.q').forEach(function(q){q.onclick=function(){var p=q.parentNode,o=p.classLi
 /* harga per kota */
 var city='Surabaya';
 function drawCities(){var h='';CITIES.forEach(function(c){h+='<button type="button" role="tab" class="city'+(c[0]===city?' on':'')+'" data-c="'+c[0]+'"><svg><use href="#i-pin"/></svg>'+c[0]+'</button>'});$('#cloud').innerHTML=h;
-$$('.city').forEach(function(b){b.onclick=function(){city=b.dataset.c;var c=CITIES.filter(function(x){return x[0]===city})[0];$('#cityName').textContent=city;$('#bataPrice').textContent=rp(c[1]);window.scrNum&&scrNum($('#bataPrice'));[b,$('#bataPrice'),$('#cityName')].forEach(function(x){x.classList.remove('pop');void x.offsetWidth;x.classList.add('pop')});$('#cityCta').textContent='Minta penawaran '+city;$$('.city').forEach(function(x){x.classList.toggle('on',x===b)});}});}
+$$('.city').forEach(function(b){b.onclick=function(){city=b.dataset.c;var c=CITIES.filter(function(x){return x[0]===city})[0];$('#cityName').textContent=city;$('#bataPrice').textContent=rp(c[1]);[b,$('#bataPrice'),$('#cityName')].forEach(function(x){x.classList.remove('pop');void x.offsetWidth;x.classList.add('pop')});$('#cityCta').textContent='Minta penawaran '+city;$$('.city').forEach(function(x){x.classList.toggle('on',x===b)});}});}
 drawCities();
 $('#cari').addEventListener('input',function(e){var v=e.target.value.toLowerCase().trim();if(!v)return;var c=CITIES.filter(function(x){return x[0].toLowerCase().indexOf(v)===0})[0];if(c){var b=document.querySelector('.city[data-c="'+c[0]+'"]');if(b){b.click();b.scrollIntoView({block:'nearest',inline:'center'})}}});
 
@@ -1158,7 +1154,6 @@ function renderCard(){
   $('#pCta span').textContent=d.cta;$('#pTag').textContent=d.tag;$('#pIco use').setAttribute('href',d.ico);
   $('#perkIco use').setAttribute('href',d.perkI);$('#perkT').textContent=d.perkT;$('#perkS').textContent=d.perkS;
   $('#modes').hidden=b;if(!b&&window.modeInd)modeInd(1);
-  if(window.scrNum){scrNum($('#pDim'));scrNum($('#pMini'))}
   if(window.fitHeads)fitHeads();
 }
 renderCard();
@@ -1206,10 +1201,8 @@ els.forEach(function(el){io.observe(el)});})();
       if(now-t0<D)requestAnimationFrame(f);else{ns.forEach(function(n,j){n.nodeValue=org[j]});el.classList.remove('scr')}})(t0)}
   window.scrNum=function(el){if(el&&el.dataset.scrOk)run(el)};
   (window.requestIdleCallback||function(f){setTimeout(f,1500)})(function(){
-  var C=$$('main *').filter(function(el){if(el.closest('.qa,script,style,svg,.notes,#fm,.fm')||/^(SCRIPT|STYLE|SVG|USE|INPUT|TEXTAREA)$/.test(el.tagName))return false;
-    var own=[].some.call(el.childNodes,function(c){return c.nodeType===3&&/\d/.test(c.nodeValue)});return own&&el.textContent.trim().length<=40});
-  var CS=new Set(C);C=C.filter(function(el){for(var q=el.parentElement;q;q=q.parentElement)if(CS.has(q))return false;return true});
-  ['#pDim','#pMini','#bataPrice'].forEach(function(q){var e=$(q);e&&C.indexOf(e)<0&&C.push(e)});
+  /* hanya angka hasil hitungan/ukuran, sekali saja saat pertama terlihat */
+  var C=$$('.t-stat .big,#pDim,#pMini,#bataPrice,.kb li');
   if(!('IntersectionObserver' in window))return;
   var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting&&!seen.has(e.target)){seen.add(e.target);io.unobserve(e.target);e.target.dataset.scrOk=1;run(e.target)}})},{threshold:.6});
   C.forEach(function(el){io.observe(el)})},{timeout:2500})})();
