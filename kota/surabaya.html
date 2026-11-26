@@ -54,7 +54,7 @@
 <meta property="og:title" content="Bata Ringan Surabaya — Bricon Partner">
 <meta property="og:description" content="Jual bata ringan &amp; panel lantai Surabaya berteknologi Microbubble. Harga bersaing, stok lengkap, kirim cepat. Konsultasi gratis via WhatsApp.">
 <meta property="og:locale" content="id_ID">
-<meta property="og:image" content="https://bricon-partner.com/assets/og-image.jpg?v=r10">
+<meta property="og:image" content="https://bricon-partner.com/assets/og-image.jpg?v=r11">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Bricon Partner — Bata Ringan &amp; Panel Lantai Surabaya">
@@ -63,7 +63,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Bata Ringan Surabaya — Bricon Partner">
 <meta name="twitter:description" content="Jual bata ringan &amp; panel lantai Surabaya berteknologi Microbubble. Harga bersaing, stok lengkap, kirim cepat.">
-<meta name="twitter:image" content="https://bricon-partner.com/assets/og-image.jpg?v=r10">
+<meta name="twitter:image" content="https://bricon-partner.com/assets/og-image.jpg?v=r11">
 
 <!-- Canonical -->
 <link rel="canonical" href="https://bricon-partner.com/kota/surabaya">
@@ -81,7 +81,7 @@
   "alternateName": ["Bata Ringan Bricon Partner"],
   "description": "Jual Bata Ringan & Panel Lantai BRICON berteknologi Microbubble di Surabaya. Stok lengkap, pengiriman cepat, kualitas SNI.",
   "url": "https://bricon-partner.com/kota/surabaya",
-  "image": "https://bricon-partner.com/assets/og-image.jpg?v=r10",
+  "image": "https://bricon-partner.com/assets/og-image.jpg?v=r11",
   "logo": "https://bricon-partner.com/assets/images/bricon-partner-logo-square.png?v=20261123",
   "telephone": "+6285184028183",
   "priceRange": "$$",
@@ -186,7 +186,12 @@
 :root{--spring:cubic-bezier(.34,1.56,.64,1);--spring2:cubic-bezier(.3,1.3,.6,1);--out:cubic-bezier(.2,.8,.2,1);--ink:#17171A;--paper:#F3F1EC;--card:#fff;--sand:#E9E4DA;--mute:#5A5A62;--dark:#141416;--soft:#C9C9CF;--yellow:#F7C600;--red:#D42B2B;--line:rgba(23,23,26,.1)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :focus{outline:none}:focus-visible{outline:2.5px solid var(--yellow);outline-offset:3px}
-html{scroll-padding-top:90px}
+html{scroll-padding-top:90px;scrollbar-color:var(--red) var(--paper)}
+::selection{background:var(--yellow);color:var(--ink)}
+::-webkit-scrollbar{width:11px;height:11px}::-webkit-scrollbar-track{background:var(--paper)}::-webkit-scrollbar-thumb{background:var(--red);border-radius:99px;border:2px solid var(--paper)}::-webkit-scrollbar-thumb:hover{background:#B82222}
+.stage{-webkit-user-select:none;user-select:none}
+/* desktop: tampilan 100% terasa seperti zoom 90% */
+@media (min-width:1200px){html{zoom:.9}}
 html,body{overflow-x:clip}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:"Poppins","Poppins Fallback",sans-serif;-webkit-font-smoothing:antialiased}
 body.locked,html:has(body.locked){overflow:hidden;overscroll-behavior:none}
@@ -309,6 +314,11 @@ button{font-family:inherit}
 .hA .hero-grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:24px;padding:84px 0 30px}
 .hA .eyebrow{background:rgba(255,255,255,.08);color:#E6E6EA}
 .hA .h1{font-size:clamp(36px,4.3vw,60px)}.hA .h1{height:2.12em;line-height:1.06}.hA .h1 em{font-style:normal;color:var(--yellow)}
+.hA .h1 u{text-decoration:none;position:relative;z-index:0;display:inline-block;white-space:nowrap}
+.hA .h1 u::before{content:"";position:absolute;left:-2px;right:-4px;bottom:.08em;height:.42em;background:var(--yellow);border-radius:2px;transform:skewX(-14deg) scaleX(0);transform-origin:0 50%;z-index:-1;transition:transform .6s var(--out) .45s}
+.hA .h1 u+u::before,.hA .h1 br~u::before{transition-delay:.7s}
+body.ready .hA .h1 u::before{transform:skewX(-14deg) scaleX(1)}
+@media (prefers-reduced-motion:reduce){.hA .h1 u::before{transition:none;transform:skewX(-14deg)}}
 .hA .lead .stb{white-space:nowrap;color:var(--soft);font-weight:600;background:linear-gradient(transparent 8%,var(--yellow) 8%,var(--yellow) 94%,transparent 94%) no-repeat 0 0/0% 100%;padding:.04em .3em;margin:0 -.1em;border-radius:.3em;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size .8s var(--out) .6s,color .3s .8s}
 body.ready .hA .lead .stb{background-size:100% 100%;color:var(--ink)}
 @media (prefers-reduced-motion:reduce){.hA .lead .stb{transition:none;background-size:100% 100%;color:var(--ink)}}
@@ -852,7 +862,7 @@ body.ready .hA .h1 .stb,.rvjs-off .hA .h1 .stb{background-size:100% 100%;color:v
   <div class="cap"><span class="mph" aria-hidden="true"><svg class="m1"><use href="#i-bata"/></svg><svg class="m2"><use href="#i-panel"/></svg></span>Sebentar ya, lagi disiapkan<span class="bar"><i></i></span></div>
 </div>
 <canvas id="g3" aria-hidden="true"></canvas>
-<div id="lpz" aria-hidden="true"><div class="lp" data-n="16" data-f="0.0440,0.3040,0.2820" data-h="0.1967,0.5550,0.3317" data-b0="0.2031,0.2656,0.5664" data-b1="0.2344,0.3555,0.5586"><div class="ls"><img src="/assets/images/seq-0.webp" alt="" width="4096" height="256"></div></div><div class="lp" data-n="16" data-f="0.6740,0.5560,0.3000" data-h="0.5017,0.5660,0.3400" data-b0="0.2266,0.3359,0.5938" data-b1="0.1758,0.3359,0.6133"><div class="ls"><img src="/assets/images/seq-1.webp" alt="" width="4096" height="256"></div></div><div class="lp" data-n="16" data-f="0.6100,0.0100,0.2910" data-h="0.3092,0.1590,0.4142" data-b0="0.2969,0.1875,0.4609" data-b1="0.2344,0.2383,0.5547"><div class="ls"><img src="/assets/images/seq-2.webp" alt="" width="4096" height="256"></div></div></div>
+<div id="lpz" aria-hidden="true"><div class="lp" data-n="16" data-f="0.0380,0.2970,0.2930" data-h="0.1917,0.5520,0.3417" data-b0="0.1914,0.2578,0.5898" data-b1="0.2266,0.3516,0.5742"><div class="ls"><img src="/assets/images/seq-0.webp" alt="" width="4096" height="256"></div></div><div class="lp" data-n="16" data-f="0.6690,0.5490,0.3110" data-h="0.4967,0.5620,0.3500" data-b0="0.2148,0.3320,0.6211" data-b1="0.1680,0.3320,0.6289"><div class="ls"><img src="/assets/images/seq-1.webp" alt="" width="4096" height="256"></div></div><div class="lp" data-n="16" data-f="0.6100,0.0170,0.2900" data-h="0.3092,0.1590,0.4142" data-b0="0.2969,0.1875,0.4609" data-b1="0.2344,0.2383,0.5547"><div class="ls"><img src="/assets/images/seq-2.webp" alt="" width="4096" height="256"></div></div></div>
 
 <header class="nav">
   <div class="nav-in">
@@ -872,8 +882,8 @@ body.ready .hA .h1 .stb,.rvjs-off .hA .h1 .stb{background-size:100% 100%;color:v
     <div class="hero-grid">
       <div class="hero-copy">
         <span class="eyebrow"><b><svg><use href="#i-seal"/></svg>Partner Resmi</b>Kirim ke Surabaya</span>
-        <h1 class="h1 d">Di tangan <em>ringan,</em><br>di bangunan <em>kuat.</em></h1>
-        <p class="lead">Bata ringan &amp; panel lantai BRICON, <mark class="stb">langsung dari pabrik.</mark><span class="d-only"> Kami kirim pakai truk langsung ke proyekmu di Surabaya.</span></p>
+        <h1 class="h1 d">Di tangan <u>ringan</u>,<br>di bangunan <u>kuat</u>.</h1>
+        <p class="lead">Bata ringan &amp; panel lantai BRICON, langsung dari pabrik.<span class="d-only"> Kami kirim pakai truk langsung ke proyekmu di Surabaya.</span></p>
         <div class="cta-row">
           <button class="btn btn-red" type="button" data-form="hero"><svg><use href="#i-wa"/></svg>Pesan lewat WhatsApp</button>
           <a class="btn btn-soft-d" href="#produk"><span class="d-only">Lihat ukuran &amp; spesifikasi</span><span class="m-only">Produk</span></a>
@@ -1327,13 +1337,13 @@ else{var io3=new IntersectionObserver(function(e){if(e[0].isIntersecting){io3.di
   var L=$$('#lpz .lp').map(function(el){var g=function(k){return el.dataset[k].split(',').map(Number)};return{el:el,s:el.querySelector('.ls'),im:el.querySelector('img'),f:g('f'),h:g('h'),b0:g('b0'),b1:g('b1'),n:+el.dataset.n}});
   function fr(r,bb){var D=r.w/bb[2];return{x:r.x-bb[0]*D,y:r.y-bb[1]*D,D:D}}
   function put(o,q,k){var s=o.el.style;if(!o.D0){o.D0=q.D;s.width=s.height=q.D+'px'}s.transform='translate('+q.x+'px,'+q.y+'px) scale('+(q.D/o.D0)+')';o.im.style.transform='translateX('+(-k*100/o.n)+'%)'}
-  function A(o){var W=innerWidth,H=innerHeight,S=Math.min(W,H),ox=(W-S)/2,oy=(H-S)/2;return fr({x:ox+o.f[0]*S,y:oy+o.f[1]*S,w:o.f[2]*S},o.b0)}
+  function A(o){var Z=parseFloat(getComputedStyle(document.documentElement).zoom)||1,W=innerWidth/Z,H=innerHeight/Z,S=Math.min(W,H),ox=(W-S)/2,oy=(H-S)/2;return fr({x:ox+o.f[0]*S,y:oy+o.f[1]*S,w:o.f[2]*S},o.b0)}
   function lay(){L.forEach(function(o){o.D0=0;put(o,A(o),0)})}
   lay();addEventListener('resize',function(){if(!done)lay()});
   function eob(x){var c1=1.35,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)}
   function go(){if(done)return;done=true;scrollTo(0,0);
     if(RMq){finishLoader();st.classList.remove('pre');lpz.remove();return}
-    ld.classList.add('go');var S=st.getBoundingClientRect(),T0=performance.now(),DUR=1050;
+    ld.classList.add('go');var Zm=parseFloat(getComputedStyle(document.documentElement).zoom)||1,S0=st.getBoundingClientRect(),S={left:S0.left/Zm,top:S0.top/Zm,width:S0.width/Zm,height:S0.height/Zm},T0=performance.now(),DUR=1050;
     L.forEach(function(o){o.a=A(o);o.b=fr({x:S.left+o.h[0]*S.width,y:S.top+o.h[1]*S.height,w:o.h[2]*S.width},o.b1);o.s.style.animation='none'});
     (function tick(){var now=performance.now(),all=true;
       L.forEach(function(o,i){var p=Math.min(1,Math.max(0,(now-T0-i*60)/DUR));if(p<1)all=false;var e=eob(p),c=1-Math.pow(1-p,3);
@@ -1442,7 +1452,7 @@ function Kit(renderer){
   const steelC=()=>new THREE.MeshStandardMaterial({color:0xB3B9C0,metalness:.75,roughness:.34,envMapIntensity:1.2});
   /* bata: kotak dengan tepi membulat halus */
   function brick(t,o={}){const g=new THREE.Group();
-    if(o.clay){const W=6.6,H=2.95,D=2.3,geo=roundBox(W,H,D,.48,[36,18,16]);const m=new THREE.Mesh(geo,clayM());m.castShadow=m.receiveShadow=true;g.add(m);
+    if(o.clay){const W=6.6,H=2.95,D=2.3,geo=roundBox(W,H,D,.24,[44,22,18]);const m=new THREE.Mesh(geo,clayM());m.castShadow=m.receiveShadow=true;g.add(m);
       const l=label('bata_c',5.0,true);l.position.set(.05,-.05,D/2+.006);g.add(l);g.userData.h=H;return g}
     const geo=roundBox(6,2,t,.035);
     const mats=[surf(t/TILE,2/TILE),surf(t/TILE,2/TILE),surf(6/TILE,t/TILE),surf(6/TILE,t/TILE),surf(6/TILE,2/TILE),surf(6/TILE,2/TILE)];
@@ -1630,12 +1640,12 @@ p3.addEventListener('webglcontextlost',e=>e.preventDefault());p3.addEventListene
 p3.addEventListener('pointerdown',e=>{drag2={x:e.clientX,y:e.clientY,r:rotY};p3.setPointerCapture(e.pointerId);p3.style.cursor='grabbing'});
 p3.addEventListener('pointermove',e=>{if(drag2){rotY=drag2.r+(e.clientX-drag2.x)/stage.clientWidth*4;dirty2=true}});
 p3.addEventListener('pointerup',e=>{if(drag2&&Math.abs(e.clientX-drag2.x)+Math.abs(e.clientY-drag2.y)<6){if(P.notes){P.notes=false;P.notesOff=true}else if(P.prod==='panel'&&P.mode!=='utuh'&&!P.demo){P.notes=true;P.notesOff=false}dirty2=true}drag2=null;p3.style.cursor=''});
-new ResizeObserver(()=>prodObj&&frame2()).observe(stage);
+new ResizeObserver(()=>{if(!prodObj)return;frame2();if(swp&&swp.ph===1){swp.np=cam2.position.clone();swp.nq=cam2.quaternion.clone()}}).observe(stage);
 let vis2=false;new IntersectionObserver(e=>{vis2=e[0].isIntersecting},{rootMargin:'200px'}).observe(stage);
 build2();
 const v=new THREE.Vector3();let last2=performance.now();
 function loop2(now){const dt=Math.min(.05,(now-last2)/1000);last2=now;
-  if(swp&&!vis2){if(swp.ph===0)build2();swp=null}
+  if(swp&&!vis2){if(swp.ph===0)build2();else if(swp.np){cam2.position.copy(swp.np);cam2.quaternion.copy(swp.nq)}if(prodObj){prodObj.position.x=0;prodObj.scale.setScalar(1)}swp=null;dirty2=true}
   if(vis2&&prodObj&&swp){const k=now-swp.t0;
     const SX=14;
     if(swp.ph===0){const e=Math.min(1,k/280),q=e*e*e;swp.old.position.x=-swp.dir*SX*q;swp.old.scale.setScalar(1-.12*q);
@@ -1655,7 +1665,7 @@ function loop2(now){const dt=Math.min(.05,(now-last2)/1000);last2=now;
       const show=P.notes&&P.mode!=='utuh'&&(anim.op<.6||anim.ex>.3);const w=stage.clientWidth,h=stage.clientHeight;prodObj.updateMatrixWorld();
       NOTES.forEach(n=>{const el=notesEl.querySelector(`[data-k="${n.k}"]`);const p=n.pt();if(n.mesh!==undefined)p.y=parts.meshes[n.mesh].position.y;else if(n.slice!==undefined)p.y+=parts.slices[n.slice].position.y-parts.T/2;
         v.copy(p).applyMatrix4(prodObj.matrixWorld).project(cam2);const x=(v.x*.5+.5)*w,y=(-v.y*.5+.5)*h;const okk=show&&!(P.mode==='xray'&&n.k==='end'&&w<600);
-        const ew=el.offsetWidth;let tx=n.side==='l'?x-ew:x;tx=Math.max(6,Math.min(w-ew-6,tx));el.style.transform=`translate(${tx}px,${y}px)`;el.classList.toggle('on',okk)})}
+        const ew=el.offsetWidth;let tx=n.side==='l'?x-ew:x;tx=Math.max(6,Math.min(w-ew-6,tx));el.style.transform=`translate(${tx}px,${y}px)`;el.classList.toggle('on',!!okk)})}
     R2.render(S2,cam2)}
   requestAnimationFrame(loop2)}
 requestAnimationFrame(loop2);
