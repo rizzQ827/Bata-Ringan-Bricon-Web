@@ -24,6 +24,9 @@ Seluruh Jawa Timur, antara lain Surabaya, Sidoarjo, Gresik, Mojokerto, Malang, P
 - [Beranda](https://bricon-partner.com/): produk, spesifikasi, kalkulator kebutuhan, area layanan, FAQ, kontak.
 - [Bata ringan Surabaya](https://bricon-partner.com/kota/surabaya): harga dan pengiriman area Surabaya.
 - [Bata ringan Mojokerto](https://bricon-partner.com/kota/mojokerto): harga dan pengiriman area Mojokerto.
+- [Bata ringan Sidoarjo](https://bricon-partner.com/kota/sidoarjo): harga dan pengiriman area Sidoarjo.
+- [Bata ringan Gresik](https://bricon-partner.com/kota/gresik): harga dan pengiriman area Gresik.
+- [Bata ringan Pasuruan](https://bricon-partner.com/kota/pasuruan): harga dan pengiriman area Pasuruan.
 
 ## Kontak
 
